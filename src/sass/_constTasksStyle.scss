@@ -1,0 +1,780 @@
+.const-tasks-section {
+  @include place-center;
+  grid-template-columns: 1fr;
+  border: 1px solid $thirdly-color;
+  border-radius: 1rem;
+}
+
+.first-section {
+  max-width: 700px;
+  width: 100%;
+  background-color: $primary-color;
+  text-align: center;
+  border-radius: 1rem;
+}
+
+.form-container {
+  margin-top: 1.5rem;
+  padding: 0.83rem;
+  width: 100%;
+}
+
+.form-container .form {
+  text-align: center;
+  @include place-center;
+  row-gap: 0.5rem;
+}
+
+.form .form-row {
+  display: flex;
+  gap: 1.2rem;
+  align-items: center;
+  justify-content: space-between;
+  width: 95%;
+}
+
+.form-row:nth-child(3) {
+  position: relative;
+}
+
+.form .form-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1.7rem;
+}
+
+.form-column label {
+  font-size: 0.7rem;
+  margin-left: 0.4rem;
+  margin-bottom: 0.3rem;
+  background-color: transparent;
+  text-align: start;
+  color: $text-color;
+  opacity: 0.95;
+}
+
+.form #taskForm {
+  background-color: $secondary-color;
+  padding: 0.65rem 1.5rem;
+  border-radius: 1.5rem;
+  color: $text-color;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  width: 95%;
+}
+
+.form #category {
+  outline: none;
+  border: none;
+  background-color: $secondary-color;
+  padding: 0.6rem 0.5rem;
+  font-size: 0.7rem;
+  text-align: center;
+  border-radius: 1.5rem;
+  color: $text-color;
+  font-family: inherit;
+  width: 70%;
+}
+
+#taskForm:focus,
+#category:focus {
+  border-color: $light-low-color;
+}
+
+.priority-of-task {
+  display: flex;
+  align-items: center;
+  column-gap: 0.7rem;
+}
+
+#priority-label {
+  text-align: center;
+  border-bottom: 1px solid $light-border-color;
+}
+
+.priority-of-task span {
+  cursor: pointer;
+  text-align: center;
+  color: $primary-color;
+  border-radius: 1rem;
+  font-size: 0.8rem;
+  width: 25px;
+  height: 15px;
+  font-weight: 600;
+}
+
+.priority-of-task span:is(:hover, :focus) {
+  opacity: 0.7;
+}
+
+/* Time picker */
+.time-picker {
+  text-align: start;
+}
+
+#start-time-label,
+#end-time-label {
+  color: $black-color;
+  border-radius: 0.7rem;
+  padding: 0 0.3rem;
+  font-weight: 600;
+  margin-left: 1.3rem;
+}
+
+#start-time-label {
+  background-color: $low-color;
+}
+#end-time-label {
+  background-color: $moderate-color;
+  margin-left: 1.5rem;
+}
+
+.time-input {
+  display: flex;
+  align-items: center;
+  column-gap: 0.3rem;
+  position: relative;
+  z-index: 0;
+}
+
+.time-input input[type="number"] {
+  background-color: $primary-color;
+  border: 1px solid $light-border-color;
+  padding: 0.3rem 0;
+  text-align: center;
+  border-radius: 1rem;
+  width: 3rem;
+  color: inherit;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+#start-time_input input:focus {
+  border-color: $low-color;
+}
+#end-time_input input:focus {
+  border-color: $moderate-color;
+}
+
+/* For Chrome */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.switch-night-day {
+  position: relative;
+  width: 1.82rem;
+  height: 2rem;
+  z-index: -1;
+}
+.switch-night-day input[type="checkbox"] {
+  position: absolute;
+  cursor: pointer;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.checkmark {
+  margin-left: -1.5rem;
+  margin-top: 0.33rem;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: -0.3rem;
+  background-color: transparent;
+  border: 1px solid $light-border-color;
+  border-left: none;
+  transition: 0.4s;
+  border-radius: 0 1rem 1rem 0;
+  font-family: inherit;
+}
+.checkmark::before {
+  font-family: inherit;
+  position: absolute;
+  content: "AM";
+  text-align: center;
+  padding: 0.3rem;
+  padding-left: 0.6rem;
+  top: 1px;
+  left: 0px;
+  border-radius: 0.2rem 1rem 1rem 0.2rem;
+  background-color: $moderate-color;
+  color: $black-color;
+  transition: 0.4s;
+  user-select: none;
+  transform: translate(10px);
+}
+
+#start-time_input .checkmark::before {
+  background-color: $low-color;
+}
+
+.switch-night-day input[type="checkbox"]:checked ~ .checkmark:before {
+  padding-left: 0.3rem;
+  transform: translateX(31px);
+  content: "PM";
+}
+
+.form .create-btn {
+  background-color: $btn-color;
+  border-radius: 2rem;
+  color: $text-color;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 0.77rem 1.3rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  transition: opacity 0.3s;
+}
+
+.form .create-btn:hover {
+  opacity: 0.9;
+}
+
+.form button > img {
+  margin-left: 0.1rem;
+  margin-bottom: -0.3rem;
+  width: 1rem;
+}
+
+.error-message,
+.time-error-message {
+  font-size: 0.65rem;
+  margin-top: 0.24rem;
+  color: $delete-color;
+  padding-left: 0.3rem;
+  user-select: none;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.time-error-message {
+  position: absolute;
+  left: 50%;
+  bottom: 7%;
+  transform: translate(-50%, -50%);
+}
+
+.form-column #priority-error-message {
+  text-align: center;
+}
+
+.form-column .time-error-message {
+  margin-top: 0;
+}
+
+/* second section */
+.second-section {
+  max-width: 700px;
+  width: 100%;
+  background-color: $primary-color;
+  text-align: center;
+  color: $text-color;
+}
+
+.card-container {
+  width: 100%;
+  @include place-center;
+}
+
+.details-cards {
+  background-color: $primary-color;
+  border-radius: inherit;
+  @include place-center;
+  grid-template-columns: repeat(5, 1fr);
+  width: 100%;
+  column-gap: 1rem;
+  padding: 1rem;
+  text-align: start;
+  color: $text-color;
+  overflow: auto;
+  margin-top: 0.63rem;
+  text-transform: capitalize;
+}
+
+.details-cards::-webkit-scrollbar {
+  width: 0;
+}
+
+.details-card {
+  width: 310px;
+  background-color: $critical-color;
+  padding: 1rem;
+  border-radius: 1rem;
+  line-height: 1.5;
+  background-image: url(../../src/assets/bg-top.svg),
+    url(../../src/assets/bg-bottom.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: top right, -5rem 3rem;
+  position: relative;
+}
+
+.details-card .task-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.task-details .priority-icon {
+  width: 21px;
+}
+
+.details-card .task-time {
+  margin-top: 2rem;
+}
+
+.task-time {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.task-start-time h3,
+.task-end-time h3 {
+  font-size: 1.25rem;
+  font-weight: 400;
+}
+
+.task-start-time p,
+.task-end-time p {
+  font-size: 0.9rem;
+}
+
+.task-done-time span {
+  padding: 0.44rem 0.7rem;
+  background-color: #3e425d31;
+  color: #f3f3f3d2;
+  border-radius: 2rem;
+  font-weight: 400;
+  font-size: 0.93rem;
+  text-transform: initial;
+}
+
+.empty-card {
+  background-color: $optional-color;
+  opacity: 0.15;
+  filter: grayscale(100%);
+}
+
+/* Task list */
+.task-list-container {
+  background-color: $secondary-color;
+  border-radius: 2.5rem 2.5rem 0.7rem 0.7rem;
+  padding: 0.7rem;
+  padding-bottom: 0;
+  text-align: end;
+  position: relative;
+  width: 100%;
+}
+
+/* filter and length */
+.filter-and-length {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0.7rem;
+}
+
+/* Custom select */
+.custom-select {
+  position: relative;
+}
+
+.custom-select .selected-option {
+  cursor: pointer;
+  text-transform: capitalize;
+  display: flex;
+  column-gap: 3px;
+  color: $text-color;
+  font-size: 0.85rem;
+  border-radius: 1rem;
+  padding: 4px 9px;
+  border: 1px solid #bbbcc930;
+  transition: all 0.3s;
+}
+
+.custom-select:hover .selected-option {
+  background-color: $primary-color;
+}
+
+.selected-option .filter-icon {
+  width: 0.75rem;
+  fill: $orange-color;
+}
+
+.custom-select .filter-list {
+  font-size: 0.8rem;
+  padding: 0.37rem;
+  position: absolute;
+  top: 1.632rem;
+  text-align: start;
+  background-color: #3e425d3a;
+  backdrop-filter: blur(4px);
+  display: none;
+  border: 1px solid #bbbcc930;
+  z-index: 10;
+  border-radius: 1rem;
+  width: 7.7rem;
+  text-transform: capitalize;
+  line-height: 1.5;
+}
+
+.filter-list .option {
+  cursor: pointer;
+  display: block;
+}
+
+.filter-list span:hover {
+  background-color: $primary-color;
+  padding-left: 0.5rem;
+  border-radius: 1rem;
+}
+
+.task-list-container .task-length {
+  display: flex;
+  align-items: center;
+}
+.task-length .length {
+  background-color: $count-color;
+  color: $primary-color;
+  padding: 0.12rem 0.37rem;
+  text-align: center;
+  border-radius: 1.5rem;
+  margin-left: 0.7rem;
+  text-align: center;
+  font-size: 0.77rem;
+}
+
+/* List of task */
+.task-list-div {
+  margin: 0.3rem;
+  list-style: none;
+  height: 19rem;
+  overflow: auto;
+  position: relative;
+}
+
+.task-list-div::-webkit-scrollbar {
+  width: 0;
+}
+
+.no-data-img {
+  width: 100%;
+  height: 75%;
+  @include place-center;
+  font-size: 1.1rem;
+}
+
+.list-task {
+  display: flex;
+  align-items: center;
+  text-align: left;
+  margin-inline: 0.7rem;
+  margin-block: 1.5rem;
+  padding-top: 0.34rem;
+  z-index: 0;
+  border-radius: 2rem;
+}
+
+.list-task:last-of-type {
+  padding-bottom: 3rem;
+}
+
+.list-task-div {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.delete-icon-svg,
+.complete-icon-svg {
+  fill: $text-color;
+  width: 19px;
+  background-color: $thirdly-color;
+  border-radius: 50%;
+  padding: 4px 4.5px;
+  cursor: pointer;
+}
+
+.task-description-div {
+  margin-left: 0.7rem;
+  margin-right: 0.25rem;
+  margin-bottom: 0.37rem;
+  display: grid;
+  row-gap: -0.15rem;
+}
+.task-description-div p {
+  font-size: 1rem;
+}
+
+.task-current-time {
+  font-size: 0.8rem;
+  color: $thirday-light-color;
+}
+
+.task-description-div::selection {
+  background-color: $thirdly-color;
+}
+
+.task-left-div {
+  display: flex;
+  column-gap: 1rem;
+  margin-left: auto;
+}
+
+.task-edit-icon {
+  font-size: 1.15rem;
+  color: $optional-color;
+  text-align: end;
+  cursor: pointer;
+  border: 3px solid $thirdly-color;
+  border-radius: 50%;
+  background-color: $thirdly-color;
+}
+
+.task-edit-icon:hover {
+  color: $text-color;
+}
+
+.delete-icon-svg {
+  background-color: $delete-color;
+}
+
+.complete .complete-icon-svg {
+  fill: $primary-color;
+  outline: 4px solid #acd8aa4f;
+  background-color: $checked-color;
+}
+
+.complete .delete-icon-svg {
+  outline: 4px solid #ff72723e;
+}
+
+.task-edit-box {
+  @include place-center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #2c313f20;
+  max-width: 25rem;
+  width: 95%;
+  justify-content: center;
+  flex-direction: column;
+  row-gap: 0.77rem;
+  border-radius: 0.5rem;
+  backdrop-filter: blur(12px);
+  border: 1px solid #86b5b22a;
+  padding: 0.5rem;
+  color: $text-color;
+  display: none;
+}
+#task-edit-input {
+  background-color: transparent;
+  place-self: start;
+  width: 100%;
+  color: $text-color;
+  padding: 0.35rem 0.35rem 0rem 0.35rem;
+  font-family: inherit;
+  font-size: 0.97rem;
+  margin-right: 0.6rem;
+  border-bottom: 1px solid $light-border-color;
+}
+
+.edit-result-btns {
+  display: flex;
+  column-gap: 0.45rem;
+}
+.edit-answer-btn {
+  padding: 0.25rem 0.45rem;
+  border-radius: 0.3rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: opacity 0.3s;
+  align-self: end;
+  color: $text-color;
+}
+#cancel {
+  background-color: $thirdly-color;
+}
+#save {
+  background-color: $btn-color;
+}
+.edit-answer-btn:hover {
+  opacity: 0.9;
+}
+
+.all-delete-div {
+  @include place-center;
+  position: absolute;
+  bottom: -0.4rem;
+  left: 0;
+  background-color: $backdrop-filter-color;
+  width: 100%;
+  border-radius: 1.5rem 1.5rem 0rem 0rem;
+  border-top: 1px solid $thirdly-color;
+  backdrop-filter: blur(12px);
+  padding-bottom: 1rem;
+  padding-top: 0.7rem;
+}
+
+.all-delte-btn {
+  @include place-center;
+  border-radius: 1.7rem;
+  background-color: $btn-color;
+  cursor: pointer;
+  width: 2.8rem;
+  height: 2.7rem;
+  transition: opacity 0.3s;
+}
+.all-delte-btn:hover {
+  opacity: 0.8;
+}
+.all-delte-icon {
+  width: 1.5rem;
+}
+
+.delete-ask-div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #2c313f20;
+  width: 18rem;
+  border-radius: 0.77rem;
+  text-align: center;
+  border: 1px solid #86b5b23a;
+  backdrop-filter: blur(10px);
+  padding: 0.7rem;
+  color: $text-color;
+  display: none;
+}
+
+.ask-div-header {
+  font-size: 0.85rem;
+  margin-block: 1rem;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.ask-btns {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.ask-div-btn {
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0.43rem 1.57rem;
+  font-size: 0.83rem;
+  border-radius: 2rem;
+  transition: opacity 0.4s;
+  color: $text-color;
+}
+#no {
+  background-color: $thirdly-color;
+}
+#yes {
+  background-color: $delete-color;
+}
+.ask-div-btn:hover {
+  opacity: 0.85;
+}
+
+/* third section percentage */
+.third-section {
+  background-color: $primary-color;
+  max-width: 700px;
+  width: 100%;
+  text-align: center;
+  padding-bottom: 1rem;
+  border-radius: 1rem;
+}
+
+.percent-of-task {
+  @include place-center;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid $thirdly-color;
+  width: 100%;
+}
+
+.percent-of-task .circle-percent .circle {
+  width: 4.2rem;
+  height: 4.2rem;
+  border-radius: 50%;
+  background-color: $thirdly-color;
+  position: relative;
+  @include place-center;
+}
+
+.percent-of-task .circle-percent:nth-child(1) .circle {
+  background-color: $thirdly-color;
+}
+
+.percent-of-task .circle-percent:nth-child(2) .circle {
+  background-color: $orange-color;
+}
+
+.circle-percent:nth-child(2) .circle::after,
+.circle-percent:nth-child(3) .circle::after {
+  content: "";
+  width: 0.7rem;
+  height: 0.7rem;
+  background-color: $orange-color;
+  position: absolute;
+  top: 0;
+  border-radius: 50%;
+}
+
+.circle-percent:nth-child(3) .circle {
+  background-color: $complete-color;
+}
+.circle-percent:nth-child(3) .circle::after {
+  background-color: $complete-color;
+}
+
+.circle-percent:nth-child(1) .circle h2 {
+  font-size: 1.3rem;
+}
+
+.circle-percent:nth-child(1) .circle div {
+  background-color: $secondary-color;
+}
+
+.circle div {
+  width: 2.8rem;
+  height: 2.8rem;
+  background-color: $secondary-color;
+  border-radius: 50%;
+  @include place-center;
+  font-size: 0.7rem;
+  font-weight: 900;
+  position: relative;
+}
+
+.circle-percent:nth-child(2) .head-percentage::after {
+  background-color: $orange-color;
+}
+.circle-percent:nth-child(3) .head-percentage::after {
+  background-color: $complete-color;
+}
+
+.percent-of-task h3 {
+  font-size: 0.77rem;
+  margin-top: 0.7rem;
+  font-weight: 500;
+}

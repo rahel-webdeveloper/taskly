@@ -1,0 +1,166 @@
+.timer-container {
+  display: grid;
+  // grid-template-columns: 500px 1fr;
+  width: 100%;
+  text-align: center;
+  padding-bottom: 3rem;
+}
+
+.timer-first-section {
+  margin-top: 3rem;
+  @include place-center;
+
+  .timer-header {
+    @include place-center;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 3.3rem;
+    margin-bottom: 1.7rem;
+    color: $text-color;
+    font-size: 0.8rem;
+  }
+
+  .timer-picker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .picker {
+      position: relative;
+      height: 110px;
+      width: 75px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      overflow-y: scroll;
+      scroll-behavior: smooth;
+    }
+
+    .picker::-webkit-scrollbar {
+      display: none;
+    }
+    .picker-items {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+
+    .colon {
+      font-size: 4rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .picker-item {
+      height: 40px;
+      line-height: 40px;
+      font-size: 2rem;
+      opacity: 0.5;
+      transition: opacity 0.3s, font-size, 0.3s;
+      color: $high-color;
+    }
+    .picker-item.selected {
+      font-size: 3rem;
+      font-weight: bold;
+      opacity: 1;
+    }
+  }
+
+  .tap-time-div {
+    width: 97px;
+    height: 97px;
+    border-radius: 50%;
+    margin-top: 4rem;
+    display: grid;
+    place-items: center;
+    background-color: $light-primary-color;
+    cursor: pointer;
+
+    #tap-choose-time {
+      font-size: 0.8rem;
+    }
+  }
+
+  #timer-start {
+    margin-top: 2.5rem;
+    padding: 0.67rem 2rem 0.67rem 1.5rem;
+    font-size: 1.02rem;
+    background-color: $btn-color;
+    color: $text-color;
+    letter-spacing: 1px;
+  }
+}
+
+.timer-button {
+  padding: 0.67rem 1.35rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  font-family: $karla-font;
+  font-weight: 600;
+  color: $text-color;
+  word-spacing: 0.35rem;
+  transition: opacity 0.3s;
+
+  &:hover {
+    opacity: 0.87;
+  }
+
+  &:disabled {
+    opacity: 0.65;
+
+    &:hover {
+      opacity: 0.65;
+    }
+  }
+}
+
+.timer-second-section {
+  position: relative;
+  display: grid;
+
+  // place-items: center;
+
+  .svg-circle-container {
+    transform: rotate(-90deg);
+    max-width: 500px;
+    width: 100%;
+  }
+
+  .timer-text {
+    text-anchor: middle;
+    transform: rotate(90deg);
+    fill: $text-color;
+  }
+
+  .svg-circle {
+    fill: none;
+  }
+
+  #behind-circle {
+    stroke: $thirdly-color;
+    stroke-width: 0.5;
+  }
+  #countdown-circle {
+    stroke: $high-color;
+    stroke-width: 2.5;
+  }
+
+  .timer-buttons {
+    margin-bottom: 1.7rem;
+    display: flex;
+    column-gap: 2rem;
+    place-self: center;
+
+    #timer-cancel {
+      background-color: $secondary-color;
+    }
+
+    #timer-pause {
+      background-color: $light-delete-color;
+    }
+
+    #timer-resume {
+      background-color: $btn-color;
+      display: none;
+    }
+  }
+}

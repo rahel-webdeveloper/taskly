@@ -1,0 +1,206 @@
+@import url("https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap");
+@import "variables";
+@import "mixins";
+@import "timerStyle";
+@import "sidebar";
+@import "constTasksStyle";
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+svg,
+img {
+  width: 100%;
+  height: auto;
+}
+
+input,
+button {
+  border: none;
+  outline: none;
+}
+
+li,
+a {
+  list-style: none;
+  text-decoration: none;
+  color: $text-color;
+}
+
+body {
+  font-family: $karla-font;
+  background-color: $primary-color;
+  color: $text-color;
+  min-height: 100vh;
+  position: relative;
+  background-repeat: no-repeat, no-repeat;
+  background-position: top right, bottom left;
+  display: grid;
+}
+
+.main-content {
+  @include place-center;
+  transition: all 0.7s;
+  max-width: 100%;
+  width: 100%;
+}
+
+.copyRight {
+  width: 100%;
+  text-align: center;
+  font-size: 0.55rem;
+  margin-block: 1rem 0.5rem;
+}
+
+@media screen and (width >= 470px) {
+  .form #taskForm {
+    width: 80%;
+    padding-block: 0.7rem;
+  }
+
+  .priority-of-task {
+    gap: 1.25rem;
+  }
+
+  .checkmark::before {
+    padding-bottom: 0.35rem;
+  }
+}
+
+@media screen and (width >= 1024px) {
+  .container {
+    @include place-center;
+    grid-template-columns: 15rem 1fr;
+    align-items: start;
+    width: 100%;
+    column-gap: 0.4rem;
+  }
+
+  .sidebar {
+    width: 15rem;
+    min-height: 100vh;
+    height: 100%;
+    padding-left: 1.5rem;
+    padding-top: 1rem;
+    background-color: $light-primary-color;
+    backdrop-filter: blur(15px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sidebar-header {
+    margin-left: -2rem;
+    background-color: transparent;
+    backdrop-filter: none;
+  }
+
+  .log-img {
+    width: 3rem;
+  }
+
+  #sidebar-toggle {
+    display: none;
+  }
+
+  .sidebar-menu {
+    position: static;
+    width: 80%;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    text-align: start;
+    font-size: 1rem;
+    background-color: transparent;
+    border-top: 1px solid $light-border-color;
+    backdrop-filter: none;
+    border-radius: 0;
+    left: 0;
+    top: 0;
+    transform: translate(0, 0);
+    align-self: start;
+    min-height: 77vh;
+    height: 100%;
+  }
+
+  .social-links i {
+    font-size: 1.3rem;
+  }
+
+  .main-content {
+    margin: 0.25rem 0.43rem 2rem 0;
+  }
+
+  .const-tasks-section {
+    @include place-center;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    grid-template-areas:
+      "first second"
+      "first second"
+      "third second";
+  }
+
+  .first-section,
+  .second-section,
+  .third-section {
+    max-width: 1400px;
+    width: 100%;
+  }
+
+  .first-section {
+    grid-area: first;
+    border-top-right-radius: 0;
+  }
+
+  .form #taskForm {
+    width: 90%;
+  }
+
+  .checkmark::before {
+    top: 1px;
+    padding-bottom: 0.32rem;
+  }
+
+  .second-section {
+    grid-area: second;
+    border-left: 1px solid $secondary-color;
+    border-bottom-right-radius: 1rem;
+    border-top-right-radius: 1rem;
+  }
+  .task-list-container {
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 1rem;
+  }
+  .task-list-container .all-delete-div {
+    border-bottom-right-radius: 1rem;
+  }
+
+  .third-section {
+    grid-area: third;
+    border-bottom-right-radius: 0;
+  }
+
+  .copyRight {
+    position: absolute;
+    bottom: 0rem;
+    z-index: 3;
+    font-size: 0.7rem;
+  }
+}
+
+// utility classes
+.hidden {
+  display: none;
+}
+
+.opacity {
+  opacity: 1;
+}
+
+.sidebar-show {
+  top: 12rem;
+}
