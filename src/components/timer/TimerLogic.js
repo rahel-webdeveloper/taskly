@@ -1,7 +1,28 @@
 const timerLogic = () => {
+  const timerContainer = document.querySelector(".timer-container");
+  const timerFirstSection = document.querySelector(".timer-first-section");
+  const timerSecondSection = document.querySelector(".timer-second-section");
+  const countdownCircle = document.getElementById("countdown-circle");
+  const tapTimeDiv = document.getElementById("tap-time-div");
+  const timerText = document.getElementById("timer-text");
+  const startBtn = document.getElementById("timer-start");
+  const pauseBtn = document.getElementById("timer-pause");
+  const resumeBtn = document.getElementById("timer-resume");
+  const cancelBtn = document.getElementById("timer-cancel");
+
+  const redius = 35;
+  const circumference = 2 * Math.PI * redius;
+
   let selectedHour = 0;
   let selectedMinute = 0;
   let selectedSecond = 0;
+
+  let startTime = Date.now();
+  let elapsedTime = 0;
+  let isStarted = false;
+  let isPaused = false;
+  let isCanceled = false;
+  let animationId = null; // to store the requestAnimationFrame ID
 
   function populateInfinitePicker(pickerId, range) {
     const pickerItems = document.querySelector(`#${pickerId} .picker-items`);
@@ -34,7 +55,6 @@ const timerLogic = () => {
   }
 
   function tapChooseTimeFunc(isStarted) {
-    const tapTimeDiv = document.getElementById("tap-time-div");
     if (isStarted) {
       setInitialTime(99.1, 14.1, 119.1);
       tapTimeDiv.style.cssText = `
@@ -61,7 +81,6 @@ const timerLogic = () => {
     const visibleHeight = picker.clientHeight;
 
     picker.addEventListener("scroll", function () {
-      const startBtn = document.getElementById("timer-start");
       let scrollTop = picker.scrollTop;
 
       // Check if scrolled to top or bottom
@@ -78,11 +97,9 @@ const timerLogic = () => {
         item.classList.toggle("selected", i % range === index);
       });
 
-      if (selectedTime() >= 1000) {
-        startBtn.disabled = false;
-      } else {
-        startBtn.disabled = true;
-      }
+      selectedTime() >= 1000
+        ? (startBtn.disabled = false)
+        : (startBtn.disabled = true);
 
       // Trigger change event
       onChange(index);
@@ -114,26 +131,6 @@ const timerLogic = () => {
     );
   };
 
-  const timerContainer = document.querySelector(".timer-container");
-  const timerFirstSection = document.querySelector(".timer-first-section");
-  const timerSecondSection = document.querySelector(".timer-second-section");
-  const countdownCircle = document.getElementById("countdown-circle");
-  const timerText = document.getElementById("timer-text");
-  const startBtn = document.getElementById("timer-start");
-  const pauseBtn = document.getElementById("timer-pause");
-  const resumeBtn = document.getElementById("timer-resume");
-  const cancelBtn = document.getElementById("timer-cancel");
-
-  const redius = 35;
-  const circumference = 2 * Math.PI * redius;
-
-  let startTime = Date.now();
-  let elapsedTime = 0;
-  let isStated = false;
-  let isPaused = false;
-  let isCanceled = false;
-  let animationId = null; // to store the requestAnimationFrame ID
-
   function getSelectedTimeInSeconds() {
     const totalMinutes = selectedTime() / 1000 / 60;
     return totalMinutes * 60;
@@ -150,7 +147,9 @@ const timerLogic = () => {
     countdownCircle.style.strokeDashoffset = offset;
 
     const remainingTime = Math.ceil(totalSeconds - elapsedTime);
-    timerText.textContent = remainingTime;
+    timerText.textContent = `${Math.floor(
+      remainingTime / 60 / 60
+    )}:${Math.floor(remainingTime / 60)}:${remainingTime}`;
 
     if (remainingTime < 6) countdownCircle.style.stroke = "#fa6e6e";
 
@@ -170,61 +169,65 @@ const timerLogic = () => {
   function handleTimerEvents(event) {
     const id = event.target.id;
 
-    if (id === "timer-start") startTimer();
+    if (id === "timer-start") timerOPeration.startTimer();
 
-    if (id === "tap-time-div") toggleTapTime();
+    if (id === "tap-time-div") timerOPeration.toggleTapTime();
 
-    if (id === "timer-pause") pauseTimer();
+    if (id === "timer-pause") timerOPeration.pauseTimer();
 
-    if (id === "timer-resume") timerResume();
+    if (id === "timer-resume") timerOPeration.timerResume();
 
-    if (id === "timer-cancel") cancelTimer();
+    if (id === "timer-cancel") timerOPeration.cancelTimer();
   }
 
-  function startTimer() {
-    const totalSeconds = getSelectedTimeInSeconds();
-    startTime = Date.now();
+  class TimerOperation {
+    startTimer() {
+      const totalSeconds = getSelectedTimeInSeconds();
+      startTime = Date.now();
 
-    resetTimerState();
-    // if (countdownCircle && timerText)
-    animationId = requestAnimationFrame(() =>
-      updateCountdownCircle(totalSeconds)
-    );
+      resetTimerState();
+      // if (countdownCircle && timerText)
+      animationId = requestAnimationFrame(() =>
+        updateCountdownCircle(totalSeconds)
+      );
 
-    toggleStartSection(true);
-    pauseBtn.disabled = false;
-    resumeBtn.disabled = false;
-    cancelBtn.disabled = false;
+      if (!isWindowLarge()) {
+        toggleStartSection(true);
+      }
+    }
+
+    toggleTapTime() {
+      isStarted = !isStarted;
+      selectedTime();
+      tapChooseTimeFunc(isStarted);
+      isStarted ? (selectedMinute = 10) : (selectedMinute = 0);
+      isStarted ? (startBtn.disabled = false) : (startBtn.disabled = true);
+    }
+
+    pauseTimer() {
+      isPaused = true;
+      cancelAnimationFrame(animationId);
+      togglePauseResumeBtns(true);
+    }
+
+    timerResume() {
+      isPaused = false;
+      startTime = Date.now() - elapsedTime * 1000;
+      animationId = requestAnimationFrame(() =>
+        updateCountdownCircle(getSelectedTimeInSeconds())
+      );
+      togglePauseResumeBtns(false);
+    }
+
+    cancelTimer() {
+      isStarted = false;
+      isCanceled = true;
+      cancelAnimationFrame(animationId);
+      resetUI();
+    }
   }
 
-  function toggleTapTime() {
-    isStated = !isStated;
-    selectedTime();
-    tapChooseTimeFunc(isStated);
-    isStated ? (selectedMinute = 10) : (selectedMinute = 0);
-    isStated ? (startBtn.disabled = false) : (startBtn.disabled = true);
-  }
-
-  function pauseTimer() {
-    isPaused = true;
-    cancelAnimationFrame(animationId);
-    togglePauseResumeBtns(true);
-  }
-
-  function timerResume() {
-    isPaused = false;
-    startTime = Date.now() - elapsedTime * 1000;
-    animationId = requestAnimationFrame(() =>
-      updateCountdownCircle(getSelectedTimeInSeconds())
-    );
-    togglePauseResumeBtns(false);
-  }
-
-  function cancelTimer() {
-    isCanceled = true;
-    cancelAnimationFrame(animationId);
-    resetUI();
-  }
+  const timerOPeration = new TimerOperation();
 
   function resetUI() {
     countdownCircle.style.strokeDashoffset = circumference;
@@ -233,13 +236,23 @@ const timerLogic = () => {
     cancelBtn.disabled = true;
     resumeBtn.disabled = true;
     pauseBtn.disabled = true;
+    startBtn.disabled = false;
+    tapTimeDiv.disabled = false;
     togglePauseResumeBtns(false);
-    toggleStartSection(false);
+    if (!isWindowLarge()) {
+      toggleStartSection(false);
+    }
   }
 
   function resetTimerState() {
     isPaused = false;
     isCanceled = false;
+    isStarted = true;
+    pauseBtn.disabled = false;
+    resumeBtn.disabled = false;
+    cancelBtn.disabled = false;
+    startBtn.disabled = true;
+    tapTimeDiv.disabled = true;
     elapsedTime = 0;
   }
 
@@ -254,16 +267,28 @@ const timerLogic = () => {
   }
 
   // remove the toggle start timer function
-  window.addEventListener("resize", function () {
+  window.addEventListener("resize", isWindowLarge);
+
+  function isWindowLarge() {
     const width = window.innerWidth;
-    console.log(typeof width);
+    if (width >= 1024) {
+      timerFirstSection.style.display = "grid";
+      timerSecondSection.style.display = "grid";
+      return true;
+    } else if (timerFirstSection && timerSecondSection)
+      isStartedTimer(isStarted);
+    return false;
+  }
 
-    if (parseInt(width) === 1024) {
-      console.log("delete");
-
-      delete window.toggleStartSection;
+  function isStartedTimer(isStarted) {
+    if (isStarted) {
+      timerFirstSection.style.display = "none";
+      timerSecondSection.style.display = "grid";
+    } else {
+      timerFirstSection.style.display = "grid";
+      timerSecondSection.style.display = "none";
     }
-  });
+  }
 };
 
 export default timerLogic;

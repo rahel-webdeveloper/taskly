@@ -21,14 +21,14 @@ const TimerRender = () => {
                 <div class="picker-items"></div>
             </div>
         </div>
-        <div class="tap-time-div" id="tap-time-div">
+        <button type="button" class="tap-time-div" id="tap-time-div">
             <p id="tap-choose-time">00:15:00</p>
-        </div>
+        </button>
         <button type="button" class="timer-button" id="timer-start" disabled>
         <i class="ri-play-fill"></i> Start</button>
     </div>
 
-    <div class="timer-second-section hidden">
+    <div class="timer-second-section">
         <svg class="svg-circle-container" viewBox="0 0 100 100">
             <circle class="svg-circle" id="behind-circle" cx="50" cy="50" r="35" />
             <circle class="svg-circle" id="countdown-circle" cx="50" cy="50" r="35" stroke-linecap="round"

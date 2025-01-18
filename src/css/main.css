@@ -15,7 +15,7 @@
   display: grid;
   place-items: center;
   grid-template-columns: repeat(3, 1fr);
-  column-gap: 3.3rem;
+  column-gap: 3.1rem;
   margin-bottom: 1.7rem;
   color: #f3f3f3;
   font-size: 0.8rem;
@@ -69,7 +69,14 @@
   display: grid;
   place-items: center;
   background-color: rgba(62, 66, 93, 0.3529411765);
+  color: #f3f3f3;
   cursor: pointer;
+}
+.timer-first-section .tap-time-div:disabled {
+  cursor: unset;
+  opacity: 0.5;
+  border: none;
+  background-color: rgba(62, 66, 93, 0.3529411765);
 }
 .timer-first-section .tap-time-div #tap-choose-time {
   font-size: 0.8rem;
@@ -105,12 +112,13 @@
 
 .timer-second-section {
   position: relative;
-  display: grid;
+  display: none;
 }
 .timer-second-section .svg-circle-container {
   transform: rotate(-90deg);
   max-width: 500px;
   width: 100%;
+  place-self: center;
 }
 .timer-second-section .timer-text {
   text-anchor: middle;
@@ -1054,6 +1062,10 @@ a {
   color: #f3f3f3;
 }
 
+*:disabled {
+  cursor: unset;
+}
+
 body {
   font-family: "Karla", sans-serif;
   background-color: #242936;
@@ -1190,6 +1202,32 @@ body {
     grid-area: third;
     border-bottom-right-radius: 0;
   }
+  .timer-container {
+    grid-template-columns: 400px 1fr;
+    grid-template-rows: 95vh;
+    border: 1px solid rgba(187, 188, 201, 0.1882352941);
+    border-radius: 0.7rem;
+    padding-bottom: 0rem;
+  }
+  .timer-container .timer-first-section {
+    margin-top: 0;
+    border-right: 1px solid rgba(62, 66, 93, 0.3529411765);
+  }
+  .timer-container .timer-header {
+    margin-bottom: 0;
+  }
+  .timer-container .tap-time-div {
+    margin-top: 0rem;
+  }
+  .timer-container #timer-start {
+    margin-top: 0;
+  }
+  .timer-container .timer-button {
+    padding: 0.75rem 1.55rem;
+  }
+  .timer-container .timer-second-section {
+    display: grid;
+  }
   .copyRight {
     position: absolute;
     bottom: 0rem;
@@ -1197,6 +1235,10 @@ body {
     font-size: 0.7rem;
   }
 }
+*:disabled {
+  cursor: unset;
+}
+
 .hidden {
   display: none;
 }

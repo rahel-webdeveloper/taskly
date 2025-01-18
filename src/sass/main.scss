@@ -30,6 +30,10 @@ a {
   color: $text-color;
 }
 
+*:disabled {
+  cursor: unset;
+}
+
 body {
   font-family: $karla-font;
   background-color: $primary-color;
@@ -184,12 +188,48 @@ body {
     border-bottom-right-radius: 0;
   }
 
+  .timer-container {
+    grid-template-columns: 400px 1fr;
+    grid-template-rows: 95vh;
+    border: 1px solid $light-border-color;
+    border-radius: 0.7rem;
+    padding-bottom: 0rem;
+
+    .timer-first-section {
+      margin-top: 0;
+      border-right: 1px solid $light-primary-color;
+    }
+
+    .timer-header {
+      margin-bottom: 0;
+    }
+
+    .tap-time-div {
+      margin-top: 0rem;
+    }
+
+    #timer-start {
+      margin-top: 0;
+    }
+
+    .timer-button {
+      padding: 0.75rem 1.55rem;
+    }
+    .timer-second-section {
+      display: grid;
+    }
+  }
+
   .copyRight {
     position: absolute;
     bottom: 0rem;
     z-index: 3;
     font-size: 0.7rem;
   }
+}
+
+*:disabled {
+  cursor: unset;
 }
 
 // utility classes
