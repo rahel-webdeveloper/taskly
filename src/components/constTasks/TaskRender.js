@@ -270,43 +270,46 @@ export function addToDetailsCard(tasks) {
       parentCardEl.innerHTML += `
   
        <div class="details-card" style="background-color: ${
-         task.priorityDetails.priorityColor
+         task.priorityColor
        };">
           <div class="task-details">
             <div class="task-title">
               <h3 id="task-desc">${
                 task.description.length > 17
-                  ? task.description.slice(0, 17) + ". . ."
+                  ? task.description.slice(0, 17) + "..."
                   : task.description
               }</h3>
               <span id="category">${task.category}</span>
             </div>
             <div class="priority-icon">
-              <img src="${task.priorityDetails.priorityIcon}" alt="">
+              <img src="${task.priorityIcon}" alt="">
             </div>
           </div>
           <div class="task-time">
             <div class="task-start-time">
               <h3 class="start-time">${
-                task.taskStartTime.startHours +
+                task.startHour +
                 ": " +
-                task.taskStartTime.startMinutes +
+                task.startMinutes.toString().padStart(2, "0") +
                 " " +
-                task.taskStartTime.startAmPm
+                task.startAmPm
               }</h3>
               <p>Start</p>
             </div>
             <div class="task-done-time"><span>${
-              task.differenceTime.diffrenceHours +
-              task.differenceTime.diffrenceMinutes
+              (task.hourDifference > 0 ? task.hourDifference + "h" : "") +
+              (task.hourDifference > 0 && task.minutesDifference > 0
+                ? " & "
+                : "") +
+              (task.minutesDifference > 0 ? task.minutesDifference + "m" : "")
             }</span></div>
             <div class="task-end-time">
               <h3 class="end-time">${
-                task.taskEndTime.endHours +
+                task.endHour +
                 ": " +
-                task.taskEndTime.endMinutes +
+                task.endMinutes.toString().padStart(2, "0") +
                 " " +
-                task.taskEndTime.endAmPm
+                task.endAmPm
               }</h3>
               <p>End</p>
             </div>

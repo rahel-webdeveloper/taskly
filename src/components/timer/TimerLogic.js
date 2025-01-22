@@ -271,13 +271,16 @@ const timerLogic = () => {
 
   function isWindowLarge() {
     const width = window.innerWidth;
-    if (width >= 1024) {
-      timerFirstSection.style.display = "grid";
-      timerSecondSection.style.display = "grid";
-      return true;
-    } else if (timerFirstSection && timerSecondSection)
-      isStartedTimer(isStarted);
-    return false;
+    if (timerFirstSection && timerSecondSection) {
+      if (width >= 1024) {
+        timerFirstSection.style.display = "grid";
+        timerSecondSection.style.display = "grid";
+        return true;
+      } else {
+        isStartedTimer(isStarted);
+        return false;
+      }
+    }
   }
 
   function isStartedTimer(isStarted) {

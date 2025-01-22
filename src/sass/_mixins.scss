@@ -1,4 +1,16 @@
-@mixin place-center {
+@mixin grid-center {
   display: grid;
   place-items: center;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-space {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }

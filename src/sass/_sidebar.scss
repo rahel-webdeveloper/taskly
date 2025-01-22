@@ -6,8 +6,7 @@
 
 .sidebar-header {
   padding: 0.7rem;
-  display: flex;
-  justify-content: space-between;
+  @include flex-space;
   background-color: #3e425d3a;
   backdrop-filter: blur(15px);
   border-bottom-left-radius: 1rem;
@@ -38,9 +37,8 @@
   padding: 0.7rem;
   transition: top 0.4s ease-out;
   width: 8.5rem;
-  display: flex;
+  @include flex-space;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 .sidebar-links {

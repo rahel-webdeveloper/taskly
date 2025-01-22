@@ -46,7 +46,7 @@ body {
 }
 
 .main-content {
-  @include place-center;
+  @include grid-center;
   transition: all 0.7s;
   max-width: 100%;
   width: 100%;
@@ -76,7 +76,7 @@ body {
 
 @media screen and (width >= 1024px) {
   .container {
-    @include place-center;
+    @include grid-center;
     grid-template-columns: 15rem 1fr;
     align-items: start;
     width: 100%;
@@ -138,7 +138,7 @@ body {
   }
 
   .const-tasks-section {
-    @include place-center;
+    @include grid-center;
     grid-template-columns: 1fr 1fr;
     width: 100%;
     grid-template-areas:
