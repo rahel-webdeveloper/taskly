@@ -132,6 +132,7 @@
     text-anchor: middle;
     transform: rotate(90deg);
     fill: $text-color;
+    transition: transform 0.5s ease, opacity 0.5s ease;
   }
 
   .svg-circle {

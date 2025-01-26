@@ -143,15 +143,19 @@ const timerLogic = () => {
 
     if (isPaused || isCanceled) return;
 
+    // Circle offset meainin how much circle should hide
     const offset = (elapsedTime / totalSeconds) * circumference;
     countdownCircle.style.strokeDashoffset = offset;
 
-    const remainingTime = Math.ceil(totalSeconds - elapsedTime);
-    timerText.textContent = `${Math.floor(
-      remainingTime / 60 / 60
-    )}:${Math.floor(remainingTime / 60)}:${remainingTime}`;
+    const { remainingHours, remainingMinutes, remainingSeconds } =
+      remainingTimeCalculation(totalSeconds, elapsedTime);
 
-    if (remainingTime < 6) countdownCircle.style.stroke = "#fa6e6e";
+    // Display remaining time
+    timerText.textContent = remainingTimerInUI(
+      remainingHours,
+      remainingMinutes,
+      remainingSeconds
+    );
 
     if (elapsedTime < totalSeconds)
       animationId = requestAnimationFrame(() => {
@@ -161,6 +165,42 @@ const timerLogic = () => {
       resetUI();
     }
   };
+
+  // Remaining time calculation
+  function remainingTimeCalculation(totalSeconds, elapsedTime) {
+    const remainingTimeOnSeconds = Math.ceil(totalSeconds - elapsedTime);
+
+    let remainingHours = Math.floor((remainingTimeOnSeconds / 60 / 60) % 60);
+    let remainingMinutes = Math.floor((remainingTimeOnSeconds / 60) % 60);
+    let remainingSeconds = remainingTimeOnSeconds % 60;
+
+    return { remainingHours, remainingMinutes, remainingSeconds };
+  }
+
+  // Remaining time in UI
+  function remainingTimerInUI(
+    remainingHours,
+    remainingMinutes,
+    remainingSeconds
+  ) {
+    if (remainingSeconds < 6 && remainingHours <= 0 && remainingMinutes <= 0)
+      countdownCircle.style.stroke = "#fa6e6e";
+
+    return `
+    ${!remainingHours ? "" : remainingHours + ":"}
+    ${
+      !remainingMinutes && !remainingHours
+        ? ""
+        : remainingHours
+        ? remainingMinutes.toString().padStart(2, "0") + ":"
+        : remainingMinutes + ":"
+    }
+    ${
+      remainingHours || remainingMinutes
+        ? remainingSeconds.toString().padStart(2, "0")
+        : remainingSeconds
+    }`;
+  }
 
   // Timer events
   if (timerContainer)
@@ -266,7 +306,7 @@ const timerLogic = () => {
     timerSecondSection.style.display = isStarted ? "inline" : "none";
   }
 
-  // remove the toggle start timer function
+  // For large screen UI
   window.addEventListener("resize", isWindowLarge);
 
   function isWindowLarge() {

@@ -1,10 +1,9 @@
-import Timer from "./components/timer/Timer";
-import ConstTasks from "./components/constTasks/ConstTasks";
-import Router from "./routes/routes";
+import ConstTasks from "./pages/tasks/ConstTasks";
+import Timer from "./pages/timer/Timer";
 
 const App = () => {
   Timer();
   ConstTasks();
-  Router.init();
 };
-App();
+
+export default App;

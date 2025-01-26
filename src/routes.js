@@ -1,12 +1,13 @@
-import TimerRender from "../components/timer/TimerRender.js";
-import ConstTasksRender from "../components/constTasks/TaskRender.js";
-import Dashboard from "../components/dashboard/Dashboard.js";
-import About from "../components/about/About.js";
 import Navigo from "navigo";
+import Home from "./pages/home/Home.js";
+import TimerRender from "./pages/timer/TimerRender.js";
+import ConstTasksRender from "./pages/tasks/TaskRender.js";
+import Dashboard from "./pages/dashboard/Dashboard.js";
+import About from "./pages/about/About.js";
 
 const Router = (() => {
   const routes = {
-    "/": () => "<h1> Home Page</h1>",
+    "/": Home,
     "/timer": TimerRender,
     "/const_tasks": ConstTasksRender,
     "/dashboard": Dashboard,
@@ -23,9 +24,11 @@ const Router = (() => {
         mainContent.innerHTML = routes[route]();
       });
     });
+
     router.notFound(() => {
       mainContent.innerHTML = "<h1>404 - Page Not Found";
     });
+
     router.resolve();
   };
 
