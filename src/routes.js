@@ -17,7 +17,7 @@ const Router = (() => {
   const mainContent = document.getElementById("main-content");
 
   const init = () => {
-    const router = new Navigo("/", { hash: true });
+    const router = new Navigo("/", { hash: false });
 
     Object.keys(routes).forEach((route) => {
       router.on(route, () => {
