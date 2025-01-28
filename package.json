@@ -12,9 +12,10 @@
     "vite": "^5.4.10"
   },
   "dependencies": {
+    "@nanostores/persistent": "^0.10.2",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
-    "navigo": "^8.11.1",
-    "zustand": "^5.0.3"
+    "nanostores": "^0.11.3",
+    "navigo": "^8.11.1"
   }
 }

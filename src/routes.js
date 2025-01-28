@@ -19,6 +19,14 @@ const Router = (() => {
   const init = () => {
     const router = new Navigo("/", { hash: false });
 
+    // document.addEventListener("click", function (e) {
+    //   if (e.target.matches("[data-link]")) {
+    //     e.preventDefault();
+
+    //     router.navigate(e.target.getAttribute("href"));
+    //   }
+    // });
+
     Object.keys(routes).forEach((route) => {
       router.on(route, () => {
         mainContent.innerHTML = routes[route]();
