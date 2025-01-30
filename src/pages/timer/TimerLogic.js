@@ -10,6 +10,7 @@ import {
   startTime,
   elapsedTime,
   animationId,
+  setAnimationId,
   isStarted,
   isPaused,
   isCanceled,
@@ -23,15 +24,15 @@ const timerLogic = () => {
 
   addInfiniteScroll("hour-picker", 100, (hour) => {
     selectedHour.set(hour);
-    selectedTime();
+    totalSelectedTime();
   });
   addInfiniteScroll("minute-picker", 60, (minute) => {
     selectedMinute.set(minute);
-    selectedTime();
+    totalSelectedTime();
   });
   addInfiniteScroll("second-picker", 60, (second) => {
     selectedSecond.set(second);
-    selectedTime();
+    totalSelectedTime();
   });
 
   // Timer events
@@ -42,16 +43,16 @@ const timerLogic = () => {
   window.addEventListener("resize", isWindowLarge);
 };
 
-let timerContainer;
-let timerFirstSection;
-let timerSecondSection;
-let countdownCircle;
-let tapTimeDiv;
-let timerText;
-let startBtn;
-let pauseBtn;
-let resumeBtn;
-let cancelBtn;
+let timerContainer,
+  timerFirstSection,
+  timerSecondSection,
+  countdownCircle,
+  tapTimeDiv,
+  timerText,
+  startBtn,
+  pauseBtn,
+  resumeBtn,
+  cancelBtn;
 
 document.addEventListener("DOMContentLoaded", function () {
   timerContainer = document.querySelector(".timer-container");
@@ -71,18 +72,22 @@ const circumference = 2 * Math.PI * redius;
 
 function populateInfinitePicker(pickerId, range) {
   const pickerItems = document.querySelector(`#${pickerId} .picker-items`);
+
   if (!pickerItems) return;
 
   // Create cloned items for infinite scrolling
   const items = [];
-  for (let i = 0; i < range; i++) {
-    items.push(i.toString().padStart(2, "0"));
-  }
+
+  for (let i = 0; i < range; i++) items.push(i.toString().padStart(2, "0"));
+
   const allItems = [...items, ...items, ...items];
+
   allItems.forEach((value) => {
     const item = document.createElement("div");
+
     item.classList.add("picker-item");
     item.textContent = value;
+
     pickerItems.appendChild(item);
   });
 
@@ -99,26 +104,11 @@ function setInitialTimerScroll(hourScroSize, minuScroSize, secScroSize) {
   secondPicker.scrollTop = secScroSize * 40;
 }
 
-function tapChooseTimeFunc(isStartBtnDisabled) {
-  if (isStartBtnDisabled) {
-    setInitialTimerScroll(99.1, 14.1, 119.1);
-    tapTimeDiv.style.cssText = `
-        background-color: transparent;
-        border: 1px solid #bbb2cc;
-      `;
-  } else {
-    setInitialTimerScroll(99.1, 119.1, 119.1);
-    tapTimeDiv.style.cssText = `
-        background-color: #3e425d5a;
-        border: none;
-      `;
-  }
-}
-
 // Add infinite scroll adjustment
-function addInfiniteScroll(pickerId, range, onChange) {
+const addInfiniteScroll = (pickerId, range, onChange) => {
   const picker = document.getElementById(pickerId);
   const pickerItems = document.querySelector(".picker-items");
+
   if (!pickerItems) return;
 
   const itemHeight = 40;
@@ -138,21 +128,38 @@ function addInfiniteScroll(pickerId, range, onChange) {
 
     // Update selected item
     const items = picker.querySelectorAll(".picker-item");
-    items.forEach((item, i) => {
-      item.classList.toggle("selected", i % range === index);
-    });
 
-    selectedTime() >= 1000
+    items.forEach((item, i) =>
+      item.classList.toggle("selected", i % range === index)
+    );
+
+    totalSelectedTime() >= 1000
       ? (startBtn.disabled = false)
       : (startBtn.disabled = true);
 
     // Trigger change event
     onChange(index);
   });
-}
+};
+
+const tapChooseTimeFunc = (isStartBtnDisabled) => {
+  if (isStartBtnDisabled) {
+    setInitialTimerScroll(99.1, 14.1, 119.1);
+    tapTimeDiv.style.cssText = `
+        background-color: transparent;
+        border: 1px solid #bbb2cc;
+      `;
+  } else {
+    setInitialTimerScroll(99.1, 119.1, 119.1);
+    tapTimeDiv.style.cssText = `
+        background-color: #3e425d5a;
+        border: none;
+      `;
+  }
+};
 
 // Update selected time
-const selectedTime = () => {
+const totalSelectedTime = () => {
   return (
     (selectedHour.get() * 60 * 60 +
       selectedMinute.get() * 60 +
@@ -161,14 +168,12 @@ const selectedTime = () => {
   );
 };
 
-function getSelectedTimeInSeconds() {
-  const totalMinutes = selectedTime() / 1000 / 60;
-  return totalMinutes * 60;
-}
+const getSelectedTimeOnSeconds = () => totalSelectedTime() / 1000;
 
 // Circle logic
-const updateCountdownCircle = (totalSeconds) => {
+export const updateCountdownCircle = (totalSeconds) => {
   const now = Date.now();
+
   elapsedTime.set(Math.min((now - startTime.get()) / 1000, totalSeconds));
 
   if (isPaused.get() || isCanceled.get()) return;
@@ -180,41 +185,34 @@ const updateCountdownCircle = (totalSeconds) => {
   const { remainingHours, remainingMinutes, remainingSeconds } =
     remainingTimeCalculation(totalSeconds, elapsedTime.get());
 
-  // Display remaining time
   timerText.textContent = remainingTimerInUI(
     remainingHours,
     remainingMinutes,
     remainingSeconds
   );
 
-  if (elapsedTime.get() < totalSeconds)
-    animationId.set(
-      requestAnimationFrame(() => {
-        updateCountdownCircle(totalSeconds);
-      })
-    );
-  else {
-    resetUI();
-  }
+  elapsedTime.get() < totalSeconds
+    ? setAnimationId(getSelectedTimeOnSeconds())
+    : resetUI();
 };
 
 // Remaining time calculation
-function remainingTimeCalculation(totalSeconds, elapsedTime) {
-  const remainingTimeOnSeconds = Math.ceil(totalSeconds - elapsedTime);
+const remainingTimeCalculation = (totalSelectedTime, elapsedTime) => {
+  const remainingTime = Math.ceil(totalSelectedTime - elapsedTime);
 
-  let remainingHours = Math.floor((remainingTimeOnSeconds / 60 / 60) % 60);
-  let remainingMinutes = Math.floor((remainingTimeOnSeconds / 60) % 60);
-  let remainingSeconds = remainingTimeOnSeconds % 60;
+  const remainingHours = Math.floor((remainingTime / 60 / 60) % 60);
+  const remainingMinutes = Math.floor((remainingTime / 60) % 60);
+  const remainingSeconds = remainingTime % 60;
 
   return { remainingHours, remainingMinutes, remainingSeconds };
-}
+};
 
 // Remaining time in UI
-function remainingTimerInUI(
+const remainingTimerInUI = (
   remainingHours,
   remainingMinutes,
   remainingSeconds
-) {
+) => {
   if (remainingSeconds < 6 && remainingHours <= 0 && remainingMinutes <= 0)
     countdownCircle.style.stroke = "#fa6e6e";
 
@@ -232,31 +230,24 @@ function remainingTimerInUI(
         ? remainingSeconds.toString().padStart(2, "0")
         : remainingSeconds
     }`;
-}
+};
 
-function handleTimerEvents(event) {
+const handleTimerEvents = (event) => {
   const id = event.target.id;
 
   if (id === "timer-start") {
     startTimer();
 
     resetTimerState();
+    setAnimationId(getSelectedTimeOnSeconds());
 
-    animationId.set(
-      requestAnimationFrame(() =>
-        updateCountdownCircle(getSelectedTimeInSeconds())
-      )
-    );
-
-    if (!isWindowLarge()) {
-      toggleStartSection(true);
-    }
+    if (!isWindowLarge()) toggleStartSection(true);
   }
 
   if (id === "tap-time-div") {
     toggleTapTime();
 
-    selectedTime();
+    totalSelectedTime();
     tapChooseTimeFunc(isStarted.get());
     isStarted.get() ? (startBtn.disabled = false) : (startBtn.disabled = true);
   }
@@ -271,11 +262,7 @@ function handleTimerEvents(event) {
   if (id === "timer-resume") {
     resumeTimer();
 
-    animationId.set(
-      requestAnimationFrame(() =>
-        updateCountdownCircle(getSelectedTimeInSeconds())
-      )
-    );
+    setAnimationId(getSelectedTimeOnSeconds());
     togglePauseResumeBtns(false);
   }
 
@@ -285,9 +272,9 @@ function handleTimerEvents(event) {
     cancelAnimationFrame(animationId.get());
     resetUI();
   }
-}
+};
 
-function resetUI() {
+const resetUI = () => {
   countdownCircle.style.strokeDashoffset = circumference;
   countdownCircle.style.stroke = "#bbb2cc";
   timerText.textContent = 0;
@@ -300,12 +287,11 @@ function resetUI() {
   tapTimeDiv.disabled = false;
 
   togglePauseResumeBtns(false);
-  if (!isWindowLarge()) {
-    toggleStartSection(false);
-  }
-}
 
-function resetTimerState() {
+  if (!isWindowLarge()) toggleStartSection(false);
+};
+
+const resetTimerState = () => {
   isPaused.set(false);
   isCanceled.set(false);
   isStarted.set(true);
@@ -317,19 +303,19 @@ function resetTimerState() {
   startBtn.disabled = true;
   tapTimeDiv.disabled = true;
   elapsedTime.set(0);
-}
+};
 
-function togglePauseResumeBtns(isPausedState) {
+const togglePauseResumeBtns = (isPausedState) => {
   pauseBtn.style.display = isPausedState ? "none" : "inline";
   resumeBtn.style.display = isPausedState ? "inline" : "none";
-}
+};
 
-function toggleStartSection(isStarted) {
+const toggleStartSection = (isStarted) => {
   timerFirstSection.style.display = isStarted ? "none" : "inline";
   timerSecondSection.style.display = isStarted ? "inline" : "none";
-}
+};
 
-function isWindowLarge() {
+const isWindowLarge = () => {
   const width = window.innerWidth;
   if (timerFirstSection && timerSecondSection) {
     if (width >= 1024) {
@@ -341,9 +327,9 @@ function isWindowLarge() {
       return false;
     }
   }
-}
+};
 
-function isStartedTimer(isStarted) {
+const isStartedTimer = (isStarted) => {
   if (isStarted) {
     timerFirstSection.style.display = "none";
     timerSecondSection.style.display = "grid";
@@ -351,6 +337,6 @@ function isStartedTimer(isStarted) {
     timerFirstSection.style.display = "grid";
     timerSecondSection.style.display = "none";
   }
-}
+};
 
 export default timerLogic;

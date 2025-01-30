@@ -1,84 +1,48 @@
-import { listTask, deleteAll } from "./ConstTasks.js";
+import TaskEvents, {
+  listTask,
+  Id,
+  stateName,
+  visibleTasks,
+  startTime,
+  endTime,
+  startAmPm,
+  endAmPm,
+} from "./store.js";
 import {
   addTaskToHtml,
   addToDetailsCard,
   showPercentage,
 } from "./TaskRender.js";
-import { updateTaskCount, addCheck } from "./TaskRender.js";
+import { addCheck } from "./TaskRender.js";
 import { priorityIcons, priorityColors } from "../../services/helper.js";
 
-let stateName = "all";
-let visibleTasks = [];
-let taskId = 0;
-
-let startTime;
-let endTime;
-
-let startAmPm = "AM";
-let endAmPm = "PM";
+const {
+  completingTask,
+  deletingTask,
+  editingTask,
+  saveEditedTask,
+  onSelectedState,
+  deletingCompleteTasks,
+} = TaskEvents;
 
 export default function constTasksLogic() {
   const constTasksSection = document.getElementById("const-tasks-section");
-  if (constTasksSection) {
-    constTasksSection.addEventListener("click", function (event) {
-      eventsHandler(event);
-    });
 
-    taskOperation.onSelectedState(listTask, stateName);
+  if (constTasksSection) {
+    constTasksSection.addEventListener("click", eventsHandler);
+
+    onSelectedState(listTask.get(), stateName.get());
     submitFornFunc();
     updateViewOnTask();
   }
 }
 
-// Class tasks related operation
-class TaskEventOperation {
-  completingTask(id) {
-    listTask.map((task, index) => {
-      if (task.id === id) {
-        listTask[index].state === "active"
-          ? (listTask[index].state = "complete")
-          : (listTask[index].state = "active");
-      }
-    });
-    updateViewOnTask();
-  }
-
-  deleteTask(id) {
-    const findIndex = listTask.findIndex((task) => task.id === id);
-    listTask.splice(findIndex, 1);
-    updateViewOnTask();
-  }
-
-  editTask(id, editBox, editInput) {
-    taskId = id;
-    const findTask = listTask.findIndex((task) => task.id === id);
-
-    editBox.style.display = "flex";
-    editInput.value = listTask[findTask].description;
-  }
-
-  onSelectedState(listTasks, state) {
-    stateName = state;
-    visibleTasks = taskOperation.getFilterTasks(listTasks, state);
-    updateTaskCount(listTasks.length, visibleTasks.length);
-    addTaskToHtml(visibleTasks);
-  }
-
-  getFilterTasks(listTask, state) {
-    return state === "all"
-      ? listTask
-      : listTask.filter((task) => task.state === state.toLowerCase());
-  }
-}
-
-const taskOperation = new TaskEventOperation();
-
 // Events hadler function
-function eventsHandler(event) {
+const eventsHandler = (event) => {
   const customSelect = document.getElementById("custom_select");
   const filterList = document.getElementById("filter_list");
   const filterOptions = document.querySelectorAll(".option");
-  const stateNameEl = document.querySelector(".state-name");
+  const stateElement = document.querySelector(".state-name");
 
   const editBox = document.querySelector(".task-edit-box");
   const editInput = document.getElementById("task-edit-input");
@@ -87,63 +51,61 @@ function eventsHandler(event) {
   const askDivStyle = askDiv.style;
 
   const target = event.target;
+  const getAttributeId = target.getAttribute("data-id");
 
   if (target.closest(".complete-icon-svg")) {
-    let id = target.getAttribute("data-id");
-    taskOperation.completingTask(id);
+    Id.set(getAttributeId);
+    completingTask();
   }
+
   if (target.closest(".delete-icon-svg")) {
-    let id = target.getAttribute("data-id");
-    taskOperation.deleteTask(id);
+    Id.set(getAttributeId);
+    deletingTask();
   }
+
   if (target.closest(".edit-icon-div")) {
-    let id = target.getAttribute("data-id");
-    taskOperation.editTask(id, editBox, editInput);
+    Id.set(getAttributeId);
+    editingTask(editBox, editInput);
   }
+
+  if (target.closest("#save")) saveEditedTask(editInput, editBox);
 
   if (target.closest("#cancel")) editBox.style.display = "none";
-  if (target.closest("#save")) {
-    listTask.map((task) => {
-      if (task.id === taskId && editInput.value.length > 7) {
-        task.description = editInput.value;
-        editBox.style.display = "none";
-        updateViewOnTask();
-      }
-    });
-  }
 
-  if (target.closest(".selected-option")) {
+  // Toggle filter box
+  if (target.closest(".selected-option"))
     filterList.style.display =
       filterList.style.display === "block" ? "none" : "block";
-  }
 
-  // Filter event
-  document.addEventListener("click", function (e) {
-    if (!customSelect.contains(e.target)) filterList.style.display = "none";
-  });
+  // Hide filter box because of out event
+  if (!customSelect.contains(target)) filterList.style.display = "none";
 
   filterOptions.forEach((option) => {
     option.addEventListener("click", function () {
-      stateNameEl.textContent = option.dataset.value + " tasks";
-      stateNameEl.dataset.value = option.dataset.value;
-      taskOperation.onSelectedState(listTask, option.dataset.value);
+      stateElement.textContent = option.dataset.value + " tasks";
+      stateElement.dataset.value = option.dataset.value;
+
+      onSelectedState(listTask.get(), option.dataset.value);
+
       filterList.style.display = "none";
+
       // Adding the angle brackets
-      addCheck(filterOptions, option.dataset.value, stateNameEl.dataset.value);
+      addCheck(filterOptions, option.dataset.value, stateElement.dataset.value);
     });
   });
 
-  if (target.closest(".all-delte-btn") && listTask.length !== 0)
+  if (target.closest(".all-delte-btn") && listTask.get().length !== 0)
     askDivStyle.display = "block";
 
+  // Ask for deleting all complete tasks
   if (target.closest("#no")) askDivStyle.display = "none";
 
   if (target.closest("#yes")) {
     askDivStyle.display = "none";
-    deleteAll();
-    updateViewOnTask();
+
+    deletingCompleteTasks();
   }
-}
+};
 
 function submitFornFunc() {
   const form = document.getElementById("form");
@@ -158,8 +120,10 @@ function submitFornFunc() {
   priorityKeys.forEach((key, index) => {
     key.addEventListener("click", function () {
       priority = parseInt(key.getAttribute("data-priority"));
+
       priorityColor = priorityColors[index + 1];
       priorityIcon = priorityIcons[index + 1];
+
       nullValidation(priority, prioErrEl);
     });
   });
@@ -172,28 +136,35 @@ function submitFornFunc() {
     const endCheckbox = formData.get("endTimeCheckbox");
     timeCalculation.findAmPm(startCheckbox, endCheckbox);
 
-    startTime = timeCalculation.convertTo24Hour(
-      parseInt(formData.get("startHour")),
-      parseInt(formData.get("startMinutes")),
-      startAmPm
+    startTime.set(
+      timeCalculation.convertTo24Hour(
+        parseInt(formData.get("startHour")),
+        parseInt(formData.get("startMinutes")),
+        startAmPm.get()
+      )
     );
 
-    endTime = timeCalculation.convertTo24Hour(
-      parseInt(formData.get("endHour")),
-      parseInt(formData.get("endMinutes")),
-      endAmPm
+    endTime.set(
+      timeCalculation.convertTo24Hour(
+        parseInt(formData.get("endHour")),
+        parseInt(formData.get("endMinutes")),
+        endAmPm.get()
+      )
     );
 
     const categoryValue = formData.get("category");
 
     if (!nullValidation(categoryValue, cateErrEl)) return;
+
     if (!nullValidation(priority, prioErrEl)) return;
-    if (!validationOfEqualTime(startTime, endTime, timeErrEl)) return;
+
+    if (!validationOfEqualTime(startTime.get(), endTime.get(), timeErrEl))
+      return;
 
     // Calculate total time differece
     const { hours, minutes } = timeCalculation.calculateTimeDifference(
-      startTime,
-      endTime
+      startTime.get(),
+      endTime.get()
     );
 
     // Adding custome data to Form Data
@@ -202,8 +173,8 @@ function submitFornFunc() {
     formData.append("taskPrioriy", priority);
     formData.append("priorityColor", priorityColor);
     formData.append("priorityIcon", priorityIcon);
-    formData.append("startAmPm", startAmPm);
-    formData.append("endAmPm", endAmPm);
+    formData.append("startAmPm", startAmPm.get());
+    formData.append("endAmPm", endAmPm.get());
 
     // Convert formData Object to JS regular object
     let objFormData = Object.fromEntries(formData.entries());
@@ -221,8 +192,8 @@ function submitFornFunc() {
 
 class TimeCalculation {
   findAmPm(startCheckbox, endCheckbox) {
-    !startCheckbox ? (startAmPm = "AM") : (startAmPm = "PM");
-    !endCheckbox ? (endAmPm = "AM") : (endAmPm = "PM");
+    !startCheckbox ? startAmPm.set("AM") : startAmPm.set("PM");
+    !endCheckbox ? endAmPm.set("AM") : endAmPm.set("PM");
   }
 
   convertTo24Hour(hours, minutes, amPm) {
@@ -248,9 +219,9 @@ class TimeCalculation {
       amPm = "AM";
 
     if (minutes < 10) minutes += "0";
+
     if (hours > 12) {
-      amPm = "PM";
-      hours = Math.abs(hours - 12);
+      (amPm = "PM"), (hours = Math.abs(hours - 12));
     }
     return { hours, minutes, amPm };
   }
@@ -266,14 +237,18 @@ function addTask(formData) {
   const currentAmPm = currentTime.amPm;
 
   // Structure of task data
-  listTask.unshift({
-    ...formData,
-    state: "active",
-    id: self.crypto.randomUUID(),
-    currentHours,
-    currentMinutes,
-    currentAmPm,
-  });
+  listTask.set([
+    {
+      ...formData,
+      state: "active",
+      id: self.crypto.randomUUID(),
+      currentHours,
+      currentMinutes,
+      currentAmPm,
+    },
+    ...listTask.get(),
+  ]);
+
   updateViewOnTask();
 }
 
@@ -351,10 +326,10 @@ function nullValidation(elementValue, erroreEl) {
 }
 
 // updateViewOnTask
-function updateViewOnTask() {
-  addTaskToHtml(visibleTasks);
-  taskOperation.onSelectedState(listTask, stateName);
-  saveLocalStorage(listTask);
-  showPercentage(listTask);
-  addToDetailsCard(listTask);
+export function updateViewOnTask() {
+  addTaskToHtml(visibleTasks.get());
+  onSelectedState(listTask.get(), stateName.get());
+  saveLocalStorage(listTask.get());
+  showPercentage(listTask.get());
+  addToDetailsCard(listTask.get());
 }

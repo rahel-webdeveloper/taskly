@@ -497,6 +497,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 .task-description-div p {
   font-size: 1rem;
+  word-break: break-all;
 }
 
 .task-current-time {

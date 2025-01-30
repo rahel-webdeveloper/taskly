@@ -208,14 +208,13 @@ function taskToHTML(task) {
 export function updateTaskCount(allCount, visibleCount) {
   const allTaskLenght = document.getElementById("all_task");
   const filterTaskLenght = document.getElementById("length");
-  if (allTaskLenght !== null && filterTaskLenght !== null) {
-    allTaskLenght.textContent = allCount;
-    filterTaskLenght.textContent = visibleCount;
-  }
+
+  allTaskLenght.textContent = allCount;
+  filterTaskLenght.textContent = visibleCount;
 }
 
 // Show Percentage
-export function showPercentage(tasks) {
+export const showPercentage = (tasks) => {
   const activePercentageEl = document.getElementById("active_task");
   const completePercentageEl = document.getElementById("complete_task");
   const colorPercentage = document.querySelectorAll(".color-percentage");
@@ -250,7 +249,7 @@ export function showPercentage(tasks) {
   colorPercentage[1].style.background = `conic-gradient(#3e425d 0deg ${
     360 - completeDegree
   }deg, #90dcd6 ${360 - completeDegree}deg 360deg)`;
-}
+};
 
 // Adding angle brackets in filter
 export function addCheck(option, optionValue, nameVlue) {

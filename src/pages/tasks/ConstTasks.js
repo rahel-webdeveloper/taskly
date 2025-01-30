@@ -1,6 +1,4 @@
-import constTasksLogic, { loadTasksFromStorage } from "./TaskLogic.js";
-
-export let listTask = loadTasksFromStorage() || [];
+import constTasksLogic from "./TaskLogic.js";
 
 const ConstTasks = () => {
   document.addEventListener("DOMContentLoaded", () => {
@@ -9,7 +7,3 @@ const ConstTasks = () => {
 };
 
 export default ConstTasks;
-
-export function deleteAll() {
-  return (listTask = listTask.filter((task) => task.state !== "complete"));
-}
