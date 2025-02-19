@@ -1,9 +1,10 @@
+import { listTask } from "../../App.js";
 import constTasksLogic from "./TaskLogic.js";
 
-const ConstTasks = () => {
+const MainTasks = () => {
   document.addEventListener("DOMContentLoaded", () => {
     constTasksLogic();
   });
 };
 
-export default ConstTasks;
+export default MainTasks;

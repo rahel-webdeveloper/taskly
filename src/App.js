@@ -1,9 +1,15 @@
-import ConstTasks from "./pages/tasks/ConstTasks";
+import MainDashboard from "./pages/dashboard/MainDashboard";
+import MainTasks from "./pages/tasks/MainTasks";
+import { loadTasksFromStorage } from "./pages/tasks/TaskLogic";
 import Timer from "./pages/timer/Timer";
+import { atom } from "nanostores";
 
-const App = () => {
+export const listTask = atom(loadTasksFromStorage() || []);
+
+const App = async () => {
   Timer();
-  ConstTasks();
+  MainTasks();
+  MainDashboard();
 };
 
 export default App;

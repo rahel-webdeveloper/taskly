@@ -1,32 +1,48 @@
 // Fonts
 $karla-font: "Karla", sans-serif;
+$DM-Sans: "DM Sans", sans-serif;
 
 // Main colors
-$text-color: #f3f3f3;
-$black-color: #252728;
-$primary-color: #242936;
-$secondary-color: #2c313f;
-$thirdly-color: #3e425d;
+$text-color: #f1f0f0;
+$primary-color: rgb(23, 24, 31);
+$secondary-color: rgb(35, 36, 42);
+$thirtiary-color: rgb(53, 53, 58);
+$gray-color: #d3d3d3;
 
 //  Lightness colors
-$thirday-light-color: #bbbcc9;
-$light-border-color: #bbbcc930;
-$light-low-color: #b0bbbc81;
-$light-primary-color: #3e425d5a;
-$light-delete-color: #f86c6cd7;
-$backdrop-filter-color: #3e425d17;
+$thirtiary-light-color: #bbbcc930;
+$light-border-color: rgba(142, 143, 149, 0.18);
+$light-dark-blue-color: #3e425d31;
+$backdrop-filter-color: #23242a3e;
+$light-secondary-color: rgba(35, 36, 42, 0.588);
 
 // Components colors
 $btn-color: #917db6;
 $checked-color: #acd8aa;
 $delete-color: #fa6e6e;
-$count-color: #8ce5f4;
-$orange-color: #edc07b;
-$complete-color: #90dcd6;
+$count-color: rgb(140, 229, 244);
+$orange-color: rgb(237, 192, 123);
+$complete-color: rgb(144, 220, 214);
 
 // Priorities colors
 $critical-color: #cb9ca3;
-$high-color: #bbb2cc;
+$high-color: rgb(187, 178, 204);
 $moderate-color: #e4b875;
-$low-color: #86b5b2;
-$optional-color: #b0bbbc;
+$low-color: rgb(134, 181, 178);
+$optional-color: rgb(176, 187, 188);
+
+// Light component colors
+$light-btn-color: #8573a6ab;
+$light-checked-color: rgba(172, 216, 170, 0.431);
+// $light-delete-color: #fa6e6e6d;
+$light-delete-color: #b04c4c;
+$light-count-color: #8ce4f46a;
+$light-orange-color: #edbf7ba1;
+$light-complete-color: #90dcd66d;
+
+// Light priority colors
+$light-critical-color: #cb9ca369;
+$light-high-color: #bbb2cc6a;
+$light-moderate-color: #e4b8756f;
+$light-low-color: rgba(134, 181, 178, 0.694);
+$light-optional-color: #b0bbbc62;

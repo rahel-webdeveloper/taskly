@@ -2,8 +2,9 @@
 @import "variables";
 @import "mixins";
 @import "timerStyle";
-@import "sidebar";
+@import "navbarStyle";
 @import "constTasksStyle";
+@import "dashboarStyle";
 
 * {
   padding: 0;
@@ -45,11 +46,17 @@ body {
   display: grid;
 }
 
+.app-container {
+  @include grid-center;
+}
+
 .main-content {
   @include grid-center;
   transition: all 0.7s;
   max-width: 100%;
   width: 100%;
+  border-radius: 0.5rem;
+  padding-top: 2.5rem;
 }
 
 .copyRight {
@@ -74,77 +81,65 @@ body {
   }
 }
 
-@media screen and (width >= 1024px) {
-  .container {
-    @include grid-center;
-    grid-template-columns: 15rem 1fr;
-    align-items: start;
+@media (width >= 704px) {
+  .const-tasks-section {
+    border: 1px solid $thirtiary-color;
+  }
+
+  .dashboard-charts {
     width: 100%;
-    column-gap: 0.4rem;
   }
+}
 
-  .sidebar {
-    width: 15rem;
-    min-height: 100vh;
-    height: 100%;
-    padding-left: 1.5rem;
-    padding-top: 1rem;
-    background-color: $light-primary-color;
-    backdrop-filter: blur(15px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .sidebar-header {
-    margin-left: -2rem;
-    background-color: transparent;
-    backdrop-filter: none;
+@media screen and (width >= 1024px) {
+  .app-container {
+    padding: 0.12rem 0.12rem 2rem 0.15rem;
   }
 
   .log-img {
-    width: 3rem;
+    width: 2.87rem;
   }
 
-  #sidebar-toggle {
-    display: none;
-  }
+  .navbar-menu {
+    margin-top: 0.31rem;
 
-  .sidebar-menu {
-    position: static;
-    width: 80%;
-    margin-top: 1rem;
-    padding-top: 1rem;
-    text-align: start;
-    font-size: 1rem;
-    background-color: transparent;
-    border-top: 1px solid $light-border-color;
-    backdrop-filter: none;
-    border-radius: 0;
-    left: 0;
-    top: 0;
-    transform: translate(0, 0);
-    align-self: start;
-    min-height: 77vh;
-    height: 100%;
-  }
+    .navbar-links a {
+      font-size: 1.4rem;
 
-  .social-links i {
-    font-size: 1.3rem;
+      span {
+        font-size: 0.8rem;
+      }
+    }
+
+    .navbar-links a:hover {
+      transition: all 0.3s ease-in;
+      background-color: $light-border-color;
+      padding: 0.12rem 0.5rem;
+      border-radius: 1rem;
+
+      span {
+        transform: scale(1);
+        width: 100%;
+      }
+    }
   }
 
   .main-content {
-    margin: 0.25rem 0.43rem 2rem 0;
+    border: 1px solid $thirtiary-color;
+    padding-top: 0;
   }
 
   .const-tasks-section {
     @include grid-center;
-    grid-template-columns: 1fr 1fr;
+    border: none;
+    padding-top: 0;
+    margin: 0;
+    grid-template-columns: 540px 1fr;
     width: 100%;
     grid-template-areas:
-      "first second"
-      "first second"
-      "third second";
+      "first second second"
+      "first second second"
+      "third second second";
   }
 
   .first-section,
@@ -177,27 +172,28 @@ body {
   .task-list-container {
     border-bottom-left-radius: 0;
     border-top-right-radius: 0;
-    border-bottom-right-radius: 1rem;
   }
   .task-list-container .all-delete-div {
-    border-bottom-right-radius: 1rem;
+    border-bottom-right-radius: 0.5rem;
   }
 
   .third-section {
     grid-area: third;
     border-bottom-right-radius: 0;
+
+    .percent-of-task {
+      border-top: 1px solid $thirtiary-color;
+    }
   }
 
   .timer-container {
-    grid-template-columns: 400px 1fr;
-    grid-template-rows: 95vh;
-    border: 1px solid $light-border-color;
+    grid-template-columns: 43% 1fr;
     border-radius: 0.7rem;
     padding-bottom: 0rem;
 
     .timer-first-section {
       margin-top: 0;
-      border-right: 1px solid $light-primary-color;
+      border-right: 1px solid $thirtiary-light-color;
     }
 
     .timer-header {
@@ -217,6 +213,16 @@ body {
     }
     .timer-second-section {
       display: grid;
+    }
+  }
+
+  .dashboard {
+    width: 100%;
+
+    .dashboard-charts {
+      @include grid-center;
+      grid-template-columns: 1fr 1fr;
+      width: 100%;
     }
   }
 
@@ -241,6 +247,6 @@ body {
   opacity: 1;
 }
 
-.sidebar-show {
+.navbar-show {
   top: 12rem;
 }

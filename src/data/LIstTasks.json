@@ -1,0 +1,656 @@
+{
+  "tasks": [
+    {
+      "id": "1",
+      "description": "Urgent bug fix in the checkout system",
+      "category": "development",
+      "startTime": "2025-02-01T23:15:00Z",
+      "endTime": "2025-02-01T23:45:00Z",
+      "durationMinutes": 30,
+      "priority": {
+        "level": 1,
+        "label": "Critical",
+        "color": "#cb9ca3",
+        "icon": "./src/assets/fire.png"
+      },
+      "state": "in-progress",
+      "isCompleted": false,
+      "updatedAt": "2025-02-01T23:15:00Z"
+    },
+    {
+      "id": "2",
+      "description": "Finalize homepage redesign",
+      "category": "design",
+      "startTime": "2025-02-01T10:10:00Z",
+      "endTime": "2025-02-01T12:10:00Z",
+      "durationMinutes": 120,
+      "priority": {
+        "level": 2,
+        "label": "High",
+        "color": "#bbb2cc",
+        "icon": "./src/assets/warning-s.png"
+      },
+      "state": "on-hold",
+      "isCompleted": true,
+      "updatedAt": "2025-02-01T10:10:00Z"
+    },
+    {
+      "id": "3",
+      "description": "Implement new authentication flow",
+      "category": "management",
+      "startTime": "2025-02-01T14:25:00Z",
+      "endTime": "2025-02-01T16:55:00Z",
+      "durationMinutes": 150,
+      "priority": {
+        "level": 3,
+        "label": "Moderate",
+        "color": "#e4b875",
+        "icon": "./src/assets/star.png"
+      },
+      "state": "done",
+      "isCompleted": false,
+      "updatedAt": "2025-02-01T14:25:00Z"
+    },
+    {
+      "id": "4",
+      "description": "Research new frontend libraries",
+      "category": "exercise",
+      "startTime": "2025-02-01T12:40:00Z",
+      "endTime": "2025-02-01T14:10:00Z",
+      "durationMinutes": 90,
+      "priority": {
+        "level": 4,
+        "label": "Low",
+        "color": "#86b5b2",
+        "icon": "./src/assets/flag.png"
+      },
+      "state": "on-hold",
+      "isCompleted": false,
+      "updatedAt": "2025-02-01T12:40:00Z"
+    },
+    {
+      "id": "5",
+      "description": "Plan next sprint goals",
+      "category": "research",
+      "startTime": "2025-02-01T13:55:00Z",
+      "endTime": "2025-02-01T15:25:00Z",
+      "durationMinutes": 90,
+      "priority": {
+        "level": 5,
+        "label": "Optional",
+        "color": "#b0bbbc",
+        "icon": "./src/assets/sprout.png"
+      },
+      "state": "on-hold",
+      "isCompleted": false,
+      "updatedAt": "2025-02-01T13:55:00Z"
+    },
+    {
+      "id": "6",
+      "description": "Fix navbar responsiveness",
+      "category": "exercise",
+      "startTime": "2025-02-01T15:50:00Z",
+      "endTime": "2025-02-01T16:50:00Z",
+      "durationMinutes": 60,
+      "priority": {
+        "level": 1,
+        "label": "Critical",
+        "color": "#cb9ca3",
+        "icon": "./src/assets/fire.png"
+      },
+      "state": "in-progress",
+      "isCompleted": false,
+      "updatedAt": "2025-02-01T15:50:00Z"
+    },
+    {
+      "id": "7",
+      "description": "Create onboarding tutorial",
+      "category": "content",
+      "startTime": "2025-02-01T18:05:00Z",
+      "endTime": "2025-02-01T20:05:00Z",
+      "durationMinutes": 120,
+      "priority": {
+        "level": 2,
+        "label": "High",
+        "color": "#bbb2cc",
+        "icon": "./src/assets/warning-s.png"
+      },
+      "state": "done",
+      "isCompleted": true,
+      "updatedAt": "2025-02-01T18:05:00Z"
+    },
+    {
+      "id": "8",
+      "description": "Optimize database queries",
+      "category": "development",
+      "startTime": "2025-02-01T19:45:00Z",
+      "endTime": "2025-02-01T21:45:00Z",
+      "durationMinutes": 120,
+      "priority": {
+        "level": 3,
+        "label": "Moderate",
+        "color": "#e4b875",
+        "icon": "./src/assets/star.png"
+      },
+      "state": "in-progress",
+      "isCompleted": false,
+      "updatedAt": "2025-02-01T19:45:00Z"
+    },
+    {
+      "id": "9",
+      "description": "Update documentation",
+      "category": "content",
+      "startTime": "2025-02-01T22:10:00Z",
+      "endTime": "2025-02-01T23:40:00Z",
+      "durationMinutes": 90,
+      "priority": {
+        "level": 4,
+        "label": "Low",
+        "color": "#86b5b2",
+        "icon": "./src/assets/flag.png"
+      },
+      "state": "on-hold",
+      "isCompleted": false,
+      "updatedAt": "2025-02-01T22:10:00Z"
+    },
+    {
+      "id": "10",
+      "description": "Deploy the new version",
+      "category": "work",
+      "startTime": "2025-02-01T10:20:00Z",
+      "endTime": "2025-02-01T12:20:00Z",
+      "durationMinutes": 120,
+      "priority": {
+        "level": 5,
+        "label": "Optional",
+        "color": "#b0bbbc",
+        "icon": "./src/assets/sprout.png"
+      },
+      "state": "done",
+      "isCompleted": true,
+      "updatedAt": "2025-02-01T10:20:00Z"
+    },
+    {
+      "id": "11",
+      "description": "Analyze performance metrics",
+      "category": "research",
+      "startTime": "2025-02-01T17:00:00Z",
+      "endTime": "2025-02-01T18:30:00Z",
+      "durationMinutes": 90,
+      "priority": {
+        "level": 3,
+        "label": "Moderate",
+        "color": "#e4b875",
+        "icon": "./src/assets/star.png"
+      },
+      "state": "in-progress",
+      "isCompleted": false,
+      "updatedAt": "2025-02-01T17:00:00Z"
+    },
+    {
+      "id": "12",
+      "description": "Fix security vulnerabilities",
+      "category": "development",
+      "startTime": "2025-02-01T20:00:00Z",
+      "endTime": "2025-02-01T21:00:00Z",
+      "durationMinutes": 60,
+      "priority": {
+        "level": 1,
+        "label": "Critical",
+        "color": "#cb9ca3",
+        "icon": "./src/assets/fire.png"
+      },
+      "state": "in-progress",
+      "isCompleted": false,
+      "updatedAt": "2025-02-01T20:00:00Z"
+    },
+
+    {
+      "id": "13",
+      "description": "Finalize homepage redesign",
+      "category": "development",
+      "startTime": "2025-02-01T10:10:00Z",
+      "endTime": "2025-02-01T12:10:00Z",
+      "durationMinutes": 120,
+      "priority": {
+        "level": 2,
+        "label": "High",
+        "color": "#bbb2cc",
+        "icon": "./src/assets/warning-s.png"
+      },
+      "state": "done",
+      "isCompleted": true,
+      "updatedAt": "2025-02-01T10:10:00Z"
+    },
+    {
+      "id": "14",
+      "description": "Implement new authentication flow",
+      "category": "research",
+      "startTime": "2025-02-01T14:25:00Z",
+      "endTime": "2025-02-01T16:55:00Z",
+      "durationMinutes": 150,
+      "priority": {
+        "level": 3,
+        "label": "Moderate",
+        "color": "#e4b875",
+        "icon": "./src/assets/star.png"
+      },
+      "state": "in-progress",
+      "isCompleted": false,
+      "updatedAt": "2025-02-01T14:25:00Z"
+    },
+
+    {
+      "id": "15",
+      "description": "Finalize homepage redesign",
+      "category": "design",
+      "startTime": "2025-02-01T10:10:00Z",
+      "endTime": "2025-02-01T12:10:00Z",
+      "durationMinutes": 120,
+      "priority": {
+        "level": 2,
+        "label": "High",
+        "color": "#bbb2cc",
+        "icon": "./src/assets/warning-s.png"
+      },
+      "state": "done",
+      "isCompleted": true,
+      "updatedAt": "2025-02-01T10:10:00Z"
+    },
+    {
+      "id": "16",
+      "description": "Implement new authentication flow",
+      "category": "research",
+      "startTime": "2025-02-01T14:25:00Z",
+      "endTime": "2025-02-01T16:55:00Z",
+      "durationMinutes": 150,
+      "priority": {
+        "level": 3,
+        "label": "Moderate",
+        "color": "#e4b875",
+        "icon": "./src/assets/star.png"
+      },
+      "state": "in-progress",
+      "isCompleted": false,
+      "updatedAt": "2025-02-01T14:25:00Z"
+    },
+
+    {
+      "id": "17",
+      "description": "Finalize homepage redesign",
+      "category": "design",
+      "startTime": "2025-02-01T10:10:00Z",
+      "endTime": "2025-02-01T12:10:00Z",
+      "durationMinutes": 120,
+      "priority": {
+        "level": 2,
+        "label": "High",
+        "color": "#bbb2cc",
+        "icon": "./src/assets/warning-s.png"
+      },
+      "state": "on-hold",
+      "isCompleted": true,
+      "updatedAt": "2025-02-01T10:10:00Z"
+    },
+    {
+      "id": "18",
+      "description": "Implement new authentication flow",
+      "category": "research",
+      "startTime": "2025-02-01T14:25:00Z",
+      "endTime": "2025-02-01T16:55:00Z",
+      "durationMinutes": 150,
+      "priority": {
+        "level": 3,
+        "label": "Moderate",
+        "color": "#e4b875",
+        "icon": "./src/assets/star.png"
+      },
+      "state": "in-progress",
+      "isCompleted": false,
+      "updatedAt": "2025-02-01T14:25:00Z"
+    },
+
+    {
+      "id": "19",
+      "description": "Finalize homepage redesign",
+      "category": "design",
+      "startTime": "2025-02-01T10:10:00Z",
+      "endTime": "2025-02-01T12:10:00Z",
+      "durationMinutes": 120,
+      "priority": {
+        "level": 2,
+        "label": "High",
+        "color": "#bbb2cc",
+        "icon": "./src/assets/warning-s.png"
+      },
+      "state": "on-hold",
+      "isCompleted": true,
+      "updatedAt": "2025-02-01T10:10:00Z"
+    },
+    {
+      "id": "20",
+      "description": "Implement new authentication flow",
+      "category": "development",
+      "startTime": "2025-02-01T14:25:00Z",
+      "endTime": "2025-02-01T16:55:00Z",
+      "durationMinutes": 150,
+      "priority": {
+        "level": 3,
+        "label": "Moderate",
+        "color": "#e4b875",
+        "icon": "./src/assets/star.png"
+      },
+      "state": "in-progress",
+      "isCompleted": false,
+      "updatedAt": "2025-02-01T14:25:00Z"
+    },
+
+    {
+      "id": "21",
+      "description": "Finalize homepage redesign",
+      "category": "design",
+      "startTime": "2025-02-01T10:10:00Z",
+      "endTime": "2025-02-01T12:10:00Z",
+      "durationMinutes": 120,
+      "priority": {
+        "level": 2,
+        "label": "High",
+        "color": "#bbb2cc",
+        "icon": "./src/assets/warning-s.png"
+      },
+      "state": "on-hold",
+      "isCompleted": true,
+      "updatedAt": "2025-02-01T10:10:00Z"
+    },
+    {
+      "id": "22",
+      "description": "Implement new authentication flow",
+      "category": "exercise",
+      "startTime": "2025-02-01T14:25:00Z",
+      "endTime": "2025-02-01T16:55:00Z",
+      "durationMinutes": 150,
+      "priority": {
+        "level": 3,
+        "label": "Moderate",
+        "color": "#e4b875",
+        "icon": "./src/assets/star.png"
+      },
+      "state": "in-progress",
+      "isCompleted": false,
+      "updatedAt": "2025-02-01T14:25:00Z"
+    },
+
+    {
+      "id": "23",
+      "description": "Finalize homepage redesign",
+      "category": "development",
+      "startTime": "2025-02-01T10:10:00Z",
+      "endTime": "2025-02-01T12:10:00Z",
+      "durationMinutes": 120,
+      "priority": {
+        "level": 2,
+        "label": "High",
+        "color": "#bbb2cc",
+        "icon": "./src/assets/warning-s.png"
+      },
+      "state": "done",
+      "isCompleted": true,
+      "updatedAt": "2025-02-01T10:10:00Z"
+    },
+    {
+      "id": "24",
+      "description": "Implement new authentication flow",
+      "category": "research",
+      "startTime": "2025-02-01T14:25:00Z",
+      "endTime": "2025-02-01T16:55:00Z",
+      "durationMinutes": 150,
+      "priority": {
+        "level": 3,
+        "label": "Moderate",
+        "color": "#e4b875",
+        "icon": "./src/assets/star.png"
+      },
+      "state": "in-progress",
+      "isCompleted": false,
+      "updatedAt": "2025-02-01T14:25:00Z"
+    },
+    {
+      "id": "25",
+      "description": "Finalize homepage redesign",
+      "category": "design",
+      "startTime": "2025-02-01T10:10:00Z",
+      "endTime": "2025-02-01T12:10:00Z",
+      "durationMinutes": 120,
+      "priority": {
+        "level": 2,
+        "label": "High",
+        "color": "#bbb2cc",
+        "icon": "./src/assets/warning-s.png"
+      },
+      "state": "done",
+      "isCompleted": true,
+      "updatedAt": "2025-02-01T10:10:00Z"
+    },
+    {
+      "id": "26",
+      "description": "Implement new authentication flow",
+      "category": "management",
+      "startTime": "2025-02-01T14:25:00Z",
+      "endTime": "2025-02-01T16:55:00Z",
+      "durationMinutes": 150,
+      "priority": {
+        "level": 3,
+        "label": "Moderate",
+        "color": "#e4b875",
+        "icon": "./src/assets/star.png"
+      },
+      "state": "in-progress",
+      "isCompleted": false,
+      "updatedAt": "2025-02-01T14:25:00Z"
+    },
+    {
+      "id": "27",
+      "description": "Finalize homepage redesign",
+      "category": "work",
+      "startTime": "2025-02-01T10:10:00Z",
+      "endTime": "2025-02-01T12:10:00Z",
+      "durationMinutes": 120,
+      "priority": {
+        "level": 2,
+        "label": "High",
+        "color": "#bbb2cc",
+        "icon": "./src/assets/warning-s.png"
+      },
+      "state": "done",
+      "isCompleted": true,
+      "updatedAt": "2025-02-01T10:10:00Z"
+    },
+    {
+      "id": "28",
+      "description": "Implement new authentication flow",
+      "category": "management",
+      "startTime": "2025-02-01T14:25:00Z",
+      "endTime": "2025-02-01T16:55:00Z",
+      "durationMinutes": 150,
+      "priority": {
+        "level": 3,
+        "label": "Moderate",
+        "color": "#e4b875",
+        "icon": "./src/assets/star.png"
+      },
+      "state": "in-progress",
+      "isCompleted": false,
+      "updatedAt": "2025-02-01T14:25:00Z"
+    },
+    {
+      "id": "29",
+      "description": "Finalize homepage redesign",
+      "category": "work",
+      "startTime": "2025-02-01T10:10:00Z",
+      "endTime": "2025-02-01T12:10:00Z",
+      "durationMinutes": 120,
+      "priority": {
+        "level": 2,
+        "label": "High",
+        "color": "#bbb2cc",
+        "icon": "./src/assets/warning-s.png"
+      },
+      "state": "done",
+      "isCompleted": true,
+      "updatedAt": "2025-02-01T10:10:00Z"
+    },
+    {
+      "id": "30",
+      "description": "Implement new authentication flow",
+      "category": "management",
+      "startTime": "2025-02-01T14:25:00Z",
+      "endTime": "2025-02-01T16:55:00Z",
+      "durationMinutes": 150,
+      "priority": {
+        "level": 3,
+        "label": "Moderate",
+        "color": "#e4b875",
+        "icon": "./src/assets/star.png"
+      },
+      "state": "in-progress",
+      "isCompleted": false,
+      "updatedAt": "2025-02-01T14:25:00Z"
+    },
+    {
+      "id": "31",
+      "description": "Finalize homepage redesign",
+      "category": "development",
+      "startTime": "2025-02-01T10:10:00Z",
+      "endTime": "2025-02-01T12:10:00Z",
+      "durationMinutes": 120,
+      "priority": {
+        "level": 2,
+        "label": "High",
+        "color": "#bbb2cc",
+        "icon": "./src/assets/warning-s.png"
+      },
+      "state": "done",
+      "isCompleted": true,
+      "updatedAt": "2025-02-01T10:10:00Z"
+    },
+    {
+      "id": "32",
+      "description": "Implement new authentication flow",
+      "category": "management",
+      "startTime": "2025-02-01T14:25:00Z",
+      "endTime": "2025-02-01T16:55:00Z",
+      "durationMinutes": 150,
+      "priority": {
+        "level": 3,
+        "label": "Moderate",
+        "color": "#e4b875",
+        "icon": "./src/assets/star.png"
+      },
+      "state": "in-progress",
+      "isCompleted": false,
+      "updatedAt": "2025-02-01T14:25:00Z"
+    },
+    {
+      "id": "33",
+      "description": "Finalize homepage redesign",
+      "category": "development",
+      "startTime": "2025-02-01T10:10:00Z",
+      "endTime": "2025-02-01T12:10:00Z",
+      "durationMinutes": 120,
+      "priority": {
+        "level": 2,
+        "label": "High",
+        "color": "#bbb2cc",
+        "icon": "./src/assets/warning-s.png"
+      },
+      "state": "done",
+      "isCompleted": true,
+      "updatedAt": "2025-02-01T10:10:00Z"
+    },
+    {
+      "id": "34",
+      "description": "Implement new authentication flow",
+      "category": "management",
+      "startTime": "2025-02-01T14:25:00Z",
+      "endTime": "2025-02-01T16:55:00Z",
+      "durationMinutes": 150,
+      "priority": {
+        "level": 3,
+        "label": "Moderate",
+        "color": "#e4b875",
+        "icon": "./src/assets/star.png"
+      },
+      "state": "in-progress",
+      "isCompleted": false,
+      "updatedAt": "2025-02-01T14:25:00Z"
+    },
+    {
+      "id": "35",
+      "description": "Finalize homepage redesign",
+      "category": "development",
+      "startTime": "2025-02-01T10:10:00Z",
+      "endTime": "2025-02-01T12:10:00Z",
+      "durationMinutes": 120,
+      "priority": {
+        "level": 2,
+        "label": "High",
+        "color": "#bbb2cc",
+        "icon": "./src/assets/warning-s.png"
+      },
+      "state": "on-hold",
+      "isCompleted": true,
+      "updatedAt": "2025-02-01T10:10:00Z"
+    },
+    {
+      "id": "36",
+      "description": "Implement new authentication flow",
+      "category": "management",
+      "startTime": "2025-02-01T14:25:00Z",
+      "endTime": "2025-02-01T16:55:00Z",
+      "durationMinutes": 150,
+      "priority": {
+        "level": 3,
+        "label": "Moderate",
+        "color": "#e4b875",
+        "icon": "./src/assets/star.png"
+      },
+      "state": "in-progress",
+      "isCompleted": false,
+      "updatedAt": "2025-02-01T14:25:00Z"
+    },
+    {
+      "id": "37",
+      "description": "Finalize homepage redesign",
+      "category": "development",
+      "startTime": "2025-02-01T10:10:00Z",
+      "endTime": "2025-02-01T12:10:00Z",
+      "durationMinutes": 120,
+      "priority": {
+        "level": 2,
+        "label": "High",
+        "color": "#bbb2cc",
+        "icon": "./src/assets/warning-s.png"
+      },
+      "state": "on-hold",
+      "isCompleted": true,
+      "updatedAt": "2025-02-01T10:10:00Z"
+    },
+    {
+      "id": "38",
+      "description": "Implement new authentication flow",
+      "category": "management",
+      "startTime": "2025-02-01T14:25:00Z",
+      "endTime": "2025-02-01T16:55:00Z",
+      "durationMinutes": 150,
+      "priority": {
+        "level": 3,
+        "label": "Moderate",
+        "color": "#e4b875",
+        "icon": "./src/assets/star.png"
+      },
+      "state": "in-progress",
+      "isCompleted": false,
+      "updatedAt": "2025-02-01T14:25:00Z"
+    }
+  ]
+}

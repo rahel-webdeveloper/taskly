@@ -1,18 +1,34 @@
 import { atom } from "nanostores";
 import { loadTasksFromStorage, updateViewOnTask } from "./TaskLogic";
 import { updateTaskCount, addTaskToHtml } from "./TaskRender";
+import APIClient from "../../services/api-cleint";
+import { listTask } from "../../App.js";
 
 export const Id = atom(0);
+
+export const taskDescription = atom("");
+export const category = atom("");
+export const priority = atom({
+  level: 0,
+  label: "",
+  color: "",
+  icon: "",
+});
+
 export const stateName = atom("all");
 export const visibleTasks = atom([]);
 
 export const startTime = atom(0);
 export const endTime = atom(0);
 
+export const durationMinutes = atom(0);
+
 export const startAmPm = atom("AM");
 export const endAmPm = atom("PM");
 
-export const listTask = atom(loadTasksFromStorage() || []);
+const apiClient = new APIClient();
+
+if (!loadTasksFromStorage()) apiClient.getTasks();
 
 const TaskEvents = (() => {
   // completing a task
@@ -21,10 +37,10 @@ const TaskEvents = (() => {
       listTask
         .get()
         .map((task) =>
-          task.id === Id.get()
-            ? task.state === "active"
-              ? { ...task, state: "complete" }
-              : { ...task, state: "active" }
+          String(task.id) === Id.get()
+            ? task.state === "in-progress"
+              ? { ...task, state: "done" }
+              : { ...task, state: "in-progress" }
             : task
         )
     );
@@ -37,9 +53,9 @@ const TaskEvents = (() => {
     updateViewOnTask();
   };
 
-  // deleting all complete tasks
+  // deleting all done tasks
   const deletingCompleteTasks = () => {
-    listTask.set(listTask.get().filter((task) => task.state !== "complete"));
+    listTask.set(listTask.get().filter((task) => task.state !== "done"));
     updateViewOnTask();
   };
 
@@ -53,16 +69,20 @@ const TaskEvents = (() => {
 
   // Save edited task
   const saveEditedTask = (editInput, editBox) => {
+    const updatedAt = new Date();
+
     if (editInput.value.length < 7 || editInput.length > 70) return;
 
     listTask.set(
-      listTask
-        .get()
-        .map((task) =>
-          task.id === Id.get()
-            ? { ...task, description: editInput.value }
-            : task
-        )
+      listTask.get().map((task) =>
+        task.id === Id.get()
+          ? {
+              ...task,
+              description: editInput.value,
+              updatedAt: updatedAt.toISOString(),
+            }
+          : task
+      )
     );
     editBox.style.display = "none";
 

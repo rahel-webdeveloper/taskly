@@ -1,8 +1,7 @@
 .const-tasks-section {
   @include grid-center;
   grid-template-columns: 1fr;
-  border: 1px solid $thirdly-color;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
 }
 
 .first-section {
@@ -10,7 +9,7 @@
   width: 100%;
   background-color: $primary-color;
   text-align: center;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
 }
 
 .form-container {
@@ -52,9 +51,9 @@
   opacity: 0.95;
 }
 
-.form #taskForm {
+.form #task-description {
   background-color: $secondary-color;
-  padding: 0.65rem 1.5rem;
+  padding: 0.77rem 1.5rem;
   border-radius: 1.5rem;
   color: $text-color;
   border: none;
@@ -67,18 +66,13 @@
   outline: none;
   border: none;
   background-color: $secondary-color;
-  padding: 0.6rem 0.5rem;
+  padding: 0.7rem 0.5rem;
   font-size: 0.7rem;
   text-align: center;
   border-radius: 1.5rem;
   color: $text-color;
   font-family: inherit;
   width: 70%;
-}
-
-#taskForm:focus,
-#category:focus {
-  border-color: $light-low-color;
 }
 
 .priority-of-task {
@@ -113,7 +107,7 @@
 
 #start-time-label,
 #end-time-label {
-  color: $black-color;
+  color: $primary-color;
   border-radius: 0.7rem;
   padding: 0 0.3rem;
   font-weight: 600;
@@ -201,7 +195,7 @@ input[type="number"]::-webkit-outer-spin-button {
   left: 0px;
   border-radius: 0.2rem 1rem 1rem 0.2rem;
   background-color: $moderate-color;
-  color: $black-color;
+  color: $primary-color;
   transition: 0.4s;
   user-select: none;
   transform: translate(10px);
@@ -217,26 +211,25 @@ input[type="number"]::-webkit-outer-spin-button {
   content: "PM";
 }
 
-.form .create-btn {
+.create-btn {
   background-color: $btn-color;
   border-radius: 2rem;
-  color: $text-color;
+  color: $gray-color;
   font-family: inherit;
   cursor: pointer;
-  padding: 0.77rem 1.3rem;
-  font-size: 0.78rem;
-  font-weight: 500;
-  transition: opacity 0.3s;
+  padding: 0.77rem 1.5rem;
+  font-size: 0.8rem;
+  font-weight: 750;
+  transition: all 0.3s ease-in;
 }
 
-.form .create-btn:hover {
+.create-btn:hover {
   opacity: 0.9;
+  scale: 1.015;
 }
 
-.form button > img {
-  margin-left: 0.1rem;
-  margin-bottom: -0.3rem;
-  width: 1rem;
+.create-btn i {
+  margin-left: 0.3rem;
 }
 
 .error-message,
@@ -341,8 +334,8 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .task-done-time span {
   padding: 0.44rem 0.7rem;
-  background-color: #3e425d31;
-  color: #f3f3f3d2;
+  background-color: $light-dark-blue-color;
+  color: $text-color;
   border-radius: 2rem;
   font-weight: 400;
   font-size: 0.93rem;
@@ -357,8 +350,8 @@ input[type="number"]::-webkit-outer-spin-button {
 
 /* Task list */
 .task-list-container {
-  background-color: $secondary-color;
-  border-radius: 2.5rem 2.5rem 0.7rem 0.7rem;
+  background-color: $light-secondary-color;
+  border-radius: 2.5rem 2.5rem 0.5rem 0.7rem;
   padding: 0.7rem;
   padding-bottom: 0;
   text-align: end;
@@ -379,7 +372,6 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .custom-select .selected-option {
   cursor: pointer;
-  text-transform: capitalize;
   display: flex;
   column-gap: 3px;
   color: $text-color;
@@ -412,7 +404,6 @@ input[type="number"]::-webkit-outer-spin-button {
   z-index: 10;
   border-radius: 1rem;
   width: 7.7rem;
-  text-transform: capitalize;
   line-height: 1.5;
 }
 
@@ -427,17 +418,19 @@ input[type="number"]::-webkit-outer-spin-button {
   border-radius: 1rem;
 }
 
-.task-list-container .task-length {
+.task-length {
   display: flex;
 }
 .task-length .length {
   background-color: $count-color;
   color: $primary-color;
-  padding: 0.12rem 0.37rem;
-  border-radius: 1.5rem;
+  min-width: 1.2rem;
+  padding: 0.14rem 0.37rem;
+  border-radius: 2rem;
   margin-left: 0.7rem;
   text-align: center;
   font-size: 0.77rem;
+  text-align: center;
 }
 
 /* List of task */
@@ -461,12 +454,41 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .list-task {
-  text-align: left;
+  text-align: center;
   margin-inline: 0.7rem;
-  margin-block: 1.5rem;
-  padding-top: 0.34rem;
+  margin-block: 1rem;
+  padding: 0.34rem 0.5rem 0;
   z-index: 0;
   border-radius: 2rem;
+}
+
+.state-of-task {
+  margin-bottom: 0.23rem;
+  @include grid-center;
+
+  p {
+    @include flex-center;
+    font-size: 0.83rem;
+    position: relative;
+
+    i {
+      padding-right: 0.3rem;
+      vertical-align: middle;
+    }
+  }
+}
+
+#done-task i {
+  color: $complete-color;
+  font-size: 0.65rem;
+}
+#in-progress-task i {
+  color: $orange-color;
+  font-size: 0.5rem;
+}
+#on-hold-task i {
+  font-size: 0.55rem;
+  color: $btn-color;
 }
 
 .list-task:last-of-type {
@@ -476,13 +498,14 @@ input[type="number"]::-webkit-outer-spin-button {
 .list-task-div {
   @include flex-center;
   width: 100%;
+  text-align: left;
 }
 
 .delete-icon-svg,
-.complete-icon-svg {
+.done-icon-svg {
   fill: $text-color;
   width: 19px;
-  background-color: $thirdly-color;
+  background-color: $thirtiary-color;
   border-radius: 50%;
   padding: 4px 4.5px;
   cursor: pointer;
@@ -498,15 +521,16 @@ input[type="number"]::-webkit-outer-spin-button {
 .task-description-div p {
   font-size: 1rem;
   word-break: break-all;
+  margin-bottom: 0.2rem;
 }
 
 .task-current-time {
   font-size: 0.8rem;
-  color: $thirday-light-color;
+  color: $gray-color;
 }
 
 .task-description-div::selection {
-  background-color: $thirdly-color;
+  background-color: $thirtiary-color;
 }
 
 .task-left-div {
@@ -520,9 +544,9 @@ input[type="number"]::-webkit-outer-spin-button {
   color: $optional-color;
   text-align: end;
   cursor: pointer;
-  border: 3px solid $thirdly-color;
+  border: 3px solid $thirtiary-color;
   border-radius: 50%;
-  background-color: $thirdly-color;
+  background-color: $thirtiary-color;
 }
 
 .task-edit-icon:hover {
@@ -533,14 +557,19 @@ input[type="number"]::-webkit-outer-spin-button {
   background-color: $delete-color;
 }
 
-.complete .complete-icon-svg {
+.done .done-icon-svg {
   fill: $primary-color;
   outline: 4px solid #acd8aa4f;
   background-color: $checked-color;
 }
 
-.complete .delete-icon-svg {
+.done .delete-icon-svg {
   outline: 4px solid #ff72723e;
+}
+
+.on-hold .list-task-div {
+  filter: grayscale(100%);
+  opacity: 0.5;
 }
 
 .task-edit-box {
@@ -587,7 +616,7 @@ input[type="number"]::-webkit-outer-spin-button {
   color: $text-color;
 }
 #cancel {
-  background-color: $thirdly-color;
+  background-color: $thirtiary-color;
 }
 #save {
   background-color: $btn-color;
@@ -604,7 +633,7 @@ input[type="number"]::-webkit-outer-spin-button {
   background-color: $backdrop-filter-color;
   width: 100%;
   border-radius: 1.5rem 1.5rem 0rem 0rem;
-  border-top: 1px solid $thirdly-color;
+  border-top: 1px solid $light-border-color;
   backdrop-filter: blur(12px);
   padding-bottom: 1rem;
   padding-top: 0.7rem;
@@ -621,6 +650,9 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 .all-delte-btn:hover {
   opacity: 0.8;
+  &:hover .all-delte-icon {
+    width: 1.6rem;
+  }
 }
 .all-delte-icon {
   width: 1.5rem;
@@ -628,50 +660,69 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .delete-ask-div {
   position: absolute;
-  top: 50%;
+  top: 47%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #2c313f20;
-  width: 18rem;
+  background-color: $backdrop-filter-color;
+  width: 20rem;
   border-radius: 0.77rem;
   text-align: center;
-  border: 1px solid #86b5b23a;
+  border: 1px solid $thirtiary-light-color;
   backdrop-filter: blur(10px);
   padding: 0.7rem;
   color: $text-color;
   display: none;
+
+  h3 {
+    margin-bottom: 0.7rem;
+    font-weight: 550;
+    font-size: 1.12rem;
+    // color: $delete-color;
+  }
+}
+
+#exclamation-icon i {
+  display: block;
+  margin-top: 1rem;
+  margin-bottom: 0.7rem;
+  color: $delete-color;
+  font-size: 2.5rem;
 }
 
 .ask-div-header {
-  font-size: 0.85rem;
-  margin-block: 1rem;
+  font-size: 0.75rem;
+  margin-bottom: 1rem;
   font-weight: 400;
   line-height: 1.4;
+  color: $text-color;
 }
 
 .ask-btns {
-  margin-top: 1rem;
+  margin-bottom: 0.3rem;
   @include flex-center;
-  gap: 0.55rem;
+  gap: 0.7rem;
 }
 
 .ask-div-btn {
   cursor: pointer;
   font-family: inherit;
-  padding: 0.43rem 1.57rem;
-  font-size: 0.83rem;
+  padding: 0.45rem 1.6rem;
+  font-size: 0.77rem;
   border-radius: 2rem;
   transition: opacity 0.4s;
-  color: $text-color;
+  color: $primary-color;
 }
+
 #no {
-  background-color: $thirdly-color;
+  background-color: $gray-color;
 }
 #yes {
   background-color: $delete-color;
+  color: $text-color;
 }
 .ask-div-btn:hover {
-  opacity: 0.85;
+  opacity: 0.9;
+  transform: scale(1.015);
 }
 
 /* third section percentage */
@@ -680,82 +731,67 @@ input[type="number"]::-webkit-outer-spin-button {
   max-width: 700px;
   width: 100%;
   text-align: center;
-  padding-bottom: 1rem;
-  border-radius: 1rem;
+  padding: 1rem 0.5rem;
+  text-align: start;
+  border-bottom-right-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+  border-top: 1px solid $light-dark-blue-color;
+  margin-top: -0.05rem;
 }
 
-.percent-of-task {
-  @include grid-center;
-  grid-template-columns: repeat(3, 1fr);
-  padding: 1rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid $thirdly-color;
-  width: 100%;
-}
+.today-tasks-report {
+  @include flex-center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
 
-.percent-of-task .circle-percent .circle {
-  width: 4.2rem;
-  height: 4.2rem;
-  border-radius: 50%;
-  background-color: $thirdly-color;
-  position: relative;
-  @include grid-center;
-}
+  .today-box {
+    background-color: $light-secondary-color;
+    padding: 0.77rem;
+    border-radius: 0.7rem;
+    max-width: 10rem;
+    width: 100%;
+    @include grid-center;
+    row-gap: 0.7rem;
 
-.percent-of-task .circle-percent:nth-child(1) .circle {
-  background-color: $thirdly-color;
-}
+    .today-details {
+      gap: 0.3rem;
+      text-transform: lowercase;
+      width: 100%;
+      @include flex-space;
+      justify-content: start;
+      column-gap: 0.45rem;
 
-.percent-of-task .circle-percent:nth-child(2) .circle {
-  background-color: $orange-color;
-}
+      .today-icon {
+        padding: 0.45rem 0.6rem;
+        display: inline-block;
+        color: $text-color;
+        background-color: $primary-color;
+        border-radius: 0.5rem;
+      }
 
-.circle-percent:nth-child(2) .circle::after,
-.circle-percent:nth-child(3) .circle::after {
-  content: "";
-  width: 0.7rem;
-  height: 0.7rem;
-  background-color: $orange-color;
-  position: absolute;
-  top: 0;
-  border-radius: 50%;
-}
+      p {
+        font-size: 0.97rem;
+        color: $gray-color;
+      }
 
-.circle-percent:nth-child(3) .circle {
-  background-color: $complete-color;
-}
-.circle-percent:nth-child(3) .circle::after {
-  background-color: $complete-color;
-}
+      #done-icon {
+        color: $btn-color;
+      }
 
-.circle-percent:nth-child(1) .circle h2 {
-  font-size: 1.3rem;
-}
+      #time-icon {
+        color: $orange-color;
+      }
 
-.circle-percent:nth-child(1) .circle div {
-  background-color: $secondary-color;
-}
+      #lenght-icon {
+        color: $low-color;
+      }
+    }
 
-.circle div {
-  width: 2.8rem;
-  height: 2.8rem;
-  background-color: $secondary-color;
-  border-radius: 50%;
-  @include grid-center;
-  font-size: 0.7rem;
-  font-weight: 900;
-  position: relative;
-}
-
-.circle-percent:nth-child(2) .head-percentage::after {
-  background-color: $orange-color;
-}
-.circle-percent:nth-child(3) .head-percentage::after {
-  background-color: $complete-color;
-}
-
-.percent-of-task h3 {
-  font-size: 0.77rem;
-  margin-top: 0.7rem;
-  font-weight: 500;
+    h3 {
+      margin-block: 0.2rem;
+      color: $text-color;
+      font-size: 1.2rem;
+    }
+  }
 }

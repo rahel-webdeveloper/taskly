@@ -1,5 +1,4 @@
 import { updateCountdownCircle } from "./TimerLogic";
-import { persistentAtom } from "@nanostores/persistent";
 import { atom } from "nanostores";
 
 // Timer state
@@ -16,8 +15,6 @@ export const elapsedTime = atom(null);
 export const animationId = atom(null);
 
 export const startTimer = () => {
-  console.log("nanostores works!");
-
   isStarted.set(true);
   isPaused.set(false);
   startTime.set(Date.now());
@@ -48,22 +45,3 @@ export const setAnimationId = (totalSelectedSeconds) => {
     requestAnimationFrame(() => updateCountdownCircle(totalSelectedSeconds))
   );
 };
-
-// set local storage
-// const userListStorage = persistentAtom("userList", [{ id: 1, user: "rahel" }], {
-//   encode: JSON.stringify,
-//   decode: JSON.parse,
-// });
-
-// const currentUser = userListStorage.get();
-
-// if (!currentUser.find((task) => task.id === 2)) {
-//   userListStorage.set([
-//     ...currentUser,
-//     { id: userListStorage.get().length + 1, user: "Khatib" },
-//   ]);
-// }
-
-// console.log(userListStorage.get());
-
-// export default { isStarted};

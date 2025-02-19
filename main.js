@@ -1,9 +1,9 @@
 import App from "./src/App";
 import Router from "./src/routes";
 
-function Main() {
+const Main = () => {
   App();
   Router.init();
-}
+};
 
 Main();

@@ -7,6 +7,15 @@ export const priorityColors = [
   "#b0bbbc",
 ];
 
+export const priorityLabels = [
+  null,
+  "Critical",
+  "High",
+  "Moderate",
+  "Low",
+  "Optional",
+];
+
 export const priorityIcons = [
   null,
   "./src/assets/fire.png",

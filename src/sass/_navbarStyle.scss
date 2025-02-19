@@ -1,0 +1,75 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.log-img {
+  width: 2.25rem;
+  border-radius: 2rem;
+  padding-top: 0.2rem;
+  transition: scale 0.1s ease-in;
+
+  &:hover {
+    scale: 1.07;
+  }
+}
+
+.navbar-menu {
+  position: fixed;
+  top: 2rem;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background-color: $backdrop-filter-color;
+  backdrop-filter: blur(15px);
+  border-radius: 2rem;
+  padding: 0.3rem 0.77rem;
+  max-width: 24rem;
+  @include flex-space;
+  column-gap: 0.7rem;
+  border: 1px solid $thirtiary-light-color;
+}
+
+.navbar-links {
+  @include flex-center;
+  column-gap: 0.3rem;
+  border: 1px solid $light-border-color;
+  padding: 0.2rem 0.3rem;
+  border-radius: 2rem;
+
+  a {
+    @include flex-space;
+    column-gap: 0.2rem;
+    font-size: 1.25rem;
+    color: $text-color;
+    letter-spacing: 0.5px;
+    font-family: $DM-Sans;
+  }
+
+  span {
+    width: 0;
+    transform: scale(0);
+    font-size: 0.7rem;
+    transition: transform 0.2s ease;
+  }
+}
+
+.navbar-links a:hover {
+  transition: all 0.4s ease-in-out;
+  background-color: $thirtiary-light-color;
+  padding: 0.12rem 0.5rem;
+  border-radius: 1rem;
+}
+
+.active-link {
+  transition: all 0.3s ease-in;
+  background-color: $thirtiary-light-color;
+  padding: 0.1rem 0.5rem;
+  border-radius: 1rem;
+
+  span {
+    transform: scale(1);
+    width: 100%;
+  }
+}

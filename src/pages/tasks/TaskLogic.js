@@ -1,20 +1,24 @@
 import TaskEvents, {
-  listTask,
   Id,
+  taskDescription,
+  category,
+  priority,
   stateName,
   visibleTasks,
   startTime,
   endTime,
+  durationMinutes,
   startAmPm,
   endAmPm,
 } from "./store.js";
+import { addTaskToHtml, addToDetailsCard } from "./TaskRender.js";
+import { addAngleBracket } from "./TaskRender.js";
 import {
-  addTaskToHtml,
-  addToDetailsCard,
-  showPercentage,
-} from "./TaskRender.js";
-import { addCheck } from "./TaskRender.js";
-import { priorityIcons, priorityColors } from "../../services/helper.js";
+  priorityIcons,
+  priorityColors,
+  priorityLabels,
+} from "../../services/helper.js";
+import { listTask } from "../../App.js";
 
 const {
   completingTask,
@@ -32,7 +36,7 @@ export default function constTasksLogic() {
     constTasksSection.addEventListener("click", eventsHandler);
 
     onSelectedState(listTask.get(), stateName.get());
-    submitFornFunc();
+    submitForm();
     updateViewOnTask();
   }
 }
@@ -42,7 +46,7 @@ const eventsHandler = (event) => {
   const customSelect = document.getElementById("custom_select");
   const filterList = document.getElementById("filter_list");
   const filterOptions = document.querySelectorAll(".option");
-  const stateElement = document.querySelector(".state-name");
+  const filterNameShowEl = document.querySelector(".state-name");
 
   const editBox = document.querySelector(".task-edit-box");
   const editInput = document.getElementById("task-edit-input");
@@ -53,7 +57,7 @@ const eventsHandler = (event) => {
   const target = event.target;
   const getAttributeId = target.getAttribute("data-id");
 
-  if (target.closest(".complete-icon-svg")) {
+  if (target.closest(".done-icon-svg")) {
     Id.set(getAttributeId);
     completingTask();
   }
@@ -82,22 +86,31 @@ const eventsHandler = (event) => {
 
   filterOptions.forEach((option) => {
     option.addEventListener("click", function () {
-      stateElement.textContent = option.dataset.value + " tasks";
-      stateElement.dataset.value = option.dataset.value;
+      filterNameShowEl.textContent = `${
+        (option.dataset.value === "all" && "All") ||
+        (option.dataset.value === "done" && "Done") ||
+        (option.dataset.value === "in-progress" && "In progress") ||
+        (option.dataset.value === "on-hold" && "On hold")
+      } Tasks`;
+      filterNameShowEl.dataset.value = option.dataset.value;
 
       onSelectedState(listTask.get(), option.dataset.value);
 
       filterList.style.display = "none";
 
       // Adding the angle brackets
-      addCheck(filterOptions, option.dataset.value, stateElement.dataset.value);
+      addAngleBracket(
+        filterOptions,
+        option.dataset.value,
+        filterNameShowEl.dataset.value
+      );
     });
   });
 
   if (target.closest(".all-delte-btn") && listTask.get().length !== 0)
     askDivStyle.display = "block";
 
-  // Ask for deleting all complete tasks
+  // Ask for deleting all done tasks
   if (target.closest("#no")) askDivStyle.display = "none";
 
   if (target.closest("#yes")) {
@@ -107,88 +120,79 @@ const eventsHandler = (event) => {
   }
 };
 
-function submitFornFunc() {
+function submitForm() {
   const form = document.getElementById("form");
-  const cateErrEl = document.getElementById("category-error");
-  const timeErrEl = document.getElementById("time-error");
-  const prioErrEl = document.getElementById("priority-error-message");
 
-  let [priority, priorityColor, priorityIcon] = [0, "", ""];
-
-  // Taking the priority data
-  const priorityKeys = document.querySelectorAll(".priority-of-task span");
-  priorityKeys.forEach((key, index) => {
-    key.addEventListener("click", function () {
-      priority = parseInt(key.getAttribute("data-priority"));
-
-      priorityColor = priorityColors[index + 1];
-      priorityIcon = priorityIcons[index + 1];
-
-      nullValidation(priority, prioErrEl);
-    });
+  // Check validation
+  form.addEventListener("change", function () {
+    setPriorityData();
+    setTimeData(form);
+    validationOfFormData();
   });
 
   form.addEventListener("submit", function (event) {
     event.preventDefault();
-    let formData = new FormData(form);
 
-    const startCheckbox = formData.get("startTimeCheckbox");
-    const endCheckbox = formData.get("endTimeCheckbox");
-    timeCalculation.findAmPm(startCheckbox, endCheckbox);
+    if (validationOfFormData()) {
+      addTaskToList();
 
-    startTime.set(
-      timeCalculation.convertTo24Hour(
-        parseInt(formData.get("startHour")),
-        parseInt(formData.get("startMinutes")),
-        startAmPm.get()
-      )
-    );
-
-    endTime.set(
-      timeCalculation.convertTo24Hour(
-        parseInt(formData.get("endHour")),
-        parseInt(formData.get("endMinutes")),
-        endAmPm.get()
-      )
-    );
-
-    const categoryValue = formData.get("category");
-
-    if (!nullValidation(categoryValue, cateErrEl)) return;
-
-    if (!nullValidation(priority, prioErrEl)) return;
-
-    if (!validationOfEqualTime(startTime.get(), endTime.get(), timeErrEl))
-      return;
-
-    // Calculate total time differece
-    const { hours, minutes } = timeCalculation.calculateTimeDifference(
-      startTime.get(),
-      endTime.get()
-    );
-
-    // Adding custome data to Form Data
-    formData.append("minutesDifference", minutes);
-    formData.append("hourDifference", hours);
-    formData.append("taskPrioriy", priority);
-    formData.append("priorityColor", priorityColor);
-    formData.append("priorityIcon", priorityIcon);
-    formData.append("startAmPm", startAmPm.get());
-    formData.append("endAmPm", endAmPm.get());
-
-    // Convert formData Object to JS regular object
-    let objFormData = Object.fromEntries(formData.entries());
-    addTask(objFormData);
-
-    // reset form
-    form.reset();
-    priority = 0;
-  });
-
-  form.addEventListener("change", function () {
-    validationOfFormData(priority);
+      // Reset from
+      form.reset();
+      priority.set({
+        level: 0,
+        label: "",
+        color: "",
+        icon: "",
+      });
+    }
   });
 }
+
+const setPriorityData = () => {
+  const priorityKeys = document.querySelectorAll(".priority-of-task span");
+  const prioErrEl = document.getElementById("priority-error-message");
+
+  priorityKeys.forEach((key, index) => {
+    key.addEventListener("click", function () {
+      priority.set({
+        level: parseInt(key.getAttribute("data-priority")),
+        label: priorityLabels[index + 1],
+        color: priorityColors[index + 1],
+        icon: priorityIcons[index + 1],
+      });
+
+      nullValidation(priority.get().level, prioErrEl);
+    });
+  });
+};
+
+const setTimeData = (form) => {
+  const formData = new FormData(form);
+
+  const startCheckbox = formData.get("startTimeCheckbox");
+  const endCheckbox = formData.get("endTimeCheckbox");
+  timeCalculation.findAmPm(startCheckbox, endCheckbox);
+
+  startTime.set(
+    timeCalculation.convertTo24Hour(
+      parseInt(formData.get("startHour")),
+      parseInt(formData.get("startMinutes")),
+      startAmPm.get()
+    )
+  );
+
+  endTime.set(
+    timeCalculation.convertTo24Hour(
+      parseInt(formData.get("endHour")),
+      parseInt(formData.get("endMinutes")),
+      endAmPm.get()
+    )
+  );
+
+  durationMinutes.set(
+    timeCalculation.calculateTimeDifference(startTime.get(), endTime.get())
+  );
+};
 
 class TimeCalculation {
   findAmPm(startCheckbox, endCheckbox) {
@@ -199,85 +203,63 @@ class TimeCalculation {
   convertTo24Hour(hours, minutes, amPm) {
     if (amPm === "PM" && hours !== 12) hours += 12;
     if (amPm === "AM" && hours === 12) hours = 0;
-    return hours * 60 + minutes;
+
+    const isoFormate = this.convertToISO(hours, minutes);
+
+    return new Date(isoFormate);
+  }
+
+  convertToISO(hours, minutes) {
+    const now = new Date();
+    now.setHours(hours, minutes, 0, 0);
+
+    return hours && minutes && now.toISOString();
   }
 
   calculateTimeDifference(startTime, endTime) {
-    if (endTime < startTime) endTime += 24 * 60;
-
-    const TotalMinutesDifferece = endTime - startTime;
-    const hours = Math.floor(TotalMinutesDifferece / 60);
-    const minutes = TotalMinutesDifferece % 60;
-
-    return { hours, minutes };
-  }
-
-  currentDate() {
-    let nowDate = new Date(),
-      minutes = nowDate.getMinutes(),
-      hours = nowDate.getHours(),
-      amPm = "AM";
-
-    if (minutes < 10) minutes += "0";
-
-    if (hours > 12) {
-      (amPm = "PM"), (hours = Math.abs(hours - 12));
-    }
-    return { hours, minutes, amPm };
+    const res = Math.abs(endTime - startTime);
+    return res / 1000 / 60;
   }
 }
 
 const timeCalculation = new TimeCalculation();
 
-// Add task to list logic
-function addTask(formData) {
-  const currentTime = timeCalculation.currentDate();
-  const currentHours = currentTime.hours;
-  const currentMinutes = currentTime.minutes;
-  const currentAmPm = currentTime.amPm;
-
-  // Structure of task data
-  listTask.set([
-    {
-      ...formData,
-      state: "active",
-      id: self.crypto.randomUUID(),
-      currentHours,
-      currentMinutes,
-      currentAmPm,
-    },
-    ...listTask.get(),
-  ]);
-
-  updateViewOnTask();
-}
-
-// local storage
-export function saveLocalStorage(tasks) {
-  localStorage.setItem("listTask", JSON.stringify(tasks));
-}
-
-export function loadTasksFromStorage() {
-  return JSON.parse(localStorage.getItem("listTask"));
-}
-
 // Validation of data
-function validationOfFormData(priority) {
+const validationOfFormData = () => {
   const desErrEl = document.getElementById("description-error");
   const cateErrEl = document.getElementById("category-error");
   const prioErrEl = document.getElementById("priority-error-message");
 
   const categoryValue = document.getElementById("category").value;
-  const taskFormValue = document.getElementById("taskForm").value;
+  const tasDescriptionValue = document.getElementById("task-description").value;
 
-  taskFormValue.length < 7
-    ? (desErrEl.style.opacity = "1")
-    : (desErrEl.style.opacity = "0");
+  // description
+  if (tasDescriptionValue.length < 7) {
+    desErrEl.style.opacity = "1";
 
-  nullValidation(categoryValue, cateErrEl);
-  nullValidation(priority, prioErrEl);
-  timeValidation();
-}
+    return false;
+  } else if (tasDescriptionValue.length >= 85) {
+    desErrEl.style.opacity = "1";
+    desErrEl.textContent = "The description must be less than 85 characters.";
+
+    return false;
+  } else {
+    taskDescription.set(tasDescriptionValue.trim());
+    desErrEl.style.opacity = "0";
+  }
+
+  // Set all validation
+  if (
+    nullValidation(categoryValue, cateErrEl) &&
+    nullValidation(priority.get().level, prioErrEl) &&
+    timeValidation()
+  ) {
+    category.set(categoryValue);
+    return true;
+  } else {
+    return false;
+  }
+};
 
 function timeValidation() {
   const timeErrEl = document.getElementById("time-error");
@@ -287,31 +269,30 @@ function timeValidation() {
   const startMinutes = document.getElementById("start_minutes").value;
   const endMinutes = document.getElementById("end_minutes").value;
 
-  if (
-    startHours < 1 ||
-    startHours > 12 ||
-    endHours < 1 ||
-    endHours > 12 ||
-    startMinutes < 0 ||
-    startMinutes > 59 ||
-    endMinutes < 0 ||
-    endMinutes > 59
+  if (startTime.get().getTime() === endTime.get().getTime()) {
+    timeErrEl.textContent = "The time should be not equal.";
+    timeErrEl.style.opacity = "1";
+
+    return false;
+  } else if (
+    startHours &&
+    startHours &&
+    endHours &&
+    endHours &&
+    startMinutes &&
+    startMinutes &&
+    endMinutes &&
+    endMinutes &&
+    startTime.get().getTime() !== endTime.get().getTime()
   ) {
+    timeErrEl.style.opacity = "0";
+
+    return true;
+  } else {
     timeErrEl.textContent = "Please enter valid time.";
     timeErrEl.style.opacity = "1";
-    return;
-  }
-  timeErrEl.style.opacity = "0";
-}
 
-function validationOfEqualTime(startTime, endTime, timeErrEl) {
-  if (startTime === endTime) {
-    timeErrEl.textContent = "Time should be not equal.";
-    timeErrEl.style.opacity = "1";
     return false;
-  } else {
-    timeErrEl.style.opacity = "0";
-    return true;
   }
 }
 
@@ -325,11 +306,48 @@ function nullValidation(elementValue, erroreEl) {
   }
 }
 
+// Add task to task list
+function addTaskToList() {
+  const updatedAt = new Date();
+
+  // Structure of task data
+  listTask.set([
+    {
+      id: String(listTask.get().length + 1),
+      description: taskDescription.get(),
+      category: category.get(),
+      startTime: startTime.get().toISOString(),
+      endTime: endTime.get().toISOString(),
+      durationMinutes: durationMinutes.get(),
+      priority: {
+        level: priority.get().level,
+        label: priority.get().label,
+        color: priority.get().color,
+        icon: priority.get().icon,
+      },
+      state: "on-hold",
+      isCompleted: false,
+      updatedAt: updatedAt.toISOString(),
+    },
+    ...listTask.get(),
+  ]);
+
+  updateViewOnTask();
+}
+
 // updateViewOnTask
 export function updateViewOnTask() {
   addTaskToHtml(visibleTasks.get());
   onSelectedState(listTask.get(), stateName.get());
   saveLocalStorage(listTask.get());
-  showPercentage(listTask.get());
   addToDetailsCard(listTask.get());
+}
+
+// local storage
+export function saveLocalStorage(tasks) {
+  localStorage.setItem("listTask", JSON.stringify(tasks));
+}
+
+export function loadTasksFromStorage() {
+  return JSON.parse(localStorage.getItem("listTask"));
 }

@@ -2,7 +2,7 @@
   display: grid;
   width: 100%;
   text-align: center;
-  padding-bottom: 3rem;
+  padding-bottom: 1.5rem;
 }
 
 .timer-first-section {
@@ -66,7 +66,7 @@
     border-radius: 50%;
     margin-top: 4rem;
     @include grid-center;
-    background-color: $light-primary-color;
+    background-color: $secondary-color;
     color: $text-color;
     cursor: pointer;
 
@@ -74,11 +74,12 @@
       cursor: unset;
       opacity: 0.5;
       border: none;
-      background-color: $light-primary-color;
     }
 
     #tap-choose-time {
       font-size: 0.8rem;
+      font-family: $karla-font;
+      letter-spacing: 1px;
     }
   }
 
@@ -96,7 +97,7 @@
   padding: 0.67rem 1.35rem;
   border-radius: 2rem;
   cursor: pointer;
-  font-family: $karla-font;
+  font-family: inherit;
   font-weight: 600;
   color: $text-color;
   word-spacing: 0.35rem;
@@ -119,8 +120,6 @@
   position: relative;
   display: none;
 
-  // place-items: center;
-
   .svg-circle-container {
     transform: rotate(-90deg);
     max-width: 500px;
@@ -140,7 +139,7 @@
   }
 
   #behind-circle {
-    stroke: $thirdly-color;
+    stroke: $thirtiary-color;
     stroke-width: 0.5;
   }
   #countdown-circle {
@@ -160,10 +159,11 @@
 
     #timer-pause {
       background-color: $light-delete-color;
+      // opacity: 0.9;
     }
 
     #timer-resume {
-      background-color: $btn-color;
+      background-color: $light-btn-color;
       display: none;
     }
   }

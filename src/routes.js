@@ -2,40 +2,52 @@ import Navigo from "navigo";
 import Home from "./pages/home/Home.js";
 import TimerRender from "./pages/timer/TimerRender.js";
 import ConstTasksRender from "./pages/tasks/TaskRender.js";
-import Dashboard from "./pages/dashboard/Dashboard.js";
+import DashboardRender from "./pages/dashboard/DashboardRender.js";
 import About from "./pages/about/About.js";
+import activeLink from "./navbar.js";
+import { isDashboardOpen } from "./pages/dashboard/MainDashboard.js";
 
 const Router = (() => {
-  const routes = {
-    "/": Home,
-    "/timer": TimerRender,
-    "/const_tasks": ConstTasksRender,
-    "/dashboard": Dashboard,
-    "/about": About,
-  };
-
   const mainContent = document.getElementById("main-content");
 
   const init = () => {
-    const router = new Navigo("/", { hash: false });
+    const router = new Navigo("/", { linksSelector: "[data-navigo]" });
 
-    // document.addEventListener("click", function (e) {
-    //   if (e.target.matches("[data-link]")) {
-    //     e.preventDefault();
+    router.on("/", () => {
+      mainContent.innerHTML = Home();
+    });
 
-    //     router.navigate(e.target.getAttribute("href"));
-    //   }
-    // });
+    router.on("/ai-advice", () => {
+      mainContent.innerHTML = `<h1>AI Advice</h1>`;
+      activeLink("/ai-advice");
+    });
 
-    Object.keys(routes).forEach((route) => {
-      router.on(route, () => {
-        mainContent.innerHTML = routes[route]();
+    router
+      .on("/timer", () => {
+        mainContent.innerHTML = TimerRender();
+        activeLink("/timer");
+      })
+
+      .on("/tasks", async () => {
+        mainContent.innerHTML = ConstTasksRender();
+        activeLink("/tasks");
+        router.updatePageLinks();
+      })
+
+      .on("/dashboard", () => {
+        isDashboardOpen.set(true);
+        mainContent.innerHTML = DashboardRender();
+        activeLink("/dashboard");
+      })
+
+      .on("/about", () => {
+        mainContent.innerHTML = About();
+        activeLink("/about");
+      })
+
+      .notFound(() => {
+        mainContent.innerHTML = "<h1>404 - Page Not Found";
       });
-    });
-
-    router.notFound(() => {
-      mainContent.innerHTML = "<h1>404 - Page Not Found";
-    });
 
     router.resolve();
   };
