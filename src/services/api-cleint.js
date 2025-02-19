@@ -4,7 +4,7 @@ import { listTask } from "../App";
 
 class APIClient {
   constructor() {
-    this.API_URL = "http://localhost:3000/tasks";
+    this.API_URL = "../data/LIstTasks.json/tasks";
   }
 
   getTasks() {
