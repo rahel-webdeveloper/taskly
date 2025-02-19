@@ -11,7 +11,10 @@ const Router = (() => {
   const mainContent = document.getElementById("main-content");
 
   const init = () => {
-    const router = new Navigo("/", { linksSelector: "[data-navigo]" });
+    const router = new Navigo("/", {
+      linksSelector: "[data-navigo]",
+      hash: true,
+    });
 
     router.on("/", () => {
       mainContent.innerHTML = Home();
