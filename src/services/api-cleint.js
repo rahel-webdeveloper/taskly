@@ -2,15 +2,6 @@ import axios from "axios";
 import { updateViewOnTask } from "../pages/tasks/TaskLogic";
 import { listTask } from "../App";
 
-export const fetchTasks = async () => {
-  fetch("/tasks.json")
-    .then((res) => res.json())
-    .then((data) => {
-      listTask.set(data);
-      updateViewOnTask();
-    });
-};
-
 class APIClient {
   constructor() {
     this.API_URL = "https://json-server-api-89nr.onrender.com";
