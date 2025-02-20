@@ -8,7 +8,7 @@ import Timer from "./pages/timer/Timer";
 import { atom } from "nanostores";
 import tasks from "./data/tasks";
 
-export const listTask = atom(loadTasksFromStorage() || []);
+export const listTask = atom(tasks);
 if (!loadTasksFromStorage()) listTask.set(tasks);
 updateViewOnTask();
 
