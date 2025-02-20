@@ -1,7 +1,7 @@
 import { atom } from "nanostores";
 import { loadTasksFromStorage, updateViewOnTask } from "./TaskLogic";
 import { updateTaskCount, addTaskToHtml } from "./TaskRender";
-import APIClient from "../../services/api-cleint";
+import APIClient, { fetchTasks } from "../../services/api-cleint";
 import { listTask } from "../../App.js";
 
 export const Id = atom(0);
@@ -26,9 +26,7 @@ export const durationMinutes = atom(0);
 export const startAmPm = atom("AM");
 export const endAmPm = atom("PM");
 
-const apiClient = new APIClient();
-
-if (!loadTasksFromStorage()) apiClient.getTasks();
+if (!loadTasksFromStorage()) fetchTasks();
 
 const TaskEvents = (() => {
   // completing a task

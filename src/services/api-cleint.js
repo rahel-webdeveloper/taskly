@@ -2,19 +2,27 @@ import axios from "axios";
 import { updateViewOnTask } from "../pages/tasks/TaskLogic";
 import { listTask } from "../App";
 
+export const fetchTasks = async () => {
+  fetch("/tasks.json")
+    .then((res) => res.json())
+    .then((data) => {
+      listTask.set(data);
+      updateViewOnTask();
+    });
+};
+
 class APIClient {
   constructor() {
-    this.API_URL = "../data/LIstTasks.json/tasks";
+    this.API_URL = "https://json-server-api-89nr.onrender.com";
   }
-
   getTasks() {
     axios
-      .get(this.API_URL)
+      .get("../data/ListTasks.json")
       .then((res) => {
-        listTask.set(res.data);
+        // listTask.set(res.data.tasks);
         updateViewOnTask();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err.message));
   }
 
   createTask(task) {
