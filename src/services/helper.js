@@ -18,9 +18,9 @@ export const priorityLabels = [
 
 export const priorityIcons = [
   null,
-  "./src/assets/fire.png",
-  "./src/assets/warning-s.png",
-  "./src/assets/star.png",
-  "./src/assets/flag.png",
-  "./src/assets/sprout.png",
+  "/public/fire.png",
+  "/public/warning-s.png",
+  "/public/star.png",
+  "/public/flag.png",
+  "/public/sprout.png",
 ];

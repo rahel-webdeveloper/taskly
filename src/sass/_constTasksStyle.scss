@@ -297,8 +297,7 @@ input[type="number"]::-webkit-outer-spin-button {
   padding: 1rem;
   border-radius: 1rem;
   line-height: 1.5;
-  background-image: url(../../src/assets/bg-top.svg),
-    url(../../src/assets/bg-bottom.svg);
+  background-image: url(/public/bg-top.svg), url(/public/bg-bottom.svg);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: top right, -5rem 3rem;

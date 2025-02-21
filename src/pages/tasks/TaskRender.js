@@ -187,7 +187,7 @@ export function addTaskToHtml(tasks) {
   if (list)
     list.innerHTML =
       tasks.length === 0
-        ? `<div class="no-data-img"><img src="../src/assets/empty-box.png" style="width: 35%;" alt=""></div>`
+        ? `<div class="no-data-img"><img src="/public/empty-box.png" style="width: 35%;" alt=""></div>`
         : tasks.map(taskToHTML).join("");
 }
 
@@ -352,7 +352,7 @@ export function addToDetailsCard(tasks) {
               <span>--------------</span>
             </div>
             <div class="priority-icon">
-              <img src="./src/assets/flag.png" alt="">
+              <img src="/public/flag.png" alt="">
             </div>
           </div>
           <div class="task-time">
