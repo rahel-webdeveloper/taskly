@@ -18,9 +18,9 @@ export const priorityLabels = [
 
 export const priorityIcons = [
   null,
-  "/public/fire.png",
-  "/public/warning-s.png",
-  "/public/star.png",
-  "/public/flag.png",
-  "/public/sprout.png",
+  "bi-fire",
+  "bi-exclamation-circle-fill",
+  "bi-star-fill",
+  "bi-flag-fill",
+  "bi-droplet-half",
 ];

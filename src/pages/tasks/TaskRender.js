@@ -297,7 +297,7 @@ export function addToDetailsCard(tasks) {
               <span id="category">${task.category}</span>
             </div>
             <div class="priority-icon">
-              <img src="${task.priority.icon}" alt="">
+              <i class="bi${" " + task.priority.icon}"></i>
             </div>
           </div>
           <div class="task-time">

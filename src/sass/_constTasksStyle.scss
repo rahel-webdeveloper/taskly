@@ -308,11 +308,12 @@ input[type="number"]::-webkit-outer-spin-button {
   @include flex-space;
 }
 
-.task-details .priority-icon {
-  width: 21px;
+.priority-icon {
+  font-size: 1.23rem;
+  margin-right: 0.5rem;
 }
 
-.details-card .task-time {
+.task-time {
   margin-top: 2rem;
 }
 
