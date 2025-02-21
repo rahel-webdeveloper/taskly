@@ -1,3 +1,5 @@
+import { task } from "nanostores";
+
 // Const section main content
 export default function tasksRender() {
   return `
@@ -173,7 +175,7 @@ export default function tasksRender() {
             </span>
             <p>Created <br> Tasks</p>
             </div>
-            <h3 id="lenght-tasks">3 tasks</h3>
+            <h3><span id="lenght-tasks"></span> tasks</h3>
           </div> 
         </div>
         
@@ -258,13 +260,44 @@ function taskToHTML(task) {
 }
 
 // Update task count
-export function updateTaskCount(allCount, visibleCount) {
-  // const allTaskLenght = document.getElementById("all_task");
+export function updateTaskCount(totalTasks, visibleCount) {
   const filterTaskLenght = document.getElementById("length");
 
-  // allTaskLenght.textContent = allCount;
   if (filterTaskLenght) filterTaskLenght.textContent = visibleCount;
+
+  todayReport(totalTasks);
 }
+
+export const todayReport = (totalTasks) => {
+  const doneTasksPercentageEl = document.getElementById("done-tasks");
+  const tasksTrackedTimeEl = document.getElementById("tasks-time");
+  const lengthTasksEl = document.getElementById("lenght-tasks");
+
+  const todayTasks = totalTasks.filter((task) => {
+    const todayDate = new Date().toISOString().split("T")[0];
+    const taskDate = new Date(task.updatedAt).toISOString().split("T")[0];
+
+    return todayDate === taskDate && task;
+  });
+
+  const todayDoneTasks = todayTasks.filter((task) => task.state === "done");
+
+  const trackedTime = todayTasks.reduce(
+    (accumlator, currentValue) => accumlator + currentValue.durationMinutes,
+    0
+  );
+
+  if (doneTasksPercentageEl)
+    doneTasksPercentageEl.textContent =
+      ((todayDoneTasks.length / totalTasks.length) * 100).toFixed(0) + "%";
+
+  if (lengthTasksEl) lengthTasksEl.textContent = todayTasks.length;
+
+  if (tasksTrackedTimeEl)
+    tasksTrackedTimeEl.textContent = `${Math.floor(trackedTime / 60) + "h"} ${
+      trackedTime / 60 > 0 && trackedTime ? "&" : ""
+    } ${(trackedTime % 60) + "m"}`;
+};
 
 // Adding angle brackets in filter
 export function addAngleBracket(option, optionValue, nameVlue) {

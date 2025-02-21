@@ -11,7 +11,11 @@ import TaskEvents, {
   startAmPm,
   endAmPm,
 } from "./store.js";
-import { addTaskToHtml, addToDetailsCard } from "./TaskRender.js";
+import {
+  addTaskToHtml,
+  addToDetailsCard,
+  updateTaskCount,
+} from "./TaskRender.js";
 import { addAngleBracket } from "./TaskRender.js";
 import {
   priorityIcons,
@@ -341,6 +345,7 @@ export function updateViewOnTask() {
   onSelectedState(listTask.get(), stateName.get());
   saveLocalStorage(listTask.get());
   addToDetailsCard(listTask.get());
+  updateTaskCount(listTask.get(), visibleTasks.get().length);
 }
 
 // local storage

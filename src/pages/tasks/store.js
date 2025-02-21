@@ -91,7 +91,7 @@ const TaskEvents = (() => {
     stateName.set(state);
     visibleTasks.set(getFilterTasks(listTasks, state));
 
-    updateTaskCount(listTasks.length, visibleTasks.get().length);
+    updateTaskCount(listTasks, visibleTasks.get().length);
     addTaskToHtml(visibleTasks.get());
   };
 
