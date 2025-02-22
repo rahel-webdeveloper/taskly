@@ -504,10 +504,10 @@ input[type="number"]::-webkit-outer-spin-button {
 .delete-icon-svg,
 .done-icon-svg {
   fill: $text-color;
-  width: 19px;
+  width: 21.5px;
   background-color: $thirtiary-color;
   border-radius: 50%;
-  padding: 4px 4.5px;
+  padding: 5px 5.5px;
   cursor: pointer;
 }
 
@@ -540,7 +540,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .task-edit-icon {
-  font-size: 1.17rem;
+  font-size: 1.3rem;
   color: $optional-color;
   text-align: end;
   cursor: pointer;
@@ -558,7 +558,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .done .done-icon-svg {
-  fill: $primary-color;
+  fill: $secondary-color;
   outline: 4px solid #acd8aa4f;
   background-color: $checked-color;
 }

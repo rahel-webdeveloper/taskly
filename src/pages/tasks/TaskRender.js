@@ -282,21 +282,23 @@ export const todayReport = (totalTasks) => {
 
   const todayDoneTasks = todayTasks.filter((task) => task.state === "done");
 
-  const trackedTime = todayTasks.reduce(
+  const todayTrackedTime = todayTasks.reduce(
     (accumlator, currentValue) => accumlator + currentValue.durationMinutes,
     0
   );
 
   if (doneTasksPercentageEl)
     doneTasksPercentageEl.textContent =
-      ((todayDoneTasks.length / totalTasks.length) * 100).toFixed(0) + "%";
+      ((todayDoneTasks.length / todayTasks.length) * 100).toFixed(0) + "%";
 
   if (lengthTasksEl) lengthTasksEl.textContent = todayTasks.length;
 
   if (tasksTrackedTimeEl)
-    tasksTrackedTimeEl.textContent = `${Math.floor(trackedTime / 60) + "h"} ${
-      trackedTime / 60 > 0 && trackedTime ? "&" : ""
-    } ${(trackedTime % 60) + "m"}`;
+    tasksTrackedTimeEl.textContent = `${
+      Math.floor(todayTrackedTime / 60) + "h"
+    } ${todayTrackedTime / 60 > 0 && todayTrackedTime ? "&" : ""} ${
+      (todayTrackedTime % 60) + "m"
+    }`;
 };
 
 // Adding angle brackets in filter

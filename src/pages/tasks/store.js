@@ -2,7 +2,6 @@ import { atom } from "nanostores";
 import { loadTasksFromStorage, updateViewOnTask } from "./TaskLogic";
 import { updateTaskCount, addTaskToHtml } from "./TaskRender";
 import { listTask } from "../../App.js";
-import tasks from "../../data/tasks.js";
 
 export const Id = atom(0);
 
