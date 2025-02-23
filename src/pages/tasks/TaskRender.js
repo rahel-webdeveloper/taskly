@@ -1,5 +1,3 @@
-import { task } from "nanostores";
-
 // Const section main content
 export default function tasksRender() {
   return `
@@ -184,12 +182,17 @@ export default function tasksRender() {
     `;
 }
 
+const imgUrl = new URL("/public/empty-box.png", import.meta.url).href;
+
 export function addTaskToHtml(tasks) {
   const list = document.getElementById("task-list-div");
   if (list)
     list.innerHTML =
       tasks.length === 0
-        ? `<div class="no-data-img">${console.log("Image is available!")}</div>`
+        ? `<div class="no-data-img">
+        <img src="${imgUrl}" id="empty-box" alt="img" />
+        <h5>There is no task available!</h5>
+        </div>`
         : tasks.map(taskToHTML).join("");
 }
 
