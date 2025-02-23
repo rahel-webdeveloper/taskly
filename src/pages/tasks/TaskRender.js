@@ -189,7 +189,7 @@ export function addTaskToHtml(tasks) {
   if (list)
     list.innerHTML =
       tasks.length === 0
-        ? `<div class="no-data-img"><img src="/public/empty-box.png" style="width: 35%;" alt=""></div>`
+        ? `<div class="no-data-img">${console.log("Image is available!")}</div>`
         : tasks.map(taskToHTML).join("");
 }
 
@@ -288,17 +288,20 @@ export const todayReport = (totalTasks) => {
   );
 
   if (doneTasksPercentageEl)
-    doneTasksPercentageEl.textContent =
-      ((todayDoneTasks.length / todayTasks.length) * 100).toFixed(0) + "%";
+    doneTasksPercentageEl.innerText =
+      todayDoneTasks.length === 0
+        ? "0%"
+        : ((todayDoneTasks.length / todayTasks.length) * 100).toFixed(0) + "%";
 
   if (lengthTasksEl) lengthTasksEl.textContent = todayTasks.length;
 
   if (tasksTrackedTimeEl)
-    tasksTrackedTimeEl.textContent = `${
-      Math.floor(todayTrackedTime / 60) + "h"
-    } ${todayTrackedTime / 60 > 0 && todayTrackedTime ? "&" : ""} ${
-      (todayTrackedTime % 60) + "m"
-    }`;
+    tasksTrackedTimeEl.textContent =
+      todayTasks.length === 0
+        ? "0h & 0m"
+        : `${Math.floor(todayTrackedTime / 60) + "h"} ${
+            todayTrackedTime / 60 > 0 && todayTrackedTime ? "&" : ""
+          } ${(todayTrackedTime % 60) + "m"}`;
 };
 
 // Adding angle brackets in filter

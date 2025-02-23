@@ -1,5 +1,5 @@
 import { atom } from "nanostores";
-import { loadTasksFromStorage, updateViewOnTask } from "./TaskLogic";
+import { updateViewOnTask } from "./TaskLogic";
 import { updateTaskCount, addTaskToHtml } from "./TaskRender";
 import { listTask } from "../../App.js";
 
