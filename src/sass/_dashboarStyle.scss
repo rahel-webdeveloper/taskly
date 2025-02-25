@@ -4,6 +4,7 @@
   flex-direction: column;
   padding: 0.5rem;
   font-family: $DM-Sans;
+  width: 100%;
 
   .dash-header {
     width: 100%;
@@ -24,6 +25,7 @@
   @include grid-center;
   flex-direction: column;
   gap: 0.77rem;
+  width: 100%;
 
   .chart {
     text-align: center;
@@ -34,13 +36,38 @@
     // max-width: 20rem;
     width: 100%;
 
+    .chart-details {
+      @include flex-space;
+      margin-inline: 1.25rem;
+
+      i {
+        font-size: 1.5rem;
+      }
+
+      h1 {
+        font-size: 2.55rem;
+      }
+    }
+
     p {
-      font-size: 0.85rem;
+      font-size: 0.63rem;
       font-weight: 700;
       border-radius: 1rem;
       color: $gray-color;
       padding: 0.11rem 0.5rem;
-      display: inline;
+      font-family: $karla-font;
+    }
+  }
+
+  .category-chart {
+    i {
+      color: $moderate-color;
+    }
+  }
+
+  .seven-days-chart {
+    i {
+      color: $low-color;
     }
   }
 

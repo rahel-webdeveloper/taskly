@@ -8,12 +8,33 @@ const DashboardRender = () => {
     <div class="dashboard-charts">
 
       <div class="category-chart chart">
-        <p>Your categories</p>
+        <div class="chart-details">
+          <div>
+          <h1 id=ctegory-count">7</h1>
+          <div>
+          <p> top: development</p>
+          <p>total categories</p>
+          </div>
+
+          </div>
+          <i class="bi bi-lightning-charge"></i>
+        </div>
         <canvas id="category_bar"></canvas>
       </div>
 
       <div class="seven-days-chart chart">
-        <p>Last seven days workout</p>
+      <div class="chart-details">
+          <div>
+          
+          <h1 id=ctegory-count">37</h1>
+          <div>
+          <p>Last 7 days workout</p>
+          <p>total tasks</p>
+          </div>
+
+          </div>
+          <i class="bi bi-activity"></i>
+        </div>
         <canvas id="days_line"></canvas>
       </div>
 

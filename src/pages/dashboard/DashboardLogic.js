@@ -1,4 +1,4 @@
-import { Chart, Title, Tooltip } from "chart.js/auto";
+import { Chart } from "chart.js/auto";
 import { listTask } from "../../App";
 
 const DashboardLogic = () => {
@@ -119,7 +119,8 @@ const initCategoryBars = (tasks) => {
       datasets: [
         {
           data: Object.values(categoryObjects),
-          backgroundColor: "rgb(134, 181, 178)",
+          backgroundColor: "rgb(228, 184, 117)",
+          hoverBackgroundColor: "rgb(241, 187, 100)",
           borderRadius: 7,
           barThickness: 10,
         },
