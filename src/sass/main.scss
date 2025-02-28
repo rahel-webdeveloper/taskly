@@ -84,7 +84,7 @@ body {
 
 @media (width >= 704px) {
   .const-tasks-section {
-    border: 1px solid $thirtiary-color;
+    border: 1px solid $light-border-color;
   }
 
   .dashboard-charts {
@@ -126,7 +126,7 @@ body {
   }
 
   .main-content {
-    border: 1px solid $thirtiary-color;
+    border: 1px solid $light-border-color;
     padding-top: 0;
   }
 
@@ -194,7 +194,7 @@ body {
 
     .timer-first-section {
       margin-top: 0;
-      border-right: 1px solid $thirtiary-light-color;
+      border-right: 1px solid $light-border-color;
     }
 
     .timer-header {
@@ -223,6 +223,7 @@ body {
     .dashboard-charts {
       @include grid-center;
       grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 12rem;
       width: 100%;
     }
   }

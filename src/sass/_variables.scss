@@ -4,25 +4,27 @@ $DM-Sans: "DM Sans", sans-serif;
 
 // Main colors
 $text-color: #f1f0f0;
-$primary-color: rgb(23, 24, 31);
-$secondary-color: rgb(35, 36, 42);
-$thirtiary-color: rgb(53, 53, 58);
+$primary-color: rgb(14, 15, 19);
+$secondary-color: rgb(20, 21, 25);
+$thirtiary-color: rgb(45, 45, 49);
 $gray-color: #d3d3d3;
 
 //  Lightness colors
-$thirtiary-light-color: #bbbcc930;
 $light-border-color: rgba(142, 143, 149, 0.18);
 $light-dark-blue-color: #3e425d31;
 $backdrop-filter-color: #23242a3e;
-$light-secondary-color: rgba(35, 36, 42, 0.588);
+$light-secondary-color: rgb(20, 21, 25, 0.5);
 
 // Components colors
-$btn-color: #917db6;
-$checked-color: #acd8aa;
-$delete-color: #fa6e6e;
-$count-color: rgb(140, 229, 244);
+$btn-color: #8373a1;
+$checked-color: #84d6b8;
+$delete-color: #f95059;
+$count-color: #53b7d9;
 $orange-color: rgb(237, 192, 123);
-$complete-color: rgb(144, 220, 214);
+
+// light components color
+$light-checked-color: #84d6b831;
+$light-delete-color: #ff72723e;
 
 // Priorities colors
 $critical-color: #cb9ca3;
@@ -30,15 +32,6 @@ $high-color: rgb(187, 178, 204);
 $moderate-color: rgb(228, 184, 117);
 $low-color: rgb(134, 181, 178);
 $optional-color: rgb(176, 187, 188);
-
-// Light component colors
-$light-btn-color: #8573a6ab;
-$light-checked-color: rgba(172, 216, 170, 0.431);
-// $light-delete-color: #fa6e6e6d;
-$light-delete-color: #b04c4c;
-$light-count-color: #8ce4f46a;
-$light-orange-color: #edbf7ba1;
-$light-complete-color: #90dcd66d;
 
 // Light priority colors
 $light-critical-color: #cb9ca369;

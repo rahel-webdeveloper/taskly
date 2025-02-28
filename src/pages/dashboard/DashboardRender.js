@@ -10,13 +10,10 @@ const DashboardRender = () => {
       <div class="category-chart chart">
         <div class="chart-details">
           <div>
-          <h1 id=ctegory-count">7</h1>
-          <div>
-          <p> top: development</p>
-          <p>total categories</p>
+          <p>total category</p>
+          <h1 id="ctegory-count">7</h1>
           </div>
-
-          </div>
+          <p class="chart-title"> Categories charts </p>
           <i class="bi bi-lightning-charge"></i>
         </div>
         <canvas id="category_bar"></canvas>
@@ -26,13 +23,10 @@ const DashboardRender = () => {
       <div class="chart-details">
           <div>
           
-          <h1 id=ctegory-count">37</h1>
-          <div>
-          <p>Last 7 days workout</p>
           <p>total tasks</p>
+          <h1 id="seven-days-count">37</h1>
           </div>
-
-          </div>
+          <p class="chart-title">Last 7 days workout</p>
           <i class="bi bi-activity"></i>
         </div>
         <canvas id="days_line"></canvas>

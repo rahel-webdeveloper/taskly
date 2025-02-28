@@ -4,105 +4,15 @@ import { listTask } from "../../App";
 const DashboardLogic = () => {
   const tasks = listTask.get();
 
-  initSevenDaysLine(tasks);
   initCategoryBars(tasks);
+  initSevenDaysLine(tasks);
   initStateChart(tasks);
 };
 
-const initSevenDaysLine = (tasks) => {
-  const today = new Date();
-  const taskCounts = {};
-
-  for (let i = 0; i < 7; i++) {
-    const date = new Date();
-
-    date.setDate(today.getDate() - i);
-
-    taskCounts[date.toString().slice(0, 10)] = 0;
-  }
-
-  tasks.forEach((task) => {
-    const taskDate = new Date(task.updatedAt).toString().slice(0, 10);
-
-    if (taskCounts.hasOwnProperty(taskDate)) {
-      taskCounts[taskDate]++;
-    }
-  });
-
-  const taskCountsArray = Object.entries(taskCounts)
-    .map(([date, count]) => ({
-      date,
-      count,
-    }))
-    .sort((a, b) => new Date(a.date) - new Date(b.date));
-
-  new Chart(document.getElementById("days_line"), {
-    type: "line",
-    data: {
-      labels: taskCountsArray.map((task) => task.date.slice(0, 3)),
-      datasets: [
-        {
-          data: taskCountsArray.map((task) => task.count),
-          backgroundColor: "rgb(134, 181, 178)",
-          borderColor: "rgb(134, 181, 178)",
-          barThickness: 10,
-          tension: 0.22,
-          borderWidth: 1,
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      // aspectRatio: 2.2,
-
-      scales: {
-        y: {
-          ticks: {
-            color: "rgb(158, 158, 158, 0.5)",
-            font: {
-              family: "DM Sans",
-            },
-          },
-          grid: {
-            display: false,
-          },
-          suggestedMin: 0,
-          suggestedMax: 9,
-          beginAtZero: true,
-        },
-        x: {
-          ticks: {
-            color: "rgba(158, 158, 158, 0.7)",
-            font: {
-              family: "DM Sans",
-            },
-          },
-          grid: {
-            // display: false,
-            // drawOnChartArea: false,
-          },
-        },
-      },
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          titleFont: {
-            family: "DM Sans",
-            weight: 400,
-          },
-          bodyFont: {
-            family: "DM Sans",
-          },
-          backgroundColor: "rgba(16, 16, 19, 0.59)",
-          displayColors: false,
-        },
-      },
-    },
-  });
-};
-
 const initCategoryBars = (tasks) => {
-  let categoryObjects = tasks.reduce((previous, current) => {
+  const categoryCountEl = document.getElementById("ctegory-count");
+
+  const categoryObjects = tasks.reduce((previous, current) => {
     const category = current.category;
     previous[category] = (previous[category] || 0) + 1;
     return previous;
@@ -111,6 +21,8 @@ const initCategoryBars = (tasks) => {
   const categoryArray = Object.entries(categoryObjects).map(
     ([category, count]) => ({ category, count })
   );
+
+  categoryCountEl.textContent = categoryArray.length;
 
   new Chart(document.getElementById("category_bar"), {
     type: "bar",
@@ -158,6 +70,104 @@ const initCategoryBars = (tasks) => {
           grid: {
             display: false,
             drawOnChartArea: false,
+          },
+        },
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          titleFont: {
+            family: "DM Sans",
+            weight: 400,
+          },
+          bodyFont: {
+            family: "DM Sans",
+          },
+          backgroundColor: "rgba(16, 16, 19, 0.59)",
+          displayColors: false,
+        },
+      },
+    },
+  });
+};
+
+const initSevenDaysLine = (tasks) => {
+  const seventDays = document.getElementById("seven-days-count");
+
+  const today = new Date();
+  const taskCounts = {};
+
+  for (let i = 0; i < 7; i++) {
+    const date = new Date();
+
+    date.setDate(today.getDate() - i);
+
+    taskCounts[date.toString().slice(0, 10)] = 0;
+  }
+
+  tasks.forEach((task) => {
+    const taskDate = new Date(task.updatedAt).toString().slice(0, 10);
+
+    if (taskCounts.hasOwnProperty(taskDate)) {
+      taskCounts[taskDate]++;
+    }
+  });
+
+  const taskCountsArray = Object.entries(taskCounts)
+    .map(([date, count]) => ({
+      date,
+      count,
+    }))
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  seventDays.textContent = taskCountsArray.reduce(
+    (accumlator, currentValue) => accumlator + currentValue.count,
+    0
+  );
+
+  new Chart(document.getElementById("days_line"), {
+    type: "line",
+    data: {
+      labels: taskCountsArray.map((task) => task.date.slice(0, 3)),
+      datasets: [
+        {
+          data: taskCountsArray.map((task) => task.count),
+          backgroundColor: "rgb(134, 181, 178)",
+          borderColor: "rgb(134, 181, 178)",
+          barThickness: 10,
+          tension: 0.22,
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+
+      scales: {
+        y: {
+          ticks: {
+            color: "rgb(158, 158, 158, 0.5)",
+            font: {
+              family: "DM Sans",
+            },
+          },
+          grid: {
+            display: false,
+          },
+          suggestedMin: 0,
+          suggestedMax: 9,
+          beginAtZero: true,
+        },
+        x: {
+          ticks: {
+            color: "rgba(158, 158, 158, 0.7)",
+            font: {
+              family: "DM Sans",
+            },
+          },
+          grid: {
+            // display: false,
+            // drawOnChartArea: false,
           },
         },
       },

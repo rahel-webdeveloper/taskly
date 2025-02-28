@@ -28,7 +28,7 @@
   max-width: 24rem;
   @include flex-space;
   column-gap: 0.7rem;
-  border: 1px solid $thirtiary-light-color;
+  border: 1px solid $light-border-color;
 }
 
 .navbar-links {
@@ -57,14 +57,14 @@
 
 .navbar-links a:hover {
   transition: all 0.4s ease-in-out;
-  background-color: $thirtiary-light-color;
+  background-color: $light-high-color;
   padding: 0.12rem 0.5rem;
   border-radius: 1rem;
 }
 
 .active-link {
   transition: all 0.3s ease-in;
-  background-color: $thirtiary-light-color;
+  background-color: $light-high-color;
   padding: 0.1rem 0.5rem;
   border-radius: 1rem;
 

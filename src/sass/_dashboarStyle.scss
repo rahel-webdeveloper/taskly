@@ -33,7 +33,6 @@
     padding-top: 0.7rem;
     border-radius: 1rem;
     border: 1px solid $light-border-color;
-    // max-width: 20rem;
     width: 100%;
 
     .chart-details {
@@ -50,12 +49,16 @@
     }
 
     p {
-      font-size: 0.63rem;
+      font-size: 0.65rem;
       font-weight: 700;
       border-radius: 1rem;
       color: $gray-color;
       padding: 0.11rem 0.5rem;
       font-family: $karla-font;
+    }
+
+    .chart-title {
+      font-size: 0.93rem;
     }
   }
 

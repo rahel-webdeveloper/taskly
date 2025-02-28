@@ -61,12 +61,12 @@ const eventsHandler = (event) => {
   const target = event.target;
   const getAttributeId = target.getAttribute("data-id");
 
-  if (target.closest(".done-icon-svg")) {
+  if (target.closest(".check-icon")) {
     Id.set(getAttributeId);
     completingTask();
   }
 
-  if (target.closest(".delete-icon-svg")) {
+  if (target.closest(".delete-icon")) {
     Id.set(getAttributeId);
     deletingTask();
   }

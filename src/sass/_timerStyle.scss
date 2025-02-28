@@ -158,12 +158,12 @@
     }
 
     #timer-pause {
-      background-color: $light-delete-color;
+      background-color: $delete-color;
       // opacity: 0.9;
     }
 
     #timer-resume {
-      background-color: $light-btn-color;
+      background-color: $btn-color;
       display: none;
     }
   }

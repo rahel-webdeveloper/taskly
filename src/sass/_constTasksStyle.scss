@@ -297,7 +297,7 @@ input[type="number"]::-webkit-outer-spin-button {
   padding: 1rem;
   border-radius: 1rem;
   line-height: 1.5;
-  background-image: url(/public/bg-top.svg), url(/public/bg-bottom.svg);
+  background-image: url(/bg-top.svg), url(/bg-bottom.svg);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: top right, -5rem 3rem;
@@ -350,7 +350,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 /* Task list */
 .task-list-container {
-  background-color: $light-secondary-color;
+  background-color: $secondary-color;
   border-radius: 2.5rem 2.5rem 0.5rem 0.7rem;
   padding: 0.7rem;
   padding-bottom: 0;
@@ -485,7 +485,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 #done-task i {
-  color: $complete-color;
+  color: $count-color;
   font-size: 0.65rem;
 }
 #in-progress-task i {
@@ -507,14 +507,20 @@ input[type="number"]::-webkit-outer-spin-button {
   text-align: left;
 }
 
-.delete-icon-svg,
-.done-icon-svg {
-  fill: $text-color;
-  width: 21.5px;
+.delete-icon {
+  padding: 1.8px 2.8px 1.5px;
+}
+
+.check-icon {
+  padding: 2px 3px 2px;
   background-color: $thirtiary-color;
-  border-radius: 50%;
-  padding: 5px 5.5px;
+}
+
+.check-icon,
+.delete-icon {
   cursor: pointer;
+  border-radius: 50%;
+  font-size: 1.15rem;
 }
 
 .task-description-div {
@@ -535,10 +541,6 @@ input[type="number"]::-webkit-outer-spin-button {
   color: $gray-color;
 }
 
-.task-description-div::selection {
-  background-color: $thirtiary-color;
-}
-
 .task-left-div {
   display: flex;
   column-gap: 1rem;
@@ -546,31 +548,34 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .task-edit-icon {
-  font-size: 1.3rem;
+  font-size: 1.214rem;
   color: $optional-color;
-  text-align: end;
   cursor: pointer;
-  border: 3px solid $thirtiary-color;
-  border-radius: 50%;
-  background-color: $thirtiary-color;
 }
 
 .task-edit-icon:hover {
   color: $text-color;
 }
 
-.delete-icon-svg {
+.delete-icon {
   background-color: $delete-color;
 }
 
-.done .done-icon-svg {
-  fill: $secondary-color;
-  outline: 4px solid #acd8aa4f;
+.done .check-icon {
+  color: $secondary-color;
+  padding: 1.3px 2px 0.7px;
+  outline: 4px solid $light-checked-color;
   background-color: $checked-color;
 }
 
-.done .delete-icon-svg {
-  outline: 4px solid #ff72723e;
+.done .delete-icon {
+  outline: 4px solid $light-delete-color;
+  background-color: $delete-color;
+  padding: 1.5px 2px 0.5px;
+}
+
+.on-hold .delete-icon {
+  background-color: $thirtiary-color;
 }
 
 .on-hold .list-task-div {
@@ -634,7 +639,7 @@ input[type="number"]::-webkit-outer-spin-button {
 .all-delete-div {
   @include grid-center;
   position: absolute;
-  bottom: -0.4rem;
+  bottom: -0.3rem;
   left: 0;
   background-color: $backdrop-filter-color;
   width: 100%;
@@ -673,7 +678,7 @@ input[type="number"]::-webkit-outer-spin-button {
   width: 20rem;
   border-radius: 0.77rem;
   text-align: center;
-  border: 1px solid $thirtiary-light-color;
+  border: 1px solid $light-border-color;
   backdrop-filter: blur(10px);
   padding: 0.7rem;
   color: $text-color;
@@ -716,15 +721,14 @@ input[type="number"]::-webkit-outer-spin-button {
   font-size: 0.77rem;
   border-radius: 2rem;
   transition: opacity 0.4s;
-  color: $primary-color;
+  color: $text-color;
 }
 
 #no {
-  background-color: $gray-color;
+  background-color: $thirtiary-color;
 }
 #yes {
   background-color: $delete-color;
-  color: $text-color;
 }
 .ask-div-btn:hover {
   opacity: 0.9;
@@ -752,7 +756,7 @@ input[type="number"]::-webkit-outer-spin-button {
   margin-top: 1.5rem;
 
   .today-box {
-    background-color: $light-secondary-color;
+    background-color: $secondary-color;
     padding: 0.77rem;
     border-radius: 0.7rem;
     max-width: 10rem;

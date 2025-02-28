@@ -182,7 +182,7 @@ export default function tasksRender() {
     `;
 }
 
-const imgUrl = new URL("/public/empty-box.png", import.meta.url).href;
+const imgUrl = new URL("/empty-box.png", import.meta.url).href;
 
 export function addTaskToHtml(tasks) {
   const list = document.getElementById("task-list-div");
@@ -215,14 +215,8 @@ function taskToHTML(task) {
     </div>
     <div class="list-task-div">
       <div class="done-icon-div" title="done or uncomplete task">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 448 512"
-          class="done-icon-svg"
-          data-id="${task.id}"
-        >
-          <PATh d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
-        </svg>
+        <i class="check-icon bi bi-check"
+          data-id="${task.id}"></i>
       </div>
       <div class="task-description-div">
         <p>${task.description}</p>
@@ -242,20 +236,14 @@ function taskToHTML(task) {
       <div class="task-left-div" title="edit task">
         <div class="edit-icon-div">
           <i
-            class="ri-edit-circle-fill task-edit-icon"
+            class="bi bi-input-cursor-text task-edit-icon"
             data-id="${task.id}"
           ></i>
         </div>
 
         <div class="delete-icon-div" title="delete task">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 448 512"
-            class="delete-icon-svg"
-            data-id="${task.id}"
-          >
-            <PATh d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z" />
-          </svg>
+         <i class="delete-icon bi bi-dash"
+            data-id="${task.id}"></i>
         </div>
       </div>
     </div>
@@ -270,6 +258,8 @@ export function updateTaskCount(totalTasks, visibleCount) {
 
   todayReport(totalTasks);
 }
+
+// today's report
 
 export const todayReport = (totalTasks) => {
   const doneTasksPercentageEl = document.getElementById("done-tasks");
@@ -393,7 +383,7 @@ export function addToDetailsCard(tasks) {
               <span>--------------</span>
             </div>
             <div class="priority-icon">
-              <img src="/public/flag.png" alt="">
+            <i class="bi bi-lightbuld-fill"></i>
             </div>
           </div>
           <div class="task-time">
