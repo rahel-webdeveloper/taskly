@@ -40,6 +40,7 @@ const initCategoryBars = (tasks) => {
     },
     options: {
       responsive: true,
+      aspectRatio: 1.93,
 
       scales: {
         y: {
@@ -142,6 +143,7 @@ const initSevenDaysLine = (tasks) => {
     },
     options: {
       responsive: true,
+      aspectRatio: 4,
 
       scales: {
         y: {
@@ -150,12 +152,13 @@ const initSevenDaysLine = (tasks) => {
             font: {
               family: "DM Sans",
             },
+            display: false,
           },
           grid: {
             display: false,
           },
           suggestedMin: 0,
-          suggestedMax: 9,
+          suggestedMax: 7,
           beginAtZero: true,
         },
         x: {
@@ -209,12 +212,16 @@ const initStateChart = (tasks) => {
             "rgb(145, 125, 182)",
           ],
           borderWidth: 0,
-          borderRadius: 3,
-          spacing: 1.27,
+          borderRadius: 2.5,
+          spacing: 1,
         },
       ],
     },
     options: {
+      responsive: true,
+      aspectRatio: 4,
+      cutout: 40,
+
       scales: {
         y: {
           ticks: {

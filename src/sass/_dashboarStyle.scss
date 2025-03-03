@@ -30,7 +30,7 @@
   .chart {
     text-align: center;
     background-color: $light-secondary-color;
-    padding-top: 0.7rem;
+    padding: 0.7rem 0.35rem 0.35rem;
     border-radius: 1rem;
     border: 1px solid $light-border-color;
     width: 100%;
@@ -59,6 +59,8 @@
 
     .chart-title {
       font-size: 0.93rem;
+      align-self: flex-start;
+      color: $light-high-color;
     }
   }
 
@@ -75,10 +77,13 @@
   }
 
   .state-chart {
-    width: 10rem;
-  }
-}
+    @include grid-center;
+    // grid-template-columns: 4rem;
+    // max-width: 25rem;
+    // width: 100%;
 
-canvas {
-  margin: 0 0.3rem;
+    // #state_doughnut {
+
+    // }
+  }
 }

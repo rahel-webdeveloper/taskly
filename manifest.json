@@ -1,0 +1,13 @@
+{
+  "name": "Task Tracker",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0e0f13",
+  "icons": [
+    {
+      "src": "/task-tracker-icon.webp",
+      "sizes": "512X512",
+      "type": "image/webp"
+    }
+  ]
+}

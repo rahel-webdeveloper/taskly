@@ -507,20 +507,13 @@ input[type="number"]::-webkit-outer-spin-button {
   text-align: left;
 }
 
-.delete-icon {
-  padding: 1.8px 2.8px 1.5px;
-}
-
-.check-icon {
-  padding: 2px 3px 2px;
-  background-color: $thirtiary-color;
-}
-
 .check-icon,
 .delete-icon {
-  cursor: pointer;
+  padding: 1.8px 2.8px 1.5px;
   border-radius: 50%;
   font-size: 1.15rem;
+  background-color: $thirtiary-color;
+  cursor: pointer;
 }
 
 .task-description-div {
@@ -563,7 +556,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .done .check-icon {
   color: $secondary-color;
-  padding: 1.3px 2px 0.7px;
+  padding: 1.5px 2px 0.5px;
   outline: 4px solid $light-checked-color;
   background-color: $checked-color;
 }
@@ -756,7 +749,7 @@ input[type="number"]::-webkit-outer-spin-button {
   margin-top: 1.5rem;
 
   .today-box {
-    background-color: $secondary-color;
+    background-color: $light-secondary-color;
     padding: 0.77rem;
     border-radius: 0.7rem;
     max-width: 10rem;

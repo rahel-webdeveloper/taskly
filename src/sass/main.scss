@@ -113,8 +113,6 @@ body {
     }
 
     .navbar-links a:hover {
-      transition: all 0.3s ease-in;
-      background-color: $light-border-color;
       padding: 0.12rem 0.5rem;
       border-radius: 1rem;
 
@@ -222,9 +220,24 @@ body {
 
     .dashboard-charts {
       @include grid-center;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 12rem;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 1fr 1fr;
+      grid-template-areas:
+        "first first second"
+        "third fourth fourth";
       width: 100%;
+    }
+
+    .category-chart {
+      grid-area: second;
+    }
+
+    .seven-days-chart {
+      grid-area: first;
+    }
+
+    .state-chart {
+      grid-area: third;
     }
   }
 
