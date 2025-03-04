@@ -7,6 +7,7 @@ const DashboardLogic = () => {
   initCategoryBars(tasks);
   initSevenDaysLine(tasks);
   initStateChart(tasks);
+  initTrackedTimeBars(tasks);
 };
 
 const initCategoryBars = (tasks) => {
@@ -193,11 +194,16 @@ const initSevenDaysLine = (tasks) => {
 };
 
 const initStateChart = (tasks) => {
+  const donePercetageEl = document.getElementById("done-task_percetage");
+
   const doneLength = tasks.filter((task) => task.state === "done").length;
   const inProgressLength = tasks.filter(
     (task) => task.state === "in-progress"
   ).length;
   const onHoldLength = tasks.filter((task) => task.state === "on-hold").length;
+
+  donePercetageEl.textContent =
+    Math.floor((doneLength / tasks.length) * 100) + "%";
 
   new Chart(document.getElementById("state_doughnut").getContext("2d"), {
     type: "doughnut",
@@ -213,14 +219,13 @@ const initStateChart = (tasks) => {
           ],
           borderWidth: 0,
           borderRadius: 2.5,
-          spacing: 1,
+          spacing: 1.5,
         },
       ],
     },
     options: {
       responsive: true,
-      aspectRatio: 4,
-      cutout: 40,
+      cutout: 43,
 
       scales: {
         y: {
@@ -241,6 +246,106 @@ const initStateChart = (tasks) => {
           titleFont: {
             family: "DM Sans",
             weight: 400,
+          },
+          backgroundColor: "rgba(16, 16, 19, 0.7)",
+          displayColors: false,
+        },
+      },
+    },
+  });
+};
+
+const initTrackedTimeBars = (tasks) => {
+  const categoryCountEl = document.getElementById("ctegory-count");
+
+  const categoryObjects = tasks.reduce((previous, current) => {
+    const category = current.category;
+    previous[category] = (previous[category] || 0) + 1;
+    return previous;
+  }, {});
+
+  const categoryArray = Object.entries(categoryObjects).map(
+    ([category, count]) => ({ category, count })
+  );
+
+  const totalTime = 34;
+  const trackedTime = 24;
+  const remainingTime = 10;
+
+  new Chart(document.getElementById("tracked-time_bar"), {
+    type: "bar",
+    data: {
+      labels: ["Time details"],
+      datasets: [
+        {
+          data: [trackedTime],
+          backgroundColor: "rgb(228, 184, 117)",
+          hoverBackgroundColor: "rgb(241, 187, 100)",
+          borderRadius: 10,
+          barThickness: 10,
+          label: "tracked time",
+        },
+
+        {
+          data: [remainingTime],
+          backgroundColor: "rgb(145, 125, 182, .5)",
+          borderRadius: 7,
+          barThickness: 10,
+          label: "remaining time",
+          borderWidth: 0.3,
+          borderColor: "#ffffff",
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      aspectRatio: 6,
+      indexAxis: "y",
+
+      scales: {
+        y: {
+          stacked: true,
+          ticks: {
+            color: "rgb(158, 158, 158, 0.7)",
+            display: false,
+
+            font: {
+              family: "DM Sans",
+            },
+          },
+          grid: {
+            display: false,
+            drawTicks: false,
+            tickLength: 3,
+          },
+          suggestedMin: 0,
+          suggestedMax: 12,
+          beginAtZero: true,
+        },
+        x: {
+          stacked: true,
+          ticks: {
+            display: false,
+            color: "rgba(158, 158, 158, 0.5)",
+            font: {
+              family: "DM Sans",
+            },
+          },
+          grid: {
+            display: false,
+            drawOnChartArea: false,
+          },
+        },
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          titleFont: {
+            family: "DM Sans",
+            weight: 400,
+          },
+          bodyFont: {
+            family: "DM Sans",
           },
           backgroundColor: "rgba(16, 16, 19, 0.59)",
           displayColors: false,

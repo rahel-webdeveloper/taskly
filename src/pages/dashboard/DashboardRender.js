@@ -35,12 +35,27 @@ const DashboardRender = () => {
          <h5> Tasks by state</h5>
 
          <div class="state-span">
-          <span>1</span>
-          <span>2</span>
-          <span>3</span>
+          <span>On hold</span>
+          <span>In progress</span>
+          <span>Done</span>
          </div>
         </div>
-        <canvas id="state_doughnut"></canvas>
+        <div id="doughnut-chart_div">
+          <span id="done-task_percetage">32%</span>
+          <canvas id="state_doughnut"></canvas>
+        </div>
+      </div>
+
+      <div class="tracked-time-bars chart">
+        <div class="chart-details">
+          
+          <p class="chart-title"> Time details </p>
+        </div>
+        <canvas id="tracked-time_bar"></canvas>
+        <div class="time-span">
+          <span>On hold</span>
+          <span>In progress</span>
+         </div>
       </div>
     </div>
   </div>`;

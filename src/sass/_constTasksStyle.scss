@@ -509,11 +509,13 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .check-icon,
 .delete-icon {
-  padding: 1.8px 2.8px 1.5px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   font-size: 1.15rem;
   background-color: $thirtiary-color;
   cursor: pointer;
+  @include flex-center;
 }
 
 .task-description-div {
@@ -556,7 +558,6 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .done .check-icon {
   color: $secondary-color;
-  padding: 1.5px 2px 0.5px;
   outline: 4px solid $light-checked-color;
   background-color: $checked-color;
 }
@@ -734,7 +735,7 @@ input[type="number"]::-webkit-outer-spin-button {
   max-width: 700px;
   width: 100%;
   text-align: center;
-  padding: 1rem 0.5rem;
+  padding: 1rem 1rem;
   text-align: start;
   border-bottom-right-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;

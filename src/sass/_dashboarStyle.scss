@@ -2,7 +2,7 @@
   margin-top: 1.5rem;
   @include grid-center;
   flex-direction: column;
-  padding: 0.5rem;
+  padding: 0.87rem;
   font-family: $DM-Sans;
   width: 100%;
 
@@ -24,7 +24,7 @@
 .dashboard-charts {
   @include grid-center;
   flex-direction: column;
-  gap: 0.77rem;
+  gap: 1rem;
   width: 100%;
 
   .chart {
@@ -78,12 +78,64 @@
 
   .state-chart {
     @include grid-center;
-    // grid-template-columns: 4rem;
-    // max-width: 25rem;
-    // width: 100%;
+    grid-template-columns: 1fr 1fr;
 
-    // #state_doughnut {
+    .state-details {
+      text-align: start;
+      place-self: start;
+      padding: 0.5rem 0.7rem;
 
-    // }
+      h5 {
+        color: $light-high-color;
+      }
+
+      .state-span {
+        @include flex-center;
+        flex-direction: column;
+        row-gap: 0.3rem;
+        align-items: start;
+        font-size: 0.7rem;
+        margin-top: 0.77rem;
+        margin-left: 2.77rem;
+        position: relative;
+
+        span::before {
+          content: "";
+          position: absolute;
+          left: -1rem;
+          margin-top: 0.2rem;
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+        }
+
+        span:nth-child(1)::before {
+          background-color: $btn-color;
+        }
+
+        span:nth-child(2)::before {
+          background-color: $moderate-color;
+        }
+
+        span:nth-child(3)::before {
+          background-color: $low-color;
+        }
+      }
+    }
+
+    #doughnut-chart_div {
+      width: 100px;
+      position: relative;
+
+      #done-task_percetage {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1.2rem;
+        color: $text-color;
+        opacity: 0.47;
+      }
+    }
   }
 }

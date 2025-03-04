@@ -221,10 +221,10 @@ body {
     .dashboard-charts {
       @include grid-center;
       grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: 1fr 1fr;
       grid-template-areas:
         "first first second"
-        "third fourth fourth";
+        "third . ."
+        "fourth . .";
       width: 100%;
     }
 
@@ -238,6 +238,10 @@ body {
 
     .state-chart {
       grid-area: third;
+    }
+
+    .tracked-time-bars {
+      grid-area: fourth;
     }
   }
 
