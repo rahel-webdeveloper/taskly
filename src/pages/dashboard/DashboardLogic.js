@@ -13,10 +13,10 @@ const DashboardLogic = () => {
 const initCategoryBars = (tasks) => {
   const categoryCountEl = document.getElementById("ctegory-count");
 
-  const categoryObjects = tasks.reduce((previous, current) => {
+  const categoryObjects = tasks.reduce((accumlator, current) => {
     const category = current.category;
-    previous[category] = (previous[category] || 0) + 1;
-    return previous;
+    accumlator[category] = (accumlator[category] || 0) + 1;
+    return accumlator;
   }, {});
 
   const categoryArray = Object.entries(categoryObjects).map(
@@ -194,6 +194,7 @@ const initSevenDaysLine = (tasks) => {
 };
 
 const initStateChart = (tasks) => {
+  const stateSpans = document.querySelectorAll(".state-span span");
   const donePercetageEl = document.getElementById("done-task_percetage");
 
   const doneLength = tasks.filter((task) => task.state === "done").length;
@@ -202,20 +203,25 @@ const initStateChart = (tasks) => {
   ).length;
   const onHoldLength = tasks.filter((task) => task.state === "on-hold").length;
 
-  donePercetageEl.textContent =
-    Math.floor((doneLength / tasks.length) * 100) + "%";
+  stateSpans[0].textContent = "On hold / " + onHoldLength;
+  stateSpans[1].textContent = "In progress / " + inProgressLength;
+  stateSpans[2].textContent = "Done / " + doneLength;
+
+  donePercetageEl.innerHTML = `${Math.floor(
+    (doneLength / tasks.length) * 100
+  )}% ${"<p>Done!</p>"}`;
 
   new Chart(document.getElementById("state_doughnut").getContext("2d"), {
     type: "doughnut",
     data: {
-      labels: ["Done", "In Progress", "On Hold"],
+      labels: ["On hold", "In Progress", "Done"],
       datasets: [
         {
-          data: [doneLength, inProgressLength, onHoldLength],
+          data: [onHoldLength, inProgressLength, doneLength],
           backgroundColor: [
-            "rgb(144, 220, 214)",
-            "rgb(237, 192, 123)",
             "rgb(145, 125, 182)",
+            "rgb(237, 192, 123)",
+            "rgb(106, 179, 203)",
           ],
           borderWidth: 0,
           borderRadius: 2.5,
@@ -256,21 +262,35 @@ const initStateChart = (tasks) => {
 };
 
 const initTrackedTimeBars = (tasks) => {
-  const categoryCountEl = document.getElementById("ctegory-count");
+  const trackedTimeEl = document.getElementById("tracked-time");
+  const remaingTimeEl = document.getElementById("remaining-time");
 
-  const categoryObjects = tasks.reduce((previous, current) => {
-    const category = current.category;
-    previous[category] = (previous[category] || 0) + 1;
-    return previous;
+  const trackTimeObjects = tasks.reduce((accumlator, current) => {
+    const category = current.state;
+    accumlator[category] =
+      (accumlator[category] || 0) + current.durationMinutes;
+    return accumlator;
   }, {});
 
-  const categoryArray = Object.entries(categoryObjects).map(
-    ([category, count]) => ({ category, count })
-  );
+  const trackedTime = trackTimeObjects["done"];
 
-  const totalTime = 34;
-  const trackedTime = 24;
-  const remainingTime = 10;
+  const remainingTime =
+    trackTimeObjects["in-progress"] + trackTimeObjects["on-hold"];
+
+  const trackedTimeOnHour = Math.floor(trackedTime / 60);
+  const remainingTimeOnHour = Math.floor(remainingTime / 60);
+
+  trackedTimeEl.textContent = `${
+    trackedTimeOnHour ? trackedTimeOnHour + "h" : ""
+  } ${trackedTimeOnHour && trackedTime % 60 ? "&" : ""} ${
+    trackedTime % 60 ? (trackedTime % 60) + "m" : ""
+  }`;
+
+  remaingTimeEl.textContent = `${
+    remainingTimeOnHour ? remainingTimeOnHour + "h" : ""
+  } ${remainingTimeOnHour && remainingTime % 60 ? "&" : ""} ${
+    remainingTime % 60 ? (remainingTime % 60) + "m" : ""
+  }`;
 
   new Chart(document.getElementById("tracked-time_bar"), {
     type: "bar",
@@ -278,28 +298,37 @@ const initTrackedTimeBars = (tasks) => {
       labels: ["Time details"],
       datasets: [
         {
-          data: [trackedTime],
-          backgroundColor: "rgb(228, 184, 117)",
-          hoverBackgroundColor: "rgb(241, 187, 100)",
-          borderRadius: 10,
-          barThickness: 10,
           label: "tracked time",
+          data: [trackedTime],
+          backgroundColor: "rgb(106, 179, 203)",
+          barThickness: 10,
+          borderRadius: {
+            bottomLeft: 10,
+            bottomRight: 10,
+            topLeft: 10,
+            topRight: 10,
+          },
         },
-
         {
           data: [remainingTime],
-          backgroundColor: "rgb(145, 125, 182, .5)",
-          borderRadius: 7,
+          backgroundColor: "rgb(255, 224, 131)",
+          hoverBackgroundColor: "rgb(234, 198, 91)",
           barThickness: 10,
+          borderRadius: {
+            bottomLeft: 10,
+            bottomRight: 10,
+            topLeft: 10,
+            topRight: 10,
+          },
           label: "remaining time",
-          borderWidth: 0.3,
           borderColor: "#ffffff",
+          base: 0,
         },
       ],
     },
     options: {
       responsive: true,
-      aspectRatio: 6,
+      aspectRatio: 7,
       indexAxis: "y",
 
       scales: {
@@ -324,6 +353,7 @@ const initTrackedTimeBars = (tasks) => {
         },
         x: {
           stacked: true,
+
           ticks: {
             display: false,
             color: "rgba(158, 158, 158, 0.5)",

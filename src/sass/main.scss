@@ -223,8 +223,8 @@ body {
       grid-template-columns: repeat(3, 1fr);
       grid-template-areas:
         "first first second"
-        "third . ."
-        "fourth . .";
+        "third fifth fifth"
+        "fourth fifth fifth";
       width: 100%;
     }
 
@@ -240,8 +240,13 @@ body {
       grid-area: third;
     }
 
-    .tracked-time-bars {
+    .tracked-time-chart {
       grid-area: fourth;
+    }
+
+    .dashboard_tasks-list {
+      grid-area: fifth;
+      width: 100%;
     }
   }
 

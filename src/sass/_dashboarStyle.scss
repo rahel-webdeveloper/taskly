@@ -39,10 +39,6 @@
       @include flex-space;
       margin-inline: 1.25rem;
 
-      i {
-        font-size: 1.5rem;
-      }
-
       h1 {
         font-size: 2.55rem;
       }
@@ -50,17 +46,18 @@
 
     p {
       font-size: 0.65rem;
-      font-weight: 700;
-      border-radius: 1rem;
+      font-weight: 600;
       color: $gray-color;
-      padding: 0.11rem 0.5rem;
-      font-family: $karla-font;
+
+      i {
+        vertical-align: top;
+        padding-left: 0.17rem;
+      }
     }
 
     .chart-title {
       font-size: 0.93rem;
       align-self: flex-start;
-      color: $light-high-color;
     }
   }
 
@@ -73,6 +70,20 @@
   .seven-days-chart {
     i {
       color: $low-color;
+      font-size: 1rem;
+    }
+  }
+
+  .state-details {
+    i {
+      color: $btn-color;
+      font-size: 1rem;
+    }
+  }
+
+  .tracked-time-chart {
+    i {
+      color: $count-color;
     }
   }
 
@@ -94,19 +105,19 @@
         flex-direction: column;
         row-gap: 0.3rem;
         align-items: start;
-        font-size: 0.7rem;
+        font-size: 0.65rem;
         margin-top: 0.77rem;
-        margin-left: 2.77rem;
+        margin-left: 3rem;
         position: relative;
 
         span::before {
           content: "";
           position: absolute;
           left: -1rem;
-          margin-top: 0.2rem;
+          margin-top: 0.25rem;
           width: 7px;
           height: 7px;
-          border-radius: 50%;
+          border-radius: 1rem;
         }
 
         span:nth-child(1)::before {
@@ -118,7 +129,7 @@
         }
 
         span:nth-child(3)::before {
-          background-color: $low-color;
+          background-color: $count-color;
         }
       }
     }
@@ -135,7 +146,59 @@
         font-size: 1.2rem;
         color: $text-color;
         opacity: 0.47;
+
+        p {
+          font-size: 0.77rem;
+          font-weight: 200;
+          margin-top: -0.25rem;
+        }
       }
     }
+  }
+}
+
+.time-span {
+  font-size: 0.65rem;
+  display: grid;
+  text-align: start;
+  position: relative;
+
+  span::before {
+    content: "";
+    position: absolute;
+    left: -0.77rem;
+    margin-top: 0.25rem;
+    border-radius: 50%;
+    width: 6px;
+    height: 6px;
+  }
+
+  span:nth-child(1)::before {
+    background-color: $count-color;
+  }
+  span:nth-child(2)::before {
+    background-color: $yellow-color;
+  }
+}
+
+.time-details {
+  @include flex-space;
+  margin: -0.3rem 0.37rem 0.67rem 0.37rem;
+
+  h3 {
+    font-size: 0.815rem;
+  }
+
+  span {
+    color: $primary-color;
+    padding: 0rem 0.13rem;
+    border-radius: 0.15rem;
+    font-size: 0.67rem;
+  }
+  #tracked-time {
+    background-color: $count-color;
+  }
+  #remaining-time {
+    background-color: $yellow-color;
   }
 }
