@@ -1,5 +1,5 @@
 import { Chart } from "chart.js/auto";
-import { listTask } from "../../App";
+import { listTask } from "../../listTasks/store";
 
 const DashboardLogic = () => {
   const tasks = listTask.get();
@@ -8,6 +8,7 @@ const DashboardLogic = () => {
   initSevenDaysLine(tasks);
   initStateChart(tasks);
   initTrackedTimeBars(tasks);
+  console.log("second success");
 };
 
 const initCategoryBars = (tasks) => {
@@ -207,9 +208,9 @@ const initStateChart = (tasks) => {
   stateSpans[1].textContent = "In progress / " + inProgressLength;
   stateSpans[2].textContent = "Done / " + doneLength;
 
-  donePercetageEl.innerHTML = `${Math.floor(
-    (doneLength / tasks.length) * 100
-  )}% ${"<p>Done!</p>"}`;
+  donePercetageEl.innerHTML = `${
+    tasks.length !== 0 ? Math.floor((doneLength / tasks.length) * 100) : 0
+  }% ${"<p>Done!</p>"}`;
 
   new Chart(document.getElementById("state_doughnut").getContext("2d"), {
     type: "doughnut",
@@ -235,6 +236,7 @@ const initStateChart = (tasks) => {
 
       scales: {
         y: {
+          display: false,
           ticks: {
             display: false,
           },
@@ -272,25 +274,25 @@ const initTrackedTimeBars = (tasks) => {
     return accumlator;
   }, {});
 
-  const trackedTime = trackTimeObjects["done"];
+  const trackedTime = trackTimeObjects["done"] || 0;
 
   const remainingTime =
-    trackTimeObjects["in-progress"] + trackTimeObjects["on-hold"];
+    (trackTimeObjects["in-progress"] || 0) + (trackTimeObjects["on-hold"] || 0);
 
   const trackedTimeOnHour = Math.floor(trackedTime / 60);
   const remainingTimeOnHour = Math.floor(remainingTime / 60);
 
-  trackedTimeEl.textContent = `${
+  trackedTimeEl.textContent = `${trackedTimeOnHour && trackedTime ? "" : 0} ${
     trackedTimeOnHour ? trackedTimeOnHour + "h" : ""
   } ${trackedTimeOnHour && trackedTime % 60 ? "&" : ""} ${
     trackedTime % 60 ? (trackedTime % 60) + "m" : ""
   }`;
 
   remaingTimeEl.textContent = `${
-    remainingTimeOnHour ? remainingTimeOnHour + "h" : ""
-  } ${remainingTimeOnHour && remainingTime % 60 ? "&" : ""} ${
-    remainingTime % 60 ? (remainingTime % 60) + "m" : ""
-  }`;
+    remainingTimeOnHour && remainingTime ? "" : 0
+  } ${remainingTimeOnHour ? remainingTimeOnHour + "h" : ""} ${
+    remainingTimeOnHour && remainingTime % 60 ? "&" : ""
+  } ${remainingTime % 60 ? (remainingTime % 60) + "m" : ""}`;
 
   new Chart(document.getElementById("tracked-time_bar"), {
     type: "bar",
@@ -301,25 +303,27 @@ const initTrackedTimeBars = (tasks) => {
           label: "tracked time",
           data: [trackedTime],
           backgroundColor: "rgb(106, 179, 203)",
-          barThickness: 10,
+          barThickness: 9,
           borderRadius: {
-            bottomLeft: 10,
-            bottomRight: 10,
+            bottomLeft: 20,
+            bottomRight: 20,
             topLeft: 10,
             topRight: 10,
           },
+          borderSkipped: false,
         },
         {
           data: [remainingTime],
           backgroundColor: "rgb(255, 224, 131)",
           hoverBackgroundColor: "rgb(234, 198, 91)",
-          barThickness: 10,
+          barThickness: 9,
           borderRadius: {
-            bottomLeft: 10,
-            bottomRight: 10,
+            bottomLeft: 20,
+            bottomRight: 20,
             topLeft: 10,
             topRight: 10,
           },
+          borderSkipped: false,
           label: "remaining time",
           borderColor: "#ffffff",
           base: 0,
@@ -334,6 +338,7 @@ const initTrackedTimeBars = (tasks) => {
       scales: {
         y: {
           stacked: true,
+          display: false,
           ticks: {
             color: "rgb(158, 158, 158, 0.7)",
             display: false,
@@ -345,7 +350,7 @@ const initTrackedTimeBars = (tasks) => {
           grid: {
             display: false,
             drawTicks: false,
-            tickLength: 3,
+            tickLength: 0,
           },
           suggestedMin: 0,
           suggestedMax: 12,
@@ -353,6 +358,7 @@ const initTrackedTimeBars = (tasks) => {
         },
         x: {
           stacked: true,
+          display: false,
 
           ticks: {
             display: false,
@@ -363,7 +369,6 @@ const initTrackedTimeBars = (tasks) => {
           },
           grid: {
             display: false,
-            drawOnChartArea: false,
           },
         },
       },

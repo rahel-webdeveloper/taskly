@@ -1,9 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap");
 @import "variables";
 @import "mixins";
+@import "listTasksStyle";
 @import "timerStyle";
 @import "navbarStyle";
-@import "constTasksStyle";
+@import "TasksStyle";
 @import "dashboarStyle";
 
 * {
@@ -169,8 +170,7 @@ body {
     border-top-right-radius: 1rem;
   }
   .task-list-container {
-    border-bottom-left-radius: 0;
-    border-top-right-radius: 0;
+    border-radius: 2.5rem 0 0.5rem 0;
   }
   .task-list-container .all-delete-div {
     border-bottom-right-radius: 0.5rem;

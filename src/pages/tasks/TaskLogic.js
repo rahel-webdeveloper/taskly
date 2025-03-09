@@ -1,128 +1,29 @@
-import TaskEvents, {
-  Id,
-  taskDescription,
+import { listTask } from "../../listTasks/store";
+import { updateViewOnTask } from "../../listTasks/ListTasksLogic.js";
+import {
   category,
-  priority,
-  stateName,
-  visibleTasks,
-  startTime,
-  endTime,
   durationMinutes,
-  startAmPm,
   endAmPm,
-} from "./store.js";
+  endTime,
+  priority,
+  startAmPm,
+  startTime,
+  taskDescription,
+} from "../../listTasks/store";
 import {
-  addTaskToHtml,
-  addToDetailsCard,
-  updateTaskCount,
-} from "./TaskRender.js";
-import { addAngleBracket } from "./TaskRender.js";
-import {
-  priorityIcons,
   priorityColors,
+  priorityIcons,
   priorityLabels,
 } from "../../services/helper.js";
-import { listTask } from "../../App.js";
 
-const {
-  completingTask,
-  deletingTask,
-  editingTask,
-  saveEditedTask,
-  onSelectedState,
-  deletingCompleteTasks,
-} = TaskEvents;
-
-export default function constTasksLogic() {
+export default function TasksLogic() {
   const constTasksSection = document.getElementById("const-tasks-section");
 
   if (constTasksSection) {
-    constTasksSection.addEventListener("click", eventsHandler);
-
-    onSelectedState(listTask.get(), stateName.get());
     submitForm();
     updateViewOnTask();
   }
 }
-
-// Events hadler function
-const eventsHandler = (event) => {
-  const customSelect = document.getElementById("custom_select");
-  const filterList = document.getElementById("filter_list");
-  const filterOptions = document.querySelectorAll(".option");
-  const filterNameShowEl = document.querySelector(".state-name");
-
-  const editBox = document.querySelector(".task-edit-box");
-  const editInput = document.getElementById("task-edit-input");
-
-  const askDiv = document.querySelector(".delete-ask-div");
-  const askDivStyle = askDiv.style;
-
-  const target = event.target;
-  const getAttributeId = target.getAttribute("data-id");
-
-  if (target.closest(".check-icon")) {
-    Id.set(getAttributeId);
-    completingTask();
-  }
-
-  if (target.closest(".delete-icon")) {
-    Id.set(getAttributeId);
-    deletingTask();
-  }
-
-  if (target.closest(".edit-icon-div")) {
-    Id.set(getAttributeId);
-    editingTask(editBox, editInput);
-  }
-
-  if (target.closest("#save")) saveEditedTask(editInput, editBox);
-
-  if (target.closest("#cancel")) editBox.style.display = "none";
-
-  // Toggle filter box
-  if (target.closest(".selected-option"))
-    filterList.style.display =
-      filterList.style.display === "block" ? "none" : "block";
-
-  // Hide filter box because of out event
-  if (!customSelect.contains(target)) filterList.style.display = "none";
-
-  filterOptions.forEach((option) => {
-    option.addEventListener("click", function () {
-      filterNameShowEl.textContent = `${
-        (option.dataset.value === "all" && "All") ||
-        (option.dataset.value === "done" && "Done") ||
-        (option.dataset.value === "in-progress" && "In progress") ||
-        (option.dataset.value === "on-hold" && "On hold")
-      } Tasks`;
-      filterNameShowEl.dataset.value = option.dataset.value;
-
-      onSelectedState(listTask.get(), option.dataset.value);
-
-      filterList.style.display = "none";
-
-      // Adding the angle brackets
-      addAngleBracket(
-        filterOptions,
-        option.dataset.value,
-        filterNameShowEl.dataset.value
-      );
-    });
-  });
-
-  if (target.closest(".all-delte-btn") && listTask.get().length !== 0)
-    askDivStyle.display = "block";
-
-  // Ask for deleting all done tasks
-  if (target.closest("#no")) askDivStyle.display = "none";
-
-  if (target.closest("#yes")) {
-    askDivStyle.display = "none";
-
-    deletingCompleteTasks();
-  }
-};
 
 function submitForm() {
   const form = document.getElementById("form");
@@ -138,7 +39,7 @@ function submitForm() {
     event.preventDefault();
 
     if (validationOfFormData()) {
-      addTaskToList();
+      addTaskData();
 
       // Reset from
       form.reset();
@@ -311,7 +212,7 @@ function nullValidation(elementValue, erroreEl) {
 }
 
 // Add task to task list
-function addTaskToList() {
+function addTaskData() {
   const updatedAt = new Date();
 
   // Structure of task data
@@ -337,22 +238,4 @@ function addTaskToList() {
   ]);
 
   updateViewOnTask();
-}
-
-// updateViewOnTask
-export function updateViewOnTask() {
-  addTaskToHtml(visibleTasks.get());
-  onSelectedState(listTask.get(), stateName.get());
-  saveLocalStorage(listTask.get());
-  addToDetailsCard(listTask.get());
-  updateTaskCount(listTask.get(), visibleTasks.get().length);
-}
-
-// local storage
-export function saveLocalStorage(tasks) {
-  localStorage.setItem("listTask", JSON.stringify(tasks));
-}
-
-export function loadTasksFromStorage() {
-  return JSON.parse(localStorage.getItem("listTask"));
 }
