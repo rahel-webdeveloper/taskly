@@ -1,4 +1,3 @@
-/* Task list */
 .task-list-container {
   background-color: $secondary-color;
   border-radius: 2.5rem 2.5rem 0rem 0rem;
@@ -6,7 +5,7 @@
   padding-bottom: 0;
   text-align: end;
   position: relative;
-  width: 100%;
+  // width: 100%;
 }
 
 /* filter and length */
@@ -146,10 +145,6 @@
   color: $btn-color;
 }
 
-.list-task:last-of-type {
-  padding-bottom: 3rem;
-}
-
 .list-task-div {
   @include flex-center;
   width: 100%;
@@ -282,7 +277,7 @@
 .all-delete-div {
   @include grid-center;
   position: absolute;
-  bottom: -0.3rem;
+  bottom: -0.0159rem;
   left: 0;
   background-color: $backdrop-filter-color;
   width: 100%;

@@ -1,4 +1,5 @@
 import TasksContainer from "../../listTasks/ListTasksRender";
+import { renderTodayDiv } from "../tasks/TaskRender";
 
 const DashboardRender = () => {
   return `
@@ -66,6 +67,7 @@ const DashboardRender = () => {
 
       <div class="dashboard_tasks-list">
         ${TasksContainer()}
+        ${renderTodayDiv()}
       </div>
   </div>`;
 };

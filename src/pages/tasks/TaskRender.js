@@ -94,7 +94,16 @@ export default function tasksRender() {
     </section>
     <section class="third-section">
       
-      <h3>Today's Report</h3>
+      ${renderTodayDiv()}
+        
+    </section>
+</div>
+    `;
+}
+
+export const renderTodayDiv = () => {
+  return `
+  <div class="today-report-div"> <h3>Today's Report</h3>
         <div class="today-tasks-report">
           <div class="today-box">
 
@@ -132,11 +141,9 @@ export default function tasksRender() {
             <h3><span id="lenght-tasks"></span> tasks</h3>
           </div> 
         </div>
-        
-    </section>
-</div>
-    `;
-}
+    </div>
+  `;
+};
 
 // today's report
 export const todayReport = (totalTasks) => {

@@ -2,7 +2,7 @@
   margin-top: 1.5rem;
   @include grid-center;
   flex-direction: column;
-  padding: 0.87rem;
+  padding: 0.77rem;
   font-family: $DM-Sans;
   width: 100%;
 
@@ -34,6 +34,7 @@
     border-radius: 1rem;
     border: 1px solid $light-border-color;
     width: 100%;
+    // margin-inline: 1rem;
 
     .chart-details {
       @include flex-space;
@@ -200,5 +201,27 @@
   }
   #remaining-time {
     background-color: $yellow-color;
+  }
+}
+
+.dashboard_tasks-list {
+  width: 100%;
+
+  .task-list-container {
+    border-radius: rem;
+    border-radius: 1.7rem 1.7rem 0rem 0rem;
+    margin-inline: -0.74rem;
+  }
+
+  .list-task:last-of-type {
+    padding-bottom: 4rem;
+  }
+
+  .task-list-div {
+    height: 28rem;
+  }
+
+  .today-report-div {
+    margin-top: 2rem;
   }
 }

@@ -218,35 +218,59 @@ body {
   .dashboard {
     width: 100%;
 
+    .dash-header {
+      padding-top: 0;
+    }
+
     .dashboard-charts {
       @include grid-center;
       grid-template-columns: repeat(3, 1fr);
       grid-template-areas:
-        "first first second"
-        "third fifth fifth"
-        "fourth fifth fifth";
+        "days  listTasks listTasks"
+        "category  listTasks listTasks"
+        "state  listTasks listTasks"
+        "trackTime  listTasks listTasks";
       width: 100%;
     }
 
     .category-chart {
-      grid-area: second;
+      grid-area: category;
     }
 
     .seven-days-chart {
-      grid-area: first;
+      grid-area: days;
     }
 
     .state-chart {
-      grid-area: third;
+      grid-area: state;
     }
 
     .tracked-time-chart {
-      grid-area: fourth;
+      grid-area: trackTime;
     }
 
     .dashboard_tasks-list {
-      grid-area: fifth;
+      grid-area: listTasks;
       width: 100%;
+    }
+
+    .dashboard_tasks-list {
+      width: 100%;
+
+      .task-list-container {
+        background-color: $secondary-color;
+        border-radius: 1rem 0rem 0rem 1rem;
+        margin: 0 -0.74rem -0.77rem 0;
+      }
+
+      .all-delete-div {
+        border-radius: 1.5rem 1.5rem 0rem 1rem;
+      }
+
+      .today-tasks-report {
+        margin-top: 0.7rem;
+        gap: 3rem;
+      }
     }
   }
 

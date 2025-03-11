@@ -42,7 +42,7 @@ const initCategoryBars = (tasks) => {
     },
     options: {
       responsive: true,
-      aspectRatio: 1.93,
+      aspectRatio: 2.5,
 
       scales: {
         y: {
@@ -145,7 +145,7 @@ const initSevenDaysLine = (tasks) => {
     },
     options: {
       responsive: true,
-      aspectRatio: 4,
+      aspectRatio: 5,
 
       scales: {
         y: {
