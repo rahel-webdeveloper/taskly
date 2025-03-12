@@ -1,4 +1,4 @@
-import { listTask } from "../../listTasks/store";
+import { listTasks } from "../../listTasks/store";
 import { updateViewOnTask } from "../../listTasks/ListTasksLogic.js";
 import {
   category,
@@ -216,9 +216,9 @@ function addTaskData() {
   const updatedAt = new Date();
 
   // Structure of task data
-  listTask.set([
+  listTasks.set([
     {
-      id: String(listTask.get().length + 1),
+      id: String(listTasks.get().length + 1),
       description: taskDescription.get(),
       category: category.get(),
       startTime: startTime.get().toISOString(),
@@ -234,7 +234,7 @@ function addTaskData() {
       isCompleted: false,
       updatedAt: updatedAt.toISOString(),
     },
-    ...listTask.get(),
+    ...listTasks.get(),
   ]);
 
   updateViewOnTask();

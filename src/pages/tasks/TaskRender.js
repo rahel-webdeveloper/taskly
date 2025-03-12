@@ -1,4 +1,6 @@
-import TasksContainer from "../../listTasks/ListTasksRender";
+import TasksContainer, {
+  renderTodayDiv,
+} from "../../listTasks/ListTasksRender";
 
 // Const section main content
 export default function tasksRender() {
@@ -101,89 +103,6 @@ export default function tasksRender() {
     `;
 }
 
-export const renderTodayDiv = () => {
-  return `
-  <div class="today-report-div"> <h3>Today's Report</h3>
-        <div class="today-tasks-report">
-          <div class="today-box">
-
-          <div class="today-details">
-            <span class="today-icon" id="done-icon">
-             <i class="bi bi-patch-check-fill"></i>
-            </span>
-            <p>Completed <br> tasks</p>
-          </div>
-
-          <h3 id="done-tasks">30%</h3>
-          </div>
-          
-          <div class="today-box">
-            
-
-            <div class="today-details">
-            <span class="today-icon" id="time-icon">
-            <i class="bi bi-watch"></i>
-            </span>
-            <p>Tracked <br> Time</p>
-            </div>
-            <h3 id="tasks-time">3h & 25m</h3>
-          </div> 
-
-          <div class="today-box">
-            
-
-            <div class="today-details">
-            <span class="today-icon" id="lenght-icon">
-            <i class="bi bi-database-fill"></i>
-            </span>
-            <p>Created <br> Tasks</p>
-            </div>
-            <h3><span id="lenght-tasks"></span> tasks</h3>
-          </div> 
-        </div>
-    </div>
-  `;
-};
-
-// today's report
-export const todayReport = (totalTasks) => {
-  const doneTasksPercentageEl = document.getElementById("done-tasks");
-  const tasksTrackedTimeEl = document.getElementById("tasks-time");
-  const lengthTasksEl = document.getElementById("lenght-tasks");
-
-  const todayTasks = totalTasks.filter((task) => {
-    const todayDate = new Date().toISOString().split("T")[0];
-    const taskDate = new Date(task.updatedAt).toISOString().split("T")[0];
-
-    return todayDate === taskDate && task;
-  });
-
-  const todayDoneTasks = todayTasks.filter((task) => task.state === "done");
-
-  const todayTrackedTime = todayTasks.reduce(
-    (accumlator, currentValue) => accumlator + currentValue.durationMinutes,
-    0
-  );
-
-  if (doneTasksPercentageEl)
-    doneTasksPercentageEl.innerText =
-      todayDoneTasks.length === 0
-        ? "0%"
-        : ((todayDoneTasks.length / todayTasks.length) * 100).toFixed(0) + "%";
-
-  if (lengthTasksEl) lengthTasksEl.textContent = todayTasks.length;
-
-  if (tasksTrackedTimeEl)
-    tasksTrackedTimeEl.textContent =
-      todayTasks.length === 0
-        ? "0h & 0m"
-        : `${Math.floor(todayTrackedTime / 60) + "h"} ${
-            todayTrackedTime / 60 > 0 && todayTrackedTime ? "&" : ""
-          } ${(todayTrackedTime % 60) + "m"}`;
-};
-
-// Adding angle brackets in filter
-
 export function addToDetailsCard(tasks) {
   const parentCardEl = document.getElementById("details_cards");
   if (parentCardEl) {
@@ -265,12 +184,12 @@ export function addToDetailsCard(tasks) {
           </div>
           <div class="task-time">
             <div class="task-start-time">
-              <h3 class="start-time">0: 00 PM</h3>
+              <h3 class="start-time">0: 00 AM</h3>
               <p>Start</p>
             </div>
             <div class="task-done-time"><span>00 Min</span></div>
             <div class="task-end-time">
-              <h3 class="end-time">0: 00 AM</h3>
+              <h3 class="end-time">0: 00 PM</h3>
               <p>End</p>
             </div>
           </div>

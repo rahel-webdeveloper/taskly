@@ -16,8 +16,10 @@ export const priority = atom({
   icon: "",
 });
 
-export const listTask = atom(loadTasksFromStorage() || tasks);
-export const stateName = atom("all");
+export const listTasks = atom(loadTasksFromStorage() || tasks);
+export const todayTasks = atom([]);
+
+export const tasksState = atom("all");
 export const visibleTasks = atom([]);
 
 export const startTime = atom(0);
@@ -28,11 +30,23 @@ export const durationMinutes = atom(0);
 export const startAmPm = atom("AM");
 export const endAmPm = atom("PM");
 
+// get today task
+export const setTodayTasks = (tasks) => {
+  const todayTasksFilter = tasks.filter((task) => {
+    const todayDate = new Date().toISOString().split("T")[0];
+    const taskDate = new Date(task.updatedAt).toISOString().split("T")[0];
+
+    return todayDate === taskDate && task;
+  });
+
+  todayTasks.set(todayTasksFilter);
+};
+
 // completing a task
 
 export const completingTask = () => {
-  listTask.set(
-    listTask
+  listTasks.set(
+    listTasks
       .get()
       .map((task) =>
         String(task.id) === Id.get()
@@ -49,19 +63,19 @@ export const completingTask = () => {
 
 // deleting a task
 export const deletingTask = () => {
-  listTask.set(listTask.get().filter((task) => task.id !== Id.get()));
+  listTasks.set(listTasks.get().filter((task) => task.id !== Id.get()));
   updateViewOnTask();
 };
 
 // deleting all done tasks
 export const deletingCompleteTasks = () => {
-  listTask.set(listTask.get().filter((task) => task.state !== "done"));
+  listTasks.set(listTasks.get().filter((task) => task.state !== "done"));
   updateViewOnTask();
 };
 
 // editing a task
 export const editingTask = (editBox, editInput) => {
-  const findTask = listTask.get().find((task) => task.id === Id.get());
+  const findTask = listTasks.get().find((task) => task.id === Id.get());
 
   editBox.style.display = "flex";
   editInput.value = findTask.description;
@@ -73,8 +87,8 @@ export const saveEditedTask = (editInput, editBox) => {
 
   if (editInput.value.length < 7 || editInput.length > 70) return;
 
-  listTask.set(
-    listTask.get().map((task) =>
+  listTasks.set(
+    listTasks.get().map((task) =>
       task.id === Id.get()
         ? {
             ...task,
@@ -91,16 +105,16 @@ export const saveEditedTask = (editInput, editBox) => {
 
 // Get state for filter
 
-export const onSelectedState = (listTasks, state) => {
-  stateName.set(state);
-  visibleTasks.set(getFilterTasks(listTasks, state));
+export const onSelectedState = (tasks, state) => {
+  tasksState.set(state);
+  visibleTasks.set(getFilterTasks(tasks, state));
 
-  updateTaskCount(listTasks, visibleTasks.get().length);
+  updateTaskCount(tasks, visibleTasks.get().length);
   addTaskToList(visibleTasks.get());
 };
 
-const getFilterTasks = (listTask, state) => {
+const getFilterTasks = (tasks, state) => {
   return state === "all"
-    ? listTask
-    : listTask.filter((task) => task.state === state.toLowerCase());
+    ? tasks
+    : tasks.filter((task) => task.state === state.toLowerCase());
 };

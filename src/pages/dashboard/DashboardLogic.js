@@ -1,14 +1,16 @@
 import { Chart } from "chart.js/auto";
-import { listTask } from "../../listTasks/store";
+import { listTasks } from "../../listTasks/store";
+import { todayReport } from "../../listTasks/ListTasksLogic";
 
 const DashboardLogic = () => {
-  const tasks = listTask.get();
+  const tasks = listTasks.get();
 
   initCategoryBars(tasks);
   initSevenDaysLine(tasks);
   initStateChart(tasks);
   initTrackedTimeBars(tasks);
-  console.log("second success");
+  todayReport(listTasks.get());
+  // console.log("second success");
 };
 
 const initCategoryBars = (tasks) => {

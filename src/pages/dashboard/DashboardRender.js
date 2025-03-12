@@ -1,5 +1,5 @@
 import TasksContainer from "../../listTasks/ListTasksRender";
-import { renderTodayDiv } from "../tasks/TaskRender";
+import { renderTodayDiv } from "../../listTasks/ListTasksRender";
 
 const DashboardRender = () => {
   return `
