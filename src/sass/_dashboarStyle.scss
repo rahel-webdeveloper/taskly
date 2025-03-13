@@ -89,8 +89,7 @@
   }
 
   .state-chart {
-    @include grid-center;
-    grid-template-columns: 1fr 1fr;
+    @include flex-space;
 
     .state-details {
       text-align: start;
@@ -136,8 +135,9 @@
     }
 
     #doughnut-chart_div {
-      width: 100px;
+      width: 104px;
       position: relative;
+      display: inline;
 
       #done-task_percetage {
         position: absolute;
@@ -220,8 +220,14 @@
   .task-list-div {
     height: 28rem;
   }
+}
 
-  .today-report-div {
-    margin-top: 2rem;
+.statechart-tracktime-div {
+  @include grid-center;
+  gap: 0.77rem;
+  width: 100%;
+
+  .chart {
+    width: 100%;
   }
 }

@@ -9,6 +9,7 @@ const DashboardRender = () => {
       <h5>Let's take a look to your workout</h5>
     </div>
     <div class="dashboard-charts">
+
       <div class="category-chart chart">
         <div class="chart-details">
           <div>
@@ -33,7 +34,8 @@ const DashboardRender = () => {
         <canvas id="days_line"></canvas>
       </div>
 
-      <div class="state-chart chart">
+      <div class="statechart-tracktime-div">
+        <div class="state-chart chart">
         <div class="state-details">
          <p class="chart-title">Tasks by state <i class="bi bi-lightning-charge"></i></p>
 
@@ -58,17 +60,24 @@ const DashboardRender = () => {
           <span>Remaining time</span>
          </div>
         </div>
-        <canvas id="tracked-time_bar"></canvas>
+        <div class="state-div">
+         <canvas id="tracked-time_bar"></canvas>
+        </div>
         <div class="time-details">
           <h3>Tracked time: <span id="tracked-time">20h & 37m</span></h3>
           <h3>Remaining time: <span id="remaining-time">30h & 23m</span></h3>
         </div>
+       </div>
       </div>
+
+      
 
       <div class="dashboard_tasks-list">
         ${TasksContainer()}
-        ${renderTodayDiv()}
       </div>
+
+      ${renderTodayDiv()}
+
   </div>`;
 };
 

@@ -93,9 +93,63 @@ body {
   }
 }
 
+@media (width >= 768px) {
+  .dashboard-charts {
+    min-height: 100vh;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    // grid-template-rows: repeat(20, 50px);
+    grid-template-areas:
+      "tasks tasks tasks todayreport "
+      "category category statetrack statetrack"
+      "category category statetrack statetrack"
+      "days days . .";
+
+    .today-report-div {
+      grid-area: todayreport;
+    }
+
+    .category-chart {
+      grid-area: category;
+    }
+
+    .seven-days-chart {
+      grid-area: days;
+    }
+
+    .statechart-tracktime-div {
+      grid-area: statetrack;
+    }
+  }
+
+  .dashboard_tasks-list {
+    width: 100%;
+    grid-area: tasks;
+
+    .task-list-container {
+      background-color: $secondary-color;
+      border-radius: 1rem 1rem 0.7rem 0.7rem;
+      margin-inline: 0;
+    }
+
+    .all-delete-div {
+      border-radius: 1.5rem 1.5rem 0.7rem 0.7rem;
+      margin-bottom: -0.15rem;
+    }
+  }
+
+  .today-tasks-report {
+    // margin-top: 0.7rem;
+    gap: 3rem;
+  }
+}
+
 @media screen and (width >= 1024px) {
   .app-container {
     padding: 0.12rem 0.12rem 2rem 0.15rem;
+  }
+
+  .today-tasks-report {
+    gap: 0.35rem;
   }
 
   .log-img {
@@ -224,52 +278,31 @@ body {
 
     .dashboard-charts {
       @include grid-center;
-      grid-template-columns: repeat(3, 1fr);
+      gap: 1.3rem;
+      grid-template-columns: 1.5fr 1fr 1fr;
       grid-template-areas:
-        "days  listTasks listTasks"
-        "category  listTasks listTasks"
-        "state  listTasks listTasks"
-        "trackTime  listTasks listTasks";
+        "todayreport  tasks tasks"
+        "category tasks tasks"
+        "days statetrack statetrack";
       width: 100%;
     }
 
-    .category-chart {
-      grid-area: category;
-    }
-
-    .seven-days-chart {
-      grid-area: days;
-    }
-
-    .state-chart {
-      grid-area: state;
-    }
-
-    .tracked-time-chart {
-      grid-area: trackTime;
-    }
-
-    .dashboard_tasks-list {
-      grid-area: listTasks;
+    .today-report-div {
+      grid-area: todayreport;
       width: 100%;
+      padding: 0;
     }
 
     .dashboard_tasks-list {
       width: 100%;
+    }
 
-      .task-list-container {
-        background-color: $secondary-color;
-        border-radius: 1rem 0rem 0rem 1rem;
-        margin: 0 -0.74rem -0.77rem 0;
-      }
+    .statechart-tracktime-div {
+      grid-template-columns: 1fr 1fr;
+      // margin-bottom: -4rem;
 
-      .all-delete-div {
-        border-radius: 1.5rem 1.5rem 0rem 1rem;
-      }
-
-      .today-tasks-report {
-        margin-top: 0.7rem;
-        gap: 3rem;
+      .tracked-time-chart {
+        width: 100%;
       }
     }
   }

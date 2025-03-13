@@ -233,6 +233,7 @@ const initStateChart = (tasks) => {
       ],
     },
     options: {
+      aspectRatio: 0.85,
       responsive: true,
       cutout: 43,
 
@@ -334,7 +335,8 @@ const initTrackedTimeBars = (tasks) => {
     },
     options: {
       responsive: true,
-      aspectRatio: 7,
+      aspectRatio: 5,
+
       indexAxis: "y",
 
       scales: {
