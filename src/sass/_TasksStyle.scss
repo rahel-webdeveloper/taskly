@@ -367,7 +367,7 @@ input[type="number"]::-webkit-outer-spin-button {
 .today-tasks-report {
   @include flex-center;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 1rem;
   margin-top: 1.5rem;
 
   .today-box {

@@ -139,15 +139,15 @@ const initSevenDaysLine = (tasks) => {
           data: taskCountsArray.map((task) => task.count),
           backgroundColor: "rgb(134, 181, 178)",
           borderColor: "rgb(134, 181, 178)",
-          barThickness: 10,
-          tension: 0.22,
-          borderWidth: 1,
+          pointStyle: "circle",
+          pointRadius: 2,
+          borderWidth: 2,
         },
       ],
     },
     options: {
       responsive: true,
-      aspectRatio: 5,
+      aspectRatio: 9,
 
       scales: {
         y: {
@@ -161,8 +161,7 @@ const initSevenDaysLine = (tasks) => {
           grid: {
             display: false,
           },
-          suggestedMin: 0,
-          suggestedMax: 7,
+
           beginAtZero: true,
         },
         x: {
@@ -233,7 +232,7 @@ const initStateChart = (tasks) => {
       ],
     },
     options: {
-      aspectRatio: 0.85,
+      aspectRatio: 0.99,
       responsive: true,
       cutout: 43,
 
@@ -335,7 +334,7 @@ const initTrackedTimeBars = (tasks) => {
     },
     options: {
       responsive: true,
-      aspectRatio: 5,
+      aspectRatio: 6,
 
       indexAxis: "y",
 
@@ -343,6 +342,7 @@ const initTrackedTimeBars = (tasks) => {
         y: {
           stacked: true,
           display: false,
+
           ticks: {
             color: "rgb(158, 158, 158, 0.7)",
             display: false,
@@ -356,9 +356,6 @@ const initTrackedTimeBars = (tasks) => {
             drawTicks: false,
             tickLength: 0,
           },
-          suggestedMin: 0,
-          suggestedMax: 12,
-          beginAtZero: true,
         },
         x: {
           stacked: true,

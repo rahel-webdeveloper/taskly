@@ -95,9 +95,8 @@ body {
 
 @media (width >= 768px) {
   .dashboard-charts {
-    min-height: 100vh;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    // grid-template-rows: repeat(20, 50px);
+    grid-template-columns: 1fr 1.77fr 1fr 1fr;
+    grid-auto-rows: min-content;
     grid-template-areas:
       "tasks tasks tasks todayreport "
       "category category statetrack statetrack"
@@ -110,6 +109,7 @@ body {
 
     .category-chart {
       grid-area: category;
+      place-self: end;
     }
 
     .seven-days-chart {
@@ -118,6 +118,7 @@ body {
 
     .statechart-tracktime-div {
       grid-area: statetrack;
+      place-self: center;
     }
   }
 
@@ -138,7 +139,6 @@ body {
   }
 
   .today-tasks-report {
-    // margin-top: 0.7rem;
     gap: 3rem;
   }
 }
@@ -280,17 +280,18 @@ body {
       @include grid-center;
       gap: 1.3rem;
       grid-template-columns: 1.5fr 1fr 1fr;
+      grid-auto-rows: min-content;
       grid-template-areas:
         "todayreport  tasks tasks"
         "category tasks tasks"
         "days statetrack statetrack";
-      width: 100%;
     }
 
     .today-report-div {
       grid-area: todayreport;
       width: 100%;
       padding: 0;
+      place-self: end;
     }
 
     .dashboard_tasks-list {
@@ -299,7 +300,6 @@ body {
 
     .statechart-tracktime-div {
       grid-template-columns: 1fr 1fr;
-      // margin-bottom: -4rem;
 
       .tracked-time-chart {
         width: 100%;
