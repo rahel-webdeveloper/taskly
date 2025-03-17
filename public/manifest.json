@@ -6,7 +6,7 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "/maskable_icon.png",
+      "src": "/PWA-Icon.webp",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable any"
