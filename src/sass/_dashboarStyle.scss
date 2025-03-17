@@ -163,15 +163,16 @@
   display: grid;
   text-align: start;
   position: relative;
+  row-gap: 0.3rem;
 
   span::before {
     content: "";
     position: absolute;
-    left: -0.77rem;
+    left: -1rem;
     margin-top: 0.25rem;
-    border-radius: 50%;
-    width: 6px;
-    height: 6px;
+    border-radius: 1rem;
+    width: 7px;
+    height: 7px;
   }
 
   span:nth-child(1)::before {

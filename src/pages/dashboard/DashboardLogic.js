@@ -140,14 +140,15 @@ const initSevenDaysLine = (tasks) => {
           backgroundColor: "rgb(134, 181, 178)",
           borderColor: "rgb(134, 181, 178)",
           pointStyle: "circle",
+          tension: 0.2,
           pointRadius: 2,
-          borderWidth: 2,
+          borderWidth: 1,
         },
       ],
     },
     options: {
       responsive: true,
-      aspectRatio: 9,
+      aspectRatio: 7,
 
       scales: {
         y: {
@@ -232,7 +233,7 @@ const initStateChart = (tasks) => {
       ],
     },
     options: {
-      aspectRatio: 0.99,
+      // aspectRatio: 1,
       responsive: true,
       cutout: 43,
 

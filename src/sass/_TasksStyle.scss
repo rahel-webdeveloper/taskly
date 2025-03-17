@@ -94,6 +94,7 @@
   width: 25px;
   height: 15px;
   font-weight: 600;
+  transition: all 0.3s ease-in;
 }
 
 .priority-of-task span:is(:hover, :focus) {
@@ -184,6 +185,7 @@ input[type="number"]::-webkit-outer-spin-button {
   border-radius: 0 1rem 1rem 0;
   font-family: inherit;
 }
+
 .checkmark::before {
   font-family: inherit;
   position: absolute;
@@ -220,12 +222,16 @@ input[type="number"]::-webkit-outer-spin-button {
   padding: 0.815rem 1.57rem;
   font-size: 0.8rem;
   font-weight: 750;
-  transition: all 0.3s ease-in;
+  transition: all 0.5s ease-in;
+}
+
+.create-btn:active,
+.priority-of-task span:active {
+  scale: 0.6;
 }
 
 .create-btn:hover {
   opacity: 0.9;
-  scale: 1.015;
 }
 
 .create-btn i {
