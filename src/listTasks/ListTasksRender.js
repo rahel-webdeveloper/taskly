@@ -84,7 +84,9 @@ export function addTaskToList(tasks) {
             ? "in progress"
             : "on hold"
         } tasks found!</h5>
-         ${tasksState.get() === "all" ? "<h5>Time to create one.</h5>" : ""}
+         ${
+           tasksState.get() === "all" ? "<h5>Time to create new task.</h5>" : ""
+         }
         </div>`
         : tasks.map(newTaskRender).join("");
 }
