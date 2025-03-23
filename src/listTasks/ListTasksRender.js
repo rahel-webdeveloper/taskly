@@ -147,7 +147,8 @@ const newTaskRender = (task) => {
 
 export const renderTodayDiv = () => {
   return `
-  <div class="today-report-div"> <h3>Today's Report</h3>
+  <div class="today-report-div"> 
+  <h3 class="today-div-header">Today's Report</h3>
         <div class="today-tasks-report">
           <div class="today-box">
 

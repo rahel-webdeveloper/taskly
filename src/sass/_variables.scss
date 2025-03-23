@@ -1,21 +1,30 @@
+:root {
+  --text-color: #f1f0f0;
+
+  --primary-color: #0e0f13;
+  --secondary-color: #1d1f23;
+  --thirtiary-color: rgb(45, 45, 49);
+
+  --charts-color: rgb(20, 21, 25, 0.9);
+}
+
 // Fonts
 $karla-font: "Karla", sans-serif;
 $DM-Sans: "DM Sans", sans-serif;
 
 // Main colors
-$text-color: #f1f0f0;
-$primary-color: #0e0f13;
-// $secondary-color: rgb(20, 21, 25);
-$secondary-color: rgb(29, 31, 35);
+$text-color: var(--text-color);
+$primary-color: var(--primary-color);
+$secondary-color: var(--secondary-color);
 
-$thirtiary-color: rgb(45, 45, 49);
+$thirtiary-color: var(--thirtiary-color);
 $gray-color: #d3d3d3;
 
 //  Lightness colors
 $light-border-color: rgba(142, 143, 149, 0.18);
 $light-dark-blue-color: #3e425d31;
 $backdrop-filter-color: #23242a3e;
-$light-secondary-color: rgb(20, 21, 25, 0.9);
+$charts-color: var(--charts-color);
 
 // Components colors
 $btn-color: rgb(131, 115, 161);

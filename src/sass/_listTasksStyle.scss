@@ -88,6 +88,7 @@
   height: 19rem;
   overflow: auto;
   position: relative;
+  scrollbar-width: none;
 }
 
 .task-list-div::-webkit-scrollbar {
@@ -103,7 +104,7 @@
   font-family: inherit;
 
   img {
-    width: 25%;
+    width: 10rem;
   }
 
   h5 {

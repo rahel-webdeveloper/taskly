@@ -10,12 +10,15 @@
   @include grid-center;
 
   .timer-header {
-    @include grid-center;
-    grid-template-columns: repeat(3, 1fr);
-    column-gap: 3.1rem;
+    @include flex-center;
     margin-bottom: 1.7rem;
-    color: $text-color;
-    font-size: 0.8rem;
+
+    .timer-title {
+      color: $text-color;
+      font-size: 0.8rem;
+      @include flex-center;
+      column-gap: 3.1rem;
+    }
   }
 
   .timer-picker {
@@ -58,6 +61,11 @@
       font-weight: bold;
       opacity: 1;
     }
+  }
+
+  .tap-div {
+    width: 100%;
+    @include grid-center;
   }
 
   .tap-time-div {
@@ -159,8 +167,9 @@
   .timer-buttons {
     margin-bottom: 1.7rem;
     display: flex;
+    justify-content: center;
     column-gap: 2rem;
-    place-self: center;
+    // place-self: center;
 
     #timer-cancel {
       background-color: $secondary-color;

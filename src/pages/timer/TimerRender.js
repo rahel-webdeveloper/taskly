@@ -4,9 +4,11 @@ const TimerRender = () => {
 
     <div class="timer-first-section">
         <div class="timer-header">
-            <p>Hour</p>
-            <p>Minutes</p>
-            <p>Second</p>
+            <div class="timer-title">
+             <p>Hour</p>
+             <p>Minutes</p>
+             <p>Second</p>
+            </div>
         </div>
         <div class="timer-picker">
             <div class="picker" id="hour-picker">
@@ -21,9 +23,11 @@ const TimerRender = () => {
                 <div class="picker-items"></div>
             </div>
         </div>
+        <div class="tap-div">
         <button type="button" class="tap-time-div" id="tap-time-div">
             <p id="tap-choose-time">00:15:00</p>
         </button>
+        </div>
         <button type="button" class="timer-button" id="timer-start" disabled>
         <i class="ri-play-fill"></i> Start</button>
     </div>

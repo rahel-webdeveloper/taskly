@@ -335,7 +335,7 @@ const initTrackedTimeBars = (tasks) => {
     },
     options: {
       responsive: true,
-      aspectRatio: 6,
+      aspectRatio: 7,
 
       indexAxis: "y",
 

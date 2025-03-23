@@ -88,7 +88,7 @@
 .priority-of-task span {
   cursor: pointer;
   text-align: center;
-  color: $primary-color;
+  color: $secondary-color;
   border-radius: 1rem;
   font-size: 0.8rem;
   width: 25px;
@@ -108,7 +108,7 @@
 
 #start-time-label,
 #end-time-label {
-  color: $primary-color;
+  color: $secondary-color;
   border-radius: 0.7rem;
   padding: 0 0.3rem;
   font-weight: 600;
@@ -156,12 +156,18 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 0;
 }
 
+/* Hide arrow in Firfox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 .switch-night-day {
   position: relative;
   width: 1.82rem;
   height: 2rem;
   z-index: -1;
 }
+
 .switch-night-day input[type="checkbox"] {
   position: absolute;
   cursor: pointer;
@@ -197,7 +203,7 @@ input[type="number"]::-webkit-outer-spin-button {
   left: 0px;
   border-radius: 0.2rem 1rem 1rem 0.2rem;
   background-color: $moderate-color;
-  color: $primary-color;
+  color: $text-color;
   transition: 0.4s;
   user-select: none;
   transform: translate(10px);
@@ -291,6 +297,8 @@ input[type="number"]::-webkit-outer-spin-button {
   overflow: auto;
   margin-top: 0.63rem;
   text-transform: capitalize;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .details-cards::-webkit-scrollbar {
@@ -368,16 +376,20 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .today-report-div {
   padding: 1rem;
+  .today-div-header {
+    margin-left: 1rem;
+  }
 }
 
 .today-tasks-report {
   @include flex-center;
+  justify-content: space-evenly;
   flex-wrap: wrap;
   gap: 1rem;
   margin-top: 1.5rem;
 
   .today-box {
-    background-color: $light-secondary-color;
+    background-color: $secondary-color;
     padding: 0.77rem;
     border-radius: 0.7rem;
     max-width: 10rem;
