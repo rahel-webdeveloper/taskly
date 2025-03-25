@@ -3,7 +3,7 @@ import { updateViewOnTask } from "./ListTasksLogic.js";
 import { updateTaskCount } from "./ListTasksRender.js";
 import { addTaskToList } from "./ListTasksRender.js";
 import { loadTasksFromStorage } from "./ListTasksLogic.js";
-import tasks from "../data/tasks.js";
+import tasksData from "../data/tasksData.js";
 
 export const Id = atom(0);
 
@@ -16,7 +16,7 @@ export const priority = atom({
   icon: "",
 });
 
-export const listTasks = atom(loadTasksFromStorage() || tasks);
+export const listTasks = atom(loadTasksFromStorage() || tasksData);
 export const todayTasks = atom([]);
 
 export const tasksState = atom("all");

@@ -15,6 +15,7 @@ import {
   priorityIcons,
   priorityLabels,
 } from "../../services/helper.js";
+import flatpickr from "flatpickr";
 
 export default function TasksLogic() {
   const constTasksSection = document.getElementById("const-tasks-section");
@@ -70,6 +71,28 @@ const setPriorityData = () => {
     });
   });
 };
+
+document.addEventListener("DOMContentLoaded", function () {
+  const timePicker = flatpickr("#startTime", {
+    enableTime: true,
+    noCalendar: true,
+    dateFormat: "h:i K",
+    time_24hr: false,
+    defaultHour: 3,
+    defaultMinute: 27,
+    minuteIncrement: 15,
+    disableMobile: true,
+    static: true,
+    theme: "material_blue",
+    onChange: function (selectedDates, dateStr) {
+      console.log("selected date", selectedDates);
+    },
+
+    appendTo: document.querySelector(".time-input"),
+  });
+
+  console.log(timePicker.selectedDates);
+});
 
 const setTimeData = (form) => {
   const formData = new FormData(form);

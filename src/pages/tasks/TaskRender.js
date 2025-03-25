@@ -48,37 +48,36 @@ export default function tasksRender() {
                 <div class="form-row">
                     <div class="form-column">
                         <div class="time-picker">
-                            <label id="start-time-label">Start time</label>
+                            <label for="start_time" id="start-time-label">Start time</label>
                             <div class="time-input" id="start-time_input">
-                                <input type="number" id="start_hours" name="startHour"
-                                    title="Enter your task start hour." min="1" max="12" placeholder="HH" required>:
-                                <input type="number" id="start_minutes" name="startMinutes"
-                                    title="Enter your task start minutes." min="0" max="59" placeholder="MM" required>
-                                <label class="switch-night-day">
-                                    <input type="checkbox" name="startTimeCheckbox" id="checkbox">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <div class="incremen-decrement-btns">
+                                <input type="" id="startTime" name="startHour"
+                                    title="Enter your task start time." placeholder="" required>
                             </div>
                         </div>
                     </div>
                     <p class="time-error-message" id="time-error">Please enter valid time.</p>
                     <div class="form-column">
-                        <div class="time-picker">
-                            <label id="end-time-label">End time</label>
-                            <div class="time-input" id="end-time_input">
-                                <input type="number" id="end_hours" name="endHour" title="Enter your task end hour."
-                                    min="1" max="12" placeholder="HH" required>:
-                                <input type="number" id="end_minutes" name="endMinutes"
-                                    title="Enter your task end minutes." min="0" max="59" placeholder="MM" required>
-                                <label class="switch-night-day">
-                                    <input type="checkbox" name="endTimeCheckbox">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                        </div>
+                        
+                        <label for="duration_minutes" id="duration-label">Duration in minutes</label>
+                         <div class="time-input" id="duration-time_input">
+                                <input type="number" id="duration_minutes" name="duration" title="Enter your task end hour."
+                                    min="1" max="360" placeholder="MM" required>      
+                         </div>
+                        
                     </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-column">
+                   <label class="switch-time-allDay">
+                        <input type="checkbox" name="startTimeCheckbox" id="checkbox">
+                        <span class="checkmark">Time</span>
+                        <span class="checkmark">All day</span>
+                    </label>
+                  </div>
+                  <div class="form-column">
+                   <p>second</p>
+                  </div>
                 </div>
                 <button class="create-btn" type="submit" id="create_btn">
                     Create Task <i class="bi bi-arrow-down-right"></i>
