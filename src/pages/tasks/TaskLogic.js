@@ -73,14 +73,13 @@ const setPriorityData = () => {
 };
 
 document.addEventListener("DOMContentLoaded", function () {
-  const timePicker = flatpickr("#startTime", {
+  const timePicker = flatpickr("#start_time", {
     enableTime: true,
     noCalendar: true,
     dateFormat: "h:i K",
     time_24hr: false,
     defaultHour: 3,
     defaultMinute: 27,
-    minuteIncrement: 15,
     disableMobile: true,
     static: true,
     theme: "material_blue",
@@ -88,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log("selected date", selectedDates);
     },
 
-    appendTo: document.querySelector(".time-input"),
+    // appendTo: document.querySelector(".time-input"),
   });
 
   console.log(timePicker.selectedDates);

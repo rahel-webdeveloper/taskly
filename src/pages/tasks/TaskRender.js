@@ -6,99 +6,103 @@ import TasksContainer, {
 export default function tasksRender() {
   return `
     <div class="const-tasks-section" id="const-tasks-section">
-    <section class="first-section">
+      <section class="first-section">
         <div class="form-container">
-            <form action="" class="form" id="form">
-                <div class="form-column">
-                    <label for="task-description" id="description-label">Write your task description here.</label>
-                    <input type="text" id="task-description" name="description" minlength="7" maxlength="85"
-                        placeholder="Write the description of task here" required></input>
-                    <p class="error-message" id="description-error">The description must be at least 7 characters.</p>
+          <form action="" class="form" id="form">
+            <div class="form-column">
+              <label for="task-description" id="description-label">Write your task description here.</label>
+              <input type="text" id="task-description" name="description" minlength="7" maxlength="85"
+                placeholder="Write the description of task here" required></input>
+              <p class="error-message" id="description-error">The description must be at least 7 characters.</p>
+            </div>
+            <div class="form-row">
+              <div class="form-column">
+                <label for="category" id="select-label">Select category</label>
+                <select id="category" name="category">
+                  <option value=""></option>
+                  <option value="work">Work</option>
+                  <option value="study">Study</option>
+                  <option value="coding">Coding</option>
+                  <option value="development">Development</option>
+                  <option value="desing">Desing</option>
+                  <option value="exercise">Exercise</option>
+                  <option value="social">Social</option>
+                  <option value="research">Research</option>
+                  <option value="management">Management</option>
+                  <option value="other...">Other...</option>
+                </select>
+                <p class="error-message" id="category-error">Select at least one category.</p>
+              </div>
+              <div class="form-column">
+                <label id="priority-label">Choose your task priority</label>
+                <div class="priority-of-task" id="priority_of_task">
+                  <span data-priority="1" style="background-color: #cb9ca3;" tabindex="0">1</span>
+                  <span data-priority="2" style="background-color: #bbb2cc;" tabindex="0">2</span>
+                  <span data-priority="3" style="background-color: #e4b875;" tabindex="0">3</span>
+                  <span data-priority="4" style="background-color: #86b5b2;" tabindex="0">4</span>
+                  <span data-priority="5" style="background-color: #b0bbbc;" tabindex="0">5</span>
                 </div>
-                <div class="form-row">
-                    <div class="form-column">
-                        <label for="category" id="select-label">Select category</label>
-                        <select id="category" name="category">
-                            <option value=""></option>
-                            <option value="work">Work</option>
-                            <option value="study">Study</option>
-                            <option value="coding">Coding</option>
-                            <option value="development">Development</option>
-                            <option value="desing">Desing</option>
-                            <option value="exercise">Exercise</option>
-                            <option value="social">Social</option>
-                            <option value="research">Research</option>
-                            <option value="management">Management</option>
-                            <option value="other...">Other...</option>
-                        </select>
-                        <p class="error-message" id="category-error">Select at least one category.</p>
-                    </div>
-                    <div class="form-column">
-                        <label id="priority-label">Choose your task priority</label>
-                        <div class="priority-of-task" id="priority_of_task">
-                            <span data-priority="1" style="background-color: #cb9ca3;" tabindex="0">1</span>
-                            <span data-priority="2" style="background-color: #bbb2cc;" tabindex="0">2</span>
-                            <span data-priority="3" style="background-color: #e4b875;" tabindex="0">3</span>
-                            <span data-priority="4" style="background-color: #86b5b2;" tabindex="0">4</span>
-                            <span data-priority="5" style="background-color: #b0bbbc;" tabindex="0">5</span>
-                        </div>
-                        <p class="error-message" id="priority-error-message">Your task must have a priority.</p>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-column">
-                        <div class="time-picker">
-                            <label for="start_time" id="start-time-label">Start time</label>
-                            <div class="time-input" id="start-time_input">
-                                <input type="" id="startTime" name="startHour"
-                                    title="Enter your task start time." placeholder="" required>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="time-error-message" id="time-error">Please enter valid time.</p>
-                    <div class="form-column">
-                        
-                        <label for="duration_minutes" id="duration-label">Duration in minutes</label>
-                         <div class="time-input" id="duration-time_input">
-                                <input type="number" id="duration_minutes" name="duration" title="Enter your task end hour."
-                                    min="1" max="360" placeholder="MM" required>      
-                         </div>
-                        
-                    </div>
+                <p class="error-message" id="priority-error-message">Your task must have a priority.</p>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-column">
+
+                <label for="start_time" id="start-time-label">Start time</label>
+                <div class="time-input" id="start-time_input">
+                  <input type="" id="start_time" name="startHour" title="Enter your task start time."
+                    placeholder="HH:MM @M" required>
                 </div>
 
-                <div class="form-row">
-                  <div class="form-column">
-                   <label class="switch-time-allDay">
-                        <input type="checkbox" name="startTimeCheckbox" id="checkbox">
-                        <span class="checkmark">Time</span>
-                        <span class="checkmark">All day</span>
-                    </label>
-                  </div>
-                  <div class="form-column">
-                   <p>second</p>
-                  </div>
+
+              </div>
+              <p class="time-error-message" id="time-error">Please enter valid time.</p>
+              <div class="form-column">
+
+                <label for="duration_minutes" id="duration-label">Duration</label>
+                <div class="time-input" id="duration-time_input">
+                  <input type="number" id="duration_minutes" name="duration"
+                    title="Enter your task duration in minutes." min="1" max="360" placeholder="MM" required>
                 </div>
-                <button class="create-btn" type="submit" id="create_btn">
-                    Create Task <i class="bi bi-arrow-down-right"></i>
-                </button>
-            </form>
-        </div>
-    </section>
-    <section class="second-section">
-        <div class="card-container">
-            <div class="details-cards" id="details_cards">
-                <!-- New task card will appear here -->
+
+              </div>
             </div>
+
+            <div class="form-row">
+              <div class="form-column">
+                <label class="switch-time-allDay">
+                  <input type="checkbox" name="startTimeCheckbox" id="checkbox">
+                  <span class="checkmark">Time</span>
+                  <span class="checkmark">All day</span>
+                </label>
+              </div>
+              <div class="form-column">
+                <label for="remind-time">Remind</label>
+                <div class="time-input">
+                  <input type="number" id="remind-time" placeholder="SS" title="Enter your remind time in seconds.">
+                </div>
+              </div>
+            </div>
+            <button class="create-btn" type="submit" id="create_btn">
+              Create Task <i class="bi bi-arrow-down-right"></i>
+            </button>
+          </form>
+        </div>
+      </section>
+      <section class="second-section">
+        <div class="card-container">
+          <div class="details-cards" id="details_cards">
+            <!-- New task card will appear here -->
+          </div>
         </div>
         ${TasksContainer()}
-    </section>
-    <section class="third-section">
-      
-      ${renderTodayDiv()}
-        
-    </section>
-</div>
+      </section>
+      <section class="third-section">
+
+        ${renderTodayDiv()}
+
+      </section>
+    </div>
     `;
 }
 

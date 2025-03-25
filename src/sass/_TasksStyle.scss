@@ -21,11 +21,12 @@
 .form-container .form {
   text-align: center;
   @include grid-center;
-  row-gap: 0.5rem;
+  row-gap: 0.7rem;
 }
 
 .form .form-row {
   @include flex-space;
+  align-items: end;
   gap: 1.2rem;
   width: 95%;
 }
@@ -42,13 +43,9 @@
 }
 
 .form-column label:not(.switch-time-allDay) {
-  font-size: 0.79rem;
-  margin-left: 0.4rem;
+  font-size: 0.837rem;
   margin-bottom: 0.3rem;
-  background-color: transparent;
-  text-align: start;
   color: $text-color;
-  opacity: 0.95;
 }
 
 .form #task-description {
@@ -81,7 +78,6 @@
 }
 
 #priority-label {
-  text-align: center;
   border-bottom: 1px solid $light-border-color;
 }
 
@@ -101,27 +97,19 @@
   opacity: 0.7;
 }
 
-#start-time-label {
-  color: $secondary-color;
-  border-radius: 0.7rem;
-  padding: 0 0.3rem;
-  font-weight: 600;
-  background-color: $low-color;
-}
-
-.time-input input[type="time"] {
+.time-input input {
   background-color: $primary-color;
   border: 1px solid $light-border-color;
-  padding: 0.3rem 0;
+  padding: 0.43rem 0;
   text-align: center;
-  border-radius: 1rem;
+  border-radius: 2rem;
   width: 7rem;
   color: inherit;
   font-family: inherit;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
 }
 
-#start-time_input input:focus {
+.time-input input:focus {
   border-color: $low-color;
 }
 
@@ -181,13 +169,16 @@ input[type="number"] {
   width: 50%;
   padding-block: 0.4rem;
   color: $text-color;
-  // transition: background-color 0.2s ease-in-out;
+  border-radius: 1rem;
+  transition: all 0.25s;
+  font-weight: 700;
 }
 
 .checkmark:nth-child(2) {
   left: 27%;
   background-color: $light-optional-color;
-  border-radius: 1rem;
+  background-color: $low-color;
+  color: $primary-color;
 }
 
 .checkmark:nth-child(3) {
@@ -196,13 +187,15 @@ input[type="number"] {
 }
 
 .switch-time-allDay input[type="checkbox"]:checked ~ .checkmark:nth-child(3) {
-  background-color: $light-optional-color;
   border-radius: 1rem;
+  background-color: $light-optional-color;
+  background-color: $moderate-color;
+  color: $primary-color;
 }
 
 .switch-time-allDay input[type="checkbox"]:checked ~ .checkmark:nth-child(2) {
   background-color: transparent;
-  border-radius: 0rem;
+  color: $text-color;
 }
 
 .create-btn {
