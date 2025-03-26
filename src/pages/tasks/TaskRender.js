@@ -45,27 +45,24 @@ export default function tasksRender() {
                 <p class="error-message" id="priority-error-message">Your task must have a priority.</p>
               </div>
             </div>
-            <div class="form-row">
-              <div class="form-column">
+            <div class="form-row" id="">
+              <div class="form-column" id="start-datetime_div">
 
-                <label for="start_time" id="start-time-label">Start time</label>
-                <div class="time-input" id="start-time_input">
-                  <input type="" id="start_time" name="startHour" title="Enter your task start time."
-                    placeholder="HH:MM @M" required>
+              <label for="start_time" id="start-time-label"><i class="bi bi-clock-fill"></i> Start datetime</label>
+              <div class="time-input" >
+                  <input type="" id="start_date-time" name="startHour" title="Enter your task start time."
+                    placeholder="Enter your start datetime." required>
                 </div>
-
-
               </div>
-              <p class="time-error-message" id="time-error">Please enter valid time.</p>
-              <div class="form-column">
-
-                <label for="duration_minutes" id="duration-label">Duration</label>
-                <div class="time-input" id="duration-time_input">
-                  <input type="number" id="duration_minutes" name="duration"
-                    title="Enter your task duration in minutes." min="1" max="360" placeholder="MM" required>
+              <div class="form-column" id="due-datetime_div">
+               <label for="due_date-time" id="duration-label"><i class="bi bi-bell-fill"></i> Due datetime</label>
+                <div class="time-input">
+                  <input type="number" id="due_date-time" name="due date & time"
+                    title="Enter your task due date & time." placeholder="Enter your due datetime." required>
                 </div>
-
               </div>
+              <p class="error-message" id="time-error">Please enter valid time.</p>
+
             </div>
 
             <div class="form-row">
@@ -74,14 +71,10 @@ export default function tasksRender() {
                   <input type="checkbox" name="startTimeCheckbox" id="checkbox">
                   <span class="checkmark">Time</span>
                   <span class="checkmark">All day</span>
-                </label>
+
+                  </label>
               </div>
-              <div class="form-column">
-                <label for="remind-time">Remind</label>
-                <div class="time-input">
-                  <input type="number" id="remind-time" placeholder="SS" title="Enter your remind time in seconds.">
-                </div>
-              </div>
+              
             </div>
             <button class="create-btn" type="submit" id="create_btn">
               Create Task <i class="bi bi-arrow-down-right"></i>

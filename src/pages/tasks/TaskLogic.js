@@ -72,84 +72,45 @@ const setPriorityData = () => {
   });
 };
 
-document.addEventListener("DOMContentLoaded", function () {
-  const timePicker = flatpickr("#start_time", {
-    enableTime: true,
-    noCalendar: true,
-    dateFormat: "h:i K",
-    time_24hr: false,
-    defaultHour: 3,
-    defaultMinute: 27,
-    disableMobile: true,
-    static: true,
-    theme: "material_blue",
-    onChange: function (selectedDates, dateStr) {
-      console.log("selected date", selectedDates);
-    },
-
-    // appendTo: document.querySelector(".time-input"),
-  });
-
-  console.log(timePicker.selectedDates);
-});
+document.addEventListener("DOMContentLoaded", function () {});
 
 const setTimeData = (form) => {
   const formData = new FormData(form);
 
-  const startCheckbox = formData.get("startTimeCheckbox");
-  const endCheckbox = formData.get("endTimeCheckbox");
-  timeCalculation.findAmPm(startCheckbox, endCheckbox);
+  const startTimePicker = flatpickr("#start_date-time", {
+    enableTime: true,
+    noCalendar: true,
+    dateFormat: "h:i K",
+    time_24hr: false,
+    disableMobile: true,
+    static: true,
+    onChange: function (selectedDates, dateStr) {
+      const now = new Date(selectedDates);
+      startTime.set(now.toISOString());
+    },
+  });
 
-  startTime.set(
-    timeCalculation.convertTo24Hour(
-      parseInt(formData.get("startHour")),
-      parseInt(formData.get("startMinutes")),
-      startAmPm.get()
-    )
-  );
+  const dueTimePicker = flatpickr("#due_date-time", {
+    enableTime: true,
+    noCalendar: true,
+    altInput: true,
+    dateFormat: "h:i K",
+    time_24hr: false,
+    disableMobile: true,
+    static: true,
+    onChange: function (selectedDates, dateStr) {
+      const now = new Date(selectedDates);
+      endTime.set(now.toISOString());
+    },
+  });
 
-  endTime.set(
-    timeCalculation.convertTo24Hour(
-      parseInt(formData.get("endHour")),
-      parseInt(formData.get("endMinutes")),
-      endAmPm.get()
-    )
-  );
+  durationMinutes.set(calculateTimeDifference(startTime.get(), endTime.get()));
 
-  durationMinutes.set(
-    timeCalculation.calculateTimeDifference(startTime.get(), endTime.get())
-  );
-};
-
-class TimeCalculation {
-  findAmPm(startCheckbox, endCheckbox) {
-    !startCheckbox ? startAmPm.set("AM") : startAmPm.set("PM");
-    !endCheckbox ? endAmPm.set("AM") : endAmPm.set("PM");
-  }
-
-  convertTo24Hour(hours, minutes, amPm) {
-    if (amPm === "PM" && hours !== 12) hours += 12;
-    if (amPm === "AM" && hours === 12) hours = 0;
-
-    const isoFormate = this.convertToISO(hours, minutes);
-
-    return new Date(isoFormate);
-  }
-
-  convertToISO(hours, minutes) {
-    const now = new Date();
-    now.setHours(hours, minutes, 0, 0);
-
-    return hours && minutes && now.toISOString();
-  }
-
-  calculateTimeDifference(startTime, endTime) {
+  function calculateTimeDifference(startTime, endTime) {
     const res = Math.abs(endTime - startTime);
     return res / 1000 / 60;
   }
-}
-
-const timeCalculation = new TimeCalculation();
+};
 
 // Validation of data
 const validationOfFormData = () => {
@@ -191,27 +152,15 @@ const validationOfFormData = () => {
 function timeValidation() {
   const timeErrEl = document.getElementById("time-error");
 
-  const startHours = document.getElementById("start_hours").value;
-  const endHours = document.getElementById("end_hours").value;
-  const startMinutes = document.getElementById("start_minutes").value;
-  const endMinutes = document.getElementById("end_minutes").value;
+  const startDateTime = document.getElementById("start_date-time").value;
+  const dueDateTime = document.getElementById("due_date-time").value;
 
-  if (startTime.get().getTime() === endTime.get().getTime()) {
+  if (startDateTime === dueDateTime) {
     timeErrEl.textContent = "The time should be not equal.";
     timeErrEl.style.opacity = "1";
 
     return false;
-  } else if (
-    startHours &&
-    startHours &&
-    endHours &&
-    endHours &&
-    startMinutes &&
-    startMinutes &&
-    endMinutes &&
-    endMinutes &&
-    startTime.get().getTime() !== endTime.get().getTime()
-  ) {
+  } else if (startDateTime !== dueDateTime) {
     timeErrEl.style.opacity = "0";
 
     return true;

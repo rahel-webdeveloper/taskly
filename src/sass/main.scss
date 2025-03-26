@@ -88,6 +88,10 @@ body {
     border: 1px solid $light-border-color;
   }
 
+  .form-row:nth-child(3) {
+    flex-wrap: nowrap;
+  }
+
   .dashboard-charts {
     width: 100%;
   }
