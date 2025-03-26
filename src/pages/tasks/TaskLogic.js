@@ -32,7 +32,6 @@ function submitForm() {
   // Check validation
   form.addEventListener("change", function () {
     setPriorityData();
-    setTimeData(form);
     validationOfFormData();
   });
 
@@ -72,45 +71,43 @@ const setPriorityData = () => {
   });
 };
 
-document.addEventListener("DOMContentLoaded", function () {});
-
-const setTimeData = (form) => {
-  const formData = new FormData(form);
-
+document.addEventListener("DOMContentLoaded", function () {
   const startTimePicker = flatpickr("#start_date-time", {
     enableTime: true,
-    noCalendar: true,
-    dateFormat: "h:i K",
+    noCalendar: false,
+    dateFormat: "Y-m-d h:i K",
     time_24hr: false,
     disableMobile: true,
-    static: true,
+    position: "auto center",
+
     onChange: function (selectedDates, dateStr) {
       const now = new Date(selectedDates);
-      startTime.set(now.toISOString());
+      startTime.set(now);
     },
   });
 
   const dueTimePicker = flatpickr("#due_date-time", {
     enableTime: true,
-    noCalendar: true,
-    altInput: true,
-    dateFormat: "h:i K",
+    noCalendar: false,
+    dateFormat: "Y-m-d h:i K",
+
     time_24hr: false,
     disableMobile: true,
-    static: true,
+    position: "auto center",
+
     onChange: function (selectedDates, dateStr) {
       const now = new Date(selectedDates);
-      endTime.set(now.toISOString());
+      endTime.set(now);
     },
   });
+});
 
-  durationMinutes.set(calculateTimeDifference(startTime.get(), endTime.get()));
+durationMinutes.set(calculateTimeDifference(startTime.get(), endTime.get()));
 
-  function calculateTimeDifference(startTime, endTime) {
-    const res = Math.abs(endTime - startTime);
-    return res / 1000 / 60;
-  }
-};
+function calculateTimeDifference(startTime, endTime) {
+  const res = Math.abs(endTime - startTime);
+  return res / 1000 / 60;
+}
 
 // Validation of data
 const validationOfFormData = () => {
@@ -118,8 +115,8 @@ const validationOfFormData = () => {
   const cateErrEl = document.getElementById("category-error");
   const prioErrEl = document.getElementById("priority-error-message");
 
-  const categoryValue = document.getElementById("category").value;
   const tasDescriptionValue = document.getElementById("task-description").value;
+  const categoryValue = document.getElementById("category").value;
 
   // description
   if (tasDescriptionValue.length < 7) {
@@ -143,6 +140,7 @@ const validationOfFormData = () => {
     timeValidation()
   ) {
     category.set(categoryValue);
+
     return true;
   } else {
     return false;
@@ -155,29 +153,48 @@ function timeValidation() {
   const startDateTime = document.getElementById("start_date-time").value;
   const dueDateTime = document.getElementById("due_date-time").value;
 
-  if (startDateTime === dueDateTime) {
-    timeErrEl.textContent = "The time should be not equal.";
-    timeErrEl.style.opacity = "1";
+  if (!startDateTime && !dueDateTime) {
+    timeErrEl.style.opacity = 1;
+    timeErrEl.style.bottom = "0%";
+
+    timeErrEl.textContent = "Please enter valid time.";
 
     return false;
-  } else if (startDateTime !== dueDateTime) {
+  } else if (
+    new Date(startDateTime).getTime() > new Date(dueDateTime).getTime()
+  ) {
+    timeErrEl.style.opacity = "1";
+    timeErrEl.style.bottom = "-15%";
+
+    timeErrEl.textContent =
+      "The due datetime must be greather than start datetime.";
+
+    return false;
+  } else if (
+    new Date(startDateTime).getTime() === new Date(dueDateTime).getTime()
+  ) {
+    timeErrEl.style.opacity = "1";
+    timeErrEl.style.bottom = "%0";
+
+    timeErrEl.textContent = "The time should be not equal.";
+
+    return false;
+  } else {
+    timeErrEl.style.bottom = "%0";
     timeErrEl.style.opacity = "0";
 
     return true;
-  } else {
-    timeErrEl.textContent = "Please enter valid time.";
-    timeErrEl.style.opacity = "1";
-
-    return false;
   }
 }
 
 function nullValidation(elementValue, erroreEl) {
   if (!elementValue) {
     erroreEl.style.opacity = "1";
+
     return false;
   } else {
     erroreEl.style.opacity = "0";
+
     return true;
   }
 }
