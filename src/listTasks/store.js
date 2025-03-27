@@ -6,6 +6,7 @@ import { loadTasksFromStorage } from "./ListTasksLogic.js";
 import tasksData from "../data/tasksData.js";
 
 export const Id = atom(0);
+export const check_Time_AllDay = atom(false);
 
 export const taskDescription = atom("");
 export const category = atom("");
@@ -26,9 +27,6 @@ export const startTime = atom(0);
 export const endTime = atom(0);
 
 export const durationMinutes = atom(0);
-
-export const startAmPm = atom("AM");
-export const endAmPm = atom("PM");
 
 // get today task
 export const setTodayTasks = (tasks) => {

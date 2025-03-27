@@ -141,7 +141,7 @@ const initSevenDaysLine = (tasks) => {
           borderColor: "rgb(134, 181, 178)",
           pointStyle: "circle",
           tension: 0.2,
-          pointRadius: 2,
+          pointRadius: 3,
           borderWidth: 1,
         },
       ],

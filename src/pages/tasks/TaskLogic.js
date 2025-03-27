@@ -1,12 +1,12 @@
-import { listTasks } from "../../listTasks/store";
+import flatpickr from "flatpickr";
 import { updateViewOnTask } from "../../listTasks/ListTasksLogic.js";
 import {
   category,
+  check_Time_AllDay,
   durationMinutes,
-  endAmPm,
   endTime,
+  listTasks,
   priority,
-  startAmPm,
   startTime,
   taskDescription,
 } from "../../listTasks/store";
@@ -15,10 +15,16 @@ import {
   priorityIcons,
   priorityLabels,
 } from "../../services/helper.js";
-import flatpickr from "flatpickr";
 
 export default function TasksLogic() {
   const constTasksSection = document.getElementById("const-tasks-section");
+  const toggle_El_Time_AllDay = document.getElementById("checkbox");
+
+  toggle_El_Time_AllDay.addEventListener("click", function () {
+    check_Time_AllDay.set(this.checked);
+
+    useFlatepickr();
+  });
 
   if (constTasksSection) {
     submitForm();
@@ -33,6 +39,9 @@ function submitForm() {
   form.addEventListener("change", function () {
     setPriorityData();
     validationOfFormData();
+    const newdate = new Date();
+
+    // console.log(newdate);
   });
 
   form.addEventListener("submit", function (event) {
@@ -71,38 +80,72 @@ const setPriorityData = () => {
   });
 };
 
-document.addEventListener("DOMContentLoaded", function () {
-  const startTimePicker = flatpickr("#start_date-time", {
+const useFlatepickr = () => {
+  let starteDateTimeConfig = {
     enableTime: true,
-    noCalendar: false,
-    dateFormat: "Y-m-d h:i K",
+    noCalendar: true,
+    dateFormat: "h:i K",
     time_24hr: false,
     disableMobile: true,
     position: "auto center",
 
     onChange: function (selectedDates, dateStr) {
-      const now = new Date(selectedDates);
+      const now = new Date(selectedDates).toISOString();
       startTime.set(now);
     },
-  });
+  };
 
-  const dueTimePicker = flatpickr("#due_date-time", {
+  let dueDateTimeConfig = {
     enableTime: true,
-    noCalendar: false,
-    dateFormat: "Y-m-d h:i K",
+    noCalendar: true,
+    dateFormat: " h:i K",
 
     time_24hr: false,
     disableMobile: true,
     position: "auto center",
 
     onChange: function (selectedDates, dateStr) {
-      const now = new Date(selectedDates);
+      const now = new Date(selectedDates).toISOString();
       endTime.set(now);
     },
-  });
+  };
+
+  const startTimePicker = flatpickr("#start_date-time", starteDateTimeConfig);
+  const dueTimePicker = flatpickr("#due_date-time", dueDateTimeConfig);
+
+  if (check_Time_AllDay.get()) {
+    startTimePicker.destroy();
+    dueTimePicker.destroy();
+
+    starteDateTimeConfig = {
+      ...starteDateTimeConfig,
+
+      noCalendar: false,
+      dateFormat: "Y-m-d h:i K",
+    };
+
+    dueDateTimeConfig = {
+      ...dueDateTimeConfig,
+
+      noCalendar: false,
+      dateFormat: "Y-m-d h:i K",
+    };
+
+    flatpickr("#start_date-time", starteDateTimeConfig);
+    flatpickr("#due_date-time", dueDateTimeConfig);
+  }
+};
+
+document.addEventListener("DOMContentLoaded", function () {
+  useFlatepickr();
 });
 
-durationMinutes.set(calculateTimeDifference(startTime.get(), endTime.get()));
+durationMinutes.set(
+  calculateTimeDifference(
+    new Date(startTime.get()).getTime(),
+    new Date(endTime.get()).getTime()
+  )
+);
 
 function calculateTimeDifference(startTime, endTime) {
   const res = Math.abs(endTime - startTime);
@@ -150,10 +193,13 @@ const validationOfFormData = () => {
 function timeValidation() {
   const timeErrEl = document.getElementById("time-error");
 
-  const startDateTime = document.getElementById("start_date-time").value;
-  const dueDateTime = document.getElementById("due_date-time").value;
+  const startDateTimeValue = document.getElementById("start_date-time").value;
+  const dueDateTimeValue = document.getElementById("due_date-time").value;
 
-  if (!startDateTime && !dueDateTime) {
+  const startDateTime = new Date(startDateTimeValue).getTime();
+  const dueDateTime = new Date(dueDateTimeValue).getTime();
+
+  if (!startDateTimeValue || !dueDateTimeValue) {
     timeErrEl.style.opacity = 1;
     timeErrEl.style.bottom = "0%";
 
@@ -209,8 +255,8 @@ function addTaskData() {
       id: String(listTasks.get().length + 1),
       description: taskDescription.get(),
       category: category.get(),
-      startTime: startTime.get().toISOString(),
-      endTime: endTime.get().toISOString(),
+      startTime: startTime.get(),
+      endTime: endTime.get(),
       durationMinutes: durationMinutes.get(),
       priority: {
         level: priority.get().level,
