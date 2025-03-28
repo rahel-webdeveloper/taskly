@@ -23,8 +23,8 @@ export const todayTasks = atom([]);
 export const tasksState = atom("all");
 export const visibleTasks = atom([]);
 
-export const startTime = atom(0);
-export const endTime = atom(0);
+export const startDateTime = atom(0);
+export const dueDateTime = atom(0);
 
 export const durationMinutes = atom(0);
 

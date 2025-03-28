@@ -127,17 +127,19 @@ export function addToDetailsCard(tasks) {
             <div class="task-start-time">
               <h3 class="start-time">
               ${
-                new Date(task.startTime).getHours() === 0
+                new Date(task.startDateTime).getHours() === 0
                   ? 12
-                  : new Date(task.startTime).getHours() > 12
-                  ? Math.abs(new Date(task.startTime).getHours() - 12)
-                  : new Date(task.startTime).getHours()
+                  : new Date(task.startDateTime).getHours() > 12
+                  ? Math.abs(new Date(task.startDateTime).getHours() - 12)
+                  : new Date(task.startDateTime).getHours()
               }: 
-              ${new Date(task.startTime)
+              ${new Date(task.startDateTime)
                 .getMinutes()
                 .toString()
                 .padStart(2, "0")} 
-              ${new Date(task.startTime).getHours() >= 12 ? "PM" : "AM"}</h3>
+              ${
+                new Date(task.startDateTime).getHours() >= 12 ? "PM" : "AM"
+              }</h3>
               <p>Start</p>
             </div>
             <div class="task-done-time"><span>${
@@ -145,17 +147,17 @@ export function addToDetailsCard(tasks) {
             }</span></div>
             <div class="task-end-time">
               <h3 class="end-time">${
-                new Date(task.endTime).getHours() === 0
+                new Date(task.dueDateTime).getHours() === 0
                   ? 12
-                  : new Date(task.endTime).getHours() > 12
-                  ? Math.abs(new Date(task.endTime).getHours() - 12)
-                  : new Date(task.endTime).getHours()
+                  : new Date(task.dueDateTime).getHours() > 12
+                  ? Math.abs(new Date(task.dueDateTime).getHours() - 12)
+                  : new Date(task.dueDateTime).getHours()
               }: 
-              ${new Date(task.endTime)
+              ${new Date(task.dueDateTime)
                 .getMinutes()
                 .toString()
                 .padStart(2, "0")} 
-              ${new Date(task.endTime).getHours() >= 12 ? "PM" : "AM"}</h3>
+              ${new Date(task.dueDateTime).getHours() >= 12 ? "PM" : "AM"}</h3>
               <p>End</p>
             </div>
           </div>

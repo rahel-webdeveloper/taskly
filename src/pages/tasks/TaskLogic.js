@@ -4,10 +4,10 @@ import {
   category,
   check_Time_AllDay,
   durationMinutes,
-  endTime,
+  startDateTime,
+  dueDateTime,
   listTasks,
   priority,
-  startTime,
   taskDescription,
 } from "../../listTasks/store";
 import {
@@ -21,16 +21,23 @@ export default function TasksLogic() {
   const toggle_El_Time_AllDay = document.getElementById("checkbox");
 
   toggle_El_Time_AllDay.addEventListener("click", function () {
-    check_Time_AllDay.set(this.checked);
-
-    useFlatepickr();
+    checkTimeAllDay(this.checked);
   });
 
   if (constTasksSection) {
+    useFlatepickr();
     submitForm();
     updateViewOnTask();
   }
 }
+
+const checkTimeAllDay = (checkTimeDay) => {
+  document.getElementById("start_date-time").value = "";
+  document.getElementById("due_date-time").value = "";
+
+  check_Time_AllDay.set(checkTimeDay);
+  useFlatepickr();
+};
 
 function submitForm() {
   const form = document.getElementById("form");
@@ -39,9 +46,6 @@ function submitForm() {
   form.addEventListener("change", function () {
     setPriorityData();
     validationOfFormData();
-    const newdate = new Date();
-
-    // console.log(newdate);
   });
 
   form.addEventListener("submit", function (event) {
@@ -91,22 +95,21 @@ const useFlatepickr = () => {
 
     onChange: function (selectedDates, dateStr) {
       const now = new Date(selectedDates).toISOString();
-      startTime.set(now);
+      startDateTime.set(now);
     },
   };
 
   let dueDateTimeConfig = {
     enableTime: true,
     noCalendar: true,
-    dateFormat: " h:i K",
-
+    dateFormat: "h:i K",
     time_24hr: false,
     disableMobile: true,
     position: "auto center",
 
     onChange: function (selectedDates, dateStr) {
       const now = new Date(selectedDates).toISOString();
-      endTime.set(now);
+      dueDateTime.set(now);
     },
   };
 
@@ -136,21 +139,29 @@ const useFlatepickr = () => {
   }
 };
 
-document.addEventListener("DOMContentLoaded", function () {
-  useFlatepickr();
-});
-
 durationMinutes.set(
   calculateTimeDifference(
-    new Date(startTime.get()).getTime(),
-    new Date(endTime.get()).getTime()
+    new Date(startDateTime.get()).getTime(),
+    new Date(dueDateTime.get()).getTime()
   )
 );
 
-function calculateTimeDifference(startTime, endTime) {
-  const res = Math.abs(endTime - startTime);
+function calculateTimeDifference(startTime, dueTime) {
+  const res = Math.abs(dueTime - startTime);
   return res / 1000 / 60;
 }
+
+const getTimeAsDate = (timeStr) => {
+  const [time, modifier] = timeStr.split(" ");
+  let [hours, minutes] = time.split(":").map(Number);
+
+  if (modifier === "PM" && hours !== 12) hours += 12;
+  if (modifier === "AM" && hours === 12) hours = 0;
+
+  const now = new Date();
+  now.setHours(hours, minutes, 0, 0);
+  return now;
+};
 
 // Validation of data
 const validationOfFormData = () => {
@@ -196,8 +207,15 @@ function timeValidation() {
   const startDateTimeValue = document.getElementById("start_date-time").value;
   const dueDateTimeValue = document.getElementById("due_date-time").value;
 
-  const startDateTime = new Date(startDateTimeValue).getTime();
-  const dueDateTime = new Date(dueDateTimeValue).getTime();
+  const startDateTime = new Date(
+    check_Time_AllDay.get()
+      ? startDateTimeValue
+      : getTimeAsDate(startDateTimeValue)
+  ).getTime();
+
+  const dueDateTime = new Date(
+    check_Time_AllDay.get() ? dueDateTimeValue : getTimeAsDate(dueDateTimeValue)
+  ).getTime();
 
   if (!startDateTimeValue || !dueDateTimeValue) {
     timeErrEl.style.opacity = 1;
@@ -210,7 +228,7 @@ function timeValidation() {
     new Date(startDateTime).getTime() > new Date(dueDateTime).getTime()
   ) {
     timeErrEl.style.opacity = "1";
-    timeErrEl.style.bottom = "-15%";
+    timeErrEl.style.bottom = "-12%";
 
     timeErrEl.textContent =
       "The due datetime must be greather than start datetime.";
@@ -255,8 +273,8 @@ function addTaskData() {
       id: String(listTasks.get().length + 1),
       description: taskDescription.get(),
       category: category.get(),
-      startTime: startTime.get(),
-      endTime: endTime.get(),
+      startDateTime: startDateTime.get(),
+      dueTime: dueDateTime.get(),
       durationMinutes: durationMinutes.get(),
       priority: {
         level: priority.get().level,
