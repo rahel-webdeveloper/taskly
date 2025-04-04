@@ -20,11 +20,11 @@ export default function TasksLogic() {
   const constTasksSection = document.getElementById("const-tasks-section");
   const toggle_El_Time_AllDay = document.getElementById("checkbox");
 
-  toggle_El_Time_AllDay.addEventListener("click", function () {
-    checkTimeAllDay(this.checked);
-  });
-
   if (constTasksSection) {
+    toggle_El_Time_AllDay.addEventListener("click", function () {
+      checkTimeAllDay(this.checked);
+    });
+
     useFlatepickr();
     submitForm();
     updateViewOnTask();
@@ -139,29 +139,10 @@ const useFlatepickr = () => {
   }
 };
 
-durationMinutes.set(
-  calculateTimeDifference(
-    new Date(startDateTime.get()).getTime(),
-    new Date(dueDateTime.get()).getTime()
-  )
-);
-
 function calculateTimeDifference(startTime, dueTime) {
   const res = Math.abs(dueTime - startTime);
   return res / 1000 / 60;
 }
-
-const getTimeAsDate = (timeStr) => {
-  const [time, modifier] = timeStr.split(" ");
-  let [hours, minutes] = time.split(":").map(Number);
-
-  if (modifier === "PM" && hours !== 12) hours += 12;
-  if (modifier === "AM" && hours === 12) hours = 0;
-
-  const now = new Date();
-  now.setHours(hours, minutes, 0, 0);
-  return now;
-};
 
 // Validation of data
 const validationOfFormData = () => {
@@ -201,6 +182,20 @@ const validationOfFormData = () => {
   }
 };
 
+// Get time as date for validation
+
+const getTimeAsDate = (timeStr) => {
+  const [time, modifier] = timeStr.split(" ");
+  let [hours, minutes] = time.split(":").map(Number);
+
+  if (modifier === "PM" && hours !== 12) hours += 12;
+  if (modifier === "AM" && hours === 12) hours = 0;
+
+  const now = new Date();
+  now.setHours(hours, minutes, 0, 0);
+  return now;
+};
+
 function timeValidation() {
   const timeErrEl = document.getElementById("time-error");
 
@@ -217,34 +212,35 @@ function timeValidation() {
     check_Time_AllDay.get() ? dueDateTimeValue : getTimeAsDate(dueDateTimeValue)
   ).getTime();
 
+  const now = new Date().getTime();
+
   if (!startDateTimeValue || !dueDateTimeValue) {
     timeErrEl.style.opacity = 1;
-    timeErrEl.style.bottom = "0%";
 
-    timeErrEl.textContent = "Please enter valid time.";
+    timeErrEl.textContent = "Please enter valid time!";
 
     return false;
-  } else if (
-    new Date(startDateTime).getTime() > new Date(dueDateTime).getTime()
-  ) {
+  } else if (startDateTime < now || dueDateTimeValue < now) {
     timeErrEl.style.opacity = "1";
-    timeErrEl.style.bottom = "-12%";
 
     timeErrEl.textContent =
-      "The due datetime must be greather than start datetime.";
+      "Start datetime and due datetime should be greather than now!";
 
     return false;
-  } else if (
-    new Date(startDateTime).getTime() === new Date(dueDateTime).getTime()
-  ) {
+  } else if (startDateTime > dueDateTime) {
     timeErrEl.style.opacity = "1";
-    timeErrEl.style.bottom = "%0";
 
-    timeErrEl.textContent = "The time should be not equal.";
+    timeErrEl.textContent =
+      "The due datetime must be greather than start datetime!";
+
+    return false;
+  } else if (startDateTime === dueDateTime) {
+    timeErrEl.style.opacity = "1";
+
+    timeErrEl.textContent = "The time should be not equal!";
 
     return false;
   } else {
-    timeErrEl.style.bottom = "%0";
     timeErrEl.style.opacity = "0";
 
     return true;
@@ -267,6 +263,13 @@ function nullValidation(elementValue, erroreEl) {
 function addTaskData() {
   const updatedAt = new Date();
 
+  durationMinutes.set(
+    calculateTimeDifference(
+      new Date(startDateTime.get()).getTime(),
+      new Date(dueDateTime.get()).getTime()
+    )
+  );
+
   // Structure of task data
   listTasks.set([
     {
@@ -274,7 +277,7 @@ function addTaskData() {
       description: taskDescription.get(),
       category: category.get(),
       startDateTime: startDateTime.get(),
-      dueTime: dueDateTime.get(),
+      dueDateTime: dueDateTime.get(),
       durationMinutes: durationMinutes.get(),
       priority: {
         level: priority.get().level,
@@ -284,6 +287,7 @@ function addTaskData() {
       },
       state: "on-hold",
       isCompleted: false,
+      is_All_Day: check_Time_AllDay.get(),
       updatedAt: updatedAt.toISOString(),
     },
     ...listTasks.get(),
@@ -291,3 +295,18 @@ function addTaskData() {
 
   updateViewOnTask();
 }
+
+// Card logic
+const durationInterval = setInterval(() => {
+  listTasks.get().map((task) => {
+    const now = new Date().getTime();
+    const startDateTime = new Date(task.startDateTime).getTime();
+    const dueDateTime = new Date(task.dueDateTime).getTime();
+
+    if (dueDateTime > now) {
+      if (now >= startDateTime) {
+        console.log("That is equal!");
+      }
+    }
+  });
+}, 1000);

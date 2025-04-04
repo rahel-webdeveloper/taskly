@@ -162,8 +162,8 @@
 
 .check-icon,
 .delete-icon {
-  width: 24px;
-  height: 24px;
+  width: 27px;
+  height: 27px;
   border-radius: 50%;
   font-size: 1.15rem;
   background-color: $thirtiary-color;
@@ -196,7 +196,7 @@
 }
 
 .task-edit-icon {
-  font-size: 1.214rem;
+  font-size: 1.274rem;
   color: $optional-color;
   cursor: pointer;
 }
@@ -237,13 +237,13 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #2c313f20;
-  max-width: 25rem;
+  max-width: 27rem;
   width: 95%;
   flex-direction: column;
   row-gap: 0.77rem;
   border-radius: 0.5rem;
   backdrop-filter: blur(12px);
-  border: 1px solid #86b5b22a;
+  border: 1px solid $light-border-color;
   padding: 0.5rem;
   color: $text-color;
   display: none;
@@ -262,11 +262,11 @@
 
 .edit-result-btns {
   display: flex;
-  column-gap: 0.45rem;
+  column-gap: 0.77rem;
 }
 .edit-answer-btn {
-  padding: 0.25rem 0.45rem;
-  border-radius: 0.3rem;
+  padding: 0.25rem 0.57rem;
+  border-radius: 0.35rem;
   font-family: inherit;
   cursor: pointer;
   transition: opacity 0.3s;
@@ -274,7 +274,8 @@
   color: $text-color;
 }
 #cancel {
-  background-color: $thirtiary-color;
+  background-color: $gray-color;
+  color: $primary-color;
 }
 #save {
   background-color: $btn-color;
@@ -369,7 +370,7 @@
   color: $primary-color;
 }
 #yes {
-  background-color: $delete-color;
+  background-color: $btn-color;
 }
 
 .all-delte-btn:hover,

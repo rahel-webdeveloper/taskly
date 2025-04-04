@@ -104,9 +104,13 @@
 
 #start-datetime_div label i {
   color: $low-color;
+  margin-right: 0.27rem;
+  font-size: 0.95rem;
 }
 #due-datetime_div label i {
   color: $moderate-color;
+  margin-right: 0.21rem;
+  font-size: 1.1rem;
 }
 
 .time-input input {
@@ -233,10 +237,10 @@ input[type="number"] {
 }
 
 #time-error {
-  display: grid;
   position: absolute;
   left: 50%;
-  bottom: 0%;
+  bottom: -3%;
+  width: 100%;
   transform: translate(-50%, -50%);
 }
 
@@ -276,8 +280,7 @@ input[type="number"] {
 }
 
 .details-card {
-  width: 310px;
-  background-color: $critical-color;
+  width: 315px;
   padding: 1rem;
   border-radius: 1rem;
   line-height: 1.5;
@@ -299,31 +302,28 @@ input[type="number"] {
 
 .task-time {
   margin-top: 2rem;
+  // @include grid-center;
 }
 
-.task-time {
-  @include flex-space;
+.task-time p {
+  font-size: 0.85rem;
+  font-weight: 600;
 }
 
-.task-start-time h3,
-.task-end-time h3 {
+.task-start-time h3 {
   font-size: 1.25rem;
-  font-weight: 400;
+  word-wrap: break-word;
+  display: block;
 }
 
-.task-start-time p,
-.task-end-time p {
-  font-size: 0.9rem;
+.task-duration {
+  margin-top: -1.77rem;
+  text-align: end;
 }
 
-.task-done-time span {
-  padding: 0.44rem 0.7rem;
-  background-color: $light-dark-blue-color;
-  color: $text-color;
-  border-radius: 2rem;
-  font-weight: 400;
-  font-size: 0.93rem;
-  text-transform: initial;
+#duration span {
+  font-size: 1.27rem;
+  font-weight: 900;
 }
 
 .empty-card {

@@ -14,6 +14,7 @@ export default [
     },
     state: "in-progress",
     isCompleted: false,
+    is_All_Day: true,
     updatedAt: "2025-02-21T23:15:00Z",
   },
   {
@@ -31,6 +32,7 @@ export default [
     },
     state: "on-hold",
     isCompleted: true,
+    is_All_Day: false,
     updatedAt: "2025-02-21T10:10:00Z",
   },
   {
@@ -48,6 +50,7 @@ export default [
     },
     state: "done",
     isCompleted: false,
+    is_All_Day: true,
     updatedAt: "2025-02-01T14:25:00Z",
   },
   {
@@ -65,6 +68,7 @@ export default [
     },
     state: "on-hold",
     isCompleted: false,
+    is_All_Day: true,
     updatedAt: "2025-02-21T12:40:00Z",
   },
   {
@@ -82,6 +86,7 @@ export default [
     },
     state: "on-hold",
     isCompleted: false,
+    is_All_Day: true,
     updatedAt: "2025-02-20T13:55:00Z",
   },
   {
@@ -99,6 +104,7 @@ export default [
     },
     state: "in-progress",
     isCompleted: false,
+    is_All_Day: true,
     updatedAt: "2025-02-01T15:50:00Z",
   },
   {
@@ -116,6 +122,7 @@ export default [
     },
     state: "done",
     isCompleted: true,
+    is_All_Day: false,
     updatedAt: "2025-02-01T18:05:00Z",
   },
   {
@@ -133,6 +140,7 @@ export default [
     },
     state: "in-progress",
     isCompleted: false,
+    is_All_Day: true,
     updatedAt: "2025-02-21T19:45:00Z",
   },
   {
@@ -150,6 +158,7 @@ export default [
     },
     state: "on-hold",
     isCompleted: false,
+    is_All_Day: true,
     updatedAt: "2025-02-15T22:10:00Z",
   },
   {
@@ -167,6 +176,7 @@ export default [
     },
     state: "done",
     isCompleted: true,
+    is_All_Day: false,
     updatedAt: "2025-02-21T10:20:00Z",
   },
   {
@@ -184,6 +194,7 @@ export default [
     },
     state: "in-progress",
     isCompleted: false,
+    is_All_Day: true,
     updatedAt: "2025-02-21T17:00:00Z",
   },
   {
@@ -201,6 +212,7 @@ export default [
     },
     state: "in-progress",
     isCompleted: false,
+    is_All_Day: true,
     updatedAt: "2025-02-21T20:00:00Z",
   },
 
@@ -219,6 +231,7 @@ export default [
     },
     state: "done",
     isCompleted: true,
+    is_All_Day: false,
     updatedAt: "2025-02-19T10:10:00Z",
   },
   {
@@ -236,6 +249,7 @@ export default [
     },
     state: "in-progress",
     isCompleted: false,
+    is_All_Day: true,
     updatedAt: "2025-02-19T14:25:00Z",
   },
 
@@ -254,6 +268,7 @@ export default [
     },
     state: "done",
     isCompleted: true,
+    is_All_Day: false,
     updatedAt: "2025-02-19T10:10:00Z",
   },
   {
@@ -271,6 +286,7 @@ export default [
     },
     state: "in-progress",
     isCompleted: false,
+    is_All_Day: true,
     updatedAt: "2025-02-20T14:25:00Z",
   },
 
@@ -289,6 +305,7 @@ export default [
     },
     state: "on-hold",
     isCompleted: true,
+    is_All_Day: false,
     updatedAt: "2025-02-17T10:10:00Z",
   },
   {
@@ -306,6 +323,7 @@ export default [
     },
     state: "in-progress",
     isCompleted: false,
+    is_All_Day: true,
     updatedAt: "2025-02-16T14:25:00Z",
   },
 
@@ -324,6 +342,7 @@ export default [
     },
     state: "on-hold",
     isCompleted: true,
+    is_All_Day: false,
     updatedAt: "2025-02-18T10:10:00Z",
   },
   {
@@ -341,6 +360,7 @@ export default [
     },
     state: "in-progress",
     isCompleted: false,
+    is_All_Day: true,
     updatedAt: "2025-02-21T14:25:00Z",
   },
 
@@ -359,6 +379,7 @@ export default [
     },
     state: "on-hold",
     isCompleted: true,
+    is_All_Day: false,
     updatedAt: "2025-02-21T10:10:00Z",
   },
   {
@@ -376,6 +397,7 @@ export default [
     },
     state: "in-progress",
     isCompleted: false,
+    is_All_Day: true,
     updatedAt: "2025-02-19T14:25:00Z",
   },
 
@@ -394,6 +416,7 @@ export default [
     },
     state: "done",
     isCompleted: true,
+    is_All_Day: false,
     updatedAt: "2025-02-17T10:10:00Z",
   },
   {
@@ -411,6 +434,7 @@ export default [
     },
     state: "in-progress",
     isCompleted: false,
+    is_All_Day: true,
     updatedAt: "2025-02-17T14:25:00Z",
   },
   {
@@ -428,6 +452,7 @@ export default [
     },
     state: "done",
     isCompleted: true,
+    is_All_Day: false,
     updatedAt: "2025-02-17T10:10:00Z",
   },
   {
@@ -445,6 +470,7 @@ export default [
     },
     state: "in-progress",
     isCompleted: false,
+    is_All_Day: true,
     updatedAt: "2025-02-17T14:25:00Z",
   },
   {
@@ -462,6 +488,7 @@ export default [
     },
     state: "done",
     isCompleted: true,
+    is_All_Day: false,
     updatedAt: "2025-02-15T10:10:00Z",
   },
   {
@@ -479,6 +506,7 @@ export default [
     },
     state: "in-progress",
     isCompleted: false,
+    is_All_Day: true,
     updatedAt: "2025-02-19T14:25:00Z",
   },
   {
@@ -496,6 +524,7 @@ export default [
     },
     state: "done",
     isCompleted: true,
+    is_All_Day: false,
     updatedAt: "2025-02-15T10:10:00Z",
   },
   {
@@ -513,6 +542,7 @@ export default [
     },
     state: "in-progress",
     isCompleted: false,
+    is_All_Day: true,
     updatedAt: "2025-02-01T14:25:00Z",
   },
   {
@@ -530,6 +560,7 @@ export default [
     },
     state: "done",
     isCompleted: true,
+    is_All_Day: false,
     updatedAt: "2025-02-01T10:10:00Z",
   },
   {
@@ -547,6 +578,7 @@ export default [
     },
     state: "in-progress",
     isCompleted: false,
+    is_All_Day: true,
     updatedAt: "2025-02-01T14:25:00Z",
   },
   {
@@ -564,6 +596,7 @@ export default [
     },
     state: "done",
     isCompleted: true,
+    is_All_Day: false,
     updatedAt: "2025-02-01T10:10:00Z",
   },
   {
@@ -581,6 +614,7 @@ export default [
     },
     state: "in-progress",
     isCompleted: false,
+    is_All_Day: true,
     updatedAt: "2025-02-01T14:25:00Z",
   },
   {
@@ -598,6 +632,7 @@ export default [
     },
     state: "on-hold",
     isCompleted: true,
+    is_All_Day: false,
     updatedAt: "2025-02-01T10:10:00Z",
   },
   {
@@ -615,6 +650,7 @@ export default [
     },
     state: "in-progress",
     isCompleted: false,
+    is_All_Day: true,
     updatedAt: "2025-02-01T14:25:00Z",
   },
   {
@@ -632,6 +668,7 @@ export default [
     },
     state: "on-hold",
     isCompleted: true,
+    is_All_Day: false,
     updatedAt: "2025-02-01T10:10:00Z",
   },
   {
@@ -649,6 +686,7 @@ export default [
     },
     state: "in-progress",
     isCompleted: false,
+    is_All_Day: true,
     updatedAt: "2025-02-01T14:25:00Z",
   },
 ];

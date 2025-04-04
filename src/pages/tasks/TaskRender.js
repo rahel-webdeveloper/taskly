@@ -48,14 +48,14 @@ export default function tasksRender() {
             <div class="form-row" id="datetime-input-div">
               <div class="form-column" id="start-datetime_div">
 
-              <label for="start_time" id="start-time-label"><i class="bi bi-clock-fill"></i> Start datetime</label>
+              <label for="start_date-time" id="start-time-label"><i class="bi bi-calendar2-week"></i> Start datetime</label>
               <div class="time-input" >
                   <input type="" id="start_date-time" class="" data-input name="startHour" title="Enter your task start time."
                     placeholder="Enter your start datetime." required>
                 </div>
               </div>
               <div class="form-column" id="due-datetime_div">
-               <label for="duedate-time" id="duration-label"><i class="bi bi-bell-fill"></i> Due datetime</label>
+               <label for="due_date-time" id="duration-label"><i class="ri-alarm-warning-line"></i> Due datetime</label>
                 <div class="time-input">
                   <input type="number" id="due_date-time" class="flatpickr-input" data-input name="due date & time"
                     title="Enter your task due date & time." placeholder="Enter your due datetime." required>
@@ -127,6 +127,11 @@ export function addToDetailsCard(tasks) {
             <div class="task-start-time">
               <h3 class="start-time">
               ${
+                task.is_All_Day
+                  ? new Date(task.startDateTime).toISOString().slice(0, 10)
+                  : ""
+              }
+              ${
                 new Date(task.startDateTime).getHours() === 0
                   ? 12
                   : new Date(task.startDateTime).getHours() > 12
@@ -142,23 +147,11 @@ export function addToDetailsCard(tasks) {
               }</h3>
               <p>Start</p>
             </div>
-            <div class="task-done-time"><span>${
-              task.durationMinutes + "m"
-            }</span></div>
-            <div class="task-end-time">
-              <h3 class="end-time">${
-                new Date(task.dueDateTime).getHours() === 0
-                  ? 12
-                  : new Date(task.dueDateTime).getHours() > 12
-                  ? Math.abs(new Date(task.dueDateTime).getHours() - 12)
-                  : new Date(task.dueDateTime).getHours()
-              }: 
-              ${new Date(task.dueDateTime)
-                .getMinutes()
-                .toString()
-                .padStart(2, "0")} 
-              ${new Date(task.dueDateTime).getHours() >= 12 ? "PM" : "AM"}</h3>
-              <p>End</p>
+
+            
+            <div class="task-duration">
+            <p>duration</p>
+            <h3 id="duration">1day 7h 20m <span id="duration-seconds">20s</span></h3>
             </div>
           </div>
         </div> 

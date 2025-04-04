@@ -10,7 +10,6 @@ const DashboardLogic = () => {
   initStateChart(tasks);
   initTrackedTimeBars(tasks);
   todayReport(listTasks.get());
-  // console.log("second success");
 };
 
 const initCategoryBars = (tasks) => {
@@ -123,7 +122,8 @@ const initSevenDaysLine = (tasks) => {
       date,
       count,
     }))
-    .sort((a, b) => new Date(a.date) - new Date(b.date));
+    .sort((a, b) => new Date(a.date) - new Date(b.date))
+    .reverse();
 
   seventDays.textContent = taskCountsArray.reduce(
     (accumlator, currentValue) => accumlator + currentValue.count,
