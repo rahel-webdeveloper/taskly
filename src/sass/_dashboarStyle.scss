@@ -209,7 +209,6 @@
   width: 100%;
 
   .task-list-container {
-    border-radius: rem;
     border-radius: 1.7rem 1.7rem 0rem 0rem;
     margin-inline: -0.74rem;
   }
@@ -220,6 +219,16 @@
 
   .task-list-div {
     height: 28rem;
+  }
+
+  .length {
+    min-width: 1.4rem;
+    padding: 0.17rem 0.37rem 0rem;
+    border-radius: 2rem;
+    margin-left: 0.7rem;
+    text-align: center;
+    font-size: 0.77rem;
+    text-align: center;
   }
 }
 

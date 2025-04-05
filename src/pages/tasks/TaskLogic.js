@@ -9,12 +9,16 @@ import {
   listTasks,
   priority,
   taskDescription,
+  liveTasks,
 } from "../../listTasks/store";
 import {
   priorityColors,
   priorityIcons,
   priorityLabels,
 } from "../../services/helper.js";
+import { is_Start_Time_Greather } from "./store.js";
+import { addToDetailsCard } from "./TaskRender.js";
+import { isDashboardOpen } from "../dashboard/MainDashboard.js";
 
 export default function TasksLogic() {
   const constTasksSection = document.getElementById("const-tasks-section");
@@ -28,6 +32,7 @@ export default function TasksLogic() {
     useFlatepickr();
     submitForm();
     updateViewOnTask();
+    liveTrackTasks();
   }
 }
 
@@ -88,6 +93,7 @@ const useFlatepickr = () => {
   let starteDateTimeConfig = {
     enableTime: true,
     noCalendar: true,
+    // enableSeconds: true,
     dateFormat: "h:i K",
     time_24hr: false,
     disableMobile: true,
@@ -102,6 +108,7 @@ const useFlatepickr = () => {
   let dueDateTimeConfig = {
     enableTime: true,
     noCalendar: true,
+    // enableSeconds: true,
     dateFormat: "h:i K",
     time_24hr: false,
     disableMobile: true,
@@ -294,19 +301,79 @@ function addTaskData() {
   ]);
 
   updateViewOnTask();
+  liveTrackTasks();
 }
 
 // Card logic
-const durationInterval = setInterval(() => {
-  listTasks.get().map((task) => {
-    const now = new Date().getTime();
-    const startDateTime = new Date(task.startDateTime).getTime();
-    const dueDateTime = new Date(task.dueDateTime).getTime();
+export const liveTrackTasks = () => {
+  const durationInterval = setInterval(() => {
+    listTasks.get().map((task, index) => {
+      const now = new Date().getTime();
 
-    if (dueDateTime > now) {
-      if (now >= startDateTime) {
-        console.log("That is equal!");
+      const startDateTime = new Date(task.startDateTime).getTime();
+      const dueDateTime = new Date(task.dueDateTime).getTime();
+
+      liveTasks.get().length === 0 && clearInterval(durationInterval);
+
+      if (dueDateTime > now) {
+        if (now > startDateTime) {
+          const remainingTime = dueDateTime - now;
+
+          timerCardUI(task, index, remainingTime);
+        }
       }
+    });
+  }, 1000);
+
+  addToDetailsCard(!isDashboardOpen.get() ? liveTasks.get() : listTasks.get());
+};
+
+const timerCardUI = (task, index, remainingTime) => {
+  const startLabels = document.querySelectorAll(".start-label");
+  const timeElements = document.querySelectorAll(".start-time");
+  const remainingTimeElements = document.querySelectorAll(".duration");
+
+  const remainingSeconds = Math.floor(remainingTime / 1000);
+  const remainingMinutes = Math.floor(remainingSeconds / 60);
+  const remainingHours = Math.floor(remainingMinutes / 60);
+  const remainingDays = Math.floor(remainingHours / 24);
+
+  if (timeElements[index])
+    timeElements[index].textContent = ` ${
+      new Date().toISOString().slice(0, 10) !==
+      new Date(task.dueDateTime).toISOString().slice(0, 10)
+        ? new Date(task.dueDateTime).toISOString().slice(0, 10)
+        : "Today "
     }
-  });
-}, 1000);
+    ${
+      new Date(task.dueDateTime).getHours() === 0
+        ? 12
+        : new Date(task.dueDateTime).getHours() > 12
+        ? Math.abs(new Date(task.dueDateTime).getHours() - 12)
+        : new Date(task.dueDateTime).getHours()
+    }: 
+
+    ${new Date(task.dueDateTime).getMinutes().toString().padStart(2, "0")} 
+
+    ${new Date(task.dueDateTime).getHours() >= 12 ? "PM" : "AM"}`;
+
+  if (startLabels[index]) startLabels[index].textContent = "End";
+
+  if (remainingTimeElements[index])
+    remainingTimeElements[index].innerHTML = ` ${
+      remainingDays
+        ? remainingDays > 1
+          ? remainingDays + "days "
+          : remainingDays + "day "
+        : ""
+    } 
+      ${remainingHours ? (remainingHours % 24) + "h " : ""} 
+
+      ${(remainingMinutes % 60).toString().padStart(2, "0") + "m "}  
+       
+    <span id="duration-seconds">${
+      (remainingSeconds % 60).toString().padStart(2, "0") + "s"
+    }</span>
+    
+  `;
+};

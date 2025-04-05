@@ -1,22 +1,21 @@
-import {
-  Id,
-  tasksState,
-  visibleTasks,
-  todayTasks,
-  completingTask,
-  deletingTask,
-  deletingCompleteTasks,
-  editingTask,
-  saveEditedTask,
-  onSelectedState,
-  setTodayTasks,
-} from "./store";
-import { addTaskToList } from "./ListTasksRender";
-import { addToDetailsCard } from "../pages/tasks/TaskRender";
-import { updateTaskCount, addAngleBracket } from "./ListTasksRender";
-import { listTasks } from "./store";
-import DashboardLogic from "../pages/dashboard/DashboardLogic";
 import { isDashboardOpen } from "../pages/dashboard/MainDashboard";
+import { addToDetailsCard } from "../pages/tasks/TaskRender";
+import { addAngleBracket, updateTaskCount } from "./ListTasksRender";
+import {
+  completingTask,
+  deletingCompleteTasks,
+  deletingTask,
+  editingTask,
+  Id,
+  listTasks,
+  liveTasks,
+  onSelectedState,
+  saveEditedTask,
+  setLiveTasks,
+  tasksState,
+  todayTasks,
+  visibleTasks,
+} from "./store";
 
 const ListTasksLogic = () => {
   const listTasksContainer = document.getElementById("task-list_container");
@@ -28,7 +27,7 @@ const ListTasksLogic = () => {
     });
 
   onSelectedState(
-    !isDashboardOpen.get() ? todayTasks.get() : listTasks.get(),
+    !isDashboardOpen.get() ? liveTasks.get() : listTasks.get(),
     tasksState.get()
   );
 };
@@ -84,7 +83,7 @@ const eventsHandler = (event) => {
       filterNameShowEl.dataset.value = option.dataset.value;
 
       onSelectedState(
-        !isDashboardOpen.get() ? todayTasks.get() : listTasks.get(),
+        !isDashboardOpen.get() ? liveTasks.get() : listTasks.get(),
         option.dataset.value
       );
 
@@ -117,23 +116,14 @@ const eventsHandler = (event) => {
 };
 
 // today's report
-export const todayReport = (totalTasks) => {
+export const todayReport = (todayTasks) => {
   const doneTasksPercentageEl = document.getElementById("done-tasks");
   const tasksTrackedTimeEl = document.getElementById("tasks-time");
   const lengthTasksEl = document.getElementById("lenght-tasks");
 
-  const todayTasksFilter = totalTasks.filter((task) => {
-    const todayDate = new Date().toISOString().split("T")[0];
-    const taskDate = new Date(task.updatedAt).toISOString().split("T")[0];
+  const todayDoneTasks = todayTasks.filter((task) => task.state === "done");
 
-    return todayDate === taskDate && task;
-  });
-
-  const todayDoneTasks = todayTasksFilter.filter(
-    (task) => task.state === "done"
-  );
-
-  const todayTrackedTime = todayTasksFilter.reduce(
+  const todayTrackedTime = todayTasks.reduce(
     (accumlator, currentValue) => accumlator + currentValue.durationMinutes,
     0
   );
@@ -142,14 +132,13 @@ export const todayReport = (totalTasks) => {
     doneTasksPercentageEl.innerText =
       todayDoneTasks.length === 0
         ? "0%"
-        : ((todayDoneTasks.length / todayTasksFilter.length) * 100).toFixed(0) +
-          "%";
+        : ((todayDoneTasks.length / todayTasks.length) * 100).toFixed(0) + "%";
 
-  if (lengthTasksEl) lengthTasksEl.textContent = todayTasksFilter.length;
+  if (lengthTasksEl) lengthTasksEl.textContent = todayTasks.length;
 
   if (tasksTrackedTimeEl)
     tasksTrackedTimeEl.textContent =
-      todayTasksFilter.length === 0
+      todayTasks.length === 0
         ? "0h & 0m"
         : `${Math.floor(todayTrackedTime / 60) + "h"} ${
             todayTrackedTime / 60 > 0 && todayTrackedTime ? "&" : ""
@@ -158,15 +147,16 @@ export const todayReport = (totalTasks) => {
 
 // updateViewOnTask
 export function updateViewOnTask() {
-  setTodayTasks(listTasks.get());
+  setLiveTasks(listTasks.get());
+
   onSelectedState(
-    !isDashboardOpen.get() ? todayTasks.get() : listTasks.get(),
+    !isDashboardOpen.get() ? liveTasks.get() : listTasks.get(),
     tasksState.get()
   );
+
   saveLocalStorage(listTasks.get());
-  addToDetailsCard(!isDashboardOpen.get() ? todayTasks.get() : listTasks.get());
   updateTaskCount(listTasks.get(), visibleTasks.get().length);
-  todayReport(listTasks.get());
+  todayReport(todayTasks.get());
 }
 
 // local storage

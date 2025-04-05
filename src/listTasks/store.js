@@ -1,9 +1,7 @@
 import { atom } from "nanostores";
-import { updateViewOnTask } from "./ListTasksLogic.js";
-import { updateTaskCount } from "./ListTasksRender.js";
-import { addTaskToList } from "./ListTasksRender.js";
-import { loadTasksFromStorage } from "./ListTasksLogic.js";
 import tasksData from "../data/tasksData.js";
+import { loadTasksFromStorage, updateViewOnTask } from "./ListTasksLogic.js";
+import { addTaskToList, updateTaskCount } from "./ListTasksRender.js";
 
 export const Id = atom(0);
 export const check_Time_AllDay = atom(false);
@@ -19,6 +17,7 @@ export const priority = atom({
 
 export const listTasks = atom(loadTasksFromStorage() || tasksData);
 export const todayTasks = atom([]);
+export const liveTasks = atom([]);
 
 export const tasksState = atom("all");
 export const visibleTasks = atom([]);
@@ -28,16 +27,29 @@ export const dueDateTime = atom(0);
 
 export const durationMinutes = atom(0);
 
-// get today task
+// Set live tasks
+export const setLiveTasks = (tasks) => {
+  const now = new Date().getTime();
+
+  const filterLiveTasks = tasks.filter(
+    (task) => new Date(task.dueDateTime) > now
+  );
+
+  liveTasks.set(filterLiveTasks);
+
+  setTodayTasks(listTasks.get());
+};
+
+// set today task
 export const setTodayTasks = (tasks) => {
-  const todayTasksFilter = tasks.filter((task) => {
+  const filterTodayTasks = tasks.filter((task) => {
     const todayDate = new Date().toISOString().split("T")[0];
     const taskDate = new Date(task.updatedAt).toISOString().split("T")[0];
 
     return todayDate === taskDate && task;
   });
 
-  todayTasks.set(todayTasksFilter);
+  todayTasks.set(filterTodayTasks);
 };
 
 // completing a task

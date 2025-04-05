@@ -1,6 +1,7 @@
 import TasksContainer, {
   renderTodayDiv,
 } from "../../listTasks/ListTasksRender";
+import { is_Start_Time_Greather } from "./store";
 
 // Const section main content
 export default function tasksRender() {
@@ -101,8 +102,10 @@ export default function tasksRender() {
 
 export function addToDetailsCard(tasks) {
   const parentCardEl = document.getElementById("details_cards");
+
   if (parentCardEl) {
     parentCardEl.innerHTML = "";
+
     if (tasks.length !== 0) {
       tasks.forEach((task) => {
         parentCardEl.innerHTML += `
@@ -127,9 +130,10 @@ export function addToDetailsCard(tasks) {
             <div class="task-start-time">
               <h3 class="start-time">
               ${
-                task.is_All_Day
-                  ? new Date(task.startDateTime).toISOString().slice(0, 10)
-                  : ""
+                new Date().toISOString().slice(0, 10) !==
+                new Date(task.dueDateTime).toISOString().slice(0, 10)
+                  ? new Date(task.dueDateTime).toISOString().slice(0, 10)
+                  : "Today "
               }
               ${
                 new Date(task.startDateTime).getHours() === 0
@@ -145,13 +149,29 @@ export function addToDetailsCard(tasks) {
               ${
                 new Date(task.startDateTime).getHours() >= 12 ? "PM" : "AM"
               }</h3>
-              <p>Start</p>
+              <p class="start-label">Start</p>
             </div>
 
             
             <div class="task-duration">
             <p>duration</p>
-            <h3 id="duration">1day 7h 20m <span id="duration-seconds">20s</span></h3>
+            <h3 id="duration" class="duration">
+
+            ${
+              Math.floor(task.durationMinutes / 60 / 24) > 1
+                ? Math.floor(task.durationMinutes / 60 / 24) + "days"
+                : Math.floor(task.durationMinutes / 60 / 24) + "day"
+            }
+
+            ${Math.floor((task.durationMinutes / 60) % 24) || 0}h 
+
+            ${(task.durationMinutes % 60)
+              .toString()
+              .padStart(2, "0")}m <span id="duration-seconds">
+
+            ${((task.durationMinutes * 60) % 60)
+              .toString()
+              .padStart(2, "0")}s</span></h3>
             </div>
           </div>
         </div> 
@@ -178,10 +198,9 @@ export function addToDetailsCard(tasks) {
               <h3 class="start-time">0: 00 AM</h3>
               <p>Start</p>
             </div>
-            <div class="task-done-time"><span>00 Min</span></div>
-            <div class="task-end-time">
-              <h3 class="end-time">0: 00 PM</h3>
-              <p>End</p>
+            <div class="task-duration">
+            <p>duration</p>
+            <h3 id="duration">0day 0h 00m <span id="duration-seconds">00s</span></h3>
             </div>
           </div>
         </div>
