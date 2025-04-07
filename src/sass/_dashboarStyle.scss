@@ -14,7 +14,7 @@
 
     h5 {
       font-size: 0.77rem;
-      color: $text-color;
+      color: $first-text;
       opacity: 0.57;
       font-weight: 400;
     }
@@ -29,7 +29,7 @@
 
   .chart {
     text-align: center;
-    background-color: $charts-color;
+    background-color: $second-color;
     padding: 0.7rem 0.35rem 0.35rem;
     border-radius: 1rem;
     border: 1px solid $light-border-color;
@@ -48,7 +48,7 @@
     p {
       font-size: 0.65rem;
       font-weight: 600;
-      color: $gray-color;
+      color: $second-text;
 
       i {
         vertical-align: top;
@@ -145,7 +145,7 @@
         left: 50%;
         transform: translate(-50%, -50%);
         font-size: 1.2rem;
-        color: $text-color;
+        color: $first-text;
         opacity: 0.47;
 
         p {
@@ -192,7 +192,7 @@
   }
 
   span {
-    color: $primary-color;
+    color: $first-color;
     padding: 0rem 0.13rem;
     border-radius: 0.15rem;
     font-size: 0.67rem;

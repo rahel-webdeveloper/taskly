@@ -14,7 +14,7 @@
     margin-bottom: 1.7rem;
 
     .timer-title {
-      color: $text-color;
+      color: $first-text;
       font-size: 0.8rem;
       @include flex-center;
       column-gap: 3.1rem;
@@ -74,8 +74,8 @@
     border-radius: 50%;
     margin-top: 4rem;
     @include grid-center;
-    background-color: $secondary-color;
-    color: $text-color;
+    background-color: $second-color;
+    color: $first-text;
     cursor: pointer;
 
     &:disabled {
@@ -96,7 +96,7 @@
     padding: 0.67rem 2rem 0.67rem 1.5rem;
     font-size: 1.02rem;
     background-color: $btn-color;
-    color: $text-color;
+    color: $first-text;
     letter-spacing: 1px;
   }
 }
@@ -107,7 +107,7 @@
   cursor: pointer;
   font-family: inherit;
   font-weight: 600;
-  color: $text-color;
+  color: $first-text;
   word-spacing: 0.35rem;
   transition: opacity 0.3s;
 
@@ -147,7 +147,7 @@
   .timer-text {
     text-anchor: middle;
     transform: rotate(90deg);
-    fill: $text-color;
+    fill: $first-text;
     transition: transform 0.5s ease, opacity 0.5s ease;
   }
 
@@ -156,7 +156,7 @@
   }
 
   #behind-circle {
-    stroke: $thirtiary-color;
+    stroke: $third-color;
     stroke-width: 0.5;
   }
   #countdown-circle {
@@ -172,7 +172,7 @@
     // place-self: center;
 
     #timer-cancel {
-      background-color: $secondary-color;
+      background-color: $second-color;
     }
 
     #timer-pause {

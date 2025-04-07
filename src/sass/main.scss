@@ -30,7 +30,7 @@ li,
 a {
   list-style: none;
   text-decoration: none;
-  color: $text-color;
+  color: $first-text;
 }
 
 *:disabled {
@@ -39,8 +39,8 @@ a {
 
 body {
   font-family: $karla-font;
-  background-color: $primary-color;
-  color: $text-color;
+  background-color: $first-color;
+  color: $first-text;
   min-height: 100vh;
   position: relative;
   background-repeat: no-repeat, no-repeat;
@@ -131,7 +131,7 @@ body {
     grid-area: tasks;
 
     .task-list-container {
-      background-color: $secondary-color;
+      background-color: $second-color;
       border-radius: 1rem 1rem 0.7rem 0.7rem;
       margin-inline: 0;
     }
@@ -227,7 +227,7 @@ body {
 
   .second-section {
     grid-area: second;
-    border-left: 1px solid $secondary-color;
+    border-left: 1px solid $second-color;
     border-bottom-right-radius: 1rem;
     border-top-right-radius: 1rem;
   }
@@ -243,7 +243,7 @@ body {
     border-bottom-right-radius: 0;
 
     .percent-of-task {
-      border-top: 1px solid $thirtiary-color;
+      border-top: 1px solid $third-color;
     }
   }
 

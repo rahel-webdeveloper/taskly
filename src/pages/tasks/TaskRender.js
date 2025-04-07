@@ -35,7 +35,7 @@ export default function tasksRender() {
                 <p class="error-message" id="category-error">Select at least one category.</p>
               </div>
               <div class="form-column">
-                <label id="priority-label">Choose your task priority</label>
+                <label id="priority-label">Choose a priority</label>
                 <div class="priority-of-task" id="priority_of_task">
                   <span data-priority="1" style="background-color: #cb9ca3;" tabindex="0">1</span>
                   <span data-priority="2" style="background-color: #bbb2cc;" tabindex="0">2</span>

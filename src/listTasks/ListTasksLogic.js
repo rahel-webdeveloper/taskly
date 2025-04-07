@@ -160,8 +160,8 @@ export function updateViewOnTask() {
 }
 
 // local storage
-export function saveLocalStorage(tasks) {
-  localStorage.setItem("listTask", JSON.stringify(tasks));
+export function saveLocalStorage(data) {
+  localStorage.setItem("listTask", JSON.stringify(data));
 }
 
 export function loadTasksFromStorage() {

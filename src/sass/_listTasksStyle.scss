@@ -1,5 +1,5 @@
 .task-list-container {
-  background-color: $secondary-color;
+  background-color: $second-color;
   border-radius: 2.5rem 2.5rem 0rem 0rem;
   padding: 0.7rem;
   padding-bottom: 0;
@@ -24,7 +24,7 @@
   cursor: pointer;
   display: flex;
   column-gap: 3px;
-  color: $text-color;
+  color: $first-text;
   font-size: 0.85rem;
   border-radius: 1rem;
   padding: 4px 9px;
@@ -33,7 +33,7 @@
 }
 
 .custom-select:hover .selected-option {
-  background-color: $primary-color;
+  background-color: $first-color;
 }
 
 .selected-option .filter-icon {
@@ -63,7 +63,7 @@
 }
 
 .filter-list span:hover {
-  background-color: $primary-color;
+  background-color: $first-color;
   padding-left: 0.5rem;
   border-radius: 1rem;
 }
@@ -73,7 +73,7 @@
 }
 .length {
   background-color: $count-color;
-  color: $primary-color;
+  color: $first-color;
   min-width: 1.2rem;
   padding: 0.14rem 0.37rem;
   border-radius: 2rem;
@@ -166,7 +166,7 @@
   height: 27px;
   border-radius: 50%;
   font-size: 1.15rem;
-  background-color: $thirtiary-color;
+  background-color: $third-color;
   cursor: pointer;
   @include flex-center;
 }
@@ -186,7 +186,7 @@
 
 .task-current-time {
   font-size: 0.8rem;
-  color: $gray-color;
+  color: $second-text;
 }
 
 .task-left-div {
@@ -202,7 +202,7 @@
 }
 
 .task-edit-icon:hover {
-  color: $text-color;
+  color: $first-text;
 }
 
 .delete-icon {
@@ -210,7 +210,7 @@
 }
 
 .done .check-icon {
-  color: $secondary-color;
+  color: $second-color;
   outline: 4px solid $light-checked-color;
   background-color: $checked-color;
 }
@@ -222,7 +222,7 @@
 }
 
 .on-hold .delete-icon {
-  background-color: $thirtiary-color;
+  background-color: $third-color;
 }
 
 .on-hold .list-task-div {
@@ -245,14 +245,14 @@
   backdrop-filter: blur(12px);
   border: 1px solid $light-border-color;
   padding: 0.5rem;
-  color: $text-color;
+  color: $first-text;
   display: none;
 }
 #task-edit-input {
   background-color: transparent;
   place-self: start;
   width: 100%;
-  color: $text-color;
+  color: $first-text;
   padding: 0.35rem 0.35rem 0rem 0.35rem;
   font-family: inherit;
   font-size: 0.97rem;
@@ -271,11 +271,11 @@
   cursor: pointer;
   transition: opacity 0.3s;
   align-self: end;
-  color: $text-color;
+  color: $first-text;
 }
 #cancel {
-  background-color: $gray-color;
-  color: $primary-color;
+  background-color: $second-text;
+  color: $first-color;
 }
 #save {
   background-color: $btn-color;
@@ -324,7 +324,7 @@
   border: 1px solid $light-border-color;
   backdrop-filter: blur(10px);
   padding: 0.7rem;
-  color: $text-color;
+  color: $first-text;
   display: none;
 
   h3 {
@@ -362,12 +362,12 @@
   font-size: 0.77rem;
   border-radius: 2rem;
   transition: opacity 0.4s;
-  color: $text-color;
+  color: $first-text;
 }
 
 #no {
-  background-color: $gray-color;
-  color: $primary-color;
+  background-color: $second-text;
+  color: $first-color;
 }
 #yes {
   background-color: $btn-color;

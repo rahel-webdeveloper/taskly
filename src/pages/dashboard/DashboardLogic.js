@@ -1,5 +1,5 @@
 import { Chart } from "chart.js/auto";
-import { listTasks } from "../../listTasks/store";
+import { listTasks, setTodayTasks, todayTasks } from "../../listTasks/store";
 import { todayReport } from "../../listTasks/ListTasksLogic";
 
 const DashboardLogic = () => {
@@ -9,7 +9,10 @@ const DashboardLogic = () => {
   initSevenDaysLine(tasks);
   initStateChart(tasks);
   initTrackedTimeBars(tasks);
-  todayReport(listTasks.get());
+
+  // Set today's report on dashboard page
+  setTodayTasks(tasks);
+  todayReport(todayTasks.get());
 };
 
 const initCategoryBars = (tasks) => {
