@@ -1,7 +1,6 @@
 import TasksContainer, {
   renderTodayDiv,
 } from "../../listTasks/ListTasksRender";
-import { is_Start_Time_Greather } from "./store";
 
 // Const section main content
 export default function tasksRender() {

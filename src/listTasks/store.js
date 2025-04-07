@@ -4,16 +4,6 @@ import { loadTasksFromStorage, updateViewOnTask } from "./ListTasksLogic.js";
 import { addTaskToList, updateTaskCount } from "./ListTasksRender.js";
 
 export const Id = atom(0);
-export const check_Time_AllDay = atom(false);
-
-export const taskDescription = atom("");
-export const category = atom("");
-export const priority = atom({
-  level: 0,
-  label: "",
-  color: "",
-  icon: "",
-});
 
 export const listTasks = atom(loadTasksFromStorage() || tasksData);
 export const todayTasks = atom([]);
@@ -21,11 +11,6 @@ export const liveTasks = atom([]);
 
 export const tasksState = atom("all");
 export const visibleTasks = atom([]);
-
-export const startDateTime = atom(0);
-export const dueDateTime = atom(0);
-
-export const durationMinutes = atom(0);
 
 // Set live tasks
 export const setLiveTasks = (tasks) => {

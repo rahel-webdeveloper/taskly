@@ -1,3 +1,98 @@
 import { atom } from "nanostores";
+import { updateViewOnTask } from "../../listTasks/ListTasksLogic";
+import { listTasks } from "../../listTasks/store";
+import {
+  priorityColors,
+  priorityIcons,
+  priorityLabels,
+} from "../../services/helper";
+import { liveTrackTasks, nullValidation, useFlatepickr } from "./TaskLogic";
 
-export const is_Start_Time_Greather = atom(true);
+export const isTasksPageOpen = atom(false);
+export const check_Time_AllDay = atom(false);
+
+export const taskDescription = atom("");
+export const category = atom("");
+export const priority = atom({
+  level: 0,
+  label: "",
+  color: "",
+  icon: "",
+});
+export const startDateTime = atom(0);
+export const dueDateTime = atom(0);
+
+export const durationMinutes = atom(0);
+
+export const checkTimeAllDay = () => {
+  const toggle_El_Time_AllDay = document.getElementById("checkbox");
+
+  toggle_El_Time_AllDay.addEventListener("click", function () {
+    document.getElementById("due_date-time").value = "";
+    document.getElementById("start_date-time").value = "";
+
+    check_Time_AllDay.set(this.checked);
+    useFlatepickr();
+  });
+};
+
+// Set priority related data
+export const setPriorityData = () => {
+  const priorityKeys = document.querySelectorAll(".priority-of-task span");
+  const prioErrEl = document.getElementById("priority-error-message");
+
+  priorityKeys.forEach((key, index) => {
+    key.addEventListener("click", function () {
+      priority.set({
+        level: parseInt(key.getAttribute("data-priority")),
+        label: priorityLabels[index + 1],
+        color: priorityColors[index + 1],
+        icon: priorityIcons[index + 1],
+      });
+
+      nullValidation(priority.get().level, prioErrEl);
+    });
+  });
+};
+
+// Set time difference in minutes from start and due date & time
+export const calculateTimeDifference = (startTime, dueTime) => {
+  const res = Math.abs(dueTime - startTime);
+  return res / 1000 / 60;
+};
+
+export function addTaskData() {
+  const updatedAt = new Date();
+
+  durationMinutes.set(
+    calculateTimeDifference(
+      new Date(startDateTime.get()).getTime(),
+      new Date(dueDateTime.get()).getTime()
+    )
+  );
+
+  // Structure of task data
+  listTasks.set([
+    {
+      id: String(listTasks.get().length + 1),
+      description: taskDescription.get(),
+      category: category.get(),
+      startDateTime: startDateTime.get(),
+      dueDateTime: dueDateTime.get(),
+      durationMinutes: durationMinutes.get(),
+      priority: {
+        level: priority.get().level,
+        label: priority.get().label,
+        color: priority.get().color,
+        icon: priority.get().icon,
+      },
+      state: "on-hold",
+      isCompleted: false,
+      updatedAt: updatedAt.toISOString(),
+    },
+    ...listTasks.get(),
+  ]);
+
+  updateViewOnTask();
+  liveTrackTasks();
+}

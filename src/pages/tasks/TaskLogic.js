@@ -1,34 +1,25 @@
 import flatpickr from "flatpickr";
 import { updateViewOnTask } from "../../listTasks/ListTasksLogic.js";
+import { listTasks, liveTasks } from "../../listTasks/store";
+import { isDashboardOpen } from "../dashboard/MainDashboard.js";
 import {
+  addTaskData,
   category,
   check_Time_AllDay,
-  durationMinutes,
-  startDateTime,
+  checkTimeAllDay,
   dueDateTime,
-  listTasks,
   priority,
+  setPriorityData,
+  startDateTime,
   taskDescription,
-  liveTasks,
-} from "../../listTasks/store";
-import {
-  priorityColors,
-  priorityIcons,
-  priorityLabels,
-} from "../../services/helper.js";
-import { is_Start_Time_Greather } from "./store.js";
+} from "./store.js";
 import { addToDetailsCard } from "./TaskRender.js";
-import { isDashboardOpen } from "../dashboard/MainDashboard.js";
 
-export default function TasksLogic() {
+export default async function TasksLogic() {
   const constTasksSection = document.getElementById("const-tasks-section");
-  const toggle_El_Time_AllDay = document.getElementById("checkbox");
 
   if (constTasksSection) {
-    toggle_El_Time_AllDay.addEventListener("click", function () {
-      checkTimeAllDay(this.checked);
-    });
-
+    checkTimeAllDay();
     useFlatepickr();
     submitForm();
     updateViewOnTask();
@@ -36,18 +27,10 @@ export default function TasksLogic() {
   }
 }
 
-const checkTimeAllDay = (checkTimeDay) => {
-  document.getElementById("start_date-time").value = "";
-  document.getElementById("due_date-time").value = "";
-
-  check_Time_AllDay.set(checkTimeDay);
-  useFlatepickr();
-};
-
 function submitForm() {
   const form = document.getElementById("form");
 
-  // Check validation
+  // Validation with change of input
   form.addEventListener("change", function () {
     setPriorityData();
     validationOfFormData();
@@ -71,25 +54,7 @@ function submitForm() {
   });
 }
 
-const setPriorityData = () => {
-  const priorityKeys = document.querySelectorAll(".priority-of-task span");
-  const prioErrEl = document.getElementById("priority-error-message");
-
-  priorityKeys.forEach((key, index) => {
-    key.addEventListener("click", function () {
-      priority.set({
-        level: parseInt(key.getAttribute("data-priority")),
-        label: priorityLabels[index + 1],
-        color: priorityColors[index + 1],
-        icon: priorityIcons[index + 1],
-      });
-
-      nullValidation(priority.get().level, prioErrEl);
-    });
-  });
-};
-
-const useFlatepickr = () => {
+export const useFlatepickr = () => {
   let starteDateTimeConfig = {
     enableTime: true,
     noCalendar: true,
@@ -146,11 +111,6 @@ const useFlatepickr = () => {
   }
 };
 
-function calculateTimeDifference(startTime, dueTime) {
-  const res = Math.abs(dueTime - startTime);
-  return res / 1000 / 60;
-}
-
 // Validation of data
 const validationOfFormData = () => {
   const desErrEl = document.getElementById("description-error");
@@ -175,7 +135,6 @@ const validationOfFormData = () => {
     desErrEl.style.opacity = "0";
   }
 
-  // Set all validation
   if (
     nullValidation(categoryValue, cateErrEl) &&
     nullValidation(priority.get().level, prioErrEl) &&
@@ -184,13 +143,10 @@ const validationOfFormData = () => {
     category.set(categoryValue);
 
     return true;
-  } else {
-    return false;
-  }
+  } else return false;
 };
 
 // Get time as date for validation
-
 const getTimeAsDate = (timeStr) => {
   const [time, modifier] = timeStr.split(" ");
   let [hours, minutes] = time.split(":").map(Number);
@@ -203,7 +159,7 @@ const getTimeAsDate = (timeStr) => {
   return now;
 };
 
-function timeValidation() {
+const timeValidation = () => {
   const timeErrEl = document.getElementById("time-error");
 
   const startDateTimeValue = document.getElementById("start_date-time").value;
@@ -238,7 +194,7 @@ function timeValidation() {
     timeErrEl.style.opacity = "1";
 
     timeErrEl.textContent =
-      "The due datetime must be greather than start datetime!";
+      "The due datetime must be greather than start date & time!";
 
     return false;
   } else if (startDateTime === dueDateTime) {
@@ -252,9 +208,9 @@ function timeValidation() {
 
     return true;
   }
-}
+};
 
-function nullValidation(elementValue, erroreEl) {
+export function nullValidation(elementValue, erroreEl) {
   if (!elementValue) {
     erroreEl.style.opacity = "1";
 
@@ -264,44 +220,6 @@ function nullValidation(elementValue, erroreEl) {
 
     return true;
   }
-}
-
-// Add task to task list
-function addTaskData() {
-  const updatedAt = new Date();
-
-  durationMinutes.set(
-    calculateTimeDifference(
-      new Date(startDateTime.get()).getTime(),
-      new Date(dueDateTime.get()).getTime()
-    )
-  );
-
-  // Structure of task data
-  listTasks.set([
-    {
-      id: String(listTasks.get().length + 1),
-      description: taskDescription.get(),
-      category: category.get(),
-      startDateTime: startDateTime.get(),
-      dueDateTime: dueDateTime.get(),
-      durationMinutes: durationMinutes.get(),
-      priority: {
-        level: priority.get().level,
-        label: priority.get().label,
-        color: priority.get().color,
-        icon: priority.get().icon,
-      },
-      state: "on-hold",
-      isCompleted: false,
-      is_All_Day: check_Time_AllDay.get(),
-      updatedAt: updatedAt.toISOString(),
-    },
-    ...listTasks.get(),
-  ]);
-
-  updateViewOnTask();
-  liveTrackTasks();
 }
 
 // Card logic
