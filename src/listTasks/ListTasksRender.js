@@ -29,7 +29,7 @@ const TasksContainer = () => {
                 <!-- New task list will appear here -->
             </ul>
             <div class="task-edit-box">
-                <input type="text" id="task-edit-input" placeholder="Write your edited task.">
+                <input type="text" id="task-edit-input" placeholder="Write your edited task description.">
 
                 <div class="edit-result-btns">
                     <button id="cancel" class="edit-answer-btn">Cancel</button>

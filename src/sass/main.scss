@@ -50,6 +50,7 @@ body {
 
 .app-container {
   @include grid-center;
+  padding-bottom: 3.857rem;
 }
 
 .main-content {
@@ -58,13 +59,11 @@ body {
   max-width: 100%;
   width: 100%;
   border-radius: 0.5rem;
-  padding-top: 2.5rem;
 }
 
 .copyRight {
-  width: 100%;
   text-align: center;
-  font-size: 0.55rem;
+  font-size: 0.67rem;
   margin-block: 1rem 0.5rem;
 }
 
@@ -84,8 +83,9 @@ body {
 }
 
 @media (width >= 704px) {
-  .const-tasks-section {
-    border: 1px solid $light-border-color;
+  .tasks-home-page {
+    border-inline: 1px solid $light-border-color;
+    border-radius: 0;
   }
 
   .form-row:nth-child(3) {
@@ -149,7 +149,8 @@ body {
 
 @media screen and (width >= 1024px) {
   .app-container {
-    padding: 0.12rem 0.12rem 2rem 0.15rem;
+    padding: 0.12rem 0.12rem 0.15rem 0.15rem;
+    position: relative;
   }
 
   .today-tasks-report {
@@ -160,10 +161,17 @@ body {
     width: 2.87rem;
   }
 
+  .navbar {
+    position: fixed;
+    height: min-content;
+    top: 2.25rem;
+  }
+
   .navbar-menu {
     margin-top: 0.31rem;
 
-    .navbar-links a {
+    .navbar-links a,
+    .navbar-links p {
       font-size: 1.4rem;
 
       span {
@@ -171,7 +179,8 @@ body {
       }
     }
 
-    .navbar-links a:hover {
+    .navbar-links a:hover,
+    .navbar-links p:hover {
       padding: 0.12rem 0.5rem;
       border-radius: 1rem;
 
@@ -187,7 +196,7 @@ body {
     padding-top: 0;
   }
 
-  .const-tasks-section {
+  .tasks-home-page {
     @include grid-center;
     border: none;
     padding-top: 0;

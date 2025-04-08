@@ -1,4 +1,4 @@
-.const-tasks-section {
+.tasks-home-page {
   @include grid-center;
   grid-template-columns: 1fr;
   border-radius: 0.5rem;
@@ -8,8 +8,6 @@
   max-width: 700px;
   width: 100%;
   background-color: $first-color;
-  text-align: center;
-  border-radius: 0.5rem;
 }
 
 .form-container {
@@ -27,7 +25,7 @@
 .form .form-row {
   @include flex-space;
   gap: 1rem;
-  width: 95%;
+  width: 97%;
 }
 
 .form-row:nth-child(3) {

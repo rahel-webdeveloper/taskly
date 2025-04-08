@@ -16,7 +16,7 @@ import {
 import { addToDetailsCard } from "./TaskRender.js";
 
 export default async function TasksLogic() {
-  const constTasksSection = document.getElementById("const-tasks-section");
+  const constTasksSection = document.getElementById("tasks-home-page");
 
   if (constTasksSection) {
     checkTimeAllDay();

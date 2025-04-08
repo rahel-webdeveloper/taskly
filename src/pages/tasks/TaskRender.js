@@ -5,12 +5,12 @@ import TasksContainer, {
 // Const section main content
 export default function tasksRender() {
   return `
-    <div class="const-tasks-section" id="const-tasks-section">
+    <div class="tasks-home-page" id="tasks-home-page">
       <section class="first-section">
         <div class="form-container">
           <form action="" class="form" id="form">
             <div class="form-column">
-              <label for="task-description" id="description-label">Write your task description here.</label>
+              <label for="task-description" id="description-label">Write your task description here</label>
               <input type="text" id="task-description" name="description" minlength="7" maxlength="85"
                 placeholder="Write the description of task here" required></input>
               <p class="error-message" id="description-error">The description must be at least 7 characters.</p>

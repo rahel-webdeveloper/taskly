@@ -1,8 +1,8 @@
 import TimerLogic from "./TimerLogic";
 
-const Timer = () => {
+const MainTimer = () => {
   document.addEventListener("DOMContentLoaded", function () {
     TimerLogic();
   });
 };
-export default Timer;
+export default MainTimer;

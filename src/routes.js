@@ -6,6 +6,7 @@ import DashboardRender from "./pages/dashboard/DashboardRender.js";
 import About from "./pages/about/About.js";
 import activeLink from "./navbar.js";
 import { isDashboardOpen } from "./pages/dashboard/MainDashboard.js";
+import TasksLogic from "./pages/tasks/TaskLogic.js";
 
 const Router = (() => {
   const mainContent = document.getElementById("main-content");
@@ -25,7 +26,7 @@ const Router = (() => {
           activeLink("/ai-advice");
         },
 
-        "/tasks": async () => {
+        "/tasks": () => {
           mainContent.innerHTML = ConstTasksRender();
           activeLink("/tasks");
         },
@@ -52,6 +53,8 @@ const Router = (() => {
       })
 
       .resolve();
+
+    router.updatePageLinks();
   };
 
   return { init, router };

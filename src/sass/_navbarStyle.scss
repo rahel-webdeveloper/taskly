@@ -1,7 +1,10 @@
 .navbar {
-  position: sticky;
-  top: 0;
+  position: fixed;
   z-index: 1;
+  // top: 2rem;
+  bottom: -1rem;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .log-img {
@@ -16,35 +19,31 @@
 }
 
 .navbar-menu {
-  position: fixed;
-  top: 2rem;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
   background-color: $backdrop-filter-color;
   backdrop-filter: blur(15px);
   border-radius: 2rem;
   padding: 0.3rem 0.77rem;
   max-width: 24rem;
   @include flex-space;
-  column-gap: 0.7rem;
+  column-gap: 0.75rem;
   border: 1px solid $light-border-color;
 }
 
 .navbar-links {
   @include flex-center;
   column-gap: 0.3rem;
-  border: 1px solid $light-border-color;
-  padding: 0.2rem 0.3rem;
-  border-radius: 2rem;
+  border-left: 1px solid $light-border-color;
+  padding: 0.37rem 0.47rem;
 
-  a {
+  a,
+  p {
     @include flex-space;
     column-gap: 0.2rem;
     font-size: 1.25rem;
     color: $first-text;
     letter-spacing: 0.5px;
     font-family: $DM-Sans;
+    cursor: pointer;
   }
 
   span {
@@ -55,7 +54,8 @@
   }
 }
 
-.navbar-links a:hover {
+.navbar-links a:hover,
+.navbar-links p:hover {
   transition: all 0.4s ease-in-out;
   background-color: $light-high-color;
   padding: 0.12rem 0.5rem;
