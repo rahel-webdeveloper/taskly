@@ -232,10 +232,7 @@
 
 .task-edit-box {
   @include grid-center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  @include abs-position;
   background-color: #2c313f20;
   max-width: 27rem;
   width: 95%;
@@ -313,10 +310,8 @@
 }
 
 .delete-ask-div {
-  position: absolute;
+  @include abs-position;
   top: 47%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   background-color: $backdrop-filter-color;
   width: 20rem;
   border-radius: 0.77rem;

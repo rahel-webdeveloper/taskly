@@ -14,3 +14,19 @@
   align-items: center;
   justify-content: space-between;
 }
+
+@mixin fixed-position {
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: $backdrop-filter-color;
+  @include flex-space;
+}
+
+@mixin abs-position {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}

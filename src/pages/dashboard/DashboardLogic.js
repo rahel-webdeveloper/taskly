@@ -125,8 +125,7 @@ const initSevenDaysLine = (tasks) => {
       date,
       count,
     }))
-    .sort((a, b) => new Date(a.date) - new Date(b.date))
-    .reverse();
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
 
   seventDays.textContent = taskCountsArray.reduce(
     (accumlator, currentValue) => accumlator + currentValue.count,

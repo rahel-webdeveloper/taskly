@@ -19,16 +19,14 @@ const Router = (() => {
   const init = () => {
     router
       .on({
-        "/": () => (mainContent.innerHTML = Home()),
+        "/": () => {
+          mainContent.innerHTML = ConstTasksRender();
+          activeLink("/");
+        },
 
         "/ai-advice": () => {
           mainContent.innerHTML = `<h1>AI Advice</h1>`;
           activeLink("/ai-advice");
-        },
-
-        "/tasks": () => {
-          mainContent.innerHTML = ConstTasksRender();
-          activeLink("/tasks");
         },
 
         "/dashboard": () => {

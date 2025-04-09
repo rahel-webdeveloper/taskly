@@ -234,11 +234,9 @@ input[type="number"] {
 }
 
 #time-error {
-  position: absolute;
-  left: 50%;
-  bottom: -3%;
+  @include abs-position;
+  top: 90%;
   width: 100%;
-  transform: translate(-50%, -50%);
 }
 
 /* second section */

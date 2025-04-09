@@ -10,39 +10,49 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.4.0/remixicon.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/1.1.1/font-awesome-animation.min.css">
   <title>Task Tracker App</title>
 </head>
 
 <body>
   <div class="app-container">
     <nav class="navbar">
+
+      <div class="navbar-header">
+        <a href="/about" data-navigo><img src="/task-tracker-logo.webp" class="log-img" alt="" /></a>
+        <button class="login-btn">Login</button>
+      </div>
+
       <div class="navbar-menu">
-        <a href="/" data-navigo><img src="/task-tracker-logo.webp" class="log-img" alt="" /></a>
 
         <ul class="navbar-links">
-          <li>
-            <p>
-              <i class="ri-loader-2-line"></i> <span>AIA</span>
-            </p>
-          </li>
 
           <li>
-            <a href="/tasks" data-navigo>
-              <i class="ri-list-radio"></i> <span>Tasks</span>
+            <a href="/" data-navigo>
+              <i class="bi bi-house"></i> <span>Home</span>
             </a>
           </li>
           <li>
             <a href="/dashboard" data-navigo>
-              <i class="ri-donut-chart-fill"></i> <span>Dashboard</span>
+              <i class="bi bi-speedometer2"></i> <span>Dashboard</span>
             </a>
           </li>
+
+          <li>
+            <p>
+              <i class="bi bi-stars"></i> <span>AI Advice</span>
+            </p>
+          </li>
+
           <li>
             <a href="/timer" data-navigo>
-              <i class="ri-timer-flash-line"></i> <span>Timer</span></a>
+              <i class="bi bi-stopwatch"></i> <span>Timer</span></a>
           </li>
           <li>
             <a href="/about" data-navigo>
-              <i class="ri-information-line"></i> <span>About</span>
+              <i class="bi bi-exclamation-circle"></i> <span>About</span>
             </a>
           </li>
         </ul>
