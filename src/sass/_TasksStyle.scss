@@ -421,10 +421,11 @@ input[type="number"] {
 
   .form-container::after {
     content: "";
-    width: 100px;
-    height: 100px;
+    width: 110px;
+    height: 110px;
     bottom: 30%;
-    filter: blur(35px);
+    left: -5%;
+    filter: blur(39px);
     overflow: hidden;
     background-color: $orange-color;
     position: absolute;
