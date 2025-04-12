@@ -154,10 +154,6 @@ body {
     position: relative;
   }
 
-  .today-tasks-report {
-    gap: 0.35rem;
-  }
-
   .log-img {
     width: 2.87rem;
   }
@@ -254,6 +250,14 @@ body {
     .percent-of-task {
       border-top: 1px solid $third-color;
     }
+  }
+
+  .today-report-div {
+    margin-bottom: 0;
+  }
+
+  .today-tasks-report {
+    gap: 0.35rem;
   }
 
   .timer-container {

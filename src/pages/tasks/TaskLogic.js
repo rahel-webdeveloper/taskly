@@ -24,18 +24,59 @@ export default async function TasksLogic() {
     submitForm();
     updateViewOnTask();
     liveTrackTasks();
-    addTaskToggle();
+
+    tasksHomePage.addEventListener("click", addTaskToggle);
   }
 }
 
-const addTaskToggle = () => {
+const addTaskToggle = (event) => {
+  const addTaskIcon = document.querySelector("#add-task-icon i");
   const formContainer = document.querySelector(".form-container");
-  const addTaskIcon = document.getElementById("add-task-icon");
+  const scrollToEndIcon = document.getElementById("scroll-end-icon");
 
-  addTaskIcon.addEventListener("click", function () {
-    const formstyle = formContainer.style.display;
+  const target = event.target;
 
-    formContainer.style.display = formstyle === "block" ? "none" : "block";
+  if (target.closest("#add-task-icon i")) {
+    const formStyle = formContainer.style.display;
+
+    if (window.innerWidth < 1024) {
+      formContainer.style.display = formStyle === "block" ? "none" : "block";
+
+      addTaskIcon.classList.toggle("bi-x");
+    } else {
+      addTaskIcon.classList.remove("bi-x");
+
+      formContainer.style.display = "block";
+    }
+  }
+  if (target.closest("#scroll-end-icon")) scrollToEndCard();
+};
+
+const styleForAddTask = () => {
+  const addTaskIcon = document.querySelector("#add-task-icon i");
+  const formContainer = document.querySelector(".form-container");
+
+  const formStyle = formContainer.style.display;
+
+  if (window.innerWidth > 1024) {
+    addTaskIcon.classList.remove("bi-x");
+    formContainer.style.display = "block";
+  } else {
+    formStyle === "block"
+      ? addTaskIcon.classList.add("bi-x")
+      : addTaskIcon.classList.remove("bi-x");
+  }
+};
+
+window.addEventListener("resize", styleForAddTask);
+
+// Scroll to end of cards
+const scrollToEndCard = () => {
+  const cardsContainer = document.querySelector("#details_cards");
+
+  cardsContainer.scrollTo({
+    left: cardsContainer.scrollWidth,
+    behavior: "smooth",
   });
 };
 

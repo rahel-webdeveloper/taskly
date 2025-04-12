@@ -84,8 +84,8 @@ export default function tasksRender() {
       </section>
       <section class="second-section">
         <div class="top-of-card">
-        <span id="add-task-icon"><i class="bi bi-patch-plus-fill"></i></span>
-        <span id="scroll-end-icon"><i class="bi bi-caret-right-fill"></i></span>
+        <label for="task-description" id="add-task-icon"><i class="bi bi-patch-plus"></i></label>
+        <a id="scroll-end-icon" href="#last-card"><i class="bi bi-align-end"></i></a>
         </div>
         <div class="card-container">
           <div class="details-cards" id="details_cards">
