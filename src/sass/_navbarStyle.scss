@@ -1,9 +1,14 @@
+.navbar {
+  z-index: 4;
+}
 .navbar-header {
   @include fixed-position;
   top: 2.15rem;
   width: 100%;
   padding: 0.7rem 1.7rem;
   backdrop-filter: blur(12px);
+  overflow: hidden;
+  border-bottom: 1px solid $light-dark-blue-color;
 }
 
 .navbar-header::after {
@@ -15,7 +20,7 @@
   background-color: $high-color;
   border-radius: 50%;
   filter: blur(27px);
-  z-index: -3;
+  z-index: 0;
 }
 
 .log-img {

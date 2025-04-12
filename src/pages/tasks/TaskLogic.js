@@ -16,16 +16,28 @@ import {
 import { addToDetailsCard } from "./TaskRender.js";
 
 export default async function TasksLogic() {
-  const constTasksSection = document.getElementById("tasks-home-page");
+  const tasksHomePage = document.getElementById("tasks-home-page");
 
-  if (constTasksSection) {
+  if (tasksHomePage) {
     checkTimeAllDay();
     useFlatepickr();
     submitForm();
     updateViewOnTask();
     liveTrackTasks();
+    addTaskToggle();
   }
 }
+
+const addTaskToggle = () => {
+  const formContainer = document.querySelector(".form-container");
+  const addTaskIcon = document.getElementById("add-task-icon");
+
+  addTaskIcon.addEventListener("click", function () {
+    const formstyle = formContainer.style.display;
+
+    formContainer.style.display = formstyle === "block" ? "none" : "block";
+  });
+};
 
 function submitForm() {
   const form = document.getElementById("form");

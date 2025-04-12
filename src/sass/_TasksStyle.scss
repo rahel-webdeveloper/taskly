@@ -7,7 +7,8 @@
 .first-section {
   max-width: 700px;
   width: 100%;
-  background-color: $first-color;
+  // background-color: $first-color;
+  // z-index: 3;
 }
 
 .form-container {
@@ -260,11 +261,10 @@ input[type="number"] {
   grid-template-columns: repeat(5, 1fr);
   width: 100%;
   column-gap: 1rem;
-  padding: 1rem;
+  padding: 1.27rem;
   text-align: start;
   color: #f3f3f3;
   overflow: auto;
-  margin-top: 0.63rem;
   text-transform: capitalize;
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -395,6 +395,58 @@ input[type="number"] {
       margin-block: 0.2rem;
       color: $first-text;
       font-size: 1.2rem;
+    }
+  }
+}
+
+// Form container on small devices
+@media (width < 1024px) {
+  .form-container {
+    @include abs-position;
+    z-index: 1;
+    max-width: 680px;
+    width: 95%;
+    top: 37%;
+    border: 1px solid $light-border-color;
+    border-radius: 0.7rem;
+    background-color: $backdrop-filter-color;
+    backdrop-filter: blur(37px);
+    overflow: hidden;
+    display: none;
+  }
+
+  .form-container::after {
+    content: "";
+    width: 70px;
+    height: 70px;
+    right: 0%;
+    bottom: 5%;
+    filter: blur(50px);
+    overflow: hidden;
+    background-color: $optional-color;
+    position: absolute;
+  }
+
+  .second-section {
+    padding-top: 2rem;
+
+    .top-of-card {
+      @include flex-space;
+      padding-inline: 1.5rem;
+      color: $first-text;
+      font-size: 1.9rem;
+
+      i {
+        cursor: pointer;
+
+        &:hover {
+          opacity: 0.7;
+        }
+      }
+    }
+
+    #scroll-end-icon {
+      font-size: 1.5rem;
     }
   }
 }
