@@ -10,6 +10,7 @@ import { liveTrackTasks, nullValidation, useFlatepickr } from "./TaskLogic";
 
 export const isTasksPageOpen = atom(false);
 export const check_Time_AllDay = atom(false);
+export const isScrolledToLeft = atom(false);
 
 export const taskDescription = atom("");
 export const category = atom("");

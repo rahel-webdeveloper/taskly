@@ -8,6 +8,7 @@ import {
   check_Time_AllDay,
   checkTimeAllDay,
   dueDateTime,
+  isScrolledToLeft,
   priority,
   setPriorityData,
   startDateTime,
@@ -32,7 +33,6 @@ export default async function TasksLogic() {
 const addTaskToggle = (event) => {
   const addTaskIcon = document.querySelector("#add-task-icon i");
   const formContainer = document.querySelector(".form-container");
-  const scrollToEndIcon = document.getElementById("scroll-end-icon");
 
   const target = event.target;
 
@@ -56,12 +56,16 @@ const styleForAddTask = () => {
   const addTaskIcon = document.querySelector("#add-task-icon i");
   const formContainer = document.querySelector(".form-container");
 
-  const formStyle = formContainer.style.display;
+  let formStyle = formContainer.style.display;
 
   if (window.innerWidth > 1024) {
     addTaskIcon.classList.remove("bi-x");
     formContainer.style.display = "block";
   } else {
+    // !addTaskIcon.classList.contains("bi-x")
+    //   ? (formContainer.style.display = "none")
+    //   : (formContainer.style.display = "block");
+
     formStyle === "block"
       ? addTaskIcon.classList.add("bi-x")
       : addTaskIcon.classList.remove("bi-x");
@@ -73,11 +77,27 @@ window.addEventListener("resize", styleForAddTask);
 // Scroll to end of cards
 const scrollToEndCard = () => {
   const cardsContainer = document.querySelector("#details_cards");
+  const scrollToEndIcon = document.querySelector("#scroll-end-icon i");
 
-  cardsContainer.scrollTo({
-    left: cardsContainer.scrollWidth,
-    behavior: "smooth",
-  });
+  if (!isScrolledToLeft.get()) {
+    cardsContainer.scrollTo({
+      left: cardsContainer.scrollWidth,
+      behavior: "smooth",
+    });
+
+    scrollToEndIcon.classList.add("bi-align-start");
+
+    isScrolledToLeft.set(true);
+  } else {
+    cardsContainer.scrollTo({
+      left: 0,
+      behavior: "smooth",
+    });
+
+    scrollToEndIcon.classList.remove("bi-align-start");
+
+    isScrolledToLeft.set(false);
+  }
 };
 
 function submitForm() {
