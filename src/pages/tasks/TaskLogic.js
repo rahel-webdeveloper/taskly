@@ -55,16 +55,15 @@ const addTaskToggle = (event) => {
 const styleForAddTask = () => {
   const addTaskIcon = document.querySelector("#add-task-icon i");
   const formContainer = document.querySelector(".form-container");
-
-  let formStyle = formContainer.style.display;
-
-  if (window.innerWidth >= 1024) {
-    addTaskIcon.classList.remove("bi-x");
-    formContainer.style.display = "block";
-  } else {
-    !addTaskIcon.classList.contains("bi-x")
-      ? (formContainer.style.display = "none")
-      : (formContainer.style.display = "block");
+  if (addTaskIcon) {
+    if (window.innerWidth >= 1024) {
+      addTaskIcon.classList.remove("bi-x");
+      formContainer.style.display = "block";
+    } else {
+      !addTaskIcon.classList.contains("bi-x")
+        ? (formContainer.style.display = "none")
+        : (formContainer.style.display = "block");
+    }
   }
 };
 

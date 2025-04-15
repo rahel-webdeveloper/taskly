@@ -3,7 +3,7 @@ import TasksContainer, {
 } from "../../listTasks/ListTasksRender";
 
 // Const section main content
-export default function tasksRender() {
+export default function TasksHomePage() {
   return `
     <div class="tasks-home-page" id="tasks-home-page">
       <section class="first-section">
@@ -84,8 +84,8 @@ export default function tasksRender() {
       </section>
       <section class="second-section">
         <div class="top-of-card">
-        <label for="task-description" id="add-task-icon"><i class="bi bi-patch-plus"></i></label>
-        <a id="scroll-end-icon" href="#last-card"><i class="bi bi-align-end"></i></a>
+        <label for="task-description" title="Add new task" id="add-task-icon"><i class="bi bi-plus"></i></label>
+        <a id="scroll-end-icon" title="Scroll left and right of cards" href="#last-card"><i class="bi bi-align-end"></i></a>
         </div>
         <div class="card-container">
           <div class="details-cards" id="details_cards">

@@ -7,8 +7,6 @@
 .first-section {
   max-width: 700px;
   width: 100%;
-  // background-color: $first-color;
-  // z-index: 3;
 }
 
 .form-container {
@@ -53,18 +51,19 @@
   padding: 0.79rem 1.5rem;
   border-radius: 1.5rem;
   color: $first-text;
-  border: none;
-  outline: none;
   font-family: inherit;
   width: 95%;
 }
 
+#task-description:focus {
+  border: 1px solid $light-optional-color;
+}
+
 .form #category {
-  outline: none;
-  border: none;
   background-color: $second-color;
   padding: 0.7rem 0.5rem;
   font-size: 0.77rem;
+  border: none;
   text-align: center;
   border-radius: 1.5rem;
   color: $first-text;
@@ -78,10 +77,6 @@
   flex-wrap: wrap;
   gap: 0.7rem 1rem;
   margin-top: 0.3rem;
-}
-
-#priority-label {
-  // border-bottom: 1px solid $light-border-color;
 }
 
 .priority-of-task span {
@@ -453,7 +448,6 @@ input[type="number"] {
       @include flex-space;
       padding-inline: 1.5rem;
       color: $first-text;
-      font-size: 1.9rem;
 
       i {
         cursor: pointer;
@@ -464,8 +458,12 @@ input[type="number"] {
       }
     }
 
-    #scroll-end-icon {
-      font-size: 1.5rem;
+    #add-task-icon i {
+      font-size: 2.27rem;
+    }
+
+    #scroll-end-icon i {
+      font-size: 1.57rem;
     }
   }
 }

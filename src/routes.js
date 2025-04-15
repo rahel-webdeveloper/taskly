@@ -1,15 +1,18 @@
 import Navigo from "navigo";
-import Home from "./pages/home/Home.js";
-import TimerRender from "./pages/timer/TimerRender.js";
-import ConstTasksRender from "./pages/tasks/TaskRender.js";
-import DashboardRender from "./pages/dashboard/DashboardRender.js";
-import About from "./pages/about/About.js";
 import activeLink from "./navbar.js";
+import About from "./pages/about/About.js";
+import DashboardRender from "./pages/dashboard/DashboardRender.js";
 import { isDashboardOpen } from "./pages/dashboard/MainDashboard.js";
-import TasksLogic from "./pages/tasks/TaskLogic.js";
+// import ConstTasksRender from "./pages/tasks/TaskRender.js";
+import TimerRender from "./pages/timer/TimerRender.js";
+import { atom } from "nanostores";
+import TasksHomePage from "./pages/tasks/TaskRender.js";
+import { loadLocalStorage, saveLocalStorage } from "./data/localStorage.js";
 
 const Router = (() => {
   const mainContent = document.getElementById("main-content");
+
+  const isAboutSeen = atom(loadLocalStorage("is_about_seen") || false);
 
   const router = new Navigo("/", {
     linksSelector: "[data-link]",
@@ -20,7 +23,7 @@ const Router = (() => {
     router
       .on({
         "/": () => {
-          mainContent.innerHTML = ConstTasksRender();
+          mainContent.innerHTML = TasksHomePage();
           activeLink("/");
         },
 
@@ -43,6 +46,9 @@ const Router = (() => {
         "/about": () => {
           mainContent.innerHTML = About();
           activeLink("/about");
+
+          isAboutSeen.set(true);
+          saveLocalStorage(isAboutSeen.get(), "is_about_seen");
         },
       })
 
@@ -54,6 +60,8 @@ const Router = (() => {
 
     router.updatePageLinks();
   };
+
+  if (!isAboutSeen.get()) router.navigate("/about");
 
   return { init, router };
 })();
