@@ -14,13 +14,14 @@
 .navbar-header::after {
   content: "";
   @include abs-position;
-  width: 2.5rem;
-  left: 60%;
-  height: 2.5rem;
-  background-color: $high-color;
-  border-radius: 50%;
+  width: 1rem;
+  height: 7rem;
+  transform: rotate(37deg);
+  left: 49%;
+  top: -33%;
+  background-color: $first-text;
   filter: blur(27px);
-  z-index: 0;
+  z-index: -1;
 }
 
 .log-img {

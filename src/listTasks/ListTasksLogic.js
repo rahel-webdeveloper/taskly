@@ -1,5 +1,5 @@
+import { saveLocalStorage } from "../data/localStorage";
 import { isDashboardOpen } from "../pages/dashboard/MainDashboard";
-import { addToDetailsCard } from "../pages/tasks/TaskRender";
 import { addAngleBracket, updateTaskCount } from "./ListTasksRender";
 import {
   completingTask,
@@ -32,7 +32,7 @@ const ListTasksLogic = () => {
   );
 };
 
-// Events hadler function
+// Events handler function
 const eventsHandler = (event) => {
   const customSelect = document.getElementById("custom_select");
   const filterList = document.getElementById("filter_list");
@@ -154,18 +154,9 @@ export function updateViewOnTask() {
     tasksState.get()
   );
 
-  saveLocalStorage(listTasks.get());
+  saveLocalStorage(listTasks.get(), "listTask");
   updateTaskCount(listTasks.get(), visibleTasks.get().length);
   todayReport(todayTasks.get());
-}
-
-// local storage
-export function saveLocalStorage(data) {
-  localStorage.setItem("listTask", JSON.stringify(data));
-}
-
-export function loadTasksFromStorage() {
-  return JSON.parse(localStorage.getItem("listTask"));
 }
 
 export default ListTasksLogic;

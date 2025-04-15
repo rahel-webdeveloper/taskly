@@ -58,17 +58,13 @@ const styleForAddTask = () => {
 
   let formStyle = formContainer.style.display;
 
-  if (window.innerWidth > 1024) {
+  if (window.innerWidth >= 1024) {
     addTaskIcon.classList.remove("bi-x");
     formContainer.style.display = "block";
   } else {
-    // !addTaskIcon.classList.contains("bi-x")
-    //   ? (formContainer.style.display = "none")
-    //   : (formContainer.style.display = "block");
-
-    formStyle === "block"
-      ? addTaskIcon.classList.add("bi-x")
-      : addTaskIcon.classList.remove("bi-x");
+    !addTaskIcon.classList.contains("bi-x")
+      ? (formContainer.style.display = "none")
+      : (formContainer.style.display = "block");
   }
 };
 
