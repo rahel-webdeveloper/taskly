@@ -160,8 +160,9 @@ body {
 
   .navbar-menu {
     height: min-content;
-    top: 2.27rem;
+    top: 2.7rem;
     background-color: transparent;
+    border-color: transparent $light-high-color;
 
     .navbar-links a,
     .navbar-links p {
@@ -189,7 +190,9 @@ body {
 
   .main-content {
     border: 1px solid $light-border-color;
-    padding-top: rem;
+    border-top-color: transparent;
+    border-radius: 0rem 0rem 0.5rem 0.5rem;
+    padding-top: 0.57rem;
   }
 
   .tasks-home-page {
@@ -219,6 +222,10 @@ body {
 
   .form #taskForm {
     width: 90%;
+  }
+
+  .form-container {
+    margin-top: 0;
   }
 
   .flatpickr-calendar {
@@ -278,6 +285,10 @@ body {
       margin-top: 0rem;
     }
 
+    .timer-title {
+      margin-top: 2.5rem;
+    }
+
     #timer-start {
       margin-top: 0;
     }
@@ -292,7 +303,7 @@ body {
 
   .dashboard {
     width: 100%;
-    padding-top: 2rem;
+    padding-top: 3rem;
 
     .dash-header {
       padding-top: 0;

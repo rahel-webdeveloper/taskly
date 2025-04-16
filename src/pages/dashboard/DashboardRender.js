@@ -16,7 +16,7 @@ const DashboardRender = () => {
             <p>total category</p>
             <h1 id="ctegory-count">7</h1>
           </div>
-          <p class="chart-title"> Categories charts <i class="bi bi-bar-chart-line-fill"></i></p>
+          <p class="chart-title"> Categories bars <i class="bi bi-bar-chart-line-fill"></i></p>
           
         </div>
         <canvas id="category_bar"></canvas>

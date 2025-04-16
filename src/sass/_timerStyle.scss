@@ -15,7 +15,8 @@
 
     .timer-title {
       color: $first-text;
-      font-size: 0.8rem;
+      font-size: 0.945rem;
+      font-weight: 600;
       @include flex-center;
       column-gap: 3.1rem;
     }

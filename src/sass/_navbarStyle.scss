@@ -3,24 +3,25 @@
 }
 .navbar-header {
   @include fixed-position;
-  top: 2.15rem;
-  width: 100%;
+  top: 2.7rem;
+  border-radius: 5rem;
+  width: 95%;
   padding: 0.7rem 1.7rem;
   backdrop-filter: blur(12px);
   overflow: hidden;
-  border-bottom: 1px solid $light-dark-blue-color;
+  border: 1px solid $light-dark-blue-color;
 }
 
 .navbar-header::after {
   content: "";
   @include abs-position;
   width: 1rem;
-  height: 7rem;
+  height: 9rem;
   transform: rotate(37deg);
   left: 49%;
   top: -33%;
-  background-color: $high-color;
-  filter: blur(27px);
+  background-color: $optional-color;
+  filter: blur(25px);
   z-index: -1;
 }
 
@@ -33,18 +34,24 @@
   }
 }
 
-.login-btn {
-  background-color: $high-color;
-  padding: 0.59rem 1.5rem;
+.sign-in-btn {
+  background-color: $light-high-color;
+  padding: 0.59rem 1.27rem;
   font-family: inherit;
-  font-size: 0.91rem;
-  font-weight: 500;
+  color: $first-text;
+  font-size: 0.915rem;
   border-radius: 2rem;
+  font-weight: 700;
   cursor: pointer;
   transition: scale 0.3s ease-in;
 
+  i {
+    vertical-align: middle;
+    padding-left: 0.27rem;
+  }
+
   &:hover {
-    scale: 1.0458;
+    scale: 1.0358;
     opacity: 0.85;
   }
 }
