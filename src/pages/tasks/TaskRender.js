@@ -103,14 +103,14 @@ export default function TasksHomePage() {
     `;
 }
 
-export function addToDetailsCard(tasks) {
+export function addToDetailsCard(live_tasks) {
   const parentCardEl = document.getElementById("details_cards");
 
   if (parentCardEl) {
     parentCardEl.innerHTML = "";
 
-    if (tasks.length !== 0) {
-      tasks.forEach((task) => {
+    if (live_tasks.length !== 0) {
+      live_tasks.forEach((task) => {
         parentCardEl.innerHTML += `
   
        <div class="details-card" style="background-color: ${
@@ -181,7 +181,7 @@ export function addToDetailsCard(tasks) {
        `;
 
         parentCardEl.style.gridTemplateColumns = `repeat(${
-          tasks.length + 1
+          live_tasks.length + 1
         }, 1fr)`;
       });
     } else {
@@ -211,7 +211,7 @@ export function addToDetailsCard(tasks) {
 
       // Style base on overflow
       const emptyCard = document.querySelector(".empty-card");
-      tasks.length === 0
+      live_tasks.length === 0
         ? (emptyCard.style.margin = ".5rem")
         : (emptyCard.style.margin = "0rem");
     }

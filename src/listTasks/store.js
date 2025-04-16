@@ -3,6 +3,7 @@ import { loadLocalStorage } from "../data/localStorage.js";
 import tasksData from "../data/tasksData.js";
 import { updateViewOnTask } from "./ListTasksLogic.js";
 import { addTaskToList, updateTaskCount } from "./ListTasksRender.js";
+import { addToDetailsCard } from "../pages/tasks/TaskRender.js";
 
 export const Id = atom(0);
 
@@ -96,6 +97,7 @@ export const saveEditedTask = (editInput, editBox) => {
   );
   editBox.style.display = "none";
 
+  addToDetailsCard(liveTasks.get());
   updateViewOnTask();
 };
 
