@@ -1,7 +1,7 @@
 {
-  "name": "Task Tracker",
+  "name": "Taskly",
   "start_url": "/",
-  "background_color": "#0e0f13",
+  "background_color": "#000000",
   "theme_color": "#000000",
   "orientation": "portrait",
   "icons": [
