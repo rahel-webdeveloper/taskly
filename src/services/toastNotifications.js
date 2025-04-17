@@ -52,7 +52,7 @@ const openNotification = (type, message) => {
       " padding-block: 13px; padding-right: 45px;";
 
     notyfToasts[i].style.cssText +=
-      "border-radius: 2rem .67rem .67rem 2rem; backdrop-filter: blur(12px); max-width: max-content; width: 90%; margin: 0 .45rem .8rem 0;";
+      "border-radius: 2rem .67rem .67rem 2rem; backdrop-filter: blur(12px); max-width: max-content; width: 90%; margin: 1.15rem .45rem .8rem 0;";
   }
 };
 
