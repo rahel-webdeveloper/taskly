@@ -7,20 +7,20 @@ const notyf = new Notyf({
   types: [
     {
       type: "success",
-      background: "rgb(134, 181, 178, .45)",
+      background: "rgb(134, 181, 178, .87)",
     },
     {
       type: "error",
-      background: "rgb(237, 88, 95, .45)",
+      background: "rgb(237, 88, 95, .87)",
     },
     {
       type: "warning",
-      background: "rgb(237, 192, 123, .49)",
+      background: "rgb(237, 192, 123, .87)",
       icon: "<i class='bi bi-exclamation-circle-fill'></i>",
     },
     {
       type: "info",
-      background: "rgb(176, 187, 188, .45)",
+      background: "rgb(176, 187, 188, .87)",
       icon: "<i class='bi bi-info-circle-fill'></i>",
     },
   ],
