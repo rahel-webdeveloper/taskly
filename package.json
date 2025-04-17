@@ -21,6 +21,7 @@
     "fast-sort": "^3.4.1",
     "flatpickr": "^4.6.13",
     "nanostores": "^0.11.3",
-    "navigo": "^8.11.1"
+    "navigo": "^8.11.1",
+    "notyf": "^3.10.0"
   }
 }

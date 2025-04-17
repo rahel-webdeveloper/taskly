@@ -1,4 +1,5 @@
 import flatpickr from "flatpickr";
+import "notyf/notyf.min.css";
 import { updateViewOnTask } from "../../listTasks/ListTasksLogic.js";
 import { listTasks, liveTasks } from "../../listTasks/store";
 import { isDashboardOpen } from "../dashboard/MainDashboard.js";
@@ -15,6 +16,7 @@ import {
   taskDescription,
 } from "./store.js";
 import { addToDetailsCard } from "./TaskRender.js";
+import openNotification from "../../services/toastNotifications.js";
 
 export default async function TasksLogic() {
   const tasksHomePage = document.getElementById("tasks-home-page");
@@ -26,11 +28,11 @@ export default async function TasksLogic() {
     updateViewOnTask();
     liveTrackTasks();
 
-    tasksHomePage.addEventListener("click", addTaskToggle);
+    tasksHomePage.addEventListener("click", addTaskToggleAndEvents);
   }
 }
 
-const addTaskToggle = (event) => {
+const addTaskToggleAndEvents = (event) => {
   const addTaskIcon = document.querySelector("#add-task-icon i");
   const formContainer = document.querySelector(".form-container");
 
@@ -50,6 +52,9 @@ const addTaskToggle = (event) => {
     }
   }
   if (target.closest("#scroll-end-icon")) scrollToEndCard();
+
+  if (target.closest("#create_btn") && !validationOfFormData())
+    openNotification("warning", "Please fill out the form!");
 };
 
 const styleForAddTask = () => {
@@ -109,6 +114,7 @@ function submitForm() {
 
     if (validationOfFormData()) {
       addTaskData();
+      openNotification("success", "New task created successfully!");
 
       // Reset from
       form.reset();
@@ -291,6 +297,9 @@ export function nullValidation(elementValue, erroreEl) {
 }
 
 // Card logic
+
+const notifiedTasks = new Set();
+
 export const liveTrackTasks = () => {
   const durationInterval = setInterval(() => {
     listTasks.get().map((task, index) => {
@@ -302,6 +311,18 @@ export const liveTrackTasks = () => {
       liveTasks.get().length === 0 && clearInterval(durationInterval);
 
       if (dueDateTime > now) {
+        // add notification when the task is started
+        if (
+          Math.floor(now / 10000) >= Math.floor(startDateTime / 10000) &&
+          !notifiedTasks.has(task.id)
+        ) {
+          openNotification(
+            "info",
+            `Your (${task.description.slice(0, 12)}...) task is started!`
+          );
+
+          notifiedTasks.add(task.id);
+        }
         if (now > startDateTime) {
           const remainingTime = dueDateTime - now;
 

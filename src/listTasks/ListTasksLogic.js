@@ -1,5 +1,6 @@
 import { saveLocalStorage } from "../data/localStorage";
 import { isDashboardOpen } from "../pages/dashboard/MainDashboard";
+import openNotification from "../services/toastNotifications";
 import { addAngleBracket, updateTaskCount } from "./ListTasksRender";
 import {
   completingTask,
@@ -60,9 +61,17 @@ const eventsHandler = (event) => {
     editingTask(editBox, editInput);
   }
 
-  if (target.closest("#save")) saveEditedTask(editInput, editBox);
+  if (target.closest("#save")) {
+    saveEditedTask(editInput, editBox);
 
-  if (target.closest("#cancel")) editBox.style.display = "none";
+    openNotification("success", "Your edited task saved!");
+  }
+
+  if (target.closest("#cancel")) {
+    editBox.style.display = "none";
+
+    openNotification("error", "Your edited task cancelled!");
+  }
 
   // Toggle filter box
   if (target.closest(".selected-option"))
@@ -104,13 +113,18 @@ const eventsHandler = (event) => {
 
     if (target.closest(".all-delte-btn") && listTasks.get().length !== 0)
       askDivStyle.display = "block";
-    // Ask for deleting all done tasks
-    if (target.closest("#no")) askDivStyle.display = "none";
+
+    if (target.closest("#no")) {
+      askDivStyle.display = "none";
+
+      openNotification("error", "Deleting done tasks cancelled!");
+    }
 
     if (target.closest("#yes")) {
       askDivStyle.display = "none";
 
       deletingCompleteTasks();
+      openNotification("success", "You deleted all your done tasks!");
     }
   }
 };
