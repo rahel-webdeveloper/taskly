@@ -32,7 +32,16 @@ const openNotification = (type, message) => {
   notyf.open({
     type: type,
     message: message,
-    // position: ,
+    position:
+      innerWidth <= 1024
+        ? {
+            x: "center",
+            y: "top",
+          }
+        : {
+            x: "right",
+            y: "bottom",
+          },
   });
 
   const notyfToasts = document.querySelectorAll(".notyf__toast");
