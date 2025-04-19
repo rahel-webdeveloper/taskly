@@ -3,7 +3,7 @@ const Welcome = () => {
   <div class="welcome-page">
     <section class="welcome-first_section">
       <h1>Welcome to Taskly</1h>
-      <h2>Track, Chat, and Conquer Your Tasks!
+      <h2><span>Track</span>, <span>Chat</span>, and <span>Conquer</span> Your Tasks!
     </section>
 
     <section>

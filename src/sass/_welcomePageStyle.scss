@@ -1,6 +1,7 @@
 .welcome-page {
   width: 100%;
   min-height: 100vh;
+  position: relative;
 }
 
 .welcome-first_section {
@@ -9,21 +10,47 @@
     url("/public/pattern-circle.svg"), url("/public/pattern-circle.svg"),
     url("/public/pattern-squiggly-line-top.svg"),
     url("/public/pattern-squiggly-line-bottom-mobile-tablet.svg");
-  background-size: cover, 39%, 25%, 50%, 100%;
+  background-size: cover, 39%, 25%, 50%, 70%;
   background-repeat: no-repeat;
-  background-position: 20% top, 12rem 2.5rem, left 20%, right 5rem, left bottom;
+  background-position: 20% top, left 2rem, center 25%, right 5rem, left bottom;
   padding-top: 4.7rem;
   text-align: center;
 
   h1 {
     margin-inline: 1rem;
-    font-size: 3rem;
+    font-size: 3.37rem;
+    color: $second-text;
   }
   h2 {
     margin-inline: 1rem;
     margin: 1rem;
     font-size: 2.37rem;
+
+    span:nth-child(1) {
+      color: $count-color;
+    }
+    span:nth-child(2) {
+      color: $moderate-color;
+    }
+    span:nth-child(3) {
+      color: $checked-color;
+    }
   }
+}
+
+.welcome-first_section::before {
+  @include abs-position;
+  content: "";
+  width: 4rem;
+  transform: rotate(7deg);
+  height: 60rem;
+  top: -10%;
+  //   left: 70%;
+  background-color: $optional-color;
+  filter: blur(35px);
+  z-index: -1;
+  //   border-radius: 50%;
+  //   border: 2rem solid $optional-color;
 }
 
 .copyRight {

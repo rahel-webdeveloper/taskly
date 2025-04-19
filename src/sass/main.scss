@@ -79,6 +79,16 @@ body {
 }
 
 @media (width >= 704px) {
+  .welcome-first_section {
+    height: 90vh;
+    background-image: url("/pattern-lines.svg"), url("/pattern-circle.svg"),
+      url("/pattern-circle.svg"), url("/pattern-squiggly-line-top.svg"),
+      url("/pattern-squiggly-line-bottom-desktop.svg");
+    background-size: cover, 27%, 20%, 50%, 67%;
+    background-repeat: no-repeat;
+    background-position: 20% top, left 2rem, center 20%, right 5rem, left bottom;
+  }
+
   .tasks-home-page {
     border-inline: 1px solid $light-border-color;
     border-radius: 0;
@@ -332,10 +342,6 @@ body {
   }
 
   .copyRight {
-    // position: absolute;
-    // bottom: 0rem;
-    // z-index: 3;
-    // font-size: 0.7rem;
     margin-bottom: 1rem;
   }
 }
