@@ -3,7 +3,7 @@ import TasksContainer, {
 } from "../../listTasks/ListTasksRender";
 
 // Const section main content
-export default function TasksHomePage() {
+export default function TaskHubRender() {
   return `
     <div class="tasks-home-page" id="tasks-home-page">
       <section class="first-section">

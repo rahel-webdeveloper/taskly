@@ -3,7 +3,7 @@ import { loadLocalStorage } from "../data/localStorage.js";
 import tasksData from "../data/tasksData.js";
 import { updateViewOnTask } from "./ListTasksLogic.js";
 import { addTaskToList, updateTaskCount } from "./ListTasksRender.js";
-import { addToDetailsCard } from "../pages/tasks/TaskRender.js";
+import { addToDetailsCard } from "../pages/task_hub/TaskHubRender.js";
 
 export const Id = atom(0);
 
@@ -90,7 +90,7 @@ export const saveEditedTask = (editInput, editBox) => {
         ? {
             ...task,
             description: editInput.value,
-            updatedAt: updatedAt.toISOString(),
+            // updatedAt: updatedAt.toISOString(),
           }
         : task
     )

@@ -1,12 +1,11 @@
 import Navigo from "navigo";
 import activeLink from "./navbar.js";
-import About from "./pages/about/About.js";
+import Welcome from "./pages/welcome/Welcome.js";
 import DashboardRender from "./pages/dashboard/DashboardRender.js";
 import { isDashboardOpen } from "./pages/dashboard/MainDashboard.js";
-// import ConstTasksRender from "./pages/tasks/TaskRender.js";
 import TimerRender from "./pages/timer/TimerRender.js";
 import { atom } from "nanostores";
-import TasksHomePage from "./pages/tasks/TaskRender.js";
+import TaskHubRender from "./pages/task_hub/TaskHubRender.js";
 import { loadLocalStorage, saveLocalStorage } from "./data/localStorage.js";
 
 const Router = (() => {
@@ -23,7 +22,7 @@ const Router = (() => {
     router
       .on({
         "/": () => {
-          mainContent.innerHTML = TasksHomePage();
+          mainContent.innerHTML = TaskHubRender();
           activeLink("/");
         },
 
@@ -44,7 +43,7 @@ const Router = (() => {
         },
 
         "/about": () => {
-          mainContent.innerHTML = About();
+          mainContent.innerHTML = Welcome();
           activeLink("/about");
 
           isAboutSeen.set(true);

@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap");
 @import "variables";
 @import "mixins";
+@import "welcomePageStyle";
 @import "listTasksStyle";
 @import "timerStyle";
 @import "navbarStyle";
@@ -57,22 +58,10 @@ body {
 .main-content {
   @include grid-center;
   transition: all 0.7s;
-  max-width: 100%;
   width: 100%;
+  // min-height: 100vh;
   border-radius: 0.5rem;
 }
-
-.copyRight {
-  text-align: center;
-  font-size: 0.67rem;
-  margin-block: 1rem 0.5rem;
-}
-
-// Notyf notification style
-// .notyf__toast {
-//   border-radius: 30px;
-//   background-color: red;
-// }
 
 @media screen and (width >= 470px) {
   .form #taskForm {
@@ -160,20 +149,16 @@ body {
     position: relative;
   }
 
-  .log-img {
-    width: 2.87rem;
-  }
-
   .navbar-menu {
     height: min-content;
     top: 2.7rem;
     background-color: transparent;
-    border-color: transparent $light-high-color;
+    border-color: transparent $light-border-color;
+    backdrop-filter: blur(0px);
 
     .navbar-links a,
     .navbar-links p {
       gap: 0.5rem;
-
       font-size: 1.4rem;
 
       span {
@@ -347,10 +332,11 @@ body {
   }
 
   .copyRight {
-    position: absolute;
-    bottom: 0rem;
-    z-index: 3;
-    font-size: 0.7rem;
+    // position: absolute;
+    // bottom: 0rem;
+    // z-index: 3;
+    // font-size: 0.7rem;
+    margin-bottom: 1rem;
   }
 }
 
@@ -365,8 +351,4 @@ body {
 
 .opacity {
   opacity: 1;
-}
-
-.navbar-show {
-  top: 12rem;
 }

@@ -15,10 +15,10 @@ import {
   startDateTime,
   taskDescription,
 } from "./store.js";
-import { addToDetailsCard } from "./TaskRender.js";
+import { addToDetailsCard } from "./TaskHubRender.js";
 import openNotification from "../../services/toastNotifications.js";
 
-export default async function TasksLogic() {
+export default async function TaskHubLogic() {
   const tasksHomePage = document.getElementById("tasks-home-page");
 
   if (tasksHomePage) {

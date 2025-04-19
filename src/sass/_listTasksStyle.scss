@@ -239,7 +239,7 @@
   flex-direction: column;
   row-gap: 0.77rem;
   border-radius: 0.5rem;
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(9px);
   border: 1px solid $light-border-color;
   padding: 0.5rem;
   color: $first-text;
@@ -290,7 +290,7 @@
   width: 100%;
   border-radius: 1.5rem 1.5rem 0rem 0rem;
   border-top: 1px solid $light-border-color;
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(7px);
   padding-bottom: 1rem;
   padding-top: 0.7rem;
 }

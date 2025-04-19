@@ -1,15 +1,15 @@
 import MainDashboard from "./pages/dashboard/MainDashboard";
-import MainTasks from "./pages/tasks/MainTasks";
+import MainTaskHub from "./pages/task_hub/MainTaskHub";
 import MainTimer from "./pages/timer/Timer";
 import ListTaskMain from "./listTasks/ListTaskMain";
 import MainAIAdvice from "./pages/ai_advice/MainAIAdvice";
 
-const App = () => {
-  MainTasks();
+const Main = () => {
+  MainTaskHub();
   MainAIAdvice();
   MainDashboard();
   MainTimer();
   ListTaskMain();
 };
 
-export default App;
+export default Main;

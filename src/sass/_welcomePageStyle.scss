@@ -1,0 +1,33 @@
+.welcome-page {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.welcome-first_section {
+  height: 90vh;
+  background-image: url("/public/pattern-lines.svg"),
+    url("/public/pattern-circle.svg"), url("/public/pattern-circle.svg"),
+    url("/public/pattern-squiggly-line-top.svg"),
+    url("/public/pattern-squiggly-line-bottom-mobile-tablet.svg");
+  background-size: cover, 39%, 25%, 50%, 100%;
+  background-repeat: no-repeat;
+  background-position: 20% top, 12rem 2.5rem, left 20%, right 5rem, left bottom;
+  padding-top: 4.7rem;
+  text-align: center;
+
+  h1 {
+    margin-inline: 1rem;
+    font-size: 3rem;
+  }
+  h2 {
+    margin-inline: 1rem;
+    margin: 1rem;
+    font-size: 2.37rem;
+  }
+}
+
+.copyRight {
+  text-align: center;
+  font-size: 0.67rem;
+  margin-block: 0rem -6rem;
+}
