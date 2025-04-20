@@ -111,11 +111,14 @@
 .dash-img_div {
   margin: 3.5rem 1rem;
   border-radius: 0.7rem;
-  border: 3px solid $high-color;
-  width: 50%;
+  // width: 50%;
   @include flex-center;
+  flex-direction: column;
+  gap: 1.5rem;
 
   img {
+    border: 2px solid $high-color;
+
     border-radius: inherit;
   }
 }

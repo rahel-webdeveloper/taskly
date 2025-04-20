@@ -10,7 +10,7 @@ const Welcome = () => {
       </div>
 
       <div class="welcome-btns">
-       <a href="#get-started_free">
+       <a href="/">
         <button id="get_started_btn">
          <i class="bi bi-play"></i> Get Started Free 
         </button>
@@ -23,7 +23,8 @@ const Welcome = () => {
       </div>
 
       <div class="dash-img_div">
-      <img src="/public/Screenshot 2025-04-16 125640.png" class="dash-screenshot_img" />
+      <img src="/Task Hub Screenshot.png" class="dash-screenshot_img" />
+      <img src="/Dashboard Screenshot.png" class="dash-screenshot_img" />
 
       </div>
 

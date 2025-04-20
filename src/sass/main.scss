@@ -111,6 +111,11 @@ body {
     flex-direction: row;
   }
 
+  .dash-img_div {
+    width: 85%;
+    flex-direction: row;
+  }
+
   .dashboard-charts {
     grid-template-columns: 1fr 1.77fr 1fr 1fr;
     grid-auto-rows: min-content;
