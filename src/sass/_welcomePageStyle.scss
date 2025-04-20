@@ -5,36 +5,21 @@
 }
 
 .welcome-first_section {
-  height: 90vh;
   background-image: url("/public/pattern-lines.svg"),
     url("/public/pattern-circle.svg"), url("/public/pattern-circle.svg"),
-    url("/public/pattern-squiggly-line-top.svg"),
-    url("/public/pattern-squiggly-line-bottom-mobile-tablet.svg");
-  background-size: cover, 39%, 25%, 50%, 70%;
+    url("/public/pattern-squiggly-line-top.svg");
+  background-size: cover, 39%, 25%, 50%;
   background-repeat: no-repeat;
-  background-position: 20% top, left 2rem, center 25%, right 5rem, left bottom;
+  background-position: 20% top, left 2rem, center 25%, right 5rem;
   padding-top: 4.7rem;
   text-align: center;
+  overflow-x: hidden;
+  @include grid-center;
 
   h1 {
     margin-inline: 1rem;
     font-size: 3.37rem;
-    color: $second-text;
-  }
-  h2 {
-    margin-inline: 1rem;
-    margin: 1rem;
-    font-size: 2.37rem;
-
-    span:nth-child(1) {
-      color: $count-color;
-    }
-    span:nth-child(2) {
-      color: $moderate-color;
-    }
-    span:nth-child(3) {
-      color: $checked-color;
-    }
+    color: $high-color;
   }
 }
 
@@ -42,15 +27,97 @@
   @include abs-position;
   content: "";
   width: 4rem;
-  transform: rotate(7deg);
-  height: 60rem;
-  top: -10%;
-  //   left: 70%;
-  background-color: $optional-color;
-  filter: blur(35px);
+  transform-origin: top left;
+  transform: rotate(50deg);
+  height: 47rem;
+  top: -7%;
+  left: 85%;
+  background-image: linear-gradient(
+    to top left,
+    rgba(255, 255, 255, 0),
+    $optional-color 50%
+  );
+  filter: blur(50px);
   z-index: -1;
-  //   border-radius: 50%;
-  //   border: 2rem solid $optional-color;
+  border-radius: 50%;
+}
+
+.first-page_subtitle {
+  margin: 1rem;
+  @include grid-center;
+  row-gap: 1.25rem;
+
+  h2 {
+    margin-inline: 1rem;
+    font-size: 2.37rem;
+
+    span:nth-child(1) {
+      color: $moderate-color;
+    }
+    span:nth-child(2) {
+      color: $count-color;
+    }
+    span:nth-child(3) {
+      color: $checked-color;
+    }
+  }
+
+  p {
+    font-size: 1rem;
+  }
+}
+
+.welcome-btns {
+  margin-top: 2.5rem;
+  @include flex-center;
+  gap: 1.5rem;
+  flex-direction: column;
+
+  button {
+    padding: 0.7rem 1.7rem;
+    border-radius: 0.634rem;
+    background-color: $btn-color;
+    box-shadow: 0 0 15px -5px $btn-color;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease-in;
+
+    &:hover {
+      background-color: $first-color;
+      color: $first-text;
+      border: 1px solid $btn-color;
+    }
+
+    i {
+      margin-right: 0.5rem;
+      font-size: 1rem;
+    }
+  }
+
+  #how-works_btn {
+    background-color: $first-color;
+    border: 1px solid $btn-color;
+    color: $second-text;
+
+    &:hover {
+      background-color: $btn-color;
+      color: $first-color;
+      border: none;
+    }
+  }
+}
+
+.dash-img_div {
+  margin: 3.5rem 1rem;
+  border-radius: 0.7rem;
+  border: 3px solid $high-color;
+  width: 50%;
+  @include flex-center;
+
+  img {
+    border-radius: inherit;
+  }
 }
 
 .copyRight {

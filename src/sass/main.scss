@@ -80,13 +80,11 @@ body {
 
 @media (width >= 704px) {
   .welcome-first_section {
-    height: 90vh;
     background-image: url("/pattern-lines.svg"), url("/pattern-circle.svg"),
-      url("/pattern-circle.svg"), url("/pattern-squiggly-line-top.svg"),
-      url("/pattern-squiggly-line-bottom-desktop.svg");
-    background-size: cover, 27%, 20%, 50%, 67%;
+      url("/pattern-circle.svg"), url("/pattern-squiggly-line-top.svg");
+    background-size: cover, 27%, 20%, 50%;
     background-repeat: no-repeat;
-    background-position: 20% top, left 2rem, center 20%, right 5rem, left bottom;
+    background-position: 20% top, left 2rem, center 20%, right 5rem;
   }
 
   .tasks-home-page {
@@ -104,6 +102,15 @@ body {
 }
 
 @media (width >= 768px) {
+  .first-page_subtitle {
+    margin-top: 1.5rem;
+  }
+
+  .welcome-btns {
+    margin-top: 3rem;
+    flex-direction: row;
+  }
+
   .dashboard-charts {
     grid-template-columns: 1fr 1.77fr 1fr 1fr;
     grid-auto-rows: min-content;
@@ -194,6 +201,21 @@ body {
     border-top-color: transparent;
     border-radius: 0rem 0rem 0.5rem 0.5rem;
     padding-top: 0.57rem;
+  }
+
+  .welcome-first_section::after {
+    @include abs-position;
+    content: "";
+    width: 12rem;
+    height: 12rem;
+    transform-origin: top left;
+    transform: rotate(50deg);
+    top: 0%;
+    left: 10%;
+    background-color: $optional-color;
+    opacity: 0.5;
+    filter: blur(50px);
+    z-index: -1;
   }
 
   .tasks-home-page {
