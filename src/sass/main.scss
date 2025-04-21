@@ -64,6 +64,10 @@ body {
 }
 
 @media screen and (width >= 470px) {
+  .dash-img_div {
+    width: 85%;
+  }
+
   .form #taskForm {
     width: 80%;
     padding-block: 0.7rem;
@@ -82,7 +86,7 @@ body {
   .welcome-first_section {
     background-image: url("/pattern-lines.svg"), url("/pattern-circle.svg"),
       url("/pattern-circle.svg"), url("/pattern-squiggly-line-top.svg");
-    background-size: cover, 27%, 20%, 50%;
+    background-size: cover, 27%, 20%, 45%;
     background-repeat: no-repeat;
     background-position: 20% top, left 2rem, center 20%, right 5rem;
   }
@@ -108,11 +112,6 @@ body {
 
   .welcome-btns {
     margin-top: 3rem;
-    flex-direction: row;
-  }
-
-  .dash-img_div {
-    width: 85%;
     flex-direction: row;
   }
 
@@ -221,6 +220,10 @@ body {
     opacity: 0.5;
     filter: blur(50px);
     z-index: -1;
+  }
+
+  .dash-img_div {
+    flex-direction: row;
   }
 
   .tasks-home-page {

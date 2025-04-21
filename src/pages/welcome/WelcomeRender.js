@@ -1,4 +1,4 @@
-const Welcome = () => {
+const WelcomeRender = () => {
   return `
   <div class="welcome-page">
     <section class="welcome-first_section">
@@ -17,7 +17,7 @@ const Welcome = () => {
        </a>
        <a href="#how-it_works">
         <button id="how-works_btn">
-         <i class="bi bi-snow"></i> See How It Works
+         <i class="bi bi-balloon"></i> See How It Works
         </button>
        </a>
       </div>
@@ -40,4 +40,4 @@ const Welcome = () => {
   </div>
    `;
 };
-export default Welcome;
+export default WelcomeRender;

@@ -1,12 +1,12 @@
+import { atom } from "nanostores";
 import Navigo from "navigo";
+import { loadLocalStorage, saveLocalStorage } from "./data/localStorage.js";
 import activeLink from "./navbar.js";
-import Welcome from "./pages/welcome/Welcome.js";
 import DashboardRender from "./pages/dashboard/DashboardRender.js";
 import { isDashboardOpen } from "./pages/dashboard/MainDashboard.js";
-import TimerRender from "./pages/timer/TimerRender.js";
-import { atom } from "nanostores";
 import TaskHubRender from "./pages/task_hub/TaskHubRender.js";
-import { loadLocalStorage, saveLocalStorage } from "./data/localStorage.js";
+import TimerRender from "./pages/timer/TimerRender.js";
+import WelcomeRender from "./pages/welcome/WelcomeRender.js";
 
 const Router = (() => {
   const mainContent = document.getElementById("main-content");
@@ -42,9 +42,9 @@ const Router = (() => {
           activeLink("/timer");
         },
 
-        "/about": () => {
-          mainContent.innerHTML = Welcome();
-          activeLink("/about");
+        "/welcome": () => {
+          mainContent.innerHTML = WelcomeRender();
+          activeLink("/welcome");
 
           isAboutSeen.set(true);
           saveLocalStorage(isAboutSeen.get(), "is_about_seen");
@@ -60,7 +60,7 @@ const Router = (() => {
     router.updatePageLinks();
   };
 
-  if (!isAboutSeen.get()) router.navigate("/about");
+  if (!isAboutSeen.get()) router.navigate("/welcome");
 
   return { init, router };
 })();

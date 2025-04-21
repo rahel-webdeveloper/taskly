@@ -5,9 +5,8 @@
 }
 
 .welcome-first_section {
-  background-image: url("/public/pattern-lines.svg"),
-    url("/public/pattern-circle.svg"), url("/public/pattern-circle.svg"),
-    url("/public/pattern-squiggly-line-top.svg");
+  background-image: url("/pattern-lines.svg"), url("/pattern-circle.svg"),
+    url("/pattern-circle.svg"), url("/pattern-squiggly-line-top.svg");
   background-size: cover, 39%, 25%, 50%;
   background-repeat: no-repeat;
   background-position: 20% top, left 2rem, center 25%, right 5rem;
@@ -19,7 +18,7 @@
   h1 {
     margin-inline: 1rem;
     font-size: 3.37rem;
-    color: $high-color;
+    color: $second-text;
   }
 }
 
@@ -77,7 +76,7 @@
     padding: 0.7rem 1.7rem;
     border-radius: 0.634rem;
     background-color: $btn-color;
-    box-shadow: 0 0 15px -5px $btn-color;
+    box-shadow: 0 0 15px -4.5px $btn-color;
     font-family: inherit;
     font-weight: 600;
     cursor: pointer;
@@ -110,15 +109,14 @@
 
 .dash-img_div {
   margin: 3.5rem 1rem;
-  border-radius: 0.7rem;
+  border-radius: 0.77rem;
   // width: 50%;
   @include flex-center;
   flex-direction: column;
   gap: 1.5rem;
 
   img {
-    border: 2px solid $high-color;
-
+    border: 1px solid $high-color;
     border-radius: inherit;
   }
 }

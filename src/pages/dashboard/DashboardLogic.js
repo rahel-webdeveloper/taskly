@@ -307,7 +307,7 @@ const initTrackedTimeBars = (tasks) => {
         {
           label: "tracked time",
           data: [trackedTime],
-          backgroundColor: "rgb(106, 179, 203)",
+          backgroundColor: "rgb(78, 170, 201)",
           barThickness: 9,
           borderRadius: {
             bottomLeft: 20,
@@ -319,8 +319,7 @@ const initTrackedTimeBars = (tasks) => {
         },
         {
           data: [remainingTime],
-          backgroundColor: "rgb(255, 224, 131)",
-          hoverBackgroundColor: "rgb(234, 198, 91)",
+          backgroundColor: "rgb(176, 187, 188)",
           barThickness: 9,
           borderRadius: {
             bottomLeft: 20,

@@ -175,7 +175,7 @@
     background-color: $count-color;
   }
   span:nth-child(2)::before {
-    background-color: $yellow-color;
+    background-color: $optional-color;
   }
 }
 
@@ -197,7 +197,7 @@
     background-color: $count-color;
   }
   #remaining-time {
-    background-color: $yellow-color;
+    background-color: $optional-color;
   }
 }
 
