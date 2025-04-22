@@ -1,6 +1,7 @@
 import Showdown from "showdown";
 import getAdvice from "./advisor";
 import { markdownText } from "./store";
+import { welcomeMessageRender } from "./AIAdviceRender";
 
 const converter = new Showdown.Converter({
   tables: true,
@@ -47,22 +48,37 @@ const getUserInput = async () => {
 const addStyleToMarkdownContainer = () => {
   const responseAreaEl = document.getElementById("response-area");
 
-  responseAreaEl.style.cssText = `
+  responseAreaEl.style.cssText += `
   min-width: 200px;
   width: 100%;
   max-width: 980px;
-  margin: .37rem auto 5rem;
+  margin: 1.77rem auto 3rem;
   background-color: #1a1d27;
   // border: 1px solid red;
-  border-radius: 0.7rem;
-  min-height: 85vh;
+  border-radius: 1rem;
+  min-height: 65vh;
 `;
+
+  hljs.highlightAll();
+
+  responseAreaEl.innerHTML = welcomeMessageRender();
 };
 
 const renderAdviceInHtml = async (userInput) => {
   const responseAreaEl = document.getElementById("response-area");
 
-  responseAreaEl.innerHTML = "<h2>Thinking...</h2>";
+  responseAreaEl.innerHTML = `
+   <div class="think-div">
+   <h4>Thinking</h4>
+   <div class="loader">
+  <li class="ball"></li>
+  <li class="ball"></li>
+  <li class="ball"></li>
+</div>
+   </div>
+`;
+
+  responseAreaEl.style.cssText += `align-content: start;`;
 
   const text = await getAdvice(userInput);
 
@@ -70,6 +86,7 @@ const renderAdviceInHtml = async (userInput) => {
   // const htmlContent = converter.makeHtml(markdownText);
 
   responseAreaEl.innerHTML = htmlContent;
+  // setTimeout(() => (responseAreaEl.innerHTML = htmlContent), 200000);
 };
 
 export default AIAdviceLogic;
