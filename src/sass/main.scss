@@ -2,6 +2,7 @@
 @import "variables";
 @import "mixins";
 @import "welcomePageStyle";
+@import "aiAdviceStyle";
 @import "listTasksStyle";
 @import "timerStyle";
 @import "navbarStyle";
@@ -22,9 +23,11 @@ img {
 }
 
 input,
-button {
+button,
+textarea {
   border: none;
   outline: none;
+  font-family: inherit;
 }
 
 li,
@@ -177,8 +180,7 @@ body {
     border-color: transparent $light-border-color;
     backdrop-filter: blur(0px);
 
-    .navbar-links a,
-    .navbar-links p {
+    .navbar-links a {
       gap: 0.5rem;
       font-size: 1.4rem;
 
@@ -189,8 +191,7 @@ body {
       }
     }
 
-    .navbar-links a:hover,
-    .navbar-links p:hover {
+    .navbar-links a:hover {
       padding: 0.12rem 0.5rem;
       border-radius: 1rem;
 
@@ -296,6 +297,10 @@ body {
 
   .today-tasks-report {
     gap: 0.35rem;
+  }
+
+  .input-submit_box {
+    bottom: 1rem;
   }
 
   .timer-container {

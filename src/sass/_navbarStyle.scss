@@ -73,8 +73,7 @@
   width: 100%;
   padding: 0.37rem 0.47rem;
 
-  a,
-  p {
+  a {
     @include flex-space;
     column-gap: 0.47rem;
     font-size: 1.37rem;
@@ -92,8 +91,7 @@
   }
 }
 
-.navbar-links a:hover,
-.navbar-links p:hover {
+.navbar-links a:hover {
   transition: all 0.4s ease-in;
   background-color: $light-high-color;
   padding: 0.12rem 0.5rem;

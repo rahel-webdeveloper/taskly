@@ -1,0 +1,61 @@
+.ai-advice_container {
+  min-height: 100vh;
+  @include grid-center;
+  width: 100%;
+}
+
+#response-area {
+  padding: 1.5rem 1rem;
+}
+
+.ai-welcome_message {
+  min-height: 75vh;
+  @include flex-center;
+  flex-direction: column;
+  font-family: $karla-font;
+
+  img {
+    width: 5rem;
+  }
+}
+
+.input-submit_box {
+  max-width: 35rem;
+  width: 90%;
+  @include fixed-position;
+  bottom: 5rem;
+  background-color: $third-color;
+  padding-inline: 0.7rem 1.5rem;
+  border-radius: 2rem;
+  @include flex-space;
+  box-shadow: 0 0px 0px 3px $light-high-color;
+
+  input {
+    margin-inline: 0.3rem;
+    font-size: 1rem;
+    height: 3rem;
+    background-color: transparent;
+    padding: 0.7rem;
+    color: $first-text;
+  }
+
+  button {
+    background-color: transparent;
+    color: $first-text;
+    cursor: pointer;
+    transition: all 0.2s ease-in;
+
+    &:hover {
+      opacity: 0.57;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: unset;
+    }
+
+    i {
+      font-size: 1.4rem;
+    }
+  }
+}

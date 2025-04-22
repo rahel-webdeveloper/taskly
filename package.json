@@ -22,6 +22,7 @@
     "flatpickr": "^4.6.13",
     "nanostores": "^0.11.3",
     "navigo": "^8.11.1",
-    "notyf": "^3.10.0"
+    "notyf": "^3.10.0",
+    "showdown": "^2.1.0"
   }
 }

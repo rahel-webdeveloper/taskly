@@ -2,6 +2,7 @@ import { atom } from "nanostores";
 import Navigo from "navigo";
 import { loadLocalStorage, saveLocalStorage } from "./data/localStorage.js";
 import activeLink from "./navbar.js";
+import AIAdviceRender from "./pages/ai_advice/AIAdviceRender.js";
 import DashboardRender from "./pages/dashboard/DashboardRender.js";
 import { isDashboardOpen } from "./pages/dashboard/MainDashboard.js";
 import TaskHubRender from "./pages/task_hub/TaskHubRender.js";
@@ -27,7 +28,7 @@ const Router = (() => {
         },
 
         "/ai-advice": () => {
-          mainContent.innerHTML = `<h1>AI Advice</h1>`;
+          mainContent.innerHTML = AIAdviceRender();
           activeLink("/ai-advice");
         },
 

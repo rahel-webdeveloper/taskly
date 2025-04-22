@@ -1,8 +1,8 @@
+import ListTaskMain from "./listTasks/ListTaskMain";
+import MainAIAdvice from "./pages/ai_advice/MainAIAdvice";
 import MainDashboard from "./pages/dashboard/MainDashboard";
 import MainTaskHub from "./pages/task_hub/MainTaskHub";
 import MainTimer from "./pages/timer/MainTimer";
-import ListTaskMain from "./listTasks/ListTaskMain";
-import MainAIAdvice from "./pages/ai_advice/MainAIAdvice";
 import MainWelcome from "./pages/welcome/MainWelcome";
 
 const Main = () => {
