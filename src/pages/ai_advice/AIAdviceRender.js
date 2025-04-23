@@ -17,7 +17,7 @@ export const welcomeMessageRender = () => {
   return ` 
   <div class="ai-welcome_message">
     <img src="${imgUrl}" />
-    <h3>Hi, I'm Taskly!</h3>
+    <h3>Your Personal AI Advisor Taskly!🤩</h3>
     <p>How can I help you today?</p>
   </div>`;
 };

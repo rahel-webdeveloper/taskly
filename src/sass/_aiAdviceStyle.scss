@@ -13,9 +13,11 @@
   margin: auto;
   text-align: center;
   font-family: $karla-font;
+  margin-inline: 2rem;
 
   img {
     width: 5rem;
+    opacity: 0.77;
   }
 }
 
@@ -29,7 +31,8 @@
   border-radius: 2rem;
   @include flex-space;
   gap: 1rem;
-  box-shadow: 0 0px 0px 3px $light-high-color;
+  box-shadow: 0 0px 0px 2px $light-high-color;
+  z-index: 4;
 
   input,
   textarea {
@@ -40,6 +43,8 @@
     width: 100%;
     background-color: transparent;
     color: $first-text;
+    resize: none;
+    transition: all 0.3s ease-in-out;
   }
 
   button {
@@ -63,15 +68,11 @@
   }
 }
 
-//
 .think-div {
-  display: flex;
-  align-items: center;
-  column-gap: 0.25rem;
+  @include grid-center;
   color: $first-text;
 
   h4 {
-    margin-left: 1rem;
     font-family: $karla-font;
     animation: think-anim 2s ease-in-out 0.3s infinite;
   }
@@ -88,7 +89,6 @@
 }
 
 .loader {
-  margin-top: 1.4rem;
   width: 45px;
   display: flex;
   justify-content: space-evenly;
@@ -99,7 +99,7 @@
   width: 6.5px;
   height: 6.5px;
   border-radius: 50%;
-  background-color: $low-color;
+  background-color: $second-text;
 }
 
 .ball:nth-child(1) {
