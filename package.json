@@ -20,6 +20,7 @@
     "chartjs-plugin-datalabels": "^2.2.0",
     "fast-sort": "^3.4.1",
     "flatpickr": "^4.6.13",
+    "highlight.js": "^11.11.1",
     "nanostores": "^0.11.3",
     "navigo": "^8.11.1",
     "notyf": "^3.10.0",
