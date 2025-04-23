@@ -13,6 +13,7 @@ import typescript from "highlight.js/lib/languages/typescript";
 import html from "highlight.js/lib/languages/xml";
 
 import "highlight.js/styles/atom-one-dark.css";
+import { markdownText } from "./store";
 
 const converter = new Showdown.Converter({
   tables: true,
@@ -63,6 +64,7 @@ const getUserInput = async () => {
   });
 
   userInputEl.addEventListener("input", function () {
+    this.style.height = "auto";
     this.style.height = `${this.scrollHeight}px`;
 
     this.value
@@ -71,6 +73,8 @@ const getUserInput = async () => {
   });
 
   getAdviceBtn.addEventListener("click", () => {
+    if (userInputEl.value.trim() === "") return;
+
     renderAdviceInHtml(userInputEl.value);
 
     userInputEl.value = "";
@@ -119,8 +123,7 @@ const renderAdviceInHtml = async (userInput) => {
 
   responseAreaEl.innerHTML = htmlContent;
 
-  console.log(text);
-  // setTimeout(() => (responseAreaEl.innerHTML = htmlContent), 300);
+  // setTimeout(() => (responseAreaEl.innerHTML = htmlContent), 2000);
 
   highlightCode();
 };

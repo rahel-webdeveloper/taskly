@@ -33,6 +33,7 @@
   gap: 1rem;
   box-shadow: 0 0px 0px 2px $light-high-color;
   z-index: 4;
+  transition: all 0.167s ease-in-out;
 
   input,
   textarea {
