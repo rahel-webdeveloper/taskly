@@ -1,13 +1,15 @@
+import hljs from "highlight.js/lib/core";
 import Showdown from "showdown";
 import getAdvice from "./advisor";
-import { markdownText } from "./store";
 import { welcomeMessageRender } from "./AIAdviceRender";
-import hljs from "highlight.js/lib/core";
 
-import javascript from "highlight.js/lib/languages/javascript";
-import python from "highlight.js/lib/languages/python";
-import java from "highlight.js/lib/languages/java";
+import bash from "highlight.js/lib/languages/bash";
 import css from "highlight.js/lib/languages/css";
+import java from "highlight.js/lib/languages/java";
+import javascript from "highlight.js/lib/languages/javascript";
+import json from "highlight.js/lib/languages/json";
+import python from "highlight.js/lib/languages/python";
+import typescript from "highlight.js/lib/languages/typescript";
 import html from "highlight.js/lib/languages/xml";
 
 import "highlight.js/styles/atom-one-dark.css";
@@ -116,6 +118,8 @@ const renderAdviceInHtml = async (userInput) => {
   // const htmlContent = converter.makeHtml(markdownText);
 
   responseAreaEl.innerHTML = htmlContent;
+
+  console.log(text);
   // setTimeout(() => (responseAreaEl.innerHTML = htmlContent), 300);
 
   highlightCode();
@@ -127,7 +131,11 @@ const highlightCode = () => {
   hljs.registerLanguage("java", java);
   hljs.registerLanguage("css", css);
   hljs.registerLanguage("html", html);
+  hljs.registerLanguage("bash", bash);
+  hljs.registerLanguage("typescript", typescript);
+  hljs.registerLanguage("json", json);
 
+  // Initilize the highlight.js
   hljs.highlightAll();
 };
 

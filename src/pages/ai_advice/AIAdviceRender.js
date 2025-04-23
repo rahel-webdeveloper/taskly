@@ -17,8 +17,8 @@ export const welcomeMessageRender = () => {
   return ` 
   <div class="ai-welcome_message">
     <img src="${imgUrl}" />
-    <h3>Your Personal AI Advisor Taskly!🤩</h3>
-    <p>How can I help you today?</p>
+    <h2>Your Personal AI Advisor Taskly!🤩</h2>
+    <p>Get started by Script a task and Chat can do the rest. Not sure where to start?</p>
   </div>`;
 };
 
