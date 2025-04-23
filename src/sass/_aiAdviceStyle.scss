@@ -1,6 +1,7 @@
 .ai-advice_container {
   @include grid-center;
   width: 100%;
+  min-height: 80vh;
 }
 
 #response-area {
@@ -25,13 +26,13 @@
   max-width: 35rem;
   width: 90%;
   position: sticky;
-  bottom: 6.5rem;
+  bottom: 6rem;
   background-color: $third-color;
   padding-inline: 1rem 1rem;
   border-radius: 2rem;
   @include flex-space;
   gap: 1rem;
-  box-shadow: 0 0px 0px 2px $light-high-color;
+  border: 1px solid $light-border-color;
   z-index: 4;
   transition: all 0.167s ease-in-out;
 
@@ -70,18 +71,36 @@
   }
 }
 
+.catch-error {
+  @include grid-center;
+  place-self: center;
+  color: $first-text;
+  border: 1px solid $light-border-color;
+  width: max-content;
+  padding: 0.7rem 1rem;
+  border-radius: 0.7em;
+  background-color: $second-color;
+}
+
 .think-div {
   @include grid-center;
+  place-self: center;
   color: $first-text;
+  border: 1px solid $light-border-color;
+  width: max-content;
+  padding: 0.7rem 1rem;
+  border-radius: 0.95em;
+  background-color: $second-color;
 
-  h4 {
+  strong {
+    margin-bottom: 0.77rem;
     font-family: $karla-font;
     animation: think-anim 2s ease-in-out 0.3s infinite;
   }
 
   @keyframes think-anim {
     50% {
-      opacity: 0.3;
+      opacity: 0.25;
     }
 
     100% {
@@ -102,6 +121,7 @@
   height: 6.5px;
   border-radius: 50%;
   background-color: $second-text;
+  opacity: 0.7;
 }
 
 .ball:nth-child(1) {

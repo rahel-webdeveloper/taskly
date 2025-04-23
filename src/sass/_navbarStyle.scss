@@ -66,6 +66,8 @@
   width: 90%;
   column-gap: 0.75rem;
   border: 1px solid $light-border-color;
+  transform-origin: left;
+  transition: scale 0.3s ease-in-out;
 }
 
 .navbar-links {

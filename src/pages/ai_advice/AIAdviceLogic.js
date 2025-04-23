@@ -27,6 +27,7 @@ const converter = new Showdown.Converter({
   disableForced4SpacesIndentedSublists: true,
   tasklists: true,
   simplifiedAutoLink: true,
+  metadata: true,
 });
 
 const AIAdviceLogic = async () => {
@@ -48,18 +49,18 @@ const getUserInput = async () => {
   userInputEl.addEventListener("focusin", () => {
     const isWindowLarge = window.innerWidth > 1024;
 
-    navbarMenu.style.display = `${!isWindowLarge ? "none" : "block"}`;
+    navbarMenu.style.scale = `${!isWindowLarge ? "0" : "1"}`;
 
-    inputSubmitBox.style.bottom = `${isWindowLarge ? "3rem" : ".37rem"}`;
+    inputSubmitBox.style.bottom = `${isWindowLarge ? "3rem" : ".57rem"}`;
   });
 
   userInputEl.addEventListener("focusout", () => {
     if (!userInputEl.value) {
       const isWindowSmall = window.innerWidth < 1024;
 
-      navbarMenu.style.display = "block";
+      navbarMenu.style.scale = "1";
 
-      inputSubmitBox.style.bottom = `${!isWindowSmall ? "3rem" : "6.5rem"}`;
+      inputSubmitBox.style.bottom = `${!isWindowSmall ? "3rem" : "6.25rem"}`;
     }
   });
 
@@ -92,9 +93,8 @@ const addStyleToMarkdownContainer = () => {
   width: 100%;
   max-width: 980px;
   margin: 1.77rem auto 3rem;
-  background-color: #1a1d27;
+  background-color: #14161e;
   border-radius: 1rem;
-  min-height: 65vh;
 `;
 
   responseAreaEl.innerHTML = welcomeMessageRender();
@@ -103,9 +103,10 @@ const addStyleToMarkdownContainer = () => {
 const renderAdviceInHtml = async (userInput) => {
   const responseAreaEl = document.getElementById("response-area");
 
+  // Loading div
   responseAreaEl.innerHTML = `
    <div class="think-div">
-   <h4>Thinking</h4>
+   <strong>Thinking</strong>
     <div class="loader">
      <li class="ball"></li>
      <li class="ball"></li>
@@ -114,16 +115,25 @@ const renderAdviceInHtml = async (userInput) => {
    </div>
 `;
 
-  responseAreaEl.style.cssText += `align-content: start;`;
+  try {
+    // responseAreaEl.style.cssText += `align-content: start;`;
 
-  const text = await getAdvice(userInput.trim());
+    const text = await getAdvice(userInput.trim());
 
-  const htmlContent = converter.makeHtml(text.message.content);
-  // const htmlContent = converter.makeHtml(markdownText);
+    const htmlContent = converter.makeHtml(text.message.content);
 
-  responseAreaEl.innerHTML = htmlContent;
+    responseAreaEl.innerHTML = htmlContent;
 
-  // setTimeout(() => (responseAreaEl.innerHTML = htmlContent), 2000);
+    // const htmlContent = converter.makeHtml(markdownText);
+
+    // setTimeout(() => (responseAreaEl.innerHTML = htmlContent), 2000);
+  } catch (err) {
+    responseAreaEl.innerHTML = `
+     <div class="catch-error">
+     <strong>Something went wrong, please try again!</strong>
+     </div>
+  `;
+  }
 
   highlightCode();
 };
