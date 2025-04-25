@@ -132,11 +132,11 @@ const renderAdviceInHtml = async (userInput) => {
 
     const htmlContent = converter.makeHtml(response.message.content[0].text);
 
-    responseAreaEl.innerHTML += htmlContent;
-
     for (let i = 0; i < thinkDiv.length; i++) {
       thinkDiv[i].style.display = "none";
     }
+
+    responseAreaEl.innerHTML += htmlContent;
 
     // For streaming response
     // for await (const part of response) {

@@ -27,9 +27,9 @@ const Router = (() => {
           activeLink("/");
         },
 
-        "/ai-advice": () => {
+        "/ai-advisor": () => {
           mainContent.innerHTML = AIAdviceRender();
-          activeLink("/ai-advice");
+          activeLink("/ai-advisor");
         },
 
         "/dashboard": () => {

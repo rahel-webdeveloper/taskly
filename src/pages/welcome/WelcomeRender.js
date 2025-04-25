@@ -6,18 +6,18 @@ const WelcomeRender = () => {
       <div class="first-page_subtitle"> 
       <h2><span>Track</span>, <span>Chat</span>, and <span>Conquer</span> Your Tasks!</h2>
 
-      <p>Master your to-dos with smart tracking and instant AI advice</p>
+      <p>Master your to-dos with smart tracking and instant AI advice, This assistant use claude-3-7-sonnet model.</p>
       </div>
 
       <div class="welcome-btns">
-       <a href="/">
-        <button id="get_started_btn">
-         <i class="bi bi-play"></i> Get Started Free 
+       <a href="#see_how-it-works">
+        <button id="how-works_btn">
+         <i class="bi bi-play"></i> See How It Works 
         </button>
        </a>
-       <a href="#how-it_works">
-        <button id="how-works_btn">
-         <i class="bi bi-balloon"></i> See How It Works
+       <a href="/ai-advisor">
+        <button id="get_started_btn">
+         <i class="bi bi-stars"></i> Get Started Chat
         </button>
        </a>
       </div>
