@@ -97,15 +97,23 @@ const addStyleToMarkdownContainer = () => {
   border-radius: 1rem;
 `;
 
-  responseAreaEl.innerHTML = welcomeMessageRender();
+  window.addEventListener("load", () => {
+    responseAreaEl.innerHTML = welcomeMessageRender();
+  });
 };
 
 const renderAdviceInHtml = async (userInput) => {
   const responseAreaEl = document.getElementById("response-area");
+  const welcomeMessage = document.querySelector(".ai-welcome_message");
+
+  welcomeMessage.style.display = "none";
 
   responseAreaEl.innerHTML += `<span class="user-message">${userInput.trim()}</span>`;
+  responseAreaEl.innerHTML += loadingDiv();
+
+  const thinkDiv = document.querySelectorAll(".think-div");
+
   try {
-    // responseAreaEl.innerHTML += loadingDiv();
     // responseAreaEl.style.cssText += `align-content: start;`;
 
     historyMessages.get().push({ role: "user", content: userInput.trim() });
@@ -126,6 +134,8 @@ const renderAdviceInHtml = async (userInput) => {
 
     responseAreaEl.innerHTML += htmlContent;
 
+    thinkDiv.style.display = "none";
+
     // For streaming response
     // for await (const part of response) {
     //   responseAreaEl.innerHTML += part.content;
@@ -133,8 +143,16 @@ const renderAdviceInHtml = async (userInput) => {
 
     // const htmlContent = converter.makeHtml(markdownText);
 
-    // setTimeout(() => (responseAreaEl.innerHTML = htmlContent), 2000);
+    // setTimeout(() => {
+    //   responseAreaEl.innerHTML += htmlContent;
+
+    //   thinkDiv.style.display = "none";
+    // }, 2000);
   } catch (err) {
+    for (let i = 0; i < thinkDiv.length; i++) {
+      thinkDiv[i].style.display = "none";
+    }
+
     responseAreaEl.innerHTML += `
      <div class="catch-error">
      <strong>${

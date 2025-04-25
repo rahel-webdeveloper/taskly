@@ -24,8 +24,7 @@ export const welcomeMessageRender = () => {
 
 export const loadingDiv = () => {
   return `
-    <div class="think-div">
-     <strong>Thinking</strong>
+    <div class="think-div" id="think-div">
       <div class="loader">
        <li class="ball"></li>
        <li class="ball"></li>

@@ -22,6 +22,15 @@
   }
 }
 
+.user-message {
+  padding: 0.35rem 1rem;
+  background-color: $second-color;
+  place-self: end;
+  border-radius: 0.7rem;
+  max-width: 77%;
+  margin-block: 0.7rem 0.25rem;
+}
+
 .input-submit_box {
   max-width: 35rem;
   width: 90%;
@@ -80,6 +89,7 @@
   padding: 0.7rem 1rem;
   border-radius: 0.7em;
   background-color: $dark-delete-color;
+  margin-top: 0.7rem;
 }
 
 .think-div {
@@ -88,68 +98,53 @@
   color: $first-text;
   border: 1px solid $light-border-color;
   width: max-content;
-  padding: 0.7rem 1rem;
-  border-radius: 0.95em;
+  padding: 1rem 1rem 0.5rem;
+  border-radius: 2em;
   background-color: $second-color;
-
-  strong {
-    margin-bottom: 0.77rem;
-    font-family: $karla-font;
-    animation: think-anim 2s ease-in-out 0.3s infinite;
-  }
-
-  @keyframes think-anim {
-    50% {
-      opacity: 0.25;
-    }
-
-    100% {
-      opacity: 0.8;
-    }
-  }
+  margin-bottom: 0.77rem;
 }
 
 .loader {
-  width: 45px;
+  width: 55px;
   display: flex;
   justify-content: space-evenly;
 }
 
 .ball {
   list-style: none;
-  width: 6.5px;
-  height: 6.5px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
   background-color: $second-text;
   opacity: 0.7;
 }
 
 .ball:nth-child(1) {
-  animation: bounce-1 2.1s ease-in-out infinite;
+  animation: bounce-1 1.7s ease-in-out infinite;
 }
 
 @keyframes bounce-1 {
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-7px);
   }
 }
 
 .ball:nth-child(2) {
-  animation: bounce-3 2.1s ease-in-out 0.3s infinite;
+  animation: bounce-3 1.7s ease-in-out 0.3s infinite;
 }
 
 @keyframes bounce-2 {
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-7px);
   }
 }
 
 .ball:nth-child(3) {
-  animation: bounce-3 2.1s ease-in-out 0.6s infinite;
+  animation: bounce-3 1.7s ease-in-out 0.6s infinite;
 }
 
 @keyframes bounce-3 {
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-7px);
   }
 }
