@@ -134,7 +134,9 @@ const renderAdviceInHtml = async (userInput) => {
 
     responseAreaEl.innerHTML += htmlContent;
 
-    thinkDiv.style.display = "none";
+    for (let i = 0; i < thinkDiv.length; i++) {
+      thinkDiv[i].style.display = "none";
+    }
 
     // For streaming response
     // for await (const part of response) {
