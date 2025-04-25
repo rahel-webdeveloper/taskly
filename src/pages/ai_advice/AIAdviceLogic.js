@@ -1,7 +1,7 @@
 import hljs from "highlight.js/lib/core";
 import Showdown from "showdown";
 import getAdvice from "./advisor";
-import { welcomeMessageRender } from "./AIAdviceRender";
+import { loadingDiv, welcomeMessageRender } from "./AIAdviceRender";
 
 import bash from "highlight.js/lib/languages/bash";
 import css from "highlight.js/lib/languages/css";
@@ -13,7 +13,7 @@ import typescript from "highlight.js/lib/languages/typescript";
 import html from "highlight.js/lib/languages/xml";
 
 import "highlight.js/styles/atom-one-dark.css";
-import { markdownText } from "./store";
+import { historyMessages, markdownText } from "./store";
 
 const converter = new Showdown.Converter({
   tables: true,
@@ -103,34 +103,47 @@ const addStyleToMarkdownContainer = () => {
 const renderAdviceInHtml = async (userInput) => {
   const responseAreaEl = document.getElementById("response-area");
 
-  // Loading div
-  responseAreaEl.innerHTML = `
-   <div class="think-div">
-   <strong>Thinking</strong>
-    <div class="loader">
-     <li class="ball"></li>
-     <li class="ball"></li>
-     <li class="ball"></li>
-    </div>
-   </div>
-`;
-
+  responseAreaEl.innerHTML += `<span class="user-message">${userInput.trim()}</span>`;
   try {
+    // responseAreaEl.innerHTML += loadingDiv();
     // responseAreaEl.style.cssText += `align-content: start;`;
 
-    const text = await getAdvice(userInput.trim());
+    historyMessages.get().push({ role: "user", content: userInput.trim() });
 
-    const htmlContent = converter.makeHtml(text.message.content);
+    const response = await getAdvice();
 
-    responseAreaEl.innerHTML = htmlContent;
+    historyMessages
+      .get()
+      .push({ role: "assistant", content: response.message.content[0].text });
+
+    // historyMessages
+    //   .get()
+    //   .push({ role: "assistant", content: response.message.content });
+
+    // const htmlContent = converter.makeHtml(response.message.content);
+
+    const htmlContent = converter.makeHtml(response.message.content[0].text);
+
+    responseAreaEl.innerHTML += htmlContent;
+
+    // For streaming response
+    // for await (const part of response) {
+    //   responseAreaEl.innerHTML += part.content;
+    // }
 
     // const htmlContent = converter.makeHtml(markdownText);
 
     // setTimeout(() => (responseAreaEl.innerHTML = htmlContent), 2000);
   } catch (err) {
-    responseAreaEl.innerHTML = `
+    responseAreaEl.innerHTML += `
      <div class="catch-error">
-     <strong>Something went wrong, please try again!</strong>
+     <strong>${
+       err.message === "puter is not defined"
+         ? "Check your internet and try again!"
+         : err.error.delegate == "usage-limited-chat"
+         ? "Usage limit exceeded!"
+         : " Something went wrong!"
+     }</strong>
      </div>
   `;
   }

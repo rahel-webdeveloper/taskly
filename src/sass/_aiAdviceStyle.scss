@@ -74,12 +74,12 @@
 .catch-error {
   @include grid-center;
   place-self: center;
-  color: $first-text;
-  border: 1px solid $light-border-color;
+  color: $delete-color;
+  border: 1px solid $delete-color;
   width: max-content;
   padding: 0.7rem 1rem;
   border-radius: 0.7em;
-  background-color: $second-color;
+  background-color: $dark-delete-color;
 }
 
 .think-div {
