@@ -26,7 +26,7 @@
   padding: 0.35rem 1rem;
   background-color: $second-color;
   place-self: end;
-  border-radius: 0.7rem;
+  border-radius: 2rem;
   max-width: 77%;
   margin-block: 0.7rem;
 }
@@ -81,10 +81,13 @@
 }
 
 .catch-error {
-  @include grid-center;
+  @include flex-space;
+  column-gap: 0.657rem;
+  font-weight: 600;
+  font-size: 0.94rem;
   place-self: center;
   color: $delete-color;
-  border: 1px solid $delete-color;
+  border: 1px solid $light-delete-color;
   width: max-content;
   padding: 0.7rem 1rem;
   border-radius: 0.7em;

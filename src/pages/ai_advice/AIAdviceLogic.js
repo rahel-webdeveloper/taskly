@@ -132,6 +132,8 @@ const renderAdviceInHtml = async (userInput) => {
 
     const htmlContent = converter.makeHtml(response.message.content[0].text);
 
+    console.log(response);
+
     for (let i = 0; i < thinkDiv.length; i++) {
       thinkDiv[i].style.display = "none";
     }
@@ -157,13 +159,14 @@ const renderAdviceInHtml = async (userInput) => {
 
     responseAreaEl.innerHTML += `
      <div class="catch-error">
-     <strong>${
+     <i class="bi bi-exclamation-circle"></i>
+     <span> ${
        err.message === "puter is not defined"
          ? "Check your internet and try again!"
          : err.error.delegate == "usage-limited-chat"
          ? "Usage limit exceeded!"
          : " Something went wrong!"
-     }</strong>
+     }</span>
      </div>
   `;
   }
