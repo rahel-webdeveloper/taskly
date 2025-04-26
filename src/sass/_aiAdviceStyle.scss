@@ -7,7 +7,7 @@
 #response-area {
   padding: 1rem;
   display: grid;
-  align-content: center;
+  align-items: center;
 }
 
 .ai-welcome_message {
@@ -23,10 +23,10 @@
 }
 
 .user-message {
-  padding: 0.35rem 1rem;
+  padding: 0.35rem 0.7rem;
   background-color: $second-color;
   place-self: end;
-  border-radius: 2rem;
+  border-radius: 1.245rem;
   max-width: 77%;
   margin-block: 0.7rem;
 }

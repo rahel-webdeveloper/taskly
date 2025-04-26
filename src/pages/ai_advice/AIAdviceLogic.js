@@ -13,7 +13,7 @@ import typescript from "highlight.js/lib/languages/typescript";
 import html from "highlight.js/lib/languages/xml";
 
 import "highlight.js/styles/atom-one-dark.css";
-import { historyMessages, markdownText } from "./store";
+import { historyMessages } from "./store";
 
 const converter = new Showdown.Converter({
   tables: true,
@@ -28,11 +28,17 @@ const converter = new Showdown.Converter({
   tasklists: true,
   simplifiedAutoLink: true,
   metadata: true,
+  backslashEscapesHTMLTags: true,
+  completeHTMLDocument: true,
+  ghCompatibleHeaderId: true,
+  customizedHeaderId: true,
+  ghMentionsLink: true,
+  parseImgDimensions: true,
+  smoothLivePreview: true,
 });
 
 const AIAdviceLogic = async () => {
   const aiAdviceContainerEl = document.querySelector(".ai-advice_container");
-  const getAdviceBtn = document.getElementById("get-advice_btn");
 
   if (aiAdviceContainerEl) {
     addStyleToMarkdownContainer();
@@ -103,6 +109,7 @@ const addStyleToMarkdownContainer = () => {
 };
 
 const renderAdviceInHtml = async (userInput) => {
+  const aiAdviceContainer = document.querySelector(".ai-advice_container");
   const responseAreaEl = document.getElementById("response-area");
   const welcomeMessage = document.querySelector(".ai-welcome_message");
 
@@ -114,7 +121,7 @@ const renderAdviceInHtml = async (userInput) => {
   const thinkDiv = document.querySelectorAll(".think-div");
 
   try {
-    // responseAreaEl.style.cssText += `align-content: start;`;
+    aiAdviceContainer.style.cssText += `align-content: start; padding-bottom: 3.7rem;`;
 
     historyMessages.get().push({ role: "user", content: userInput.trim() });
 
