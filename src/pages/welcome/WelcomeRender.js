@@ -6,7 +6,7 @@ const WelcomeRender = () => {
       <div class="first-page_subtitle"> 
       <h2><span>Track</span>, <span>Chat</span>, and <span>Conquer</span> Your Tasks!</h2>
 
-      <p>Master your to-dos with smart tracking and instant AI advice, This assistant use claude-3-7-sonnet model.</p>
+      <p>Master your to-dos with smart tracking and instant AI advice! Our platform offers a suite of advanced task tracking and instant AI tools.!</p>
       </div>
 
       <div class="welcome-btns">

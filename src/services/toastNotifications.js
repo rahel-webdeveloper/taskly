@@ -1,7 +1,7 @@
 import { Notyf } from "notyf";
 
 const notyf = new Notyf({
-  duration: 3000,
+  duration: 3700,
   dismissible: true,
   ripple: false,
   types: [

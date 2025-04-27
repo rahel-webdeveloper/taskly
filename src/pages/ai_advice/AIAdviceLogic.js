@@ -13,7 +13,7 @@ import typescript from "highlight.js/lib/languages/typescript";
 import html from "highlight.js/lib/languages/xml";
 
 import "highlight.js/styles/atom-one-dark.css";
-import { historyMessages } from "./store";
+import { historyMessages, markdownText } from "./store";
 
 const converter = new Showdown.Converter({
   tables: true,
@@ -47,6 +47,9 @@ const AIAdviceLogic = async () => {
 };
 
 const getUserInput = async () => {
+  const aiAdviceContainer = document.querySelector(
+    ".ai-advice_container"
+  ).style;
   const inputSubmitBox = document.querySelector(".input-submit_box");
   const getAdviceBtn = document.getElementById("get-advice_btn");
   const userInputEl = document.getElementById("user-input");
@@ -82,12 +85,18 @@ const getUserInput = async () => {
   getAdviceBtn.addEventListener("click", () => {
     if (userInputEl.value.trim() === "") return;
 
+    const isWindowLarge = window.innerWidth > 1024;
+
     renderAdviceInHtml(userInputEl.value);
 
     userInputEl.value = "";
     getAdviceBtn.disabled = true;
 
     userInputEl.style.height = `3rem`;
+
+    isWindowLarge
+      ? (aiAdviceContainer.cssText += `align-content: start; padding-bottom: 3.7rem;`)
+      : (aiAdviceContainer.cssText += `align-content: start; padding-bottom: 2rem;`);
   });
 };
 
@@ -109,7 +118,6 @@ const addStyleToMarkdownContainer = () => {
 };
 
 const renderAdviceInHtml = async (userInput) => {
-  const aiAdviceContainer = document.querySelector(".ai-advice_container");
   const responseAreaEl = document.getElementById("response-area");
   const welcomeMessage = document.querySelector(".ai-welcome_message");
 
@@ -121,8 +129,6 @@ const renderAdviceInHtml = async (userInput) => {
   const thinkDiv = document.querySelectorAll(".think-div");
 
   try {
-    aiAdviceContainer.style.cssText += `align-content: start; padding-bottom: 3.7rem;`;
-
     historyMessages.get().push({ role: "user", content: userInput.trim() });
 
     const response = await getAdvice();
@@ -131,19 +137,10 @@ const renderAdviceInHtml = async (userInput) => {
       .get()
       .push({ role: "assistant", content: response.message.content[0].text });
 
-    // historyMessages
-    //   .get()
-    //   .push({ role: "assistant", content: response.message.content });
-
-    // const htmlContent = converter.makeHtml(response.message.content);
-
     const htmlContent = converter.makeHtml(response.message.content[0].text);
 
-    console.log(response);
-
-    for (let i = 0; i < thinkDiv.length; i++) {
+    for (let i = 0; i < thinkDiv.length; i++)
       thinkDiv[i].style.display = "none";
-    }
 
     responseAreaEl.innerHTML += htmlContent;
 
@@ -157,12 +154,13 @@ const renderAdviceInHtml = async (userInput) => {
     // setTimeout(() => {
     //   responseAreaEl.innerHTML += htmlContent;
 
-    //   thinkDiv.style.display = "none";
-    // }, 2000);
+    //   for (let i = 0; i < thinkDiv.length; i++)
+    //     thinkDiv[i].style.display = "none";
+    //
+    // }, 775000);
   } catch (err) {
-    for (let i = 0; i < thinkDiv.length; i++) {
+    for (let i = 0; i < thinkDiv.length; i++)
       thinkDiv[i].style.display = "none";
-    }
 
     responseAreaEl.innerHTML += `
      <div class="catch-error">

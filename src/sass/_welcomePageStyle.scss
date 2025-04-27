@@ -6,14 +6,15 @@
 
 .welcome-first_section {
   background-image: url("/pattern-lines.svg"), url("/pattern-circle.svg"),
-    url("/pattern-circle.svg"), url("/pattern-squiggly-line-top.svg");
-  background-size: cover, 39%, 25%, 50%;
+    url("/pattern-circle.svg");
+  background-size: cover, 39%, 25%;
   background-repeat: no-repeat;
-  background-position: 20% top, left 2rem, center 25%, right 5rem;
+  background-position: 20% top, left 2rem, center 25%;
   padding-top: 4.7rem;
   text-align: center;
   overflow-x: hidden;
   @include grid-center;
+  gap: 0.77rem;
 
   h1 {
     margin-inline: 1rem;
@@ -34,9 +35,9 @@
   background-image: linear-gradient(
     to top left,
     rgba(255, 255, 255, 0),
-    $optional-color 50%
+    $btn-color 50%
   );
-  filter: blur(50px);
+  filter: blur(70px);
   z-index: -1;
   border-radius: 50%;
 }
@@ -44,7 +45,7 @@
 .first-page_subtitle {
   margin: 1rem;
   @include grid-center;
-  row-gap: 1.25rem;
+  row-gap: 1.778rem;
 
   h2 {
     margin-inline: 1rem;
