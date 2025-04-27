@@ -36,7 +36,7 @@ const WelcomeRender = () => {
   </div>
 
   <div class="copyRight">
-    <p>Copyright © 2025 TaskTracker</p>
+    <p>Copyright © 2025 Taskly</p>
   </div>
    `;
 };
