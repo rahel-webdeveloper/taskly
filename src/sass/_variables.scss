@@ -5,6 +5,10 @@
   --first-color: #14161e;
   --second-color: #1a1d27;
   --third-color: #292c38;
+
+  --light-border-color: #8e8f952e;
+  --light-dark-blue-color: #3e425d31;
+  --backdrop-filter-color: #23242a3e;
 }
 
 // Fonts
@@ -20,9 +24,9 @@ $second-color: var(--second-color);
 $third-color: var(--third-color);
 
 //  Lightness colors
-$light-border-color: rgba(142, 143, 149, 0.18);
-$light-dark-blue-color: #3e425d31;
-$backdrop-filter-color: #23242a3e;
+$light-border-color: var(--light-border-color);
+$light-dark-blue-color: var(--light-dark-blue-color);
+$backdrop-filter-color: var(--backdrop-filter-color);
 
 // Components colors
 $btn-color: rgb(131, 115, 161);
@@ -53,13 +57,17 @@ $light-moderate-color: #e4b8756f;
 $light-low-color: rgba(134, 181, 178, 0.396);
 $light-optional-color: #b0bbbc62;
 
-// @media (prefers-color-scheme: dark) {
-//   :root {
-//     --first-color: #f1f0f0;
-//     --second-color: #fdfbfb;
-//     --third-color: #f1f0f0;
+@media (prefers-color-scheme: dark) {
+  // :root {
+  //   --first-text: #2e2e2e; /* Dark gray for text */
+  //   --second-text: #555555; /* Lighter gray text for secondary elements */
 
-//     --first-text: #141619;
-//     --second-text: #2e3236;
-//   }
-// }
+  //   --first-color: #e3e4e6; /* Light off-white background */
+  //   --second-color: #cdcdce; /* Soft light gray background */
+  //   --third-color: #d1d7db; /* Subtle grayish-blue background */
+
+  //   --light-border-color: #d0d0d06d; /* Light gray borders for soft separation */
+  //   --light-dark-blue-color: #a6b3c0; /* Muted light blue for subtle emphasis */
+  //   --backdrop-filter-color: #b8b8b847; /* Slightly transparent white with blur */
+  // }
+}

@@ -26,9 +26,11 @@
   padding: 0.7rem 1rem;
   background-color: $second-color;
   place-self: end;
-  border-radius: 0.7rem;
+  border-radius: 1.45rem 1.45rem 0.187rem;
   max-width: 77%;
   margin-block: 0.7rem;
+  display: inline;
+  word-wrap: break-word;
 }
 
 .input-submit_box {

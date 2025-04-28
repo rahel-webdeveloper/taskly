@@ -109,6 +109,7 @@ const addStyleToMarkdownContainer = () => {
   max-width: 980px;
   margin: 1.77rem auto 3rem;
   background-color: #14161e;
+  color: #f1f0f0;
   border-radius: 1rem;
 `;
 
@@ -156,8 +157,7 @@ const renderAdviceInHtml = async (userInput) => {
 
     //   for (let i = 0; i < thinkDiv.length; i++)
     //     thinkDiv[i].style.display = "none";
-    //
-    // }, 775000);
+    // }, 1000);
   } catch (err) {
     for (let i = 0; i < thinkDiv.length; i++)
       thinkDiv[i].style.display = "none";
