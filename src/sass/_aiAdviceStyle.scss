@@ -16,9 +16,34 @@
   font-family: $karla-font;
   margin-inline: 2rem;
 
-  img {
-    width: 5rem;
-    opacity: 0.77;
+  .smile-icon {
+    font-size: 2.3rem;
+    color: $btn-color;
+    background: linear-gradient(
+      to bottom right,
+      $light-border-color,
+      $light-dark-blue-color
+    );
+    border-radius: 0.7rem;
+    padding: 0.25rem 0.587rem;
+
+    &::after {
+      content: "Taskly";
+      font-weight: 700;
+      @include abs-position;
+      opacity: 0.04;
+      font-size: clamp(7rem, 2.5vw, 12rem);
+    }
+  }
+
+  h1 {
+    background: linear-gradient(
+      to bottom right,
+      $light-checked-color 5%,
+      $first-text 95%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 }
 

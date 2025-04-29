@@ -11,13 +11,11 @@ const AIAdviceRender = () => {
   `;
 };
 
-const imgUrl = new URL("/Taskly-logo.webp", import.meta.url).href;
-
 export const welcomeMessageRender = () => {
   return ` 
   <div class="ai-welcome_message">
-    <img src="${imgUrl}" />
-    <h2>Your Personal AI Advisor Taskly!🤩</h2>
+  <span class="smile-icon"><i class="bi bi-emoji-heart-eyes-fill"></i></span>
+    <h1 class="welcome-header" style="border-bottom: none; font-size: 2.7rem">Your Personal <br> AI Advisor!</h1>
     <p>Get started by Script a task and Chat can do the rest. Not sure where to start?</p>
   </div>`;
 };
