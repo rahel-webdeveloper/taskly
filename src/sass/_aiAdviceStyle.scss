@@ -17,15 +17,15 @@
   margin-inline: 2rem;
 
   .smile-icon {
-    font-size: 2.3rem;
-    color: $btn-color;
+    font-size: 2rem;
+    color: $count-color;
     background: linear-gradient(
       to bottom right,
       $light-border-color,
       $light-dark-blue-color
     );
     border-radius: 0.7rem;
-    padding: 0.25rem 0.587rem;
+    padding: 0.5rem 0.787rem;
 
     &::after {
       content: "Taskly";
