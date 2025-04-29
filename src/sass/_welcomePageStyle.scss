@@ -82,6 +82,8 @@
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease-in;
+    @include flex-center;
+    gap: 0.7rem;
 
     &:hover {
       background-color: $first-color;
@@ -90,7 +92,6 @@
     }
 
     i {
-      margin-right: 0.5rem;
       font-size: 1rem;
     }
   }
@@ -108,18 +109,83 @@
   }
 }
 
-.dash-img_div {
+.ai-advisor-annoucement_div {
   margin: 3.5rem 1rem;
   border-radius: 0.77rem;
-  // width: 50%;
   @include flex-center;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 2rem;
+  background-color: $backdrop-filter-color;
+  backdrop-filter: blur(7px);
+  padding: 1.5rem;
+  border: 1px solid $light-border-color;
+  color: $first-text;
+  font-family: "bootstrap-icons", $karla-font;
 
-  img {
-    border: 1px solid $high-color;
+  &::after {
+    content: "\F589 Enter your prompt";
+    @include abs-position;
+    background-color: $count-color;
+    padding: 0.12rem 0.37rem;
+    border-radius: 1rem;
+    left: 25%;
+    top: 64%;
+    font-size: clamp(0.25rem, 2.7vw, 0.78rem);
+  }
+
+  &::before {
+    content: "\F1C9  Write description";
+    position: absolute;
+    background-color: $btn-color;
+    padding: 0.12rem 0.37rem;
+    border-radius: 1rem;
+    right: 7%;
+    bottom: 10%;
+    font-size: clamp(0.25rem, 2.7vw, 0.78rem);
+  }
+
+  .ai-annoucement-text-div {
+    @include flex-center;
+    flex-direction: column;
+    gap: 1.7rem;
+  }
+
+  #try-ai-advisor-btn {
+    padding: 0.7rem 1.7rem;
+    background-color: $second-text;
+    // color: $first-text;
+    border-radius: 0.7rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+
+    i {
+      margin-left: 0.5rem;
+    }
+
+    &:hover {
+      scale: 1.05;
+      background-color: $second-color;
+      color: $first-text;
+      border: 1px solid $second-text;
+    }
+  }
+
+  .advisor-annoucement-img {
+    max-width: 75%;
+    border: 0px solid $high-color;
     border-radius: inherit;
   }
+}
+
+.blur-shape {
+  position: absolute;
+  width: 9rem;
+  height: 9rem;
+  background: linear-gradient(to left top, $count-color 30%, $moderate-color);
+  filter: blur(60px);
+  top: 60%;
+  z-index: -1;
 }
 
 .copyRight {

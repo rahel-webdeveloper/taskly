@@ -6,7 +6,7 @@ const WelcomeRender = () => {
       <div class="first-page_subtitle"> 
       <h2><span>Track</span>, <span>Chat</span>, and <span>Conquer</span> Your Tasks!</h2>
 
-      <p>Master your to-dos with smart tracking and instant AI advice! Our platform offers a suite of advanced task tracking and instant AI tools.!</p>
+      <p>Master your to-dos with smart tracking and instant AI advice! Our platform offers a suite of advanced task tracking and instant AI tools!</p>
       </div>
 
       <div class="welcome-btns">
@@ -17,16 +17,22 @@ const WelcomeRender = () => {
        </a>
        <a href="/ai-advisor">
         <button id="get_started_btn">
-         <i class="bi bi-stars"></i> Get Started Chat
+          Get Started Free <i class="bi bi-egg-fried"></i>
         </button>
        </a>
       </div>
 
-      <div class="dash-img_div">
-      <img src="/Task Hub Screenshot.png" class="dash-screenshot_img" />
-      <img src="/Dashboard Screenshot.png" class="dash-screenshot_img" />
-
+      <div class="ai-advisor-annoucement_div">
+      <div class="ai-annoucement-text-div">
+      <h2>Transform your workflow with AI</h2>
+      <p>No waiting, No guessing, Just smart, instant answers tailored to your needs-available anytime to help you make faster, better, and more confident decisions.</p>
+      <a href="/ai-advisor"><button id="try-ai-advisor-btn">Try It Now <i class="bi bi-stars"></i></button></a>
       </div>
+
+      <img src="/ai-advisor-img.png" class="advisor-annoucement-img" />
+      </div>
+
+      <div class="blur-shape"></div>
 
     </section>
 

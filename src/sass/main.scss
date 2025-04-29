@@ -70,7 +70,7 @@ body {
     margin-inline: 0.7rem;
   }
 
-  .dash-img_div {
+  .ai-advisor-annoucement_div {
     width: 85%;
   }
 
@@ -232,8 +232,43 @@ body {
     }
   }
 
-  .dash-img_div {
+  .ai-advisor-annoucement_div {
     flex-direction: row;
+    text-align: start;
+
+    &::after {
+      left: 70%;
+      top: 20%;
+    }
+    &::before {
+      right: 5%;
+      bottom: 12%;
+    }
+
+    .ai-annoucement-text-div {
+      align-items: flex-start;
+    }
+
+    .advisor-annoucement-img {
+      width: 45%;
+    }
+  }
+
+  .blur-shape {
+    top: 65%;
+    right: 35%;
+    width: 15rem;
+    height: 11rem;
+    backdrop-filter: blur(95px);
+
+    &::before {
+      content: "";
+      @include abs-position;
+      position: absolute;
+      width: 7rem;
+      height: 7rem;
+      // background-color: red;
+    }
   }
 
   .tasks-home-page {
