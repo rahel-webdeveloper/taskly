@@ -1,5 +1,5 @@
 import { atom } from "nanostores";
-import { loadLocalStorage } from "../data/localStorage.js";
+import { loadLocalStorage, saveLocalStorage } from "../data/localStorage.js";
 import tasksData from "../data/tasksData.js";
 import { updateViewOnTask } from "./ListTasksLogic.js";
 import { addTaskToList, updateTaskCount } from "./ListTasksRender.js";
@@ -13,6 +13,10 @@ export const liveTasks = atom([]);
 
 export const tasksState = atom("all");
 export const visibleTasks = atom([]);
+
+export const taskToAssistant = atom(
+  loadLocalStorage("task-to-assistant") || []
+);
 
 // Set live tasks
 export const setLiveTasks = (tasks) => {
@@ -68,6 +72,14 @@ export const deletingTask = () => {
 export const deletingCompleteTasks = () => {
   listTasks.set(listTasks.get().filter((task) => task.state !== "done"));
   updateViewOnTask();
+};
+
+export const setTaskToAssitant = (Id) => {
+  const selectedTask = listTasks.get().filter((task) => task.id === Id);
+
+  taskToAssistant.set(selectedTask);
+
+  saveLocalStorage(taskToAssistant.get(), "task-to-assistant");
 };
 
 // editing a task

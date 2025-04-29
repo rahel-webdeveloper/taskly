@@ -14,6 +14,8 @@ import html from "highlight.js/lib/languages/xml";
 
 import "highlight.js/styles/atom-one-dark.css";
 import { historyMessages, markdownText } from "./store";
+import { taskToAssistant } from "../../listTasks/store";
+import { deleteLocalStorage, loadLocalStorage } from "../../data/localStorage";
 
 const converter = new Showdown.Converter({
   tables: true,
@@ -55,7 +57,10 @@ const getUserInput = async () => {
   const userInputEl = document.getElementById("user-input");
   const navbarMenu = document.getElementById("navbar_menu");
 
-  userInputEl.addEventListener("focusin", () => {
+  userInputEl.addEventListener("focusin", function () {
+    this.style.height = "auto";
+    this.style.height = `${this.scrollHeight}px`;
+
     const isWindowLarge = window.innerWidth > 1024;
 
     navbarMenu.style.scale = `${!isWindowLarge ? "0" : "1"}`;
@@ -73,6 +78,15 @@ const getUserInput = async () => {
     }
   });
 
+  if (taskToAssistant.get()) {
+    userInputEl.value = `Act as project manager for my this task: 
+    description: (${taskToAssistant.get()[0].description}),
+    priority: ${taskToAssistant.get()[0].priority.label},
+    start time: ${taskToAssistant.get()[0].startDateTime},
+    duration minutes: ${taskToAssistant.get()[0].durationMinutes}m`;
+    getAdviceBtn.disabled = false;
+  }
+
   userInputEl.addEventListener("input", function () {
     this.style.height = "auto";
     this.style.height = `${this.scrollHeight}px`;
@@ -84,6 +98,8 @@ const getUserInput = async () => {
 
   getAdviceBtn.addEventListener("click", () => {
     if (userInputEl.value.trim() === "") return;
+
+    deleteLocalStorage("task-to-assistant");
 
     const isWindowLarge = window.innerWidth > 1024;
 

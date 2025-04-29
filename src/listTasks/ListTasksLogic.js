@@ -13,6 +13,7 @@ import {
   onSelectedState,
   saveEditedTask,
   setLiveTasks,
+  setTaskToAssitant,
   tasksState,
   todayTasks,
   visibleTasks,
@@ -54,6 +55,11 @@ const eventsHandler = (event) => {
   if (target.closest(".delete-icon")) {
     Id.set(getAttributeId);
     deletingTask();
+  }
+
+  if (target.closest(".assistance-task-icon-div")) {
+    Id.set(getAttributeId);
+    setTaskToAssitant(Id.get());
   }
 
   if (target.closest(".edit-icon-div")) {
