@@ -66,6 +66,10 @@ body {
 }
 
 @media screen and (width >= 470px) {
+  .list-task {
+    margin-inline: 0.7rem;
+  }
+
   .dash-img_div {
     width: 85%;
   }

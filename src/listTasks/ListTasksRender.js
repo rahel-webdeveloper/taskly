@@ -128,8 +128,15 @@ const newTaskRender = (task) => {
         </span>
       </div>
 
-      <div class="task-left-div" title="edit task">
-        <div class="edit-icon-div">
+      <div class="task-left-div" >
+        <div class="assistance-task-icon-div" title="assistance to task">
+          <i
+            class="bi bi-stars assistance-task-icon"
+            data-id="${task.id}"
+          ></i>
+        </div>
+
+        <div class="edit-icon-div" title="edit task">
           <i
             class="bi bi-input-cursor-text task-edit-icon"
             data-id="${task.id}"

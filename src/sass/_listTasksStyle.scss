@@ -118,7 +118,6 @@
 
 .list-task {
   text-align: center;
-  margin-inline: 0.7rem;
   margin-block: 1rem;
   padding: 0.34rem 0.5rem 0;
   z-index: 0;
@@ -190,19 +189,22 @@
 }
 
 .task-left-div {
-  display: flex;
-  column-gap: 1rem;
+  @include flex-center;
+  column-gap: 1.15rem;
   margin-left: auto;
 }
 
+.assistance-task-icon,
 .task-edit-icon {
-  font-size: 1.34rem;
+  font-size: 1.45rem;
   color: $optional-color;
   cursor: pointer;
 }
 
+.assistance-task-icon:hover,
 .task-edit-icon:hover {
   color: $first-text;
+  transform: scale(2);
 }
 
 .delete-icon {
