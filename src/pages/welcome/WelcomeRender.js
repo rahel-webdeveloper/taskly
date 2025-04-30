@@ -15,7 +15,7 @@ const WelcomeRender = () => {
          <i class="bi bi-play"></i> See How It Works 
         </button>
        </a>
-       <a href="/ai-advisor">
+       <a href="/">
         <button id="get_started_btn">
           Get Started Free <i class="bi bi-egg-fried"></i>
         </button>

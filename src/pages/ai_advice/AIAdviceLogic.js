@@ -15,7 +15,7 @@ import html from "highlight.js/lib/languages/xml";
 import "highlight.js/styles/atom-one-dark.css";
 import { historyMessages, markdownText } from "./store";
 import { taskToAssistant } from "../../listTasks/store";
-import { deleteLocalStorage, loadLocalStorage } from "../../data/localStorage";
+import { deleteLocalStorage } from "../../data/localStorage";
 
 const converter = new Showdown.Converter({
   tables: true,
@@ -78,15 +78,6 @@ const getUserInput = async () => {
     }
   });
 
-  if (taskToAssistant.get()) {
-    userInputEl.value = `Act as project manager for my this task: 
-    description: (${taskToAssistant.get()[0].description}),
-    priority: ${taskToAssistant.get()[0].priority.label},
-    start time: ${taskToAssistant.get()[0].startDateTime},
-    duration minutes: ${taskToAssistant.get()[0].durationMinutes}m`;
-    getAdviceBtn.disabled = false;
-  }
-
   userInputEl.addEventListener("input", function () {
     this.style.height = "auto";
     this.style.height = `${this.scrollHeight}px`;
@@ -95,6 +86,15 @@ const getUserInput = async () => {
       ? (getAdviceBtn.disabled = false)
       : (getAdviceBtn.disabled = true);
   });
+
+  if (taskToAssistant.get()) {
+    userInputEl.value = `Act as project manager for my this task: 
+    description: (${taskToAssistant.get()[0].description}),
+    priority: ${taskToAssistant.get()[0].priority.label},
+    start time: ${taskToAssistant.get()[0].startDateTime},
+    duration minutes: ${taskToAssistant.get()[0].durationMinutes}m`;
+    getAdviceBtn.disabled = false;
+  }
 
   getAdviceBtn.addEventListener("click", () => {
     if (userInputEl.value.trim() === "") return;

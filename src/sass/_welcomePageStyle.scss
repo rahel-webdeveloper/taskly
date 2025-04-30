@@ -122,26 +122,26 @@
   color: $first-text;
   font-family: "bootstrap-icons", $karla-font;
 
+  &::before,
+  &::after {
+    font-size: clamp(0.25rem, 2.7vw, 0.78rem);
+    border-radius: 1rem;
+    padding: 0.12rem 0.37rem;
+    position: absolute;
+  }
+
   &::after {
     content: "\F589 Enter your prompt";
-    @include abs-position;
     background-color: $count-color;
-    padding: 0.12rem 0.37rem;
-    border-radius: 1rem;
-    left: 25%;
-    top: 75%;
-    font-size: clamp(0.25rem, 2.7vw, 0.78rem);
+    left: 15%;
+    top: 67%;
   }
 
   &::before {
     content: "\F1C9  Write description";
-    position: absolute;
     background-color: $btn-color;
-    padding: 0.12rem 0.37rem;
-    border-radius: 1rem;
     right: 7%;
-    bottom: 10%;
-    font-size: clamp(0.25rem, 2.7vw, 0.78rem);
+    bottom: 7%;
   }
 
   .ai-annoucement-text-div {
