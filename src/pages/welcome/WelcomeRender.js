@@ -36,9 +36,6 @@ const WelcomeRender = () => {
 
     </section>
 
-    <section>
-    </section>
-
   </div>
 
   <div class="copyRight">
