@@ -1,13 +1,13 @@
 import { atom } from "nanostores";
 import { loadLocalStorage, saveLocalStorage } from "../data/localStorage.js";
-import tasksData from "../data/tasksData.js";
+import tasks from "../data/tasks.js";
 import { updateViewOnTask } from "./ListTasksLogic.js";
 import { addTaskToList, updateTaskCount } from "./ListTasksRender.js";
 import { addToDetailsCard } from "../pages/task_hub/TaskHubRender.js";
 
 export const Id = atom(0);
 
-export const listTasks = atom(loadLocalStorage("listTask") || tasksData);
+export const listTasks = atom(loadLocalStorage("listTask") || tasks);
 export const todayTasks = atom([]);
 export const liveTasks = atom([]);
 

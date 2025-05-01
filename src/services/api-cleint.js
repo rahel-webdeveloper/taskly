@@ -4,7 +4,7 @@ import { listTask } from "../App";
 
 class APIClient {
   constructor() {
-    this.API_URL = "https://json-server-api-89nr.onrender.com";
+    this.API_URL = "";
   }
   getTasks() {
     axios
