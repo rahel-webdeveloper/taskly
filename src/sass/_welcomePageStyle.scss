@@ -188,6 +188,133 @@
   z-index: -1;
 }
 
+.get-suggestions_icon-div {
+  position: fixed;
+  bottom: 7rem;
+  right: 2rem;
+  background-color: $light-border-color;
+  backdrop-filter: blur(15px);
+  padding: 0.7rem 1rem;
+  border-radius: 0.7rem;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+  font-weight: 700;
+  font-size: 0.85rem;
+
+  i {
+    margin-left: 0.7rem;
+    font-size: 1rem;
+  }
+
+  &:hover {
+    scale: 1.05;
+  }
+}
+
+.get-suggestions-form_div {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 1rem;
+  @include grid-center;
+  border-radius: 0.7rem;
+  width: 100%;
+  height: 100%;
+  background-color: $light-optional-color;
+  display: none;
+
+  h3 {
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  #get-suggestions-form {
+    max-width: 40rem;
+    margin: 7rem auto;
+    padding: 2rem;
+    background-color: $second-color;
+    border-radius: 7px;
+    color: $first-text;
+  }
+  label {
+    display: block;
+  }
+  input,
+  textarea {
+    margin-top: 0.3rem;
+    padding: 0.6rem;
+    width: 100%;
+    resize: none;
+    outline: none;
+    border: none;
+    border-radius: 7px;
+    background-color: $first-color;
+    color: $first-text;
+  }
+  textarea {
+    line-height: 1.1rem;
+  }
+  button {
+    border: none;
+    display: inline-block;
+    padding: 0.725rem 1.7rem;
+    background-color: $count-color;
+    border-radius: 3rem;
+    cursor: pointer;
+
+    i {
+      margin-left: 0.3rem;
+    }
+
+    &:hover {
+      transition: all 0.3s ease-in;
+      opacity: 0.85;
+      scale: 1.03;
+    }
+  }
+  #get-suggestions-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "name name"
+      "email email"
+      "message message"
+      "buttons buttons";
+    gap: 1.6rem;
+  }
+  .name-block {
+    grid-area: name;
+  }
+  .email-block {
+    grid-area: email;
+  }
+  .message-block {
+    grid-area: message;
+  }
+  .form-action-btns {
+    grid-area: buttons;
+    display: flex;
+    gap: 1rem;
+
+    button:nth-child(1) {
+      background-color: $second-text;
+      color: $first-color;
+    }
+  }
+
+  @media screen and (min-width: 530px) {
+    #get-suggestions-form {
+      width: 100%;
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas:
+        "name message"
+        "email message"
+        "buttons buttons";
+    }
+  }
+}
+
 .copyRight {
   text-align: center;
   font-size: 0.67rem;

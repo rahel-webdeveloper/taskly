@@ -87,15 +87,6 @@ const getUserInput = async () => {
       : (getAdviceBtn.disabled = true);
   });
 
-  if (taskToAssistant.get()) {
-    userInputEl.value = `Act as project manager for my this task: 
-    description: (${taskToAssistant.get()[0].description}),
-    priority: ${taskToAssistant.get()[0].priority.label},
-    start time: ${taskToAssistant.get()[0].startDateTime},
-    duration minutes: ${taskToAssistant.get()[0].durationMinutes}m`;
-    getAdviceBtn.disabled = false;
-  }
-
   getAdviceBtn.addEventListener("click", () => {
     if (userInputEl.value.trim() === "") return;
 
@@ -114,6 +105,17 @@ const getUserInput = async () => {
       ? (aiAdviceContainer.cssText += `align-content: start; padding-bottom: 3.7rem;`)
       : (aiAdviceContainer.cssText += `align-content: start; padding-bottom: 2rem;`);
   });
+
+  if (taskToAssistant.get()) {
+    userInputEl.value = `Act as project manager for my this task:
+    description: ${taskToAssistant.get()[0].description},
+    priority: ${taskToAssistant.get()[0].priority.label},
+    start time: ${new Date(
+      taskToAssistant.get()[0].startDateTime
+    ).toLocaleString()},
+    duration minutes: ${taskToAssistant.get()[0].durationMinutes}m`;
+    getAdviceBtn.disabled = false;
+  }
 };
 
 const addStyleToMarkdownContainer = () => {

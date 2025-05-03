@@ -36,7 +36,39 @@ const WelcomeRender = () => {
 
     </section>
 
+    <div class="get-suggestions_icon-div" id="feedback-icon-div">
+    <span id="icon_div">Feedback<i class="bi bi-chat-dots-fill"></i></span>
+    </div>
+
+    <div class="get-suggestions-form_div">
+     <form id="get-suggestions-form">
+          <div class="name-block">
+              <label>Your Name</label>
+              <input type="text" name="name" placeholder="enter your full name" required>
+          </div>
+  
+          <div class="email-block">
+              <label>Your Email</label>
+              <input type="email" name="email" placeholder="enter your email address" required>
+          </div>
+  
+          <div class="message-block">
+              <label>Message to us</label>
+              <textarea name="message" placeholder="your message" rows="7" min="9" required></textarea>
+          </div>
+  
+          <div class="form-action-btns">
+          <button type="button" class="btn" id="cancel_btn">Cancel<i class="bi bi-x-lg"></i></button>
+          <button type="submit" class="btn" id="send_btn">Send Feedback <i class="bi bi-send"></i></button>
+          </div>
+  
+      </form>
+    </div>
+
   </div>
+
+
+
 
   <div class="copyRight">
     <p>Copyright © 2025 Taskly</p>

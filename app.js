@@ -11,6 +11,8 @@ const App = () => {
   Router.init();
   inject();
   injectSpeedInsights();
+
+  getSuggestion();
 };
 
 App();
