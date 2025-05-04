@@ -32,6 +32,7 @@ export const systemMsg = {
   - Avoid generic productivity platitudes; offer specific, actionable advice
 
   When uncertain about the user's needs, ask targeted questions to better understand their specific task management challenges before providing advice.
+  Use lovely emojis in your writing.
   `,
 };
 

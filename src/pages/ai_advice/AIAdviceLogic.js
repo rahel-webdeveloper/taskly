@@ -152,17 +152,11 @@ const renderAdviceInHtml = async (userInput) => {
 
     const response = await getAdvice();
 
-    // historyMessages
-    //   .get()
-    //   .push({ role: "assistant", content: response.message.content[0].text });
     historyMessages
       .get()
-      .push({ role: "assistant", content: response.message.content });
+      .push({ role: "assistant", content: response.message.content[0].text });
 
-    console.log(response.message.content);
-
-    // const htmlContent = converter.makeHtml(response.message.content[0].text);
-    const htmlContent = converter.makeHtml(response.message.content);
+    const htmlContent = converter.makeHtml(response.message.content[0].text);
 
     for (let i = 0; i < thinkDiv.length; i++)
       thinkDiv[i].style.display = "none";
