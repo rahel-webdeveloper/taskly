@@ -43,18 +43,18 @@ const WelcomeRender = () => {
     <div class="get-suggestions-form_div">
      <form id="get-suggestions-form">
           <div class="name-block">
-              <label>Your Name</label>
-              <input type="text" name="name" placeholder="enter your full name" required>
+              <label for="user_name">Your Name</label>
+              <input type="text" id="user_name" name="name" placeholder="enter your full name" required>
           </div>
   
           <div class="email-block">
-              <label>Your Email</label>
-              <input type="email" name="email" placeholder="enter your email address" required>
+              <label for="user_email">Your Email</label>
+              <input type="email" id="user_email" name="email" placeholder="enter your email address" required>
           </div>
   
           <div class="message-block">
-              <label>Message to us</label>
-              <textarea name="message" placeholder="your message" rows="7" min="9" required></textarea>
+              <label for="user_message">Message to us</label>
+              <textarea name="message" id="user_message" placeholder="your message" rows="7" min="9" required></textarea>
           </div>
   
           <div class="form-action-btns">
