@@ -1,6 +1,6 @@
 # Taskly Pro
 
-> A lightweight, front-end task-management PWA built with Vanilla JavaScript, NanoStores, Chart.js and Claude AI-powered task advising.
+> A lightweight, front-end task-management PWA built with Vanilla JavaScript, NanoStores, Chart.js and AI Advisor powered task advising.
 
 ![📷Screenshot](./public/welcome%20page%20screenshot.png)
 
@@ -26,7 +26,7 @@ Check out the live demo here: **[Taskly](https://task-ly-ai.vercel.app/)**
 
 ## 🔍 Description
 
-Taskly Pro is a Progressive Web App that helps you create, track, and analyze your tasks in real-time. It combines intuitive UI components, data-driven charts, and an AI-powered advisor (via Puter.js the Claude API) to keep you productive and informed about your task load.
+Taskly Pro is a Progressive Web App that helps you create, track, and analyze your tasks in real-time. It combines intuitive UI components, data-driven charts, and an AI-powered advisor (via Puter.js the AI Advisor API) to keep you productive and informed about your task load.
 
 ---
 
@@ -41,7 +41,7 @@ Taskly Pro is a Progressive Web App that helps you create, track, and analyze yo
 - AI Advisor
 
   - Get personalized advice on how to prioritize or tackle your tasks
-  - Powered by Claude API through Puter.js
+  - Powered by AI Advisor API through Puter.js
   - Achieve best advices base on your history messages feature
 
 - Dashboard
@@ -68,7 +68,7 @@ Taskly Pro is a Progressive Web App that helps you create, track, and analyze yo
 - [NanoStores](https://nanostores.dev/) for global state management
 - [Navigo](https://github.com/krasimir/navigo) for client-side routing
 - [Notyf](https://github.com/caroso1222/notyf) for toast notifications
-- Puter.js + Claude API for AI-driven task advising
+- Puter.js + AI Advisor API for AI-driven task advising
 - Service Worker & Web App Manifest for PWA support
 - EmailJs for geting suggestions and opinions
 
@@ -100,7 +100,7 @@ Building **Taskly** taught me to:
 
 ---
 
-- **Integrate AI** advice with Claude API via Puter.js
+- **Integrate AI** advice with AI Advisor API via Puter.js
 - **Manage state** effectively with Nano Stores.
 - **Route** seamlessly using Navigo.
 - **Visualize data** via Chart.js (bar, doughnut, line, pie).

@@ -106,16 +106,16 @@ const getUserInput = async () => {
       : (aiAdviceContainer.cssText += `align-content: start; padding-bottom: 2rem;`);
   });
 
-  if (taskToAssistant.get()) {
-    userInputEl.value = `Act as project manager for my this task:
-    description: ${taskToAssistant.get()[0].description},
-    priority: ${taskToAssistant.get()[0].priority.label},
-    start time: ${new Date(
-      taskToAssistant.get()[0].startDateTime
-    ).toLocaleString()},
-    duration minutes: ${taskToAssistant.get()[0].durationMinutes}m`;
-    getAdviceBtn.disabled = false;
-  }
+  // if (taskToAssistant.get()) {
+  //   userInputEl.value = `Act as project manager for my this task:
+  //   description: ${taskToAssistant.get()[0].description},
+  //   priority: ${taskToAssistant.get()[0].priority.label},
+  //   start time: ${new Date(
+  //     taskToAssistant.get()[0].startDateTime
+  //   ).toLocaleString()},
+  //   duration minutes: ${taskToAssistant.get()[0].durationMinutes}m`;
+  //   getAdviceBtn.disabled = false;
+  // }
 };
 
 const addStyleToMarkdownContainer = () => {
@@ -152,11 +152,17 @@ const renderAdviceInHtml = async (userInput) => {
 
     const response = await getAdvice();
 
+    // historyMessages
+    //   .get()
+    //   .push({ role: "assistant", content: response.message.content[0].text });
     historyMessages
       .get()
-      .push({ role: "assistant", content: response.message.content[0].text });
+      .push({ role: "assistant", content: response.message.content });
 
-    const htmlContent = converter.makeHtml(response.message.content[0].text);
+    console.log(response.message.content);
+
+    // const htmlContent = converter.makeHtml(response.message.content[0].text);
+    const htmlContent = converter.makeHtml(response.message.content);
 
     for (let i = 0; i < thinkDiv.length; i++)
       thinkDiv[i].style.display = "none";

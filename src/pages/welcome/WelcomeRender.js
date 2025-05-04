@@ -58,7 +58,7 @@ const WelcomeRender = () => {
           </div>
   
           <div class="form-action-btns">
-          <button type="button" class="btn" id="cancel_btn">Cancel<i class="bi bi-x-lg"></i></button>
+          <button type="button" class="btn" id="cancel_btn">Cancel<i class="bi bi-x-circle"></i></button>
           <button type="submit" class="btn" id="send_btn">Send Feedback <i class="bi bi-send"></i></button>
           </div>
   

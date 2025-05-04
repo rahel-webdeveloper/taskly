@@ -258,10 +258,11 @@
   button {
     border: none;
     display: inline-block;
-    padding: 0.725rem 1.7rem;
+    padding: 0.725rem 1.35rem;
     background-color: $count-color;
     border-radius: 3rem;
     cursor: pointer;
+    font-size: clamp(0.75rem, 2.8vw, 0.9rem);
 
     i {
       margin-left: 0.3rem;
@@ -270,7 +271,7 @@
     &:hover {
       transition: all 0.3s ease-in;
       opacity: 0.85;
-      scale: 1.03;
+      scale: 1.02;
     }
   }
   #get-suggestions-form {
