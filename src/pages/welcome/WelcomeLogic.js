@@ -22,11 +22,9 @@ const WelcomeLogic = () => {
       if (event.target.closest("#feedback-icon-div"))
         getSuggestionsStyle.display = "block";
 
-      if (event.target.closest("#send_btn")) {
-        validationOfGetSuggestions()
-          ? ""
-          : openNotification("warning", "Please fill out the form correctly!");
-      }
+      if (event.target.closest("#send_btn"))
+        !validationOfGetSuggestions() &&
+          openNotification("warning", "Please fill out the form correctly!");
 
       if (event.target.closest("#cancel_btn")) {
         getSuggestionsStyle.display = "none";
