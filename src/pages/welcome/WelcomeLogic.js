@@ -16,7 +16,7 @@ const WelcomeLogic = () => {
 
     welcomeContainerEl.addEventListener("click", (event) => {
       if (event.target.closest("#how-works_btn")) {
-        openNotification("success", "You will recieve the guides via email!");
+        openNotification("success", "You will recieve the guides very soon!");
       }
 
       if (event.target.closest("#feedback-icon-div"))
@@ -65,10 +65,7 @@ const sendSuggestions = (params) => {
   emailjs
     .send(SERVICE_ID, TEMPLATE_ID, params)
     .then((res) => {
-      openNotification(
-        "success",
-        res.status + "You have successfully sent your feedback!"
-      );
+      openNotification("success", "You have successfully sent your feedback!");
     })
     .catch((err) => {
       openNotification("error", err);
