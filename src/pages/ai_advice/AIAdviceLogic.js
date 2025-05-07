@@ -152,11 +152,18 @@ const renderAdviceInHtml = async (userInput) => {
 
     const response = await getAdvice();
 
+    // historyMessages
+    //   .get()
+    //   .push({ role: "assistant", content: response.message.content[0].text });
+
+    console.log(response);
+
     historyMessages
       .get()
-      .push({ role: "assistant", content: response.message.content[0].text });
+      .push({ role: "assistant", content: response.message.content });
 
-    const htmlContent = converter.makeHtml(response.message.content[0].text);
+    // const htmlContent = converter.makeHtml(response.message.content[0].text);
+    const htmlContent = converter.makeHtml(response.message.content);
 
     for (let i = 0; i < thinkDiv.length; i++)
       thinkDiv[i].style.display = "none";
@@ -177,6 +184,8 @@ const renderAdviceInHtml = async (userInput) => {
     //     thinkDiv[i].style.display = "none";
     // }, 1000);
   } catch (err) {
+    console.log(err);
+
     for (let i = 0; i < thinkDiv.length; i++)
       thinkDiv[i].style.display = "none";
 
