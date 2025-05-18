@@ -13,6 +13,7 @@ import typescript from "highlight.js/lib/languages/typescript";
 import html from "highlight.js/lib/languages/xml";
 
 import "highlight.js/styles/atom-one-dark.css";
+
 import { historyMessages, markdownText } from "./store";
 import { taskToAssistant } from "../../listTasks/store";
 import { deleteLocalStorage } from "../../data/localStorage";
@@ -31,12 +32,12 @@ const converter = new Showdown.Converter({
   simplifiedAutoLink: true,
   metadata: true,
   backslashEscapesHTMLTags: true,
-  completeHTMLDocument: true,
   ghCompatibleHeaderId: true,
   customizedHeaderId: true,
   ghMentionsLink: true,
   parseImgDimensions: true,
   smoothLivePreview: true,
+  smartIndentationFix: true,
 });
 
 const AIAdviceLogic = async () => {
@@ -106,7 +107,7 @@ const getUserInput = async () => {
       : (aiAdviceContainer.cssText += `align-content: start; padding-bottom: 2rem;`);
   });
 
-  if (taskToAssistant.get()) {
+  if (taskToAssistant.get().length !== 0) {
     userInputEl.value = `Act as project manager for my this task:
     description: ${taskToAssistant.get()[0].description},
     priority: ${taskToAssistant.get()[0].priority.label},
@@ -152,16 +153,16 @@ const renderAdviceInHtml = async (userInput) => {
 
     const response = await getAdvice();
 
-    // historyMessages
-    //   .get()
-    //   .push({ role: "assistant", content: response.message.content[0].text });
-
     historyMessages
       .get()
-      .push({ role: "assistant", content: response.message.content });
+      .push({ role: "assistant", content: response.message.content[0].text });
 
-    // const htmlContent = converter.makeHtml(response.message.content[0].text);
-    const htmlContent = converter.makeHtml(response.message.content);
+    // historyMessages
+    //   .get()
+    //   .push({ role: "assistant", content: response.message.content });
+
+    const htmlContent = converter.makeHtml(response.message.content[0].text);
+    // const htmlContent = converter.makeHtml(response.message.content);
 
     for (let i = 0; i < thinkDiv.length; i++)
       thinkDiv[i].style.display = "none";
@@ -180,7 +181,7 @@ const renderAdviceInHtml = async (userInput) => {
 
     //   for (let i = 0; i < thinkDiv.length; i++)
     //     thinkDiv[i].style.display = "none";
-    // }, 1000);
+    // }, 10);
   } catch (err) {
     for (let i = 0; i < thinkDiv.length; i++)
       thinkDiv[i].style.display = "none";

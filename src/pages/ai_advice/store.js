@@ -12,7 +12,7 @@ export const systemMsg = {
   - Suggest productivity techniques tailored to the user's specific situation
   - Offer strategies for overcoming procrastination and maintaining focus
   - Assist with time management and deadline planning
-  - Do code the subject was related to programming languages and development.
+  - Show them with actual code if the subject was related to programming languages and development.
 
   RESPONSE STRUCTURE:
   1. Begin with brief encouragement acknowledging the user's task or challenge
@@ -29,11 +29,10 @@ export const systemMsg = {
 
   BOUNDARIES:
   - Focus solely on task management and productivity advice
-  - Do not provide assistance with the actual content or subject matter of tasks
+  - Provide assistance with the actual content or subject matter of tasks if needed
   - Avoid generic productivity platitudes; offer specific, actionable advice
 
   When uncertain about the user's needs, ask targeted questions to better understand their specific task management challenges before providing advice.
-  Use lovely emojis in your writing.
   `,
 };
 
@@ -41,5 +40,5 @@ export const refusalMsg = "I'm sorry, but I cannot assist with that.";
 
 export const historyMessages = atom([systemMsg]);
 
-export const markdownText =
-  'Certainly! Below are simple code snippets for each of the requested languages:\n\n### Bash\n```bash\n#!/bin/bash\necho "Hello, World!"\n```\n\n### CSS\n```css\nbody {\n    background-color: #f0f0f0;\n    font-family: Arial, sans-serif;\n}\nh1 {\n    color: #333333;\n}\n```\n\n### Java\n```java\npublic class HelloWorld {\n    public static void main(String[] args) {\n        System.out.println("Hello, World!");\n    }\n}\n```\n\n### JavaScript\n```javascript\nconsole.log("Hello, World!");\n```\n\n### JSON\n```json\n{\n    "greeting": "Hello, World!"\n}\n```\n\n### Python\n```python\nprint("Hello, World!")\n```\n\n### TypeScript\n```typescript\nconsole.log("Hello, World!");\n```\n\n### HTML\n```html\n<!DOCTYPE html>\n<html>\n<head>\n    <title>Hello World</title>\n</head>\n<body>\n    <h1>Hello, World!</h1>\n</body>\n</html>\n```\n\nFeel free to modify or expand upon these code snippets as needed!';
+export const markdownText = `# Authentication Flow Implementation Plan\n\n**I appreciate your trust in me to help with this important project!** Implementing a new authentication flow is a critical task that impacts both security and user experience. Lets break this down into manageable steps:\n\n## Project Overview\n\n### Step 1: Requirements Analysis\n* **Define authentication requirements** - Will you use OAuth, JWT, SAML, or another protocol?\n* **Identify user types** - Regular users, admins, API clients, etc.\n* **Document security requirements** - Password policies, MFA needs, session management\n* **Map out user journeys** - Registration, login, password reset, account recovery\n\n### Step 2: Design Phase\n* **Create technical specifications** - Authentication protocols, token handling, encryption methods\n* **Design database schema changes** - User tables, token storage, session management\n* **Develop API endpoints** - Authentication routes and services\n* **Create UI mockups** - Login screens, registration forms, verification pages\n\n### Step 3: Implementation\n* **Set up authentication libraries/services** - Auth0, Firebase, custom solution, etc.\n* **Implement backend authentication logic** - User verification, token generation/validation\n* **Develop frontend components** - Login forms, registration flows, error handling\n* **Integrate with existing systems** - User database, permissions, roles\n\n### Step 4: Testing & Security\n* **Conduct unit and integration tests** - Test all authentication paths\n* **Perform security testing** - Penetration testing, vulnerability scanning\n* **Test edge cases** - Account lockouts, expired tokens, concurrent sessions\n* **Validate against compliance requirements** - GDPR, CCPA, industry standards\n\n### Step 5: Deployment & Monitoring\n* **Create migration plan** for existing users\n* **Implement analytics and monitoring** - Failed login attempts, usage patterns\n* **Develop rollback strategy** in case of issues\n* **Plan for gradual rollout** - Beta testing, percentage-based deployment\n\n## Additional Considerations\n- **Documentation** - Create comprehensive docs for developers and end-users\n- **Training** - Ensure support team understands the new flow\n- **Performance testing** - Verify authentication doesnt create bottlenecks\n\n> "The best preparation for tomorrow is doing your best today." - Ibn al-Qayyim\n\nWould you like me to elaborate on any specific aspect of this authentication flow implementation plan?
+  `;

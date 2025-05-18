@@ -29,6 +29,7 @@ const notyf = new Notyf({
 const openNotification = (type, message) => {
   const innerWidth = window.innerWidth;
 
+  // position on notyf base on device
   notyf.open({
     type: type,
     message: message,
@@ -47,6 +48,7 @@ const openNotification = (type, message) => {
   const notyfToasts = document.querySelectorAll(".notyf__toast");
   const notyfWrapper = document.querySelectorAll(".notyf__wrapper");
 
+  // add some custome style
   for (let i = 0; i < notyfToasts.length; i++) {
     notyfWrapper[i].style.cssText +=
       " padding-block: 13px; padding-right: 45px;";

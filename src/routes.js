@@ -12,7 +12,7 @@ import WelcomeRender from "./pages/welcome/WelcomeRender.js";
 const Router = (() => {
   const mainContent = document.getElementById("main-content");
 
-  const isAboutSeen = atom(loadLocalStorage("is_about_seen") || false);
+  const isWelcomePageSeen = atom(loadLocalStorage("is_about_seen") || false);
 
   const router = new Navigo("/", {
     linksSelector: "[data-link]",
@@ -47,8 +47,8 @@ const Router = (() => {
           mainContent.innerHTML = WelcomeRender();
           activeLink("/welcome");
 
-          isAboutSeen.set(true);
-          saveLocalStorage(isAboutSeen.get(), "is_about_seen");
+          isWelcomePageSeen.set(true);
+          saveLocalStorage(isWelcomePageSeen.get(), "is_about_seen");
         },
       })
 
@@ -61,7 +61,7 @@ const Router = (() => {
     router.updatePageLinks();
   };
 
-  if (!isAboutSeen.get()) router.navigate("/welcome");
+  if (!isWelcomePageSeen.get()) router.navigate("/welcome");
 
   return { init, router };
 })();
