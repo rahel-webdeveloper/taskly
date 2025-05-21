@@ -1,5 +1,6 @@
 import TasksContainer from "../../listTasks/ListTasksRender";
 import { renderTodayDiv } from "../../listTasks/ListTasksRender";
+import { getSuggestionsComponent } from "../welcome/WelcomeRender";
 
 const DashboardRender = () => {
   return `
@@ -78,7 +79,11 @@ const DashboardRender = () => {
 
       ${renderTodayDiv()}
 
-  </div>`;
+  </div>
+
+  ${getSuggestionsComponent()}
+  
+  `;
 };
 
 export default DashboardRender;

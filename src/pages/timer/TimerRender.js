@@ -1,3 +1,5 @@
+import { getSuggestionsComponent } from "../welcome/WelcomeRender";
+
 const TimerRender = () => {
   return `
 <div class="timer-container">
@@ -51,6 +53,9 @@ const TimerRender = () => {
     </div>
     
 </div>
+
+${getSuggestionsComponent()}
+
     `;
 };
 

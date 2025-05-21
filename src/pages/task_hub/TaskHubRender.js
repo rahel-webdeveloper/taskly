@@ -1,6 +1,7 @@
 import TasksContainer, {
   renderTodayDiv,
 } from "../../listTasks/ListTasksRender";
+import { getSuggestionsComponent } from "../welcome/WelcomeRender";
 
 // Const section main content
 export default function TaskHubRender() {
@@ -100,6 +101,8 @@ export default function TaskHubRender() {
 
       </section>
     </div>
+
+    ${getSuggestionsComponent()}
     `;
 }
 
