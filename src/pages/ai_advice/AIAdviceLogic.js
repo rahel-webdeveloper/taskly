@@ -149,20 +149,18 @@ const renderAdviceInHtml = async (userInput) => {
   const thinkDiv = document.querySelectorAll(".think-div");
 
   try {
+    // Add user input
     historyMessages.get().push({ role: "user", content: userInput.trim() });
 
     const response = await getAdvice();
 
+    // Add response of assistant
     historyMessages
       .get()
       .push({ role: "assistant", content: response.message.content[0].text });
 
-    // historyMessages
-    //   .get()
-    //   .push({ role: "assistant", content: response.message.content });
-
+    // Conver markdown to html content
     const htmlContent = converter.makeHtml(response.message.content[0].text);
-    // const htmlContent = converter.makeHtml(response.message.content);
 
     for (let i = 0; i < thinkDiv.length; i++)
       thinkDiv[i].style.display = "none";
@@ -172,7 +170,11 @@ const renderAdviceInHtml = async (userInput) => {
     // For streaming response
     // for await (const part of response) {
     //   responseAreaEl.innerHTML += part.content;
+
+    //   console.log(part.response);
     // }
+
+    // for testing using sample of markdown text
 
     // const htmlContent = converter.makeHtml(markdownText);
 

@@ -57,7 +57,7 @@ export const getSuggestionsComponent = () => {
     <div class="get-suggestions-form_div">
     <div class="feedback-header">
     <h3>Report a feedback</h3>
-    <img src="/public/Taskly-logo.webp" alt="Taskly logo" />
+    <img src="/Taskly-logo.webp" alt="Taskly logo" />
     </div>
 
      <form id="get-suggestions-form">
