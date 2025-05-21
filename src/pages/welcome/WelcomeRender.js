@@ -49,6 +49,7 @@ const WelcomeRender = () => {
 
 export const getSuggestionsComponent = () => {
   return `
+     <div class="send-suggesstions-container">
      <div class="get-suggestions_icon-div" id="feedback-icon-div">
      <span id="icon_div">Feedback<i class="bi bi-chat-dots-fill"></i></span>
     </div>
@@ -82,6 +83,7 @@ export const getSuggestionsComponent = () => {
   
       </form>
     </div>
+     </div>
     `;
 };
 
