@@ -1,6 +1,7 @@
 import openNotification from "../../services/toastNotifications";
 import emailjs from "@emailjs/browser";
 import { SERVICE_ID, TEMPLATE_ID, templateParams } from "./store";
+import { sendSuggestions } from "../../services/send-suggesstion";
 
 const WelcomeLogic = () => {
   const welcomeContainerEl = document.querySelector(".welcome-page");
@@ -23,7 +24,7 @@ const WelcomeLogic = () => {
         getSuggestionsStyle.display = "block";
 
       if (event.target.closest("#send_btn"))
-        !validationOfGetSuggestions() &&
+        !validationOfGetSuggestionsForm() &&
           openNotification("warning", "Please fill out the form correctly!");
 
       if (event.target.closest("#cancel_btn")) {
@@ -44,7 +45,7 @@ const WelcomeLogic = () => {
   }
 };
 
-const validationOfGetSuggestions = () => {
+const validationOfGetSuggestionsForm = () => {
   const userName = document.getElementById("user_name").value.trim();
   const userEmail = document.getElementById("user_email").value.trim();
   const userMessage = document.getElementById("user_message").value.trim();
@@ -59,17 +60,6 @@ const validationOfGetSuggestions = () => {
 
     return true;
   }
-};
-
-const sendSuggestions = (params) => {
-  emailjs
-    .send(SERVICE_ID, TEMPLATE_ID, params)
-    .then((res) => {
-      openNotification("success", "You have successfully sent your feedback!");
-    })
-    .catch((err) => {
-      openNotification("error", err);
-    });
 };
 
 export default WelcomeLogic;

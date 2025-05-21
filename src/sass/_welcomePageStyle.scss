@@ -199,12 +199,12 @@
   cursor: pointer;
   transition: all 0.15s ease-in-out;
   font-weight: 700;
-  font-size: 0.85rem;
+  font-size: 0.77rem;
   border: 1px solid $light-border-color;
 
   i {
     margin-left: 0.7rem;
-    font-size: 1rem;
+    font-size: 0.91rem;
   }
 
   &:hover {
@@ -213,33 +213,41 @@
 }
 
 .get-suggestions-form_div {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  padding: 1rem;
-  @include grid-center;
+  position: fixed;
+  bottom: 6rem;
+  right: 1.3rem;
   border-radius: 0.7rem;
+  max-width: 20rem;
   width: 100%;
-  height: 100%;
-  background-color: $light-optional-color;
-  display: none;
+  padding-inline: 0.5rem;
 
-  h3 {
-    margin-bottom: 1rem;
-    text-align: center;
+  // display: none;
+  background-color: $second-color;
+  border: 1px solid $light-border-color;
+
+  .feedback-header {
+    @include flex-space;
+    width: 100%;
+    padding: 0.4rem 0.7rem 0;
+
+    h3 {
+      font-size: 1.15rem;
+    }
+
+    img {
+      width: 2rem;
+    }
   }
 
   #get-suggestions-form {
-    max-width: 40rem;
-    margin: 7rem auto;
-    padding: 2rem;
-    background-color: $second-color;
-    border-radius: 7px;
-    color: $first-text;
+    width: 100%;
+    padding: 0.7rem 1rem;
+    display: grid;
+    gap: 1rem;
   }
   label {
     display: block;
+    font-size: 0.85rem;
   }
   input,
   textarea {
@@ -247,11 +255,10 @@
     padding: 0.6rem;
     width: 100%;
     resize: none;
-    outline: none;
-    border: none;
     border-radius: 7px;
     background-color: $first-color;
     color: $first-text;
+    font-size: 0.85rem;
   }
   textarea {
     line-height: 1.1rem;
@@ -259,14 +266,16 @@
   button {
     border: none;
     display: inline-block;
-    padding: 0.725rem 1.35rem;
-    background-color: $count-color;
-    border-radius: 3rem;
+    padding: 0.5rem 1rem;
+    background-color: transparent;
+    color: $first-text;
+    border-radius: 1.5rem;
+    border: 1px solid $light-optional-color;
     cursor: pointer;
-    font-size: clamp(0.75rem, 2.8vw, 0.9rem);
 
     i {
       margin-left: 0.3rem;
+      font-size: 0.67rem;
     }
 
     &:hover {
@@ -275,45 +284,26 @@
       scale: 1.02;
     }
   }
-  #get-suggestions-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      "name name"
-      "email email"
-      "message message"
-      "buttons buttons";
-    gap: 1.6rem;
-  }
-  .name-block {
-    grid-area: name;
-  }
-  .email-block {
-    grid-area: email;
-  }
-  .message-block {
-    grid-area: message;
-  }
-  .form-action-btns {
-    grid-area: buttons;
-    display: flex;
-    gap: 1rem;
 
-    button:nth-child(1) {
-      background-color: $second-text;
+  .form-action-btns {
+    @include flex-center;
+    column-gap: 0.7rem;
+
+    button:nth-child(2) {
+      background-color: $count-color;
       color: $first-color;
     }
   }
 
   @media screen and (min-width: 530px) {
-    #get-suggestions-form {
-      width: 100%;
-      grid-template-columns: 1fr 1fr;
-      grid-template-areas:
-        "name message"
-        "email message"
-        "buttons buttons";
-    }
+    // #get-suggestions-form {
+    //   // width: 100%;
+    //   // grid-template-columns: 1fr 1fr;
+    //   // grid-template-areas:
+    //   //   "name message"
+    //   //   "email message"
+    //   //   "buttons buttons";
+    // }
   }
 }
 
