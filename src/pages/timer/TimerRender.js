@@ -1,4 +1,4 @@
-import { getSuggestionsComponent } from "../welcome/WelcomeRender";
+import getSuggestionsComponent from "../../components/GetSuggesstion";
 
 const TimerRender = () => {
   return `

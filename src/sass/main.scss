@@ -8,6 +8,7 @@
 @import "navbarStyle";
 @import "TasksStyle";
 @import "dashboarStyle";
+@import "getSuggesstions";
 
 * {
   padding: 0;
@@ -205,7 +206,7 @@ body {
   }
 
   .get-suggestions-form_div {
-    bottom: 3rem;
+    bottom: 2rem;
   }
 
   .main-content {

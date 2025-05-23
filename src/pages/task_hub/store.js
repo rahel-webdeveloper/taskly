@@ -1,6 +1,6 @@
 import { atom } from "nanostores";
-import { updateViewOnTask } from "../../listTasks/ListTasksLogic";
-import { listTasks } from "../../listTasks/store";
+import { updateViewOnTask } from "../../tasks/ListTasksLogic";
+import { listTasks } from "../../tasks/store";
 import {
   priorityColors,
   priorityIcons,

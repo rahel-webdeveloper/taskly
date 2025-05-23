@@ -7,7 +7,7 @@
   --third-color: #292c38;
 
   --light-border-color: #8e8f952e;
-  --light-dark-blue-color: #3e425d31;
+  --dark-blue-color: #3e425d31;
   --backdrop-filter-color: #23242a3e;
 }
 
@@ -25,7 +25,7 @@ $third-color: var(--third-color);
 
 //  Lightness colors
 $light-border-color: var(--light-border-color);
-$light-dark-blue-color: var(--light-dark-blue-color);
+$dark-blue-color: var(--dark-blue-color);
 $backdrop-filter-color: var(--backdrop-filter-color);
 
 // Components colors
@@ -67,7 +67,7 @@ $light-optional-color: #b0bbbc62;
   //   --third-color: #d1d7db; /* Subtle grayish-blue background */
 
   //   --light-border-color: #d0d0d06d; /* Light gray borders for soft separation */
-  //   --light-dark-blue-color: #a6b3c0; /* Muted light blue for subtle emphasis */
+  //   --dark-blue-color: #a6b3c0; /* Muted light blue for subtle emphasis */
   //   --backdrop-filter-color: #b8b8b847; /* Slightly transparent white with blur */
   // }
 }

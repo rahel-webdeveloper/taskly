@@ -15,7 +15,7 @@ import html from "highlight.js/lib/languages/xml";
 import "highlight.js/styles/atom-one-dark.css";
 
 import { historyMessages, markdownText } from "./store";
-import { taskToAssistant } from "../../listTasks/store";
+import { taskToAssistant } from "../../tasks/store";
 import { deleteLocalStorage } from "../../data/localStorage";
 
 const converter = new Showdown.Converter({

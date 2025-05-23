@@ -1,4 +1,4 @@
-import ListTaskMain from "./listTasks/ListTaskMain";
+import ListTaskMain from "./tasks/ListTaskMain";
 import MainAIAdvice from "./pages/ai_advice/MainAIAdvice";
 import MainDashboard from "./pages/dashboard/MainDashboard";
 import MainTaskHub from "./pages/task_hub/MainTaskHub";

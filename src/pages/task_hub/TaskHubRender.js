@@ -1,7 +1,5 @@
-import TasksContainer, {
-  renderTodayDiv,
-} from "../../listTasks/ListTasksRender";
-import { getSuggestionsComponent } from "../welcome/WelcomeRender";
+import getSuggestionsComponent from "../../components/GetSuggesstion";
+import TasksContainer, { renderTodayDiv } from "../../tasks/ListTasksRender";
 
 // Const section main content
 export default function TaskHubRender() {

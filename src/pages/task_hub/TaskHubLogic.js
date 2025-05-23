@@ -1,7 +1,7 @@
 import flatpickr from "flatpickr";
 import "notyf/notyf.min.css";
-import { updateViewOnTask } from "../../listTasks/ListTasksLogic.js";
-import { listTasks, liveTasks } from "../../listTasks/store";
+import { updateViewOnTask } from "../../tasks/ListTasksLogic.js";
+import { listTasks, liveTasks } from "../../tasks/store.js";
 import { isDashboardOpen } from "../dashboard/MainDashboard.js";
 import {
   addTaskData,
