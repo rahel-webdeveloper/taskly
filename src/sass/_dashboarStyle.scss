@@ -237,3 +237,103 @@
     width: 100%;
   }
 }
+
+// Delete all complete tasks div style
+
+.all-delete-div {
+  @include grid-center;
+  position: absolute;
+  bottom: -0.0159rem;
+  left: 0;
+  background-color: $backdrop-filter-color;
+  width: 100%;
+  border-radius: 1.5rem 1.5rem 0rem 0rem;
+  border-top: 1px solid $light-border-color;
+  backdrop-filter: blur(7px);
+  padding-bottom: 1rem;
+  padding-top: 0.7rem;
+}
+
+.all-delete-btn {
+  @include grid-center;
+  border-radius: 1.7rem;
+  background-color: $btn-color;
+  cursor: pointer;
+  width: 2.8rem;
+  height: 2.7rem;
+  transition: opacity 0.3s;
+}
+
+.all-delte-icon {
+  width: 1.5rem;
+}
+
+.delete-ask-div {
+  @include abs-position;
+  top: -250%;
+  background-color: $backdrop-filter-color;
+  width: 20rem;
+  border-radius: 0.77rem;
+  text-align: center;
+  border: 1px solid $light-border-color;
+  backdrop-filter: blur(10px);
+  padding: 0.7rem;
+  color: $first-text;
+  display: none;
+
+  h3 {
+    margin-bottom: 0.7rem;
+    font-weight: 550;
+    font-size: 1.12rem;
+  }
+}
+
+#exclamation-icon i {
+  display: block;
+  margin-top: 1rem;
+  margin-bottom: 0.7rem;
+  color: $delete-color;
+  font-size: 2.5rem;
+}
+
+.ask-div-header {
+  font-size: 0.75rem;
+  margin-bottom: 1rem;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.ask-btns {
+  margin-bottom: 0.3rem;
+  @include flex-center;
+  gap: 0.77rem;
+}
+
+.ask-btn {
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0.45rem 1.6rem;
+  font-size: 0.77rem;
+  border-radius: 2rem;
+  transition: opacity 0.4s;
+  color: $first-text;
+}
+
+#no {
+  background-color: $second-text;
+  color: $first-color;
+}
+#yes {
+  background-color: $btn-color;
+}
+
+.all-delete-btn:hover,
+.ask-btn:hover {
+  opacity: 0.85;
+}
+
+.all-delete-btn:active,
+.ask-btn:active {
+  transition: transform 0.7s ease-in;
+  scale: 0.87;
+}

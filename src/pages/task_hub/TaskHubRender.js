@@ -1,5 +1,6 @@
 import getSuggestionsComponent from "../../components/GetSuggesstion";
-import TasksContainer, { renderTodayDiv } from "../../tasks/ListTasksRender";
+import TodaysReportDiv from "../../components/Today'sReportDiv";
+import TasksContainer from "../../tasks/ListTasksRender";
 
 // Const section main content
 export default function TaskHubRender() {
@@ -95,7 +96,7 @@ export default function TaskHubRender() {
       </section>
       <section class="third-section">
 
-        ${renderTodayDiv()}
+        ${TodaysReportDiv()}
 
       </section>
     </div>

@@ -117,7 +117,7 @@ const eventsHandler = (event) => {
     const askDiv = document.querySelector(".delete-ask-div");
     const askDivStyle = askDiv.style;
 
-    if (target.closest(".all-delte-btn") && listTasks.get().length !== 0)
+    if (target.closest(".all-delete-btn") && listTasks.get().length !== 0)
       askDivStyle.display = "block";
 
     if (target.closest("#no")) {

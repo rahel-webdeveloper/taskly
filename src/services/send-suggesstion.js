@@ -6,12 +6,14 @@ export const SERVICE_ID = import.meta.env.VITE_SERVICE_ID;
 export const TEMPLATE_ID = import.meta.env.VITE_TEMPLATE_ID;
 export const PUBLIC_KEY = import.meta.env.VITE_PUBLIC_KEY;
 
+// Suggestions Params
 export const templateParams = atom({
   user_name: "",
   user_email: "",
   user_message: "",
 });
 
+// Dynamic UI of Send Suggestions component
 const SendSuggestionMain = () => {
   document.addEventListener("DOMContentLoaded", () => {
     const sendSuggesstionsContainer = document.querySelector(
@@ -56,6 +58,7 @@ const SendSuggestionMain = () => {
   });
 };
 
+// Validate the Suggestion form data
 const validationOfGetSuggestionsForm = () => {
   const userName = document.getElementById("user_name").value.trim();
   const userEmail = document.getElementById("user_email").value.trim();
@@ -73,6 +76,7 @@ const validationOfGetSuggestionsForm = () => {
   }
 };
 
+// Send Suggestion to the selected email through email.js
 export const sendSuggestions = (params) => {
   emailjs
     .send(SERVICE_ID, TEMPLATE_ID, params)

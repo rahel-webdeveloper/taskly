@@ -1,5 +1,6 @@
 import getSuggestionsComponent from "../../components/GetSuggesstion";
-import TasksContainer, { renderTodayDiv } from "../../tasks/ListTasksRender";
+import TodaysReportDiv from "../../components/Today'sReportDiv";
+import TasksContainer from "../../tasks/ListTasksRender";
 
 const DashboardRender = () => {
   return `
@@ -70,14 +71,14 @@ const DashboardRender = () => {
        </div>
       </div>
 
-      
-
-      <div class="dashboard_tasks-list">
+    
+       <div class="dashboard_tasks-list">
         ${TasksContainer()}
+       </div>
+      
       </div>
-
-      ${renderTodayDiv()}
-
+      ${TodaysReportDiv()}
+      
   </div>
 
   ${getSuggestionsComponent()}

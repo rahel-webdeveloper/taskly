@@ -126,7 +126,7 @@ body {
     grid-template-columns: 1fr 1.77fr 1fr 1fr;
     grid-auto-rows: min-content;
     grid-template-areas:
-      "tasks tasks tasks todayreport "
+      "tasks tasks tasks todayreport"
       "category category statetrack statetrack"
       "category category statetrack statetrack"
       "days days . .";
