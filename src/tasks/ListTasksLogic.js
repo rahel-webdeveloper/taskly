@@ -99,7 +99,7 @@ const eventsHandler = (event) => {
   if (!panelSort.contains(target)) panelSortControls.style.display = "none";
 
   filterControlsOptions.forEach((option, idx) => {
-    option.addEventListener("click", function () {
+    option.addEventListener("click", () => {
       // Filter tasks
       implementFilter(
         !isDashboardOpen.get() ? liveTasks.get() : listTasks.get(),

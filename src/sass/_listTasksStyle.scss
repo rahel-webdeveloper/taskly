@@ -17,6 +17,7 @@
 
 .filter-sort_div {
   @include flex-center;
+  gap: 0.25rem;
 }
 
 /* Custom select */
@@ -29,12 +30,13 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-  column-gap: 6px;
+  column-gap: 7px;
   color: $first-text;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   border-radius: 1rem;
-  border: 1px solid #bbbcc900;
+  border: 1px solid rgba(255, 255, 255, 0);
   transition: all 0.3s;
+  background-color: $third-color;
 }
 
 .panel--filter {
@@ -135,7 +137,7 @@
 /* List of task */
 .task-list-div {
   list-style: none;
-  height: 25rem;
+  height: 20rem;
   overflow: auto;
   position: relative;
   scrollbar-width: none;

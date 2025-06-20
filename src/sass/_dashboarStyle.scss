@@ -45,7 +45,7 @@
     }
 
     p {
-      font-size: 0.65rem;
+      font-size: 0.73rem;
       font-weight: 600;
       color: $second-text;
 
@@ -64,20 +64,21 @@
   .category-chart {
     i {
       color: $moderate-color;
+      font-size: 1rem;
     }
   }
 
   .seven-days-chart {
     i {
       color: $low-color;
-      font-size: 1rem;
+      font-size: 1.2rem;
     }
   }
 
   .state-details {
     i {
-      color: $btn-color;
-      font-size: 1rem;
+      color: $count-color;
+      font-size: 1.12rem;
     }
   }
 

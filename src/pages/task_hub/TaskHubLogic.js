@@ -10,6 +10,7 @@ import {
   checkTimeAllDay,
   dueDateTime,
   isScrolledToLeft,
+  notifiedTasks,
   priority,
   setPriorityData,
   startDateTime,
@@ -132,7 +133,6 @@ export const useFlatepickr = () => {
   let starteDateTimeConfig = {
     enableTime: true,
     noCalendar: true,
-    // enableSeconds: true,
     dateFormat: "h:i K",
     time_24hr: false,
     disableMobile: true,
@@ -287,18 +287,14 @@ const timeValidation = () => {
 export function nullValidation(elementValue, erroreEl) {
   if (!elementValue) {
     erroreEl.style.opacity = "1";
-
     return false;
   } else {
     erroreEl.style.opacity = "0";
-
     return true;
   }
 }
 
 // Card logic
-
-const notifiedTasks = new Set();
 
 export const liveTrackTasks = () => {
   const durationInterval = setInterval(() => {
@@ -311,7 +307,7 @@ export const liveTrackTasks = () => {
       liveTasks.get().length === 0 && clearInterval(durationInterval);
 
       if (dueDateTime > now) {
-        // add notification when the task is started
+        // Give notification when the task is started
         if (
           Math.floor(now / 10000) >= Math.floor(startDateTime / 10000) &&
           !notifiedTasks.has(task.id)
@@ -326,7 +322,7 @@ export const liveTrackTasks = () => {
         if (now > startDateTime) {
           const remainingTime = dueDateTime - now;
 
-          timerCardUI(task, index, remainingTime);
+          cardTimerUI(task, index, remainingTime);
         }
       }
     });
@@ -335,7 +331,7 @@ export const liveTrackTasks = () => {
   addToDetailsCard(!isDashboardOpen.get() ? liveTasks.get() : listTasks.get());
 };
 
-const timerCardUI = (task, index, remainingTime) => {
+const cardTimerUI = (task, index, remainingTime) => {
   const startLabels = document.querySelectorAll(".start-label");
   const timeElements = document.querySelectorAll(".start-time");
   const remainingTimeElements = document.querySelectorAll(".duration");

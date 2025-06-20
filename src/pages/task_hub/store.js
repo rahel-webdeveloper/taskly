@@ -25,6 +25,8 @@ export const dueDateTime = atom(0);
 
 export const durationMinutes = atom(0);
 
+export const notifiedTasks = new Set();
+
 export const checkTimeAllDay = () => {
   const toggle_El_Time_AllDay = document.getElementById("checkbox");
 
