@@ -12,6 +12,7 @@ export const isTasksPageOpen = atom(false);
 export const check_Time_AllDay = atom(false);
 export const isScrolledToLeft = atom(false);
 
+export const taskTitle = atom("");
 export const taskDescription = atom("");
 export const category = atom("");
 export const priority = atom({

@@ -15,6 +15,7 @@ import {
   setPriorityData,
   startDateTime,
   taskDescription,
+  taskTitle,
 } from "./store.js";
 import { addToDetailsCard } from "./TaskHubRender.js";
 import openNotification from "../../services/toastNotifications.js";
@@ -39,7 +40,7 @@ const addTaskToggleAndEvents = (event) => {
 
   const target = event.target;
 
-  if (target.closest("#add-task-icon i")) {
+  if (addTaskIcon.contains(target)) {
     const formStyle = formContainer.style.display;
 
     if (window.innerWidth < 1024) {
@@ -58,9 +59,10 @@ const addTaskToggleAndEvents = (event) => {
     openNotification("warning", "Please fill out the form!");
 };
 
-const styleForAddTask = () => {
+const styleAddTaskBaseOnScreeen = () => {
   const addTaskIcon = document.querySelector("#add-task-icon i");
   const formContainer = document.querySelector(".form-container");
+
   if (addTaskIcon) {
     if (window.innerWidth >= 1024) {
       addTaskIcon.classList.remove("bi-x");
@@ -73,7 +75,7 @@ const styleForAddTask = () => {
   }
 };
 
-window.addEventListener("resize", styleForAddTask);
+window.addEventListener("resize", styleAddTaskBaseOnScreeen);
 
 // Scroll to end of cards
 const scrollToEndCard = () => {
@@ -187,33 +189,44 @@ export const useFlatepickr = () => {
 
 // Validation of data
 const validationOfFormData = () => {
-  const desErrEl = document.getElementById("description-error");
+  const titleErrEl = document.getElementById("title-error");
   const cateErrEl = document.getElementById("category-error");
+  const desErrEl = document.getElementById("description-error");
   const prioErrEl = document.getElementById("priority-error-message");
 
-  const tasDescriptionValue = document.getElementById("task-description").value;
+  const titleValue = document.getElementById("task-title").value;
+  const descriptionValue = document.getElementById("task-description").value;
   const categoryValue = document.getElementById("category").value;
 
-  // description
-  if (tasDescriptionValue.length < 7) {
-    desErrEl.style.opacity = "1";
+  if (titleValue.length < 3) {
+    titleErrEl.style.opacity = "1";
 
     return false;
-  } else if (tasDescriptionValue.length >= 85) {
-    desErrEl.style.opacity = "1";
-    desErrEl.textContent = "The description must be less than 85 characters.";
+  } else if (titleValue.length > 27) {
+    titleErrEl.style.opacity = "1";
 
     return false;
   } else {
-    taskDescription.set(tasDescriptionValue.trim());
+    taskTitle.set(titleValue);
+    titleErrEl.style.opacity = "0";
+  }
+
+  if (descriptionValue.length < 9) {
+    desErrEl.style.opacity = "1";
+
+    return false;
+  } else {
+    taskDescription.set(descriptionValue.trim());
     desErrEl.style.opacity = "0";
   }
 
   if (
+    nullValidation(titleValue, titleErrEl) &&
     nullValidation(categoryValue, cateErrEl) &&
     nullValidation(priority.get().level, prioErrEl) &&
     timeValidation()
   ) {
+    taskTitle.set(titleValue);
     category.set(categoryValue);
 
     return true;
@@ -260,15 +273,13 @@ const timeValidation = () => {
   } else if (startDateTime < now || dueDateTimeValue < now) {
     timeErrEl.style.opacity = "1";
 
-    timeErrEl.textContent =
-      "Start datetime and due datetime should be greather than now!";
+    timeErrEl.textContent = "Start and due time should be greather than now!";
 
     return false;
   } else if (startDateTime > dueDateTime) {
     timeErrEl.style.opacity = "1";
 
-    timeErrEl.textContent =
-      "The due datetime must be greather than start date & time!";
+    timeErrEl.textContent = "Due time must be greather than start time!";
 
     return false;
   } else if (startDateTime === dueDateTime) {
@@ -287,9 +298,11 @@ const timeValidation = () => {
 export function nullValidation(elementValue, erroreEl) {
   if (!elementValue) {
     erroreEl.style.opacity = "1";
+
     return false;
   } else {
     erroreEl.style.opacity = "0";
+
     return true;
   }
 }

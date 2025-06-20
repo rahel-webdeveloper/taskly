@@ -13,7 +13,7 @@ export default function TaskHubRender() {
     </section>
     <section class="second-section">
       <div class="top-of-card">
-        <label for="task-description" title="Add new task" id="add-task-icon"><i class="bi bi-plus"></i></label>
+        <label for="task-title" title="Add new task" id="add-task-icon"><i class="bi bi-plus"></i></label>
         <a id="scroll-end-icon" title="Scroll left and right of cards" href="#last-card"><i class="bi bi-align-end"></i></a>
       </div>
       <div class="card-container">
@@ -40,7 +40,7 @@ const taskForm = () => {
         <label for="task-title" id="title-label">Title</label>
         <input type="text" id="task-title" name="title" minlength="7" maxlength="85"
         placeholder="Write your task title..." required></input>
-        <p class="error-message" id="description-error">The title must be at least 3 characters.</p>
+        <p class="error-message" id="title-error">The title must be at least 3 characters.</p>
       </div>
       <div class="form-column">
         <label for="category" id="select-label">Category</label>
@@ -65,13 +65,13 @@ const taskForm = () => {
       <label for="task-description" id="description-label">Description</label>
       <textarea id="task-description" name="description" rows="7" min="9"
         placeholder="Write your task description or let Taskly to generate for you." required></textarea>
-      <p class="error-message" id="description-error">The description must be at least 7 characters.</p>
+      <p class="error-message" id="description-error">The description must be at least 9 characters.</p>
     </div>
     
     <div class="form-row">
       <div class="form-column" id="start-datetime_div">
         <label for="start_date-time" id="start-time-label">Start Time</label>
-        <div class="time-input" >
+        <div class="time-input">
           <i class="bi bi-clock"></i>
           <input type="" id="start_date-time" class="" data-input name="startHour" title="Enter your task start time."
             placeholder="Enter your start datetime." required>
@@ -121,14 +121,14 @@ const taskForm = () => {
   `;
 };
 
-export function addToDetailsCard(live_tasks) {
+export function addToDetailsCard(liveTasks) {
   const parentCardEl = document.getElementById("details_cards");
 
   if (parentCardEl) {
     parentCardEl.innerHTML = "";
 
-    if (live_tasks.length !== 0) {
-      live_tasks.forEach((task) => {
+    if (liveTasks.length !== 0) {
+      liveTasks.forEach((task) => {
         parentCardEl.innerHTML += `
 
     <div class="details-card" style = "background-color: ${
@@ -193,7 +193,7 @@ export function addToDetailsCard(live_tasks) {
   `;
 
         parentCardEl.style.gridTemplateColumns = `repeat(${
-          live_tasks.length + 1
+          liveTasks.length + 1
         }, 1fr)`;
       });
     } else {
@@ -201,7 +201,7 @@ export function addToDetailsCard(live_tasks) {
 
       // Style base on overflow
       const emptyCard = document.querySelector(".empty-card");
-      live_tasks.length === 0
+      liveTasks.length === 0
         ? (emptyCard.style.margin = ".5rem")
         : (emptyCard.style.margin = "0rem");
     }
