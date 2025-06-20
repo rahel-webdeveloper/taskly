@@ -9,7 +9,7 @@
   padding: 0.7rem 1.7rem;
   backdrop-filter: blur(9px);
   overflow: hidden;
-  border: 1px solid $light-border-color;
+  border: 1px solid $border-color-transparent-2;
 }
 
 .navbar-header::after {
@@ -35,7 +35,7 @@
 }
 
 .sign-in-btn {
-  background-color: $light-high-color;
+  background-color: $high-color-transparent-4;
   padding: 0.59rem 1.27rem;
   font-family: inherit;
   color: $first-text;
@@ -65,7 +65,7 @@
   max-width: 30rem;
   width: 90%;
   column-gap: 0.75rem;
-  border: 1px solid $light-border-color;
+  border: 1px solid $border-color-transparent-2;
   transform-origin: left;
   transition: scale 0.3s ease-in-out;
 }
@@ -95,7 +95,7 @@
 
 .navbar-links a:hover {
   transition: all 0.4s ease-in;
-  background-color: $light-high-color;
+  background-color: $high-color-transparent-4;
   padding: 0.12rem 0.5rem;
   border-radius: 1rem;
 
@@ -109,7 +109,7 @@
 
 .active-link {
   transition: all 0.3s ease-in;
-  background-color: $light-high-color;
+  background-color: $high-color-transparent-4;
   padding: 0.1rem 0.5rem;
   border-radius: 1rem;
 

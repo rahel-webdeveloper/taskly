@@ -56,7 +56,7 @@
 }
 
 #task-description:focus {
-  border: 1px solid $light-optional-color;
+  border: 1px solid $optional-color-transparent-4;
 }
 
 .form #category {
@@ -145,7 +145,7 @@ input[type="number"] {
   position: relative;
   width: 6.89rem;
   height: 2rem;
-  border: 1px solid $light-border-color;
+  border: 1px solid $border-color-transparent-2;
   border-radius: 1rem;
   margin-top: 0.5rem;
   cursor: pointer;
@@ -173,7 +173,7 @@ input[type="number"] {
 
 .checkmark:nth-child(2) {
   left: 27%;
-  background-color: $light-optional-color;
+  background-color: $optional-color-transparent-4;
   background-color: $low-color;
   color: $first-color;
 }
@@ -185,7 +185,7 @@ input[type="number"] {
 
 .switch-time-allDay input[type="checkbox"]:checked ~ .checkmark:nth-child(3) {
   border-radius: 1rem;
-  background-color: $light-optional-color;
+  background-color: $optional-color-transparent-4;
   background-color: $moderate-color;
   color: $first-color;
 }
@@ -328,7 +328,7 @@ input[type="number"] {
   width: 100%;
   border-bottom-right-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
-  border-top: 1px solid $dark-blue-color;
+  border-top: 1px solid $dark-blue-color-transparent-2;
 }
 
 .today-report-div {
@@ -405,9 +405,9 @@ input[type="number"] {
     max-width: 680px;
     width: 95%;
     top: 34.5%;
-    border: 1px solid $light-border-color;
+    border: 1px solid $border-color-transparent-2;
     border-radius: 0.7rem;
-    background-color: $backdrop-filter-color;
+    background-color: $backdrop-filter-color-transparent-2;
     backdrop-filter: blur(37px);
     overflow: hidden;
     display: none;

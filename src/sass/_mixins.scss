@@ -20,7 +20,7 @@
   z-index: 1;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: $backdrop-filter-color;
+  background-color: $backdrop-filter-color-transparent-2;
   @include flex-space;
 }
 

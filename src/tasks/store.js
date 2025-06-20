@@ -1,7 +1,10 @@
 import { atom } from "nanostores";
 import { loadLocalStorage, saveLocalStorage } from "../data/localStorage.js";
 import tasks from "../data/tasks.js";
-import { updateViewOnTask } from "./ListTasksLogic.js";
+import {
+  addStyleToFilterControls,
+  updateViewOnTask,
+} from "./ListTasksLogic.js";
 import { addTaskToList, updateTaskCount } from "./ListTasksRender.js";
 import { addToDetailsCard } from "../pages/task_hub/TaskHubRender.js";
 
@@ -11,7 +14,7 @@ export const listTasks = atom(loadLocalStorage("listTask") || tasks);
 export const todayTasks = atom([]);
 export const liveTasks = atom([]);
 
-export const tasksState = atom("all");
+export const filterState = atom("all");
 export const visibleTasks = atom([]);
 
 export const taskToAssistant = atom(
@@ -113,14 +116,14 @@ export const saveEditedTask = (editInput, editBox) => {
   updateViewOnTask();
 };
 
-// Get state for filter
-
-export const onSelectedState = (tasks, state) => {
-  tasksState.set(state);
+// Implement filter base on state
+export const implementFilter = (tasks, state) => {
+  filterState.set(state);
   visibleTasks.set(getFilterTasks(tasks, state));
 
   updateTaskCount(tasks, visibleTasks.get().length);
   addTaskToList(visibleTasks.get());
+  addStyleToFilterControls();
 };
 
 const getFilterTasks = (tasks, state) => {

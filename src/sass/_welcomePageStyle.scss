@@ -115,10 +115,10 @@
   @include flex-center;
   flex-direction: column;
   gap: 2rem;
-  background-color: $backdrop-filter-color;
+  background-color: $backdrop-filter-color-transparent-2;
   backdrop-filter: blur(7px);
   padding: 1.5rem;
-  border: 1px solid $light-border-color;
+  border: 1px solid $border-color-transparent-2;
   color: $first-text;
   font-family: "bootstrap-icons", $karla-font;
 

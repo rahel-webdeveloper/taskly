@@ -15,57 +15,106 @@
   margin: 0.7rem;
 }
 
+.filter-sort_div {
+  @include flex-center;
+}
+
 /* Custom select */
-.custom-select {
+.panel {
   position: relative;
 }
 
-.custom-select .selected-option {
+.panel--filter,
+.panel--sort {
   cursor: pointer;
   display: flex;
-  column-gap: 3px;
+  align-items: center;
+  column-gap: 6px;
   color: $first-text;
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   border-radius: 1rem;
-  padding: 4px 9px;
-  border: 1px solid #bbbcc930;
+  border: 1px solid #bbbcc900;
   transition: all 0.3s;
 }
 
-.custom-select:hover .selected-option {
-  background-color: $first-color;
+.panel--filter {
+  padding: 4.5px 9px;
 }
 
-.selected-option .filter-icon {
-  width: 0.75rem;
-  fill: $orange-color;
+.panel--sort {
+  padding: 1px 9px;
+  margin-left: 0.3rem;
 }
 
-.custom-select .filter-list {
+.panel:hover .panel--filter {
+  background-color: $orange-color-transparent-2;
+  border-color: $border-color-transparent-2;
+}
+.panel:hover .panel--sort {
+  background-color: $hotpink-color-transparent-2;
+  border-color: $border-color-transparent-2;
+}
+
+.filter-icon {
+  font-size: 1rem;
+  color: $orange-color;
+}
+.sort-icon {
+  font-size: 1.37rem;
+  color: $hotpink-color;
+}
+
+.panel__controls-div {
   font-size: 0.8rem;
-  padding: 0.37rem;
+  padding: 0.7rem;
   position: absolute;
-  top: 1.632rem;
-  text-align: start;
-  background-color: #3e425d3a;
+  top: 2.25rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+  text-align: center;
+  background-color: $backdrop-filter-color-transparent-2;
   backdrop-filter: blur(4px);
   display: none;
-  border: 1px solid #bbbcc930;
+  border: 1px solid $border-color-transparent-2;
   z-index: 10;
-  border-radius: 1rem;
-  width: 7.7rem;
+  border-radius: 0.5rem;
   line-height: 1.5;
 }
 
-.filter-list .option {
+#panel_filter .option,
+#panel_sort .option {
   cursor: pointer;
-  display: block;
+  padding: 0.3rem;
+  width: 4.5rem;
+  border-radius: 0.25rem;
+  background-color: $border-color-transparent-2;
+
+  h5 {
+    font-size: 0.7rem;
+  }
+  i {
+    font-size: 0.95rem;
+  }
 }
 
-.filter-list span:hover {
-  background-color: $first-color;
-  padding-left: 0.5rem;
-  border-radius: 1rem;
+#panel_filter .option:hover {
+  background-color: $orange-color-transparent-2;
+  color: $orange-color;
+}
+
+#panel_sort .option:hover {
+  background-color: $hotpink-color-transparent-2;
+  color: $hotpink-color;
+}
+
+#panel_filter .added__filter {
+  background-color: $orange-color-transparent-2;
+  color: $orange-color;
+}
+
+#panel_sort .added__sort {
+  background-color: $hotpink-color-transparent-2;
+  color: $hotpink-color;
 }
 
 .task-length {
@@ -213,12 +262,12 @@
 
 .done .check-icon {
   color: $second-color;
-  outline: 4px solid $light-checked-color;
+  outline: 4px solid $checked-color-transparent-2;
   background-color: $checked-color;
 }
 
 .done .delete-icon {
-  outline: 4px solid $light-delete-color;
+  outline: 4px solid $delete-color-transparent-2;
   background-color: $delete-color;
   padding: 1.5px 2px 0.5px;
 }
@@ -242,7 +291,7 @@
   row-gap: 0.77rem;
   border-radius: 0.5rem;
   backdrop-filter: blur(9px);
-  border: 1px solid $light-border-color;
+  border: 1px solid $border-color-transparent-2;
   padding: 0.5rem;
   color: $first-text;
   display: none;
@@ -256,7 +305,7 @@
   font-family: inherit;
   font-size: 0.97rem;
   margin-right: 0.6rem;
-  border-bottom: 1px solid $light-border-color;
+  border-bottom: 1px solid $border-color-transparent-2;
 }
 
 .edit-result-btns {

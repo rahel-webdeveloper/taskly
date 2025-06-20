@@ -1,7 +1,7 @@
 import { saveLocalStorage } from "../data/localStorage";
 import { isDashboardOpen } from "../pages/dashboard/MainDashboard";
 import openNotification from "../services/toastNotifications";
-import { addAngleBracket, updateTaskCount } from "./ListTasksRender";
+import { updateTaskCount } from "./ListTasksRender";
 import {
   completingTask,
   deletingCompleteTasks,
@@ -10,11 +10,11 @@ import {
   Id,
   listTasks,
   liveTasks,
-  onSelectedState,
+  implementFilter,
   saveEditedTask,
   setLiveTasks,
   setTaskToAssitant,
-  tasksState,
+  filterState,
   todayTasks,
   visibleTasks,
 } from "./store";
@@ -28,18 +28,25 @@ const ListTasksLogic = () => {
       // DashboardLogic();
     });
 
-  onSelectedState(
+  implementFilter(
     !isDashboardOpen.get() ? liveTasks.get() : listTasks.get(),
-    tasksState.get()
+    filterState.get()
   );
 };
 
 // Events handler function
 const eventsHandler = (event) => {
-  const customSelect = document.getElementById("custom_select");
-  const filterList = document.getElementById("filter_list");
-  const filterOptions = document.querySelectorAll(".option");
-  const filterNameShowEl = document.querySelector(".state-name");
+  const panelFilter = document.getElementById("panel_filter");
+  const panelSort = document.getElementById("panel_sort");
+
+  const panelFilterControls = document.getElementById("panel__filter_controls");
+  const filterControlsOptions = document.querySelectorAll(
+    "#panel_filter .option"
+  );
+
+  const sortControlsOptions = document.querySelectorAll("#panel_sort .option");
+
+  const panelSortControls = document.getElementById("panel__sort_controls");
 
   const editBox = document.querySelector(".task-edit-box");
   const editInput = document.getElementById("task-edit-input");
@@ -79,40 +86,32 @@ const eventsHandler = (event) => {
     openNotification("error", "Your edited task cancelled!");
   }
 
-  // Toggle filter box
-  if (target.closest(".selected-option"))
-    filterList.style.display =
-      filterList.style.display === "block" ? "none" : "block";
+  // Show filter panel
+  if (target.closest(".panel--filter"))
+    panelFilterControls.style.display = "grid";
 
-  // Hide filter box because of out event
-  if (!customSelect.contains(target)) filterList.style.display = "none";
+  // Show sort panel
+  if (target.closest(".panel--sort")) panelSortControls.style.display = "grid";
 
-  filterOptions.forEach((option) => {
+  // Hide filter panel and sort panel because of out event
+  if (!panelFilter.contains(target)) panelFilterControls.style.display = "none";
+
+  if (!panelSort.contains(target)) panelSortControls.style.display = "none";
+
+  filterControlsOptions.forEach((option, idx) => {
     option.addEventListener("click", function () {
-      filterNameShowEl.textContent = `${
-        (option.dataset.value === "all" && "All") ||
-        (option.dataset.value === "done" && "Done") ||
-        (option.dataset.value === "in-progress" && "In progress") ||
-        (option.dataset.value === "on-hold" && "On hold")
-      } Tasks`;
-      filterNameShowEl.dataset.value = option.dataset.value;
-
-      onSelectedState(
+      // Filter tasks
+      implementFilter(
         !isDashboardOpen.get() ? liveTasks.get() : listTasks.get(),
         option.dataset.value
       );
+      addStyleToFilterControls(idx);
 
-      filterList.style.display = "none";
-
-      // Adding the angle brackets
-      addAngleBracket(
-        filterOptions,
-        option.dataset.value,
-        filterNameShowEl.dataset.value
-      );
+      panelFilterControls.style.display = "none";
     });
   });
 
+  // If user was on dashboard page then add the delete complete tasks component
   if (isDashboardOpen.get()) {
     const askDiv = document.querySelector(".delete-ask-div");
     const askDivStyle = askDiv.style;
@@ -133,6 +132,21 @@ const eventsHandler = (event) => {
       openNotification("success", "You deleted all your done tasks!");
     }
   }
+};
+
+// Add style base on tasks filter
+export const addStyleToFilterControls = (idx = 0) => {
+  const filterControlsOptions = document.querySelectorAll(
+    "#panel__filter_controls .option"
+  );
+
+  filterControlsOptions[idx];
+
+  filterControlsOptions.forEach((option, index) => {
+    idx === index
+      ? option.classList.add("added__filter")
+      : option.classList.remove("added__filter");
+  });
 };
 
 // today's report
@@ -169,9 +183,9 @@ export const todayReport = (todayTasks) => {
 export function updateViewOnTask() {
   setLiveTasks(listTasks.get());
 
-  onSelectedState(
+  implementFilter(
     !isDashboardOpen.get() ? liveTasks.get() : listTasks.get(),
-    tasksState.get()
+    filterState.get()
   );
 
   saveLocalStorage(listTasks.get(), "listTask");

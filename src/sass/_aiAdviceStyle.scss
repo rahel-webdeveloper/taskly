@@ -21,8 +21,8 @@
     color: $second-text;
     background: linear-gradient(
       to bottom right,
-      $light-border-color,
-      $dark-blue-color
+      $border-color-transparent-2,
+      $dark-blue-color-transparent-2
     );
     border-radius: 0.7rem;
     padding: 0.5rem 0.787rem;
@@ -39,7 +39,7 @@
   h1 {
     background: linear-gradient(
       to bottom right,
-      $light-checked-color 5%,
+      $checked-color-transparent-2 5%,
       $first-text 95%
     );
     -webkit-background-clip: text;
@@ -69,7 +69,7 @@
   border-radius: 2rem;
   @include flex-space;
   gap: 1rem;
-  border: 1px solid $light-border-color;
+  border: 1px solid $border-color-transparent-2;
   z-index: 4;
   transition: all 0.167s ease-in-out;
 
@@ -115,11 +115,11 @@
   font-size: 0.94rem;
   place-self: center;
   color: $delete-color;
-  border: 1px solid $light-delete-color;
+  border: 1px solid $delete-color-transparent-2;
   width: max-content;
   padding: 0.7rem 1rem;
   border-radius: 0.7em;
-  background-color: $dark-delete-color;
+  background-color: $dark-delete-color-transparent-4;
   margin-top: 0.7rem;
 }
 
@@ -127,7 +127,7 @@
   @include grid-center;
   place-self: center;
   color: $first-text;
-  border: 1px solid $light-border-color;
+  border: 1px solid $border-color-transparent-2;
   width: max-content;
   padding: 1rem 1rem 0.5rem;
   border-radius: 2em;
@@ -146,7 +146,7 @@
   width: 9px;
   height: 9px;
   border-radius: 50%;
-  background-color: $light-optional-color;
+  background-color: $optional-color-transparent-4;
   opacity: 0.7;
 }
 

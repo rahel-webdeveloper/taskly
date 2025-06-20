@@ -6,9 +6,9 @@
   --second-color: #1a1d27;
   --third-color: #292c38;
 
-  --light-border-color: #8e8f952e;
-  --dark-blue-color: #3e425d31;
-  --backdrop-filter-color: #23242a3e;
+  --light-border-color-transparent-2: rgba(142, 143, 149, 0.18);
+  --dark-blue-color-transparent-2: rgba(62, 66, 93, 0.192);
+  --backdrop-filter-color-transparent-2: rgba(35, 36, 42, 0.243);
 }
 
 // Fonts
@@ -24,9 +24,11 @@ $second-color: var(--second-color);
 $third-color: var(--third-color);
 
 //  Lightness colors
-$light-border-color: var(--light-border-color);
-$dark-blue-color: var(--dark-blue-color);
-$backdrop-filter-color: var(--backdrop-filter-color);
+$border-color-transparent-2: var(--light-border-color-transparent-2);
+$dark-blue-color-transparent-2: var(--dark-blue-color-transparent-2);
+$backdrop-filter-color-transparent-2: var(
+  --backdrop-filter-color-transparent-2
+);
 
 // Components colors
 $btn-color: rgb(131, 115, 161);
@@ -34,28 +36,31 @@ $checked-color: rgb(132, 214, 184);
 $delete-color: rgb(237, 88, 95);
 $count-color: rgb(106, 179, 203);
 $orange-color: rgb(237, 192, 123);
+$hotpink-color: rgb(255, 105, 180);
 
 $light-blue-color: rgb(202, 242, 247);
 $yellow-color: rgb(255, 224, 131);
 
 // light components color
-$light-checked-color: #84d6b831;
-$light-delete-color: #ff72723e;
-$dark-delete-color: #411e1e6a;
+$checked-color-transparent-2: rgba($checked-color, 0.192);
+$delete-color-transparent-2: rgba(255, 114, 114, 0.243);
+$dark-delete-color-transparent-4: rgba(65, 30, 30, 0.416);
+$orange-color-transparent-2: rgba($orange-color, 0.15);
+$hotpink-color-transparent-2: rgba($hotpink-color, 0.15);
 
 // Priorities colors
-$critical-color: #cb9ca3;
+$critical-color: rgb(203, 156, 163);
 $high-color: rgb(187, 178, 204);
 $moderate-color: rgb(244, 197, 127);
 $low-color: rgb(134, 181, 178);
 $optional-color: rgb(176, 187, 188);
 
 // Light priority colors
-$light-critical-color: #cb9ca369;
-$light-high-color: rgba(187, 178, 204, 0.416);
-$light-moderate-color: #e4b8756f;
-$light-low-color: rgba(134, 181, 178, 0.396);
-$light-optional-color: #b0bbbc62;
+$critical-color-transparent-4: rgba($critical-color, 0.412);
+$high-color-transparent-4: rgba($high-color, 0.416);
+$moderate-color-transparent-4: rgba($moderate-color, 0.435);
+$low-color-transparent-4: rgba($low-color, 0.396);
+$optional-color-transparent-4: rgba($optional-color, 0.384);
 
 @media (prefers-color-scheme: dark) {
   // :root {
@@ -66,8 +71,8 @@ $light-optional-color: #b0bbbc62;
   //   --second-color: #cdcdce; /* Soft light gray background */
   //   --third-color: #d1d7db; /* Subtle grayish-blue background */
 
-  //   --light-border-color: #d0d0d06d; /* Light gray borders for soft separation */
-  //   --dark-blue-color: #a6b3c0; /* Muted light blue for subtle emphasis */
-  //   --backdrop-filter-color: #b8b8b847; /* Slightly transparent white with blur */
+  //   --light-border-color-transparent-2: #d0d0d06d; /* Light gray borders for soft separation */
+  //   --dark-blue-color-transparent-2: #a6b3c0; /* Muted light blue for subtle emphasis */
+  //   --backdrop-filter-color-transparent-2: #b8b8b847; /* Slightly transparent white with blur */
   // }
 }

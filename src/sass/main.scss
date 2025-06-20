@@ -99,7 +99,7 @@ body {
   }
 
   .tasks-home-page {
-    border-inline: 1px solid $light-border-color;
+    border-inline: 1px solid $border-color-transparent-2;
     border-radius: 0;
   }
 
@@ -181,7 +181,7 @@ body {
     height: min-content;
     top: 2.7rem;
     background-color: transparent;
-    border-color: transparent $light-border-color;
+    border-color: transparent $border-color-transparent-2;
     backdrop-filter: blur(0px);
 
     .navbar-links a {
@@ -210,7 +210,7 @@ body {
   }
 
   .main-content {
-    border: 1px solid $light-border-color;
+    // border: 1px solid $border-color-transparent-2;
     border-top-color: transparent;
     border-radius: 0rem 0rem 0.5rem 0.5rem;
     padding-top: 0.57rem;
@@ -367,7 +367,7 @@ body {
 
     .timer-first-section {
       margin-top: 0;
-      border-right: 1px solid $light-border-color;
+      border-right: 1px solid $border-color-transparent-2;
     }
 
     .timer-header {

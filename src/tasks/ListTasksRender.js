@@ -3,7 +3,7 @@ import ListTasksHeader from "../components/ListTasksHeader";
 import TaskEditBox from "../components/TaskEdit";
 import TaskStateDiv from "../components/TaskStateDiv";
 import { isDashboardOpen } from "../pages/dashboard/MainDashboard";
-import { tasksState } from "./store";
+import { filterState } from "./store";
 
 const TasksContainer = () => {
   return `
@@ -29,16 +29,18 @@ export function addTaskToList(tasks) {
         ? `<div class="no-data-img" >
         <img src="${imgUrl}" id="empty-box" alt="img" />
         <h5>No ${
-          tasksState.get() === "all"
+          filterState.get() === "all"
             ? ""
-            : tasksState.get() === "done"
+            : filterState.get() === "done"
             ? "done"
-            : tasksState.get() === "in-progress"
+            : filterState.get() === "in-progress"
             ? "in progress"
             : "on hold"
         } tasks found!</h5>
          ${
-           tasksState.get() === "all" ? "<h5>Time to create new task.</h5>" : ""
+           filterState.get() === "all"
+             ? "<h5>Time to create new task.</h5>"
+             : ""
          }
         </div> `
         : tasks.map(NewTaskRender).join("");
@@ -92,15 +94,6 @@ const NewTaskRender = (task) => {
     </div>
   </div>
   </ > `;
-};
-
-export const addAngleBracket = (option, optionValue, nameVlue) => {
-  for (let i = 0; i < option.length; i++) {
-    option[i].dataset.value === nameVlue
-      ? (option[i].innerHTML =
-          "<span style='color: #8ce5f4'> > </span>" + optionValue)
-      : (option[i].textContent = option[i].dataset.value);
-  }
 };
 
 // Update task count
