@@ -8,6 +8,7 @@ import {
 } from "./ListTasksLogic.js";
 import { addTaskToList, updateTaskCount } from "./ListTasksRender.js";
 import { addToDetailsCard } from "../pages/task_hub/TaskHubRender.js";
+import { isDashboardOpen } from "../pages/dashboard/MainDashboard.js";
 
 export const Id = atom(0);
 
@@ -134,7 +135,12 @@ const getFilterTasks = (tasks, state) => {
 };
 
 export const implementSort = (tasks, state) => {
-  visibleTasks.set(getSortTasks(tasks, state));
+  setLiveTasks(getSortTasks(tasks, state));
+
+  implementFilter(
+    !isDashboardOpen.get() ? liveTasks.get() : tasks,
+    filterState.get()
+  );
 
   updateTaskCount(tasks, visibleTasks.get().length);
   addTaskToList(visibleTasks.get());

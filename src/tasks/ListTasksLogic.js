@@ -100,13 +100,13 @@ const eventsHandler = (event) => {
 
   if (!panelSort.contains(target)) panelSortControls.style.display = "none";
 
-  filterControlsOptions.forEach((option, idx) => {
+  filterControlsOptions.forEach((option) => {
     if (option.contains(target)) {
       implementFilter(
         !isDashboardOpen.get() ? liveTasks.get() : listTasks.get(),
         option.dataset.value
       );
-      addStyleToFilterControls(idx);
+      addStyleToFilterControls();
 
       panelFilterControls.style.display = "none";
     }
@@ -116,10 +116,7 @@ const eventsHandler = (event) => {
     if (option.contains(target)) {
       const stateData = idx === 0 ? "name" : "date";
 
-      implementSort(
-        !isDashboardOpen.get() ? liveTasks.get() : listTasks.get(),
-        stateData
-      );
+      implementSort(listTasks.get(), stateData);
       addStyleToSortControls(idx);
 
       panelSortControls.style.display = "none";
@@ -150,13 +147,13 @@ const eventsHandler = (event) => {
 };
 
 // Add style base on tasks filter
-export const addStyleToFilterControls = (idx = 0) => {
+export const addStyleToFilterControls = () => {
   const filterControlsOptions = document.querySelectorAll(
     "#panel__filter_controls .option"
   );
 
-  filterControlsOptions.forEach((option, index) => {
-    idx === index
+  filterControlsOptions.forEach((option) => {
+    filterState.get() === option.dataset.value
       ? option.classList.add("added__filter")
       : option.classList.remove("added__filter");
   });
