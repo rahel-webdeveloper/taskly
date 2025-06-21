@@ -3,7 +3,8 @@ import { loadLocalStorage, saveLocalStorage } from "../data/localStorage.js";
 import tasks from "../data/tasks.js";
 import {
   addStyleToFilterControls,
-  updateViewOnTask,
+  addStyleToSortControls,
+  controlTasksAllOperation,
 } from "./ListTasksLogic.js";
 import { addTaskToList, updateTaskCount } from "./ListTasksRender.js";
 import { addToDetailsCard } from "../pages/task_hub/TaskHubRender.js";
@@ -62,19 +63,19 @@ export const completingTask = () => {
           : task
       )
   );
-  updateViewOnTask();
+  controlTasksAllOperation();
 };
 
 // deleting a task
 export const deletingTask = () => {
   listTasks.set(listTasks.get().filter((task) => task.id !== Id.get()));
-  updateViewOnTask();
+  controlTasksAllOperation();
 };
 
 // deleting all done tasks
 export const deletingCompleteTasks = () => {
   listTasks.set(listTasks.get().filter((task) => task.state !== "done"));
-  updateViewOnTask();
+  controlTasksAllOperation();
 };
 
 export const setTaskToAssitant = (Id) => {
@@ -113,7 +114,7 @@ export const saveEditedTask = (editInput, editBox) => {
   editBox.style.display = "none";
 
   addToDetailsCard(liveTasks.get());
-  updateViewOnTask();
+  controlTasksAllOperation();
 };
 
 // Implement filter base on state
@@ -130,4 +131,25 @@ const getFilterTasks = (tasks, state) => {
   return state === "all"
     ? tasks
     : tasks.filter((task) => task.state === state.toLowerCase());
+};
+
+export const implementSort = (tasks, state) => {
+  visibleTasks.set(getSortTasks(tasks, state));
+
+  updateTaskCount(tasks, visibleTasks.get().length);
+  addTaskToList(visibleTasks.get());
+  addStyleToSortControls();
+};
+
+export const getSortTasks = (tasks, state) => {
+  // Name comparator
+  const sortByName = (a, b) => a.description.localeCompare(b.description);
+
+  // Date comparator
+  const sortByDate = (a, b) =>
+    new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime();
+
+  return state === "name"
+    ? tasks.sort(sortByName)
+    : tasks.sort(sortByDate).reverse();
 };

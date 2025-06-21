@@ -67,6 +67,10 @@ body {
 }
 
 @media screen and (width >= 470px) {
+  .switch-time-allDay {
+    place-self: center;
+  }
+
   .list-task {
     margin-inline: 0.7rem;
   }
@@ -114,7 +118,7 @@ body {
 
 @media (width >= 768px) {
   .first-page_subtitle {
-    margin-top: 1.5rem;
+    margin-top: 2rem;
   }
 
   .welcome-btns {
@@ -210,7 +214,6 @@ body {
   }
 
   .main-content {
-    // border: 1px solid $border-color-transparent-2;
     border-top-color: transparent;
     border-radius: 0rem 0rem 0.5rem 0.5rem;
     padding-top: 0.57rem;
@@ -306,7 +309,7 @@ body {
   }
 
   .form-container {
-    margin-top: 1.5rem;
+    margin-top: 2rem;
   }
 
   .flatpickr-calendar {

@@ -1,5 +1,5 @@
 import { atom } from "nanostores";
-import { updateViewOnTask } from "../../tasks/ListTasksLogic";
+import { controlTasksAllOperation } from "../../tasks/ListTasksLogic";
 import { listTasks } from "../../tasks/store";
 import {
   priorityColors,
@@ -97,6 +97,6 @@ export function addTaskData() {
     ...listTasks.get(),
   ]);
 
-  updateViewOnTask();
+  controlTasksAllOperation();
   liveTrackTasks();
 }

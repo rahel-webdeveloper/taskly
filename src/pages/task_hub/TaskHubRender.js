@@ -72,7 +72,9 @@ const taskForm = () => {
       <div class="form-column" id="start-datetime_div">
         <label for="start_date-time" id="start-time-label">Start Time</label>
         <div class="time-input">
-          <i class="bi bi-clock"></i>
+          <label for="start_date-time" class="icon-label">
+            <i class="bi bi-clock"></i>
+          </label>
           <input type="" id="start_date-time" class="" data-input name="startHour" title="Enter your task start time."
             placeholder="Enter your start datetime." required>
         </div>
@@ -94,7 +96,9 @@ const taskForm = () => {
       <div class="form-column" id="due-datetime_div">
         <label for="due_date-time" id="duration-label">Due Time</label>
         <div class="time-input">
-          <i class="bi bi-clock"></i>
+          <label for="due_date-time" class="icon-label">
+            <i class="bi bi-clock"></i>
+          </label>
           <input type="number" id="due_date-time" class="flatpickr-input" data-input name="due date & time"
             title="Enter your task due date & time." placeholder="Enter your due datetime." required>
         </div>
@@ -108,10 +112,6 @@ const taskForm = () => {
             <span class="checkmark">All day</span>
         </label>
       </div>
-    </div>
-
-    <div class="form-row">
-      
     </div>
     
     <button class="create-btn" type="submit" id="create_btn">

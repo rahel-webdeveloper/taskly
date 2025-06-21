@@ -1,5 +1,6 @@
 import { saveLocalStorage } from "../data/localStorage";
 import { isDashboardOpen } from "../pages/dashboard/MainDashboard";
+import { todayReport } from "../pages/task_hub/TaskHubLogic";
 import openNotification from "../services/toastNotifications";
 import { updateTaskCount } from "./ListTasksRender";
 import {
@@ -17,6 +18,7 @@ import {
   filterState,
   todayTasks,
   visibleTasks,
+  implementSort,
 } from "./store";
 
 const ListTasksLogic = () => {
@@ -99,8 +101,7 @@ const eventsHandler = (event) => {
   if (!panelSort.contains(target)) panelSortControls.style.display = "none";
 
   filterControlsOptions.forEach((option, idx) => {
-    option.addEventListener("click", () => {
-      // Filter tasks
+    if (option.contains(target)) {
       implementFilter(
         !isDashboardOpen.get() ? liveTasks.get() : listTasks.get(),
         option.dataset.value
@@ -108,7 +109,21 @@ const eventsHandler = (event) => {
       addStyleToFilterControls(idx);
 
       panelFilterControls.style.display = "none";
-    });
+    }
+  });
+
+  sortControlsOptions.forEach((option, idx) => {
+    if (option.contains(target)) {
+      const stateData = idx === 0 ? "name" : "date";
+
+      implementSort(
+        !isDashboardOpen.get() ? liveTasks.get() : listTasks.get(),
+        stateData
+      );
+      addStyleToSortControls(idx);
+
+      panelSortControls.style.display = "none";
+    }
   });
 
   // If user was on dashboard page then add the delete complete tasks component
@@ -140,8 +155,6 @@ export const addStyleToFilterControls = (idx = 0) => {
     "#panel__filter_controls .option"
   );
 
-  filterControlsOptions[idx];
-
   filterControlsOptions.forEach((option, index) => {
     idx === index
       ? option.classList.add("added__filter")
@@ -149,38 +162,20 @@ export const addStyleToFilterControls = (idx = 0) => {
   });
 };
 
-// today's report
-export const todayReport = (todayTasks) => {
-  const doneTasksPercentageEl = document.getElementById("done-tasks");
-  const tasksTrackedTimeEl = document.getElementById("tasks-time");
-  const lengthTasksEl = document.getElementById("lenght-tasks");
-
-  const todayDoneTasks = todayTasks.filter((task) => task.state === "done");
-
-  const todayTrackedTime = todayTasks.reduce(
-    (accumlator, currentValue) => accumlator + currentValue.durationMinutes,
-    0
+export const addStyleToSortControls = (idx = 1) => {
+  const sortControlsOptions = document.querySelectorAll(
+    "#panel__sort_controls .option"
   );
 
-  if (doneTasksPercentageEl)
-    doneTasksPercentageEl.innerText =
-      todayDoneTasks.length === 0
-        ? "0%"
-        : ((todayDoneTasks.length / todayTasks.length) * 100).toFixed(0) + "%";
-
-  if (lengthTasksEl) lengthTasksEl.textContent = todayTasks.length;
-
-  if (tasksTrackedTimeEl)
-    tasksTrackedTimeEl.textContent =
-      todayTasks.length === 0
-        ? "0h & 0m"
-        : `${Math.floor(todayTrackedTime / 60) + "h"} ${
-            todayTrackedTime / 60 > 0 && todayTrackedTime ? "&" : ""
-          } ${(todayTrackedTime % 60) + "m"}`;
+  sortControlsOptions.forEach((option, index) => {
+    idx === index
+      ? option.classList.add("added__sort")
+      : option.classList.remove("added__sort");
+  });
 };
 
 // updateViewOnTask
-export function updateViewOnTask() {
+export function controlTasksAllOperation() {
   setLiveTasks(listTasks.get());
 
   implementFilter(

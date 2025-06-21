@@ -1,6 +1,6 @@
 import flatpickr from "flatpickr";
 import "notyf/notyf.min.css";
-import { updateViewOnTask } from "../../tasks/ListTasksLogic.js";
+import { controlTasksAllOperation } from "../../tasks/ListTasksLogic.js";
 import { listTasks, liveTasks } from "../../tasks/store.js";
 import { isDashboardOpen } from "../dashboard/MainDashboard.js";
 import {
@@ -27,7 +27,7 @@ export default async function TaskHubLogic() {
     checkTimeAllDay();
     useFlatepickr();
     submitForm();
-    updateViewOnTask();
+    controlTasksAllOperation();
     liveTrackTasks();
 
     tasksHomePage.addEventListener("click", addTaskToggleAndEvents);
@@ -342,6 +342,36 @@ export const liveTrackTasks = () => {
   }, 1000);
 
   addToDetailsCard(!isDashboardOpen.get() ? liveTasks.get() : listTasks.get());
+};
+
+// today's report
+export const todayReport = (todayTasks) => {
+  const doneTasksPercentageEl = document.getElementById("done-tasks");
+  const tasksTrackedTimeEl = document.getElementById("tasks-time");
+  const lengthTasksEl = document.getElementById("lenght-tasks");
+
+  const todayDoneTasks = todayTasks.filter((task) => task.state === "done");
+
+  const todayTrackedTime = todayTasks.reduce(
+    (accumlator, currentValue) => accumlator + currentValue.durationMinutes,
+    0
+  );
+
+  if (doneTasksPercentageEl)
+    doneTasksPercentageEl.innerText =
+      todayDoneTasks.length === 0
+        ? "0%"
+        : ((todayDoneTasks.length / todayTasks.length) * 100).toFixed(0) + "%";
+
+  if (lengthTasksEl) lengthTasksEl.textContent = todayTasks.length;
+
+  if (tasksTrackedTimeEl)
+    tasksTrackedTimeEl.textContent =
+      todayTasks.length === 0
+        ? "0h & 0m"
+        : `${Math.floor(todayTrackedTime / 60) + "h"} ${
+            todayTrackedTime / 60 > 0 && todayTrackedTime ? "&" : ""
+          } ${(todayTrackedTime % 60) + "m"}`;
 };
 
 const cardTimerUI = (task, index, remainingTime) => {

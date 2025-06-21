@@ -38,7 +38,11 @@
   }
 }
 
-.form-column label:not(.switch-time-allDay) {
+.form-row:nth-child(4) {
+  position: relative;
+}
+
+.form-column label:not(.switch-time-allDay, .icon-label) {
   font-size: 0.7rem;
   color: $first-text;
   margin-bottom: -0.3rem;
@@ -46,6 +50,10 @@
   padding-inline: 0.3rem;
   border-radius: 0.25rem;
   z-index: 2;
+}
+
+.icon-label {
+  cursor: pointer;
 }
 
 .form #task-description {
@@ -177,13 +185,12 @@ input[type="number"] {
   border-radius: 1rem;
   transition: all 0.25s;
   font-weight: 700;
+  text-align: center;
 }
 
 .checkmark:nth-child(2) {
   left: 27%;
-  background-color: $optional-color-transparent-4;
-  background-color: $low-color;
-  color: $first-color;
+  background-color: $third-color;
 }
 
 .checkmark:nth-child(3) {
@@ -193,9 +200,7 @@ input[type="number"] {
 
 .switch-time-allDay input[type="checkbox"]:checked ~ .checkmark:nth-child(3) {
   border-radius: 1rem;
-  background-color: $optional-color-transparent-4;
-  background-color: $moderate-color;
-  color: $first-color;
+  background-color: $third-color;
 }
 
 .switch-time-allDay input[type="checkbox"]:checked ~ .checkmark:nth-child(2) {
@@ -209,10 +214,11 @@ input[type="number"] {
   color: $first-text;
   font-family: inherit;
   cursor: pointer;
-  padding: 0.815rem 1.57rem;
+  padding: 0.77rem 1.5rem;
   font-size: 0.8rem;
   font-weight: 750;
   transition: all 0.5s ease-in;
+  margin-block: 1rem 0.5rem;
 }
 
 .create-btn:active,
@@ -232,7 +238,6 @@ input[type="number"] {
   font-size: 0.65rem;
   margin-top: 0.24rem;
   color: $delete-color;
-  text-shadow: 0 0 0 $first-color;
   font-weight: bold;
   user-select: none;
   opacity: 0;
@@ -241,8 +246,9 @@ input[type="number"] {
 
 #time-error {
   @include abs-position;
-  top: 90%;
-  width: 100%;
+  top: 115%;
+  margin-left: auto;
+  left: 27%;
 }
 
 /* second section */
