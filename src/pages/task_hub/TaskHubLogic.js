@@ -88,18 +88,20 @@ window.addEventListener("resize", styleAddTaskBaseOnScreeen);
 const prioritySlider = () => {
   const taskPriorityEl = document.querySelector(".task_priority span");
   const priorityIcon = document.querySelector(".task_priority i");
-  const prioritySliderInput = document.getElementById("priority_slider");
 
-  taskPriorityEl.textContent = priorityLabels[prioritySliderInput.value];
+  const prioritySliderEl = document.getElementById("priority_slider");
+  const prioritySliderNumber = prioritySliderEl.value - 1;
+
+  taskPriorityEl.textContent = priorityLabels[prioritySliderNumber];
 
   priorityIcon.className = "";
-  priorityIcon.classList.add(priorityIcons[prioritySliderInput.value]);
-  priorityIcon.style.color = `${priorityColors[prioritySliderInput.value]}`;
+  priorityIcon.classList.add(priorityIcons[prioritySliderNumber]);
+  priorityIcon.style.color = `${priorityColors[prioritySliderNumber]}`;
 
-  setPriorityData(prioritySliderInput.value);
+  setPriorityData(prioritySliderNumber);
 
   // Call every time the slider changes
-  prioritySliderInput.addEventListener("change", prioritySlider);
+  prioritySliderEl.addEventListener("change", prioritySlider);
 };
 
 // Scroll to end of cards

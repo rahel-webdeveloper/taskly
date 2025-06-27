@@ -1,5 +1,4 @@
 export const priorityColors = [
-  null,
   "#b0bbbc",
   "#86b5b2",
   "#e4b875",
@@ -8,7 +7,6 @@ export const priorityColors = [
 ];
 
 export const priorityLabels = [
-  null,
   "Optional",
   "Low",
   "Moderate",
@@ -17,7 +15,6 @@ export const priorityLabels = [
 ];
 
 export const priorityIcons = [
-  null,
   "bi-droplet-half",
   "bi-flag-fill",
   "bi-star-fill",
