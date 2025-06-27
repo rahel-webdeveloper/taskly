@@ -1,26 +1,26 @@
 export const priorityColors = [
   null,
-  "#cb9ca3",
-  "#bbb2cc",
-  "#e4b875",
-  "#86b5b2",
   "#b0bbbc",
+  "#86b5b2",
+  "#e4b875",
+  "#bbb2cc",
+  "#cb9ca3",
 ];
 
 export const priorityLabels = [
   null,
-  "Critical",
-  "High",
-  "Moderate",
-  "Low",
   "Optional",
+  "Low",
+  "Moderate",
+  "High",
+  "Critical",
 ];
 
 export const priorityIcons = [
   null,
-  "bi-fire",
-  "bi-exclamation-circle-fill",
-  "bi-star-fill",
-  "bi-flag-fill",
   "bi-droplet-half",
+  "bi-flag-fill",
+  "bi-star-fill",
+  "bi-exclamation-circle-fill",
+  "bi-fire",
 ];

@@ -138,7 +138,7 @@ export const implementSort = (tasks, state) => {
   setLiveTasks(getSortTasks(tasks, state));
 
   implementFilter(
-    !isDashboardOpen.get() ? liveTasks.get() : tasks,
+    !isDashboardOpen.get() ? liveTasks.get() : listTasks.get(),
     filterState.get()
   );
 

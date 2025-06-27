@@ -19,6 +19,11 @@ import {
 } from "./store.js";
 import { addToDetailsCard } from "./TaskHubRender.js";
 import openNotification from "../../services/toastNotifications.js";
+import {
+  priorityColors,
+  priorityIcons,
+  priorityLabels,
+} from "../../data/ui-data.js";
 
 export default async function TaskHubLogic() {
   const tasksHomePage = document.getElementById("tasks-home-page");
@@ -29,6 +34,7 @@ export default async function TaskHubLogic() {
     submitForm();
     controlTasksAllOperation();
     liveTrackTasks();
+    prioritySlider();
 
     tasksHomePage.addEventListener("click", addTaskToggleAndEvents);
   }
@@ -77,6 +83,25 @@ const styleAddTaskBaseOnScreeen = () => {
 
 window.addEventListener("resize", styleAddTaskBaseOnScreeen);
 
+// Style priority slider
+
+const prioritySlider = () => {
+  const taskPriorityEl = document.querySelector(".task_priority span");
+  const priorityIcon = document.querySelector(".task_priority i");
+  const prioritySliderInput = document.getElementById("priority_slider");
+
+  taskPriorityEl.textContent = priorityLabels[prioritySliderInput.value];
+
+  priorityIcon.className = "";
+  priorityIcon.classList.add(priorityIcons[prioritySliderInput.value]);
+  priorityIcon.style.color = `${priorityColors[prioritySliderInput.value]}`;
+
+  setPriorityData(prioritySliderInput.value);
+
+  // Call every time the slider changes
+  prioritySliderInput.addEventListener("change", prioritySlider);
+};
+
 // Scroll to end of cards
 const scrollToEndCard = () => {
   const cardsContainer = document.querySelector("#details_cards");
@@ -107,10 +132,7 @@ function submitForm() {
   const form = document.getElementById("form");
 
   // Validation with change of input
-  form.addEventListener("change", function () {
-    setPriorityData();
-    validationOfFormData();
-  });
+  form.addEventListener("change", () => validationOfFormData());
 
   form.addEventListener("submit", function (event) {
     event.preventDefault();

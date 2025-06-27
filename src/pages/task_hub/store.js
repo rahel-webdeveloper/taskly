@@ -41,21 +41,12 @@ export const checkTimeAllDay = () => {
 };
 
 // Set priority related data
-export const setPriorityData = () => {
-  const priorityKeys = document.querySelectorAll(".priority-of-task span");
-  const prioErrEl = document.getElementById("priority-error-message");
-
-  priorityKeys.forEach((key, index) => {
-    key.addEventListener("click", function () {
-      priority.set({
-        level: parseInt(key.getAttribute("data-priority")),
-        label: priorityLabels[index + 1],
-        color: priorityColors[index + 1],
-        icon: priorityIcons[index + 1],
-      });
-
-      nullValidation(priority.get().level, prioErrEl);
-    });
+export const setPriorityData = (inputPriority) => {
+  priority.set({
+    level: parseInt(inputPriority),
+    label: priorityLabels[inputPriority],
+    color: priorityColors[inputPriority],
+    icon: priorityIcons[inputPriority],
   });
 };
 

@@ -80,13 +80,16 @@ const taskForm = () => {
         </div>
       </div>
       <div class="form-column">
-        <label id="priority-label">Choose a priority</label>
-        <div class="priority-of-task" id="priority_of_task">
-          <span data-priority="1" style="background-color: #cb9ca3;" tabindex="0">1</span>
-          <span data-priority="2" style="background-color: #bbb2cc;" tabindex="0">2</span>
-          <span data-priority="3" style="background-color: #e4b875;" tabindex="0">3</span>
-          <span data-priority="4" style="background-color: #86b5b2;" tabindex="0">4</span>
-          <span data-priority="5" style="background-color: #b0bbbc;" tabindex="0">5</span>
+        <div class="slider_container">
+           <label for="priority_slider" id="priority_slider-label">Task priority</label>
+      
+           <div class="task_priority">
+            <i class="bi bi-star"></i>
+            <span>Critical</span>
+           </div>
+           
+          <input type="range" class="priority__slider" id="priority_slider" min="1" max="5" value="3">
+           
         </div>
         <p class="error-message" id="priority-error-message">Your task must have a priority.</p>
       </div>

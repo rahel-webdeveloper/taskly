@@ -42,7 +42,8 @@
   position: relative;
 }
 
-.form-column label:not(.switch-time-allDay, .icon-label) {
+.form-column
+  label:not(.switch-time-allDay, .icon-label, #priority_slider-label) {
   font-size: 0.7rem;
   color: $first-text;
   margin-bottom: -0.3rem;
@@ -79,28 +80,58 @@
   width: 90%;
 }
 
-.priority-of-task {
-  @include flex-center;
-  justify-content: end;
-  flex-wrap: wrap;
-  gap: 0.7rem 1rem;
-  margin-top: 0.3rem;
-}
-
-.priority-of-task span {
-  cursor: pointer;
-  text-align: center;
-  color: $second-color;
-  border-radius: 1rem;
+.slider_container {
+  @include grid-center;
+  grid-template-areas:
+    "sliderLabel taskPriority"
+    "slider slider";
+  row-gap: 1rem;
   font-size: 0.8rem;
-  width: 25px;
-  height: 15px;
-  font-weight: 600;
-  transition: all 0.3s ease-in;
+  width: 90%;
+
+  label {
+    grid-area: sliderLabel;
+    margin-right: auto;
+  }
+  .task_priority {
+    grid-area: taskPriority;
+    margin-left: auto;
+    border: 1px solid $border-color-transparent-2;
+    padding: 0.17rem 0.3rem;
+    border-radius: 0.3rem;
+    background-color: $second-color;
+
+    i {
+      margin-right: 0.35rem;
+    }
+  }
+  .priority__slider {
+    grid-area: slider;
+  }
 }
 
-.priority-of-task span:is(:hover, :focus) {
-  opacity: 0.7;
+.priority__slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 5px;
+  background-color: $second-color;
+  // background: linear-gradient(to right, $low-color, $critical-color);
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+  border-radius: 0.5rem;
+
+  &::-webkit-slider-thumb,
+  &::-moz-range-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10px;
+    height: 20px;
+    border-radius: 0.7rem;
+    border: none;
+    background-color: $first-text;
+    cursor: pointer;
+  }
 }
 
 .time-input {
@@ -221,8 +252,7 @@ input[type="number"] {
   margin-block: 1rem 0.5rem;
 }
 
-.create-btn:active,
-.priority-of-task span:active {
+.create-btn:active {
   scale: 0.6;
 }
 
