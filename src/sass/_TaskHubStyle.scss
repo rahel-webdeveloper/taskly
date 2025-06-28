@@ -45,11 +45,11 @@
 .form-column
   label:not(.switch-time-allDay, .icon-label, #priority_slider-label) {
   font-size: 0.7rem;
-  color: $first-text;
-  margin-bottom: -0.3rem;
-  background-color: $second-color;
+  color: $first-color;
+  margin-bottom: -0.4rem;
+  background-color: $second-text;
   padding-inline: 0.3rem;
-  border-radius: 0.25rem;
+  border-radius: 1rem;
   z-index: 2;
 }
 
@@ -60,9 +60,9 @@
     position: absolute;
     color: $high-color;
     right: 1.7rem;
-    bottom: 1.5rem;
+    bottom: 2rem;
     cursor: pointer;
-    font-size: 1.35rem;
+    font-size: 1.5rem;
     opacity: 0.7;
     transition: opacity 0.2s ease-in;
 
@@ -70,10 +70,6 @@
       opacity: 1;
     }
   }
-}
-
-.icon-label {
-  cursor: pointer;
 }
 
 .form #task-description {
@@ -93,7 +89,7 @@
   padding: 0.7rem 1rem;
   font-size: 0.77rem;
   border: none;
-  border-radius: 0.5rem;
+  border-radius: 2rem;
   color: $first-text;
   font-family: inherit;
   width: 90%;
@@ -116,12 +112,12 @@
     grid-area: taskPriority;
     margin-left: auto;
     border: 1px solid $border-color-transparent-2;
-    padding: 0.17rem 0.3rem;
-    border-radius: 0.3rem;
+    padding: 0.2rem 0.4rem;
+    border-radius: 1rem;
     background-color: $second-color;
 
     i {
-      margin-right: 0.35rem;
+      margin-inline: 0.1rem 0.25rem;
     }
   }
   .priority__slider {
@@ -135,10 +131,10 @@
   width: 100%;
   height: 5px;
   background-color: $second-color;
-  // background: linear-gradient(to right, $low-color, $critical-color);
   -webkit-transition: 0.2s;
   transition: opacity 0.2s;
   border-radius: 0.5rem;
+  cursor: pointer;
 
   &::-webkit-slider-thumb,
   &::-moz-range-thumb {
@@ -148,7 +144,7 @@
     height: 20px;
     border-radius: 0.7rem;
     border: none;
-    background-color: $first-text;
+    background-color: $second-text;
     cursor: pointer;
   }
 }
@@ -156,9 +152,13 @@
 .time-input {
   position: relative;
 
+  .icon-label {
+    cursor: pointer;
+  }
+
   i {
     position: absolute;
-    top: 30%;
+    top: 31%;
     left: 0.37rem;
     font-size: 0.87rem;
     color: $optional-color;
@@ -168,7 +168,6 @@
 #start-datetime_div label,
 #due-datetime_div label {
   font-size: 0.65rem;
-  margin-bottom: -0.45rem;
 }
 
 .time-input input {
@@ -176,7 +175,7 @@
   margin-top: 0.27rem;
   padding: 0.43rem 0.4rem 0.43rem 1.5rem;
   text-align: center;
-  border-radius: 0.3rem;
+  border-radius: 1rem;
   width: 100%;
   color: inherit;
   font-family: inherit;

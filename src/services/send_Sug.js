@@ -24,6 +24,8 @@ const SendSuggestionMain = () => {
       ".get-suggestions-form_div"
     );
 
+    if (!getSuggestionsFormDiv) return;
+
     const getSuggestionsStyle = getSuggestionsFormDiv.style;
 
     const getSuggestionsForm = document.getElementById("get-suggestions-form");

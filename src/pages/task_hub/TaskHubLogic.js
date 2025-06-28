@@ -10,10 +10,10 @@ import { controlTasksAllOperation } from "../../tasks/ListTasksLogic.js";
 import { listTasks, liveTasks } from "../../tasks/store.js";
 import { isDashboardOpen } from "../dashboard/MainDashboard.js";
 import {
-  addTaskData,
-  category,
+  AddNewTask,
+  taskCategory,
   check_Time_AllDay,
-  checkTimeAllDay,
+  checkTime_AllDay_Switch,
   dueDateTime,
   isScrolledToLeft,
   notifiedTasks,
@@ -28,9 +28,9 @@ export default async function TaskHubLogic() {
   const taskHubPage = document.getElementById("task__hub-page");
 
   if (taskHubPage) {
-    checkTimeAllDay();
+    checkTime_AllDay_Switch();
     useFlatepickr();
-    submitForm();
+    SubmitForm();
     controlTasksAllOperation();
     liveTrackTasks();
     prioritySliderController();
@@ -38,6 +38,8 @@ export default async function TaskHubLogic() {
     taskHubPage.addEventListener("click", taskHub_Events);
   }
 }
+
+// --------**          Task Hub Dynamic UI Logic                 **--------//
 
 //  +______+ Task Hub Events
 const taskHub_Events = (event) => {
@@ -47,7 +49,7 @@ const taskHub_Events = (event) => {
 
   if (target.closest("#scroll-end-icon")) scrollToEndCard();
 
-  if (target.closest("#create_btn") && !validationOfFormData())
+  if (target.closest("#create_btn") && !validateFormData())
     openNotification("warning", "Please fill out the form!");
 };
 
@@ -56,6 +58,8 @@ const taskHub_Events = (event) => {
 const taskFormDisplayController = (event) => {
   const addTaskIcon = document.querySelector("#add-task-icon i");
   const formContainer = document.querySelector(".form-container");
+
+  if (!formContainer) return;
 
   const formStyle = formContainer.style;
 
@@ -110,6 +114,7 @@ const prioritySliderController = () => {
 const scrollToEndCard = () => {
   const cardsContainer = document.querySelector("#details_cards");
   const scrollToEndIcon = document.querySelector("#scroll-end-icon i");
+  const targetScrollClass = scrollToEndIcon.classList;
 
   if (!isScrolledToLeft.get()) {
     cardsContainer.scrollTo({
@@ -117,7 +122,7 @@ const scrollToEndCard = () => {
       behavior: "smooth",
     });
 
-    scrollToEndIcon.classList.add("bi-align-start");
+    targetScrollClass.add("bi-align-start");
 
     isScrolledToLeft.set(true);
   } else {
@@ -126,7 +131,7 @@ const scrollToEndCard = () => {
       behavior: "smooth",
     });
 
-    scrollToEndIcon.classList.remove("bi-align-start");
+    targetScrollClass.remove("bi-align-start");
 
     isScrolledToLeft.set(false);
   }
@@ -134,20 +139,19 @@ const scrollToEndCard = () => {
 
 // --------**          Form Logic                 **--------//
 
-function submitForm() {
+function SubmitForm() {
   const form = document.getElementById("form");
 
-  // Validation with change of input
-  form.addEventListener("change", () => validationOfFormData());
+  // **-------      Validate form data with Change event
+  form.addEventListener("change", () => validateFormData());
 
   form.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    if (validationOfFormData()) {
-      addTaskData();
+    if (validateFormData()) {
+      AddNewTask();
       openNotification("success", "New task created successfully!");
 
-      // Reset from
       form.reset();
 
       prioritySliderController();
@@ -213,7 +217,7 @@ export const useFlatepickr = () => {
 
 //  +______+ Validation of data
 
-const validationOfFormData = () => {
+const validateFormData = () => {
   const titleErrEl = document.getElementById("title-error");
   const cateErrEl = document.getElementById("category-error");
   const desErrEl = document.getElementById("description-error");
@@ -222,12 +226,14 @@ const validationOfFormData = () => {
   const descriptionValue = document.getElementById("task-description").value;
   const categoryValue = document.getElementById("category").value;
 
-  if (titleValue.length < 3) {
+  if (titleValue.length < 10) {
     titleErrEl.style.opacity = "1";
+    titleErrEl.textContent = "The title must at least 10 characters";
 
     return false;
-  } else if (titleValue.length > 27) {
+  } else if (titleValue.length > 60) {
     titleErrEl.style.opacity = "1";
+    titleErrEl.textContent = "The description must be less than 60 characters.";
 
     return false;
   } else {
@@ -235,8 +241,24 @@ const validationOfFormData = () => {
     titleErrEl.style.opacity = "0";
   }
 
-  if (descriptionValue.length < 9) {
+  if (categoryValue === "") {
+    cateErrEl.textContent = "Please select at least one category!";
+    cateErrEl.style.opacity = "1";
+
+    return false;
+  } else {
+    taskCategory.set(categoryValue);
+    cateErrEl.style.opacity = "0";
+  }
+
+  if (descriptionValue.length < 30) {
     desErrEl.style.opacity = "1";
+    desErrEl.textContent = "The description must be at least 30 characters.";
+
+    return false;
+  } else if (descriptionValue.length > 250) {
+    desErrEl.style.opacity = "1";
+    desErrEl.textContent = "The description must be less than 250 characters.";
 
     return false;
   } else {
@@ -244,16 +266,8 @@ const validationOfFormData = () => {
     desErrEl.style.opacity = "0";
   }
 
-  if (
-    nullValidation(titleValue, titleErrEl) &&
-    nullValidation(categoryValue, cateErrEl) &&
-    timeValidation()
-  ) {
-    taskTitle.set(titleValue);
-    category.set(categoryValue);
-
-    return true;
-  } else return false;
+  if (timeValidation()) return true;
+  else return false;
 };
 
 //  +______+ Get time as date for Time validation
@@ -318,18 +332,6 @@ const timeValidation = () => {
     return true;
   }
 };
-
-export function nullValidation(elementValue, erroreEl) {
-  if (!elementValue) {
-    erroreEl.style.opacity = "1";
-
-    return false;
-  } else {
-    erroreEl.style.opacity = "0";
-
-    return true;
-  }
-}
 
 // --------**          Today's Report                 **--------//
 

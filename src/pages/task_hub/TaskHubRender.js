@@ -8,7 +8,7 @@ export default function TaskHubRender() {
   <div class="task__hub-page" id="task__hub-page">
     <section class="first-section">
       <div class="form-container">
-        ${taskForm()}
+        ${TaskForm()}
       </div>
     </section>
     <section class="second-section">
@@ -32,13 +32,13 @@ export default function TaskHubRender() {
     `;
 }
 
-const taskForm = () => {
+const TaskForm = () => {
   return `
   <form action="" class="form" id="form">
     <div class="form-row">
       <div class="form-column">
         <label for="task-title" id="title-label">Title</label>
-        <input type="text" id="task-title" name="title" minlength="3" maxlength="25"
+        <input type="text" id="task-title" name="title" minlength="10" maxlength="60"
         placeholder="Write your task title..." required></input>
         <p class="error-message" id="title-error">The title must be at least 3 characters.</p>
       </div>
@@ -63,9 +63,9 @@ const taskForm = () => {
 
     <div class="form-column" id="des_column">
       <label for="task-description" id="description-label">Description</label>
-      <textarea id="task-description" name="description" rows="7" min="9"
+      <textarea id="task-description" name="description" rows="7" min="30" max="250"
         placeholder="Write your task description or let Taskly to generate for you." required></textarea>
-        <i class="bi bi-cloud-lightning-fill" id="des_generator_icon" title="Generate description"></i>
+        <i class="ri-lightbulb-flash-fill" id="des_generator_icon" title="Generate description"></i>
       <p class="error-message" id="description-error">The description must be at least 9 characters.</p>
     </div>
     
@@ -74,7 +74,7 @@ const taskForm = () => {
         <label for="start_date-time" id="start-time-label">Start Time</label>
         <div class="time-input">
           <label for="start_date-time" class="icon-label">
-            <i class="bi bi-clock"></i>
+            <i class="ri-map-pin-time-fill"></i>
           </label>
           <input type="" id="start_date-time" class="" data-input name="startHour" title="Enter your task start time."
             placeholder="Enter your start datetime." required>
@@ -101,7 +101,7 @@ const taskForm = () => {
         <label for="due_date-time" id="duration-label">Due Time</label>
         <div class="time-input">
           <label for="due_date-time" class="icon-label">
-            <i class="bi bi-clock"></i>
+            <i class="ri-map-pin-time-fill"></i>
           </label>
           <input type="number" id="due_date-time" class="flatpickr-input" data-input name="due date & time"
             title="Enter your task due date & time." placeholder="Enter your due datetime." required>
@@ -141,9 +141,9 @@ export function addToDetailsCard(liveTasks) {
   <div class="task-details">
             <div class="task-title">
               <h3 id="task-desc">${
-                task.description.length > 15
-                  ? task.description.slice(0, 15) + "..."
-                  : task.description
+                task.title.length > 15
+                  ? task.title.slice(0, 15) + "..."
+                  : task.title
               }</h3>
               <span id="category">${task.category}</span>
             </div>

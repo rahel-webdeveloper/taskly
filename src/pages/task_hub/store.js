@@ -1,12 +1,12 @@
 import { atom } from "nanostores";
-import { controlTasksAllOperation } from "../../tasks/ListTasksLogic";
-import { listTasks } from "../../tasks/store";
 import {
   priorityColors,
   priorityIcons,
   priorityLabels,
 } from "../../data/ui-data";
-import { liveTrackTasks, nullValidation, useFlatepickr } from "./TaskHubLogic";
+import { controlTasksAllOperation } from "../../tasks/ListTasksLogic";
+import { listTasks } from "../../tasks/store";
+import { liveTrackTasks, useFlatepickr } from "./TaskHubLogic";
 
 export const isTasksPageOpen = atom(false);
 export const check_Time_AllDay = atom(false);
@@ -14,8 +14,8 @@ export const isScrolledToLeft = atom(false);
 
 export const taskTitle = atom("");
 export const taskDescription = atom("");
-export const category = atom("");
-export const priority = atom({
+export const taskCategory = atom("");
+export const taskPriority = atom({
   level: 0,
   label: "",
   color: "",
@@ -28,7 +28,7 @@ export const durationMinutes = atom(0);
 
 export const notifiedTasks = new Set();
 
-export const checkTimeAllDay = () => {
+export const checkTime_AllDay_Switch = () => {
   const toggle_El_Time_AllDay = document.getElementById("checkbox");
 
   toggle_El_Time_AllDay.addEventListener("click", function () {
@@ -42,7 +42,7 @@ export const checkTimeAllDay = () => {
 
 // Set priority related data
 export const setPriorityData = (inputPriority) => {
-  priority.set({
+  taskPriority.set({
     level: parseInt(inputPriority),
     label: priorityLabels[inputPriority],
     color: priorityColors[inputPriority],
@@ -56,7 +56,7 @@ export const calculateTimeDifference = (startTime, dueTime) => {
   return res / 1000 / 60;
 };
 
-export function addTaskData() {
+export function AddNewTask() {
   const updatedAt = new Date();
 
   durationMinutes.set(
@@ -70,16 +70,17 @@ export function addTaskData() {
   listTasks.set([
     {
       id: String(listTasks.get().length + 1),
+      title: taskTitle.get(),
       description: taskDescription.get(),
-      category: category.get(),
+      category: taskCategory.get(),
       startDateTime: startDateTime.get(),
       dueDateTime: dueDateTime.get(),
       durationMinutes: durationMinutes.get(),
       priority: {
-        level: priority.get().level,
-        label: priority.get().label,
-        color: priority.get().color,
-        icon: priority.get().icon,
+        level: taskPriority.get().level,
+        label: taskPriority.get().label,
+        color: taskPriority.get().color,
+        icon: taskPriority.get().icon,
       },
       state: "on-hold",
       isCompleted: false,

@@ -49,7 +49,7 @@ const AIAdviceLogic = async () => {
   }
 };
 
-const getUserInput = async () => {
+export const getUserInput = async () => {
   const aiAdviceContainer = document.querySelector(
     ".ai-advice_container"
   ).style;
@@ -119,7 +119,7 @@ const getUserInput = async () => {
   }
 };
 
-const addStyleToMarkdownContainer = () => {
+export const addStyleToMarkdownContainer = () => {
   const responseAreaEl = document.getElementById("response-area");
 
   responseAreaEl.style.cssText += `

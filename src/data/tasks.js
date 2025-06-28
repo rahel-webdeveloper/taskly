@@ -1,6 +1,7 @@
 export default [
   {
     id: "1",
+    title: "Task title",
     description: "Urgent bug fix in the checkout system",
     category: "development",
     startDateTime: "2025-02-01T23:15:00Z",
@@ -19,6 +20,7 @@ export default [
   },
   {
     id: "2",
+    title: "Task title",
     description: "Finalize homepage redesign",
     category: "design",
     startDateTime: "2025-02-01T10:10:00Z",
@@ -37,6 +39,7 @@ export default [
   },
   {
     id: "3",
+    title: "Task title",
     description: "Implement new authentication flow",
     category: "management",
     startDateTime: "2025-02-01T14:25:00Z",
@@ -55,6 +58,7 @@ export default [
   },
   {
     id: "4",
+    title: "Task title",
     description: "Research new frontend libraries",
     category: "exercise",
     startDateTime: "2025-02-01T12:40:00Z",
@@ -73,6 +77,7 @@ export default [
   },
   {
     id: "5",
+    title: "Task title",
     description: "Plan next sprint goals",
     category: "research",
     startDateTime: "2025-02-01T13:55:00Z",
@@ -91,6 +96,7 @@ export default [
   },
   {
     id: "6",
+    title: "Task title",
     description: "Fix navbar responsiveness",
     category: "exercise",
     startDateTime: "2025-02-01T15:50:00Z",
@@ -109,6 +115,7 @@ export default [
   },
   {
     id: "7",
+    title: "Task title",
     description: "Create onboarding tutorial",
     category: "content",
     startDateTime: "2025-02-01T18:05:00Z",
@@ -127,6 +134,7 @@ export default [
   },
   {
     id: "8",
+    title: "Task title",
     description: "Optimize database queries",
     category: "development",
     startDateTime: "2025-02-01T19:45:00Z",
@@ -145,6 +153,7 @@ export default [
   },
   {
     id: "9",
+    title: "Task title",
     description: "Update documentation",
     category: "content",
     startDateTime: "2025-02-01T22:10:00Z",
@@ -163,6 +172,7 @@ export default [
   },
   {
     id: "10",
+    title: "Task title",
     description: "Deploy the new version",
     category: "work",
     startDateTime: "2025-02-01T10:20:00Z",
@@ -181,6 +191,7 @@ export default [
   },
   {
     id: "11",
+    title: "Task title",
     description: "Analyze performance metrics",
     category: "research",
     startDateTime: "2025-02-01T17:00:00Z",
@@ -199,6 +210,7 @@ export default [
   },
   {
     id: "12",
+    title: "Task title",
     description: "Fix security vulnerabilities",
     category: "development",
     startDateTime: "2025-02-01T20:00:00Z",
@@ -218,6 +230,7 @@ export default [
 
   {
     id: "13",
+    title: "Task title",
     description: "Finalize homepage redesign",
     category: "development",
     startDateTime: "2025-02-01T10:10:00Z",
@@ -236,6 +249,7 @@ export default [
   },
   {
     id: "14",
+    title: "Task title",
     description: "Implement new authentication flow",
     category: "research",
     startDateTime: "2025-02-01T14:25:00Z",
@@ -255,6 +269,7 @@ export default [
 
   {
     id: "15",
+    title: "Task title",
     description: "Finalize homepage redesign",
     category: "design",
     startDateTime: "2025-02-01T10:10:00Z",
@@ -273,6 +288,7 @@ export default [
   },
   {
     id: "16",
+    title: "Task title",
     description: "Implement new authentication flow",
     category: "research",
     startDateTime: "2025-02-01T14:25:00Z",
@@ -292,6 +308,7 @@ export default [
 
   {
     id: "17",
+    title: "Task title",
     description: "Finalize homepage redesign",
     category: "design",
     startDateTime: "2025-02-01T10:10:00Z",
@@ -310,6 +327,7 @@ export default [
   },
   {
     id: "18",
+    title: "Task title",
     description: "Implement new authentication flow",
     category: "research",
     startDateTime: "2025-02-01T14:25:00Z",
@@ -329,6 +347,7 @@ export default [
 
   {
     id: "19",
+    title: "Task title",
     description: "Finalize homepage redesign",
     category: "design",
     startDateTime: "2025-02-01T10:10:00Z",
@@ -347,6 +366,7 @@ export default [
   },
   {
     id: "20",
+    title: "Task title",
     description: "Implement new authentication flow",
     category: "development",
     startDateTime: "2025-02-01T14:25:00Z",
@@ -366,6 +386,7 @@ export default [
 
   {
     id: "21",
+    title: "Task title",
     description: "Finalize homepage redesign",
     category: "design",
     startDateTime: "2025-02-01T10:10:00Z",
@@ -384,6 +405,7 @@ export default [
   },
   {
     id: "22",
+    title: "Task title",
     description: "Implement new authentication flow",
     category: "exercise",
     startDateTime: "2025-02-01T14:25:00Z",
@@ -403,6 +425,7 @@ export default [
 
   {
     id: "23",
+    title: "Task title",
     description: "Finalize homepage redesign",
     category: "development",
     startDateTime: "2025-02-01T10:10:00Z",
@@ -421,6 +444,7 @@ export default [
   },
   {
     id: "24",
+    title: "Task title",
     description: "Implement new authentication flow",
     category: "research",
     startDateTime: "2025-02-01T14:25:00Z",
@@ -439,6 +463,7 @@ export default [
   },
   {
     id: "25",
+    title: "Task title",
     description: "Finalize homepage redesign",
     category: "design",
     startDateTime: "2025-02-01T10:10:00Z",
@@ -457,6 +482,7 @@ export default [
   },
   {
     id: "26",
+    title: "Task title",
     description: "Implement new authentication flow",
     category: "management",
     startDateTime: "2025-02-01T14:25:00Z",
@@ -475,6 +501,7 @@ export default [
   },
   {
     id: "27",
+    title: "Task title",
     description: "Finalize homepage redesign",
     category: "work",
     startDateTime: "2025-02-01T10:10:00Z",
@@ -493,6 +520,7 @@ export default [
   },
   {
     id: "28",
+    title: "Task title",
     description: "Implement new authentication flow",
     category: "management",
     startDateTime: "2025-02-01T14:25:00Z",
@@ -511,6 +539,7 @@ export default [
   },
   {
     id: "29",
+    title: "Task title",
     description: "Finalize homepage redesign",
     category: "work",
     startDateTime: "2025-02-01T10:10:00Z",
@@ -529,6 +558,7 @@ export default [
   },
   {
     id: "30",
+    title: "Task title",
     description: "Implement new authentication flow",
     category: "management",
     startDateTime: "2025-02-01T14:25:00Z",
@@ -547,6 +577,7 @@ export default [
   },
   {
     id: "31",
+    title: "Task title",
     description: "Finalize homepage redesign",
     category: "development",
     startDateTime: "2025-02-01T10:10:00Z",
@@ -565,6 +596,7 @@ export default [
   },
   {
     id: "32",
+    title: "Task title",
     description: "Implement new authentication flow",
     category: "management",
     startDateTime: "2025-02-01T14:25:00Z",
@@ -583,6 +615,7 @@ export default [
   },
   {
     id: "33",
+    title: "Task title",
     description: "Finalize homepage redesign",
     category: "development",
     startDateTime: "2025-02-01T10:10:00Z",
@@ -601,6 +634,7 @@ export default [
   },
   {
     id: "34",
+    title: "Task title",
     description: "Implement new authentication flow",
     category: "management",
     startDateTime: "2025-02-01T14:25:00Z",
@@ -619,6 +653,7 @@ export default [
   },
   {
     id: "35",
+    title: "Task title",
     description: "Finalize homepage redesign",
     category: "development",
     startDateTime: "2025-02-01T10:10:00Z",
@@ -637,6 +672,7 @@ export default [
   },
   {
     id: "36",
+    title: "Task title",
     description: "Implement new authentication flow",
     category: "management",
     startDateTime: "2025-02-01T14:25:00Z",
@@ -655,6 +691,7 @@ export default [
   },
   {
     id: "37",
+    title: "Task title",
     description: "Finalize homepage redesign",
     category: "development",
     startDateTime: "2025-02-01T10:10:00Z",
@@ -673,6 +710,7 @@ export default [
   },
   {
     id: "38",
+    title: "Task title",
     description: "Implement new authentication flow",
     category: "management",
     startDateTime: "2025-02-01T14:25:00Z",

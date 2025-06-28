@@ -7,8 +7,8 @@ import "/node_modules/flatpickr/dist/themes/light.css";
 import emailjs from "@emailjs/browser";
 
 const App = () => {
+  Router();
   Main();
-  Router.init();
   inject();
   injectSpeedInsights();
   emailjs.init(import.meta.env.VITE_PUBLIC_KEY);

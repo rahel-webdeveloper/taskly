@@ -1,9 +1,7 @@
 import TaskHubLogic from "./TaskHubLogic.js";
 
 const MainTaskHub = () => {
-  document.addEventListener("DOMContentLoaded", () => {
-    TaskHubLogic();
-  });
+  document.addEventListener("DOMContentLoaded", () => TaskHubLogic());
 };
 
 export default MainTaskHub;

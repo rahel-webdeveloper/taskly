@@ -9,61 +9,59 @@ import TaskHubRender from "./pages/task_hub/TaskHubRender.js";
 import TimerRender from "./pages/timer/TimerRender.js";
 import WelcomeRender from "./pages/welcome/WelcomeRender.js";
 
-const Router = (() => {
-  const mainContent = document.getElementById("main-content");
-
-  const isWelcomePageSeen = atom(loadLocalStorage("is_about_seen") || false);
-
+const Router = () => {
   const router = new Navigo("/", {
     linksSelector: "[data-link]",
     hash: false,
   });
 
-  const init = () => {
-    router
-      .on({
-        "/": () => {
-          mainContent.innerHTML = TaskHubRender();
-          activeLink("/");
-        },
+  const mainContent = document.getElementById("main_content");
 
-        "/ai-advisor": () => {
-          mainContent.innerHTML = AIAdviceRender();
-          activeLink("/ai-advisor");
-        },
+  const isWelcomePageSeen = atom(loadLocalStorage("is_about_seen") || false);
 
-        "/dashboard": () => {
-          isDashboardOpen.set(true);
-          mainContent.innerHTML = DashboardRender();
-          activeLink("/dashboard");
-        },
+  router
+    .on({
+      "/": () => {
+        mainContent.innerHTML = TaskHubRender();
+        activeLink("/");
+      },
 
-        "/timer": () => {
-          mainContent.innerHTML = TimerRender();
-          activeLink("/timer");
-        },
+      "/ai-advisor": () => {
+        mainContent.innerHTML = AIAdviceRender();
+        activeLink("/ai-advisor");
+      },
 
-        "/welcome": () => {
-          mainContent.innerHTML = WelcomeRender();
-          activeLink("/welcome");
+      "/dashboard": () => {
+        isDashboardOpen.set(true);
+        mainContent.innerHTML = DashboardRender();
+        activeLink("/dashboard");
+      },
 
-          isWelcomePageSeen.set(true);
-          saveLocalStorage(isWelcomePageSeen.get(), "is_about_seen");
-        },
-      })
+      "/timer": () => {
+        mainContent.innerHTML = TimerRender();
+        activeLink("/timer");
+      },
 
-      .notFound(() => {
-        mainContent.innerHTML = "<h1>404 - Page Not Found</h1>";
-      })
+      "/welcome": () => {
+        mainContent.innerHTML = WelcomeRender();
+        activeLink("/welcome");
 
-      .resolve();
+        isWelcomePageSeen.set(true);
+        saveLocalStorage(isWelcomePageSeen.get(), "is_about_seen");
+      },
+    })
 
-    router.updatePageLinks();
-  };
+    .notFound(() => {
+      mainContent.innerHTML = "<h1>404 - Page Not Found</h1>";
+    })
+
+    .resolve();
+
+  router.updatePageLinks();
 
   if (!isWelcomePageSeen.get()) router.navigate("/welcome");
 
-  return { init, router };
-})();
+  return { router };
+};
 
 export default Router;
