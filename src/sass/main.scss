@@ -102,7 +102,7 @@ body {
     background-position: 20% top, left 2rem, center 20%;
   }
 
-  .tasks-home-page {
+  .task__hub-page {
     border-inline: 1px solid $border-color-transparent-2;
     border-radius: 0;
   }
@@ -283,7 +283,7 @@ body {
     bottom: 3rem;
   }
 
-  .tasks-home-page {
+  .task__hub-page {
     @include grid-center;
     border: none;
     padding-top: 0;

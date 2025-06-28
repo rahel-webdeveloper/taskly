@@ -1,6 +1,6 @@
 import hljs from "highlight.js/lib/core";
 import Showdown from "showdown";
-import getAdvice from "./advisor";
+import getAdvice from "./getAdvisor";
 import { loadingDiv, welcomeMessageRender } from "./AIAdviceRender";
 
 import bash from "highlight.js/lib/languages/bash";

@@ -1,5 +1,11 @@
 import flatpickr from "flatpickr";
 import "notyf/notyf.min.css";
+import {
+  priorityColors,
+  priorityIcons,
+  priorityLabels,
+} from "../../data/ui-data.js";
+import openNotification from "../../services/toastNotifications.js";
 import { controlTasksAllOperation } from "../../tasks/ListTasksLogic.js";
 import { listTasks, liveTasks } from "../../tasks/store.js";
 import { isDashboardOpen } from "../dashboard/MainDashboard.js";
@@ -11,81 +17,77 @@ import {
   dueDateTime,
   isScrolledToLeft,
   notifiedTasks,
-  priority,
   setPriorityData,
   startDateTime,
   taskDescription,
   taskTitle,
 } from "./store.js";
 import { addToDetailsCard } from "./TaskHubRender.js";
-import openNotification from "../../services/toastNotifications.js";
-import {
-  priorityColors,
-  priorityIcons,
-  priorityLabels,
-} from "../../data/ui-data.js";
 
 export default async function TaskHubLogic() {
-  const tasksHomePage = document.getElementById("tasks-home-page");
+  const taskHubPage = document.getElementById("task__hub-page");
 
-  if (tasksHomePage) {
+  if (taskHubPage) {
     checkTimeAllDay();
     useFlatepickr();
     submitForm();
     controlTasksAllOperation();
     liveTrackTasks();
-    prioritySlider();
+    prioritySliderController();
 
-    tasksHomePage.addEventListener("click", addTaskToggleAndEvents);
+    taskHubPage.addEventListener("click", taskHub_Events);
   }
 }
 
-const addTaskToggleAndEvents = (event) => {
-  const addTaskIcon = document.querySelector("#add-task-icon i");
-  const formContainer = document.querySelector(".form-container");
-
+//  +______+ Task Hub Events
+const taskHub_Events = (event) => {
   const target = event.target;
 
-  if (addTaskIcon.contains(target)) {
-    const formStyle = formContainer.style.display;
+  if (target.closest("#add-task-icon i")) taskFormDisplayController(event);
 
-    if (window.innerWidth < 1024) {
-      formContainer.style.display = formStyle === "block" ? "none" : "block";
-
-      addTaskIcon.classList.toggle("bi-x");
-    } else {
-      addTaskIcon.classList.remove("bi-x");
-
-      formContainer.style.display = "block";
-    }
-  }
   if (target.closest("#scroll-end-icon")) scrollToEndCard();
 
   if (target.closest("#create_btn") && !validationOfFormData())
     openNotification("warning", "Please fill out the form!");
 };
 
-const styleAddTaskBaseOnScreeen = () => {
+//  +______+ Task Form Container Display base on screen
+
+const taskFormDisplayController = (event) => {
   const addTaskIcon = document.querySelector("#add-task-icon i");
   const formContainer = document.querySelector(".form-container");
 
-  if (addTaskIcon) {
+  const formStyle = formContainer.style;
+
+  //  ** Base on Click event
+  if (event.type === "click")
+    if (window.innerWidth < 1024) {
+      formStyle.display = formStyle.display === "block" ? "none" : "block";
+
+      addTaskIcon.classList.toggle("bi-x");
+    } else {
+      addTaskIcon.classList.remove("bi-x");
+
+      formStyle.display = "block";
+    }
+
+  //  ** Base on Resize event
+  if (event.type === "resize")
     if (window.innerWidth >= 1024) {
       addTaskIcon.classList.remove("bi-x");
-      formContainer.style.display = "block";
+      formStyle.display = "block";
     } else {
       !addTaskIcon.classList.contains("bi-x")
-        ? (formContainer.style.display = "none")
-        : (formContainer.style.display = "block");
+        ? (formStyle.display = "none")
+        : (formStyle.display = "block");
     }
-  }
 };
 
-window.addEventListener("resize", styleAddTaskBaseOnScreeen);
+window.addEventListener("resize", taskFormDisplayController);
 
-// Style priority slider
+//  +______+ Priority slider contoller
 
-const prioritySlider = () => {
+const prioritySliderController = () => {
   const taskPriorityEl = document.querySelector(".task_priority span");
   const priorityIcon = document.querySelector(".task_priority i");
 
@@ -101,10 +103,10 @@ const prioritySlider = () => {
   setPriorityData(prioritySliderNumber);
 
   // Call every time the slider changes
-  prioritySliderEl.addEventListener("change", prioritySlider);
+  prioritySliderEl.addEventListener("change", prioritySliderController);
 };
 
-// Scroll to end of cards
+//  +______+ Scroll to end of cards
 const scrollToEndCard = () => {
   const cardsContainer = document.querySelector("#details_cards");
   const scrollToEndIcon = document.querySelector("#scroll-end-icon i");
@@ -130,6 +132,8 @@ const scrollToEndCard = () => {
   }
 };
 
+// --------**          Form Logic                 **--------//
+
 function submitForm() {
   const form = document.getElementById("form");
 
@@ -145,12 +149,8 @@ function submitForm() {
 
       // Reset from
       form.reset();
-      priority.set({
-        level: 0,
-        label: "",
-        color: "",
-        icon: "",
-      });
+
+      prioritySliderController();
     }
   });
 }
@@ -211,12 +211,12 @@ export const useFlatepickr = () => {
   }
 };
 
-// Validation of data
+//  +______+ Validation of data
+
 const validationOfFormData = () => {
   const titleErrEl = document.getElementById("title-error");
   const cateErrEl = document.getElementById("category-error");
   const desErrEl = document.getElementById("description-error");
-  const prioErrEl = document.getElementById("priority-error-message");
 
   const titleValue = document.getElementById("task-title").value;
   const descriptionValue = document.getElementById("task-description").value;
@@ -247,7 +247,6 @@ const validationOfFormData = () => {
   if (
     nullValidation(titleValue, titleErrEl) &&
     nullValidation(categoryValue, cateErrEl) &&
-    nullValidation(priority.get().level, prioErrEl) &&
     timeValidation()
   ) {
     taskTitle.set(titleValue);
@@ -257,7 +256,8 @@ const validationOfFormData = () => {
   } else return false;
 };
 
-// Get time as date for validation
+//  +______+ Get time as date for Time validation
+
 const getTimeAsDate = (timeStr) => {
   const [time, modifier] = timeStr.split(" ");
   let [hours, minutes] = time.split(":").map(Number);
@@ -331,7 +331,38 @@ export function nullValidation(elementValue, erroreEl) {
   }
 }
 
-// Card logic
+// --------**          Today's Report                 **--------//
+
+export const todayReport = (todayTasks) => {
+  const doneTasksPercentageEl = document.getElementById("done-tasks");
+  const tasksTrackedTimeEl = document.getElementById("tasks-time");
+  const lengthTasksEl = document.getElementById("lenght-tasks");
+
+  const todayDoneTasks = todayTasks.filter((task) => task.state === "done");
+
+  const todayTrackedTime = todayTasks.reduce(
+    (accumlator, currentValue) => accumlator + currentValue.durationMinutes,
+    0
+  );
+
+  if (doneTasksPercentageEl)
+    doneTasksPercentageEl.innerText =
+      todayDoneTasks.length === 0
+        ? "0%"
+        : ((todayDoneTasks.length / todayTasks.length) * 100).toFixed(0) + "%";
+
+  if (lengthTasksEl) lengthTasksEl.textContent = todayTasks.length;
+
+  if (tasksTrackedTimeEl)
+    tasksTrackedTimeEl.textContent =
+      todayTasks.length === 0
+        ? "0h & 0m"
+        : `${Math.floor(todayTrackedTime / 60) + "h"} ${
+            todayTrackedTime / 60 > 0 && todayTrackedTime ? "&" : ""
+          } ${(todayTrackedTime % 60) + "m"}`;
+};
+
+// --------**          Card logic                 **--------//
 
 export const liveTrackTasks = () => {
   const durationInterval = setInterval(() => {
@@ -366,36 +397,6 @@ export const liveTrackTasks = () => {
   }, 1000);
 
   addToDetailsCard(!isDashboardOpen.get() ? liveTasks.get() : listTasks.get());
-};
-
-// today's report
-export const todayReport = (todayTasks) => {
-  const doneTasksPercentageEl = document.getElementById("done-tasks");
-  const tasksTrackedTimeEl = document.getElementById("tasks-time");
-  const lengthTasksEl = document.getElementById("lenght-tasks");
-
-  const todayDoneTasks = todayTasks.filter((task) => task.state === "done");
-
-  const todayTrackedTime = todayTasks.reduce(
-    (accumlator, currentValue) => accumlator + currentValue.durationMinutes,
-    0
-  );
-
-  if (doneTasksPercentageEl)
-    doneTasksPercentageEl.innerText =
-      todayDoneTasks.length === 0
-        ? "0%"
-        : ((todayDoneTasks.length / todayTasks.length) * 100).toFixed(0) + "%";
-
-  if (lengthTasksEl) lengthTasksEl.textContent = todayTasks.length;
-
-  if (tasksTrackedTimeEl)
-    tasksTrackedTimeEl.textContent =
-      todayTasks.length === 0
-        ? "0h & 0m"
-        : `${Math.floor(todayTrackedTime / 60) + "h"} ${
-            todayTrackedTime / 60 > 0 && todayTrackedTime ? "&" : ""
-          } ${(todayTrackedTime % 60) + "m"}`;
 };
 
 const cardTimerUI = (task, index, remainingTime) => {

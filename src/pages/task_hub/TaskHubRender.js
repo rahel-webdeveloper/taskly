@@ -5,7 +5,7 @@ import TasksContainer from "../../tasks/ListTasksRender";
 // Const section main content
 export default function TaskHubRender() {
   return `
-  <div class="tasks-home-page" id="tasks-home-page">
+  <div class="task__hub-page" id="task__hub-page">
     <section class="first-section">
       <div class="form-container">
         ${taskForm()}
@@ -38,7 +38,7 @@ const taskForm = () => {
     <div class="form-row">
       <div class="form-column">
         <label for="task-title" id="title-label">Title</label>
-        <input type="text" id="task-title" name="title" minlength="7" maxlength="85"
+        <input type="text" id="task-title" name="title" minlength="3" maxlength="25"
         placeholder="Write your task title..." required></input>
         <p class="error-message" id="title-error">The title must be at least 3 characters.</p>
       </div>
@@ -61,10 +61,11 @@ const taskForm = () => {
       </div> 
     </div>
 
-    <div class="form-column">
+    <div class="form-column" id="des_column">
       <label for="task-description" id="description-label">Description</label>
       <textarea id="task-description" name="description" rows="7" min="9"
         placeholder="Write your task description or let Taskly to generate for you." required></textarea>
+        <i class="bi bi-cloud-lightning-fill" id="des_generator_icon" title="Generate description"></i>
       <p class="error-message" id="description-error">The description must be at least 9 characters.</p>
     </div>
     
