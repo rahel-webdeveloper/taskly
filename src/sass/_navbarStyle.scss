@@ -3,10 +3,11 @@
 }
 .navbar-header {
   @include fixed-position;
+  position: absolute;
   top: 2.7rem;
-  border-radius: 5rem;
+  border-radius: 2rem;
   width: 95%;
-  padding: 0.7rem 1.7rem;
+  padding: 0.6rem 1.5rem;
   backdrop-filter: blur(9px);
   overflow: hidden;
   border: 1px solid $border-color-transparent-2;
@@ -26,7 +27,7 @@
 }
 
 .log-img {
-  width: 2.7rem;
+  width: 2.3rem;
   transition: scale 0.1s ease-in;
 
   &:hover {

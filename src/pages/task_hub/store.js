@@ -8,6 +8,12 @@ import { controlTasksAllOperation } from "../../tasks/ListTasksLogic";
 import { listTasks } from "../../tasks/store";
 import { liveTrackTasks, useFlatepickr } from "./TaskHubLogic";
 
+export const systemMessage = {
+  role: "system",
+  content:
+    "Hey, you are description generator base on given title do not write before and after sentences like this is your description and how can I help just write description no explaination bencause i will use this as textarea value.",
+};
+
 export const isTasksPageOpen = atom(false);
 export const check_Time_AllDay = atom(false);
 export const isScrolledToLeft = atom(false);

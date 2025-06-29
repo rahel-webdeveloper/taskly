@@ -56,7 +56,7 @@ const NewTaskRender = (task) => {
         data-id="${task.id}"></i>
     </div>
     <div class="task-description-div">
-      <p>${task.description}</p>
+      <p>${task.description.slice(0, 30) + "..."}</p>
       <span class="task-updated-time">
         ${
           new Date(task.updatedAt).getHours() === 0

@@ -65,6 +65,9 @@ const TaskForm = () => {
       <label for="task-description" id="description-label">Description</label>
       <textarea id="task-description" name="description" rows="7" min="30" max="250"
         placeholder="Write your task description or let Taskly to generate for you." required></textarea>
+        <div id="descr_loading">
+        
+        </div>
         <i class="ri-lightbulb-flash-fill" id="des_generator_icon" title="Generate description"></i>
       <p class="error-message" id="description-error">The description must be at least 9 characters.</p>
     </div>

@@ -18,7 +18,7 @@ import { historyMessages, markdownText } from "./store";
 import { taskToAssistant } from "../../tasks/store";
 import { deleteLocalStorage } from "../../data/localStorage";
 
-const converter = new Showdown.Converter({
+export const converter = new Showdown.Converter({
   tables: true,
   emoji: true,
   strikethrough: false,

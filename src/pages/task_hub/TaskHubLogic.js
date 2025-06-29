@@ -21,8 +21,11 @@ import {
   startDateTime,
   taskDescription,
   taskTitle,
+  systemMessage,
 } from "./store.js";
 import { addToDetailsCard } from "./TaskHubRender.js";
+import { loadingDiv } from "../ai_advice/AIAdviceRender.js";
+import { converter } from "../ai_advice/AIAdviceLogic.js";
 
 export default async function TaskHubLogic() {
   const taskHubPage = document.getElementById("task__hub-page");
@@ -44,6 +47,8 @@ export default async function TaskHubLogic() {
 //  +______+ Task Hub Events
 const taskHub_Events = (event) => {
   const target = event.target;
+
+  if (target.closest("#des_generator_icon")) generateDescription();
 
   if (target.closest("#add-task-icon i")) taskFormDisplayController(event);
 
@@ -88,6 +93,62 @@ const taskFormDisplayController = (event) => {
 };
 
 window.addEventListener("resize", taskFormDisplayController);
+
+//  +______+ Generate AI Description
+
+const generateDescription = async () => {
+  const titleValue = document.getElementById("task-title").value;
+  const descriTextArea = document.getElementById("task-description");
+  const descriLoadDiv = document.getElementById("descr_loading");
+
+  descriTextArea.value = "";
+  descriTextArea.attributes.placeholder.value = "";
+  descriLoadDiv.innerHTML = loadingDiv();
+
+  try {
+    const res = await renderDescription(titleValue);
+
+    descriLoadDiv.innerHTML = "";
+    // descriTextArea.value = response.message.content;
+
+    for await (const part of res) {
+      descriTextArea.value += part?.text?.replaceAll(`\n`, `<br>`);
+
+      console.log(part?.text);
+    }
+  } catch (err) {
+    descriLoadDiv.innerHTML = "";
+
+    descriTextArea.value += `
+        ${
+          err.message === "puter is not defined"
+            ? "Check your internet and try again!"
+            : err.error.delegate == "usage-limited-chat"
+            ? "Usage limit exceeded!"
+            : " Something went wrong!"
+        }
+    `;
+  }
+};
+
+const renderDescription = async (title) => {
+  const reply = await puter.ai.chat(
+    [
+      systemMessage,
+      {
+        role: "user",
+        content: `Generate description base on this title (${title}), characters length must between 30 and 250!`,
+      },
+    ],
+    {
+      // model: "gpt-4o",
+      model: "grok-beta",
+      stream: true,
+    }
+  );
+
+  return reply;
+};
 
 //  +______+ Priority slider contoller
 

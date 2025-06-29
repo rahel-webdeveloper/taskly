@@ -181,6 +181,10 @@ body {
     position: relative;
   }
 
+  .navbar-header {
+    position: fixed;
+  }
+
   .navbar-menu {
     height: min-content;
     top: 2.7rem;
@@ -190,7 +194,7 @@ body {
 
     .navbar-links a {
       gap: 0.5rem;
-      font-size: 1.4rem;
+      font-size: 1.3rem;
 
       span {
         font-size: 0.8rem;
