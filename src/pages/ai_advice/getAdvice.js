@@ -9,7 +9,7 @@ export const getAdvice = async () => {
     // model: "deepseek-chat", // it is gpt 4
     // model: "x-ai/grok-3-beta",
     // model: "o3-mini",
-    // stream: true,
+    stream: true,
   });
 
   return reply;

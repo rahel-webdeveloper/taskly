@@ -1,7 +1,7 @@
 import hljs from "highlight.js/lib/core";
 import Showdown from "showdown";
-import getAdvice from "./getAdvisor";
-import { loadingDiv, welcomeMessageRender } from "./AIAdviceRender";
+import getAdvice from "./getAdvice";
+import { loadingDivRend, welcomeMessageRender } from "./AIAdviceRender";
 
 import bash from "highlight.js/lib/languages/bash";
 import css from "highlight.js/lib/languages/css";
@@ -143,10 +143,19 @@ const renderAdviceInHtml = async (userInput) => {
 
   welcomeMessage.style.display = "none";
 
-  responseAreaEl.innerHTML += `<span class="user-message">${userInput.trim()}</span>`;
-  responseAreaEl.innerHTML += loadingDiv();
+  const userEl = document.createElement("span");
+  userEl.classList.add("user-message");
+  userEl.textContent = userInput.trim();
 
-  const thinkDiv = document.querySelectorAll(".think-div");
+  const assistantEl = document.createElement("div");
+
+  responseAreaEl.appendChild(userEl);
+  responseAreaEl.innerHTML += loadingDivRend();
+  responseAreaEl.appendChild(assistantEl);
+
+  const loadingDiv = document.querySelectorAll(".think-div");
+
+  let fullMarkdown = "";
 
   try {
     // Add user input
@@ -154,52 +163,47 @@ const renderAdviceInHtml = async (userInput) => {
 
     const response = await getAdvice();
 
+    // **---- For complete response
+
     // Add response of assistant
-    historyMessages
-      .get()
-      .push({ role: "assistant", content: response.message.content[0].text });
+    // historyMessages
+    //   .get()
+    //   .push({ role: "assistant", content: response.message.content[0].text });
 
     // Conver markdown to html content
-    const htmlContent = converter.makeHtml(response.message.content[0].text);
+    // const htmlContent = converter.makeHtml(response.message.content[0].text);
 
-    for (let i = 0; i < thinkDiv.length; i++)
-      thinkDiv[i].style.display = "none";
+    // for (let i = 0; i < thinkDiv.length; i++)
+    //   thinkDiv[i].style.display = "none";
 
-    responseAreaEl.innerHTML += htmlContent;
+    // responseAreaEl.innerHTML += htmlContent;
 
     // For streaming response
-    // for await (const part of response) {
-    //   responseAreaEl.innerHTML += part.content;
+    for await (const part of response) {
+      fullMarkdown += part?.text;
 
-    //   console.log(part.response);
-    // }
+      const htmlContent = converter.makeHtml(fullMarkdown);
+      assistantEl.innerHTML = htmlContent;
+    }
+    historyMessages.get().push({ role: "assistant", content: fullMarkdown });
 
-    // for testing using sample of markdown text
-
-    // const htmlContent = converter.makeHtml(markdownText);
-
-    // setTimeout(() => {
-    //   responseAreaEl.innerHTML += htmlContent;
-
-    //   for (let i = 0; i < thinkDiv.length; i++)
-    //     thinkDiv[i].style.display = "none";
-    // }, 10);
+    for (let i = 0; i < loadingDiv.length; i++) loadingDiv[i].remove();
   } catch (err) {
-    for (let i = 0; i < thinkDiv.length; i++)
-      thinkDiv[i].style.display = "none";
+    for (let i = 0; i < loadingDiv.length; i++)
+      loadingDiv[i].style.display = "none";
 
     responseAreaEl.innerHTML += `
-     <div class="catch-error">
-     <i class="bi bi-exclamation-circle"></i>
-     <span> ${
-       err.message === "puter is not defined"
-         ? "Check your internet and try again!"
-         : err.error.delegate == "usage-limited-chat"
-         ? "Usage limit exceeded!"
-         : " Something went wrong!"
-     }</span>
-     </div>
-  `;
+       <div class="catch-error">
+       <i class="bi bi-exclamation-circle"></i>
+       <span> ${
+         err.message === "puter is not defined"
+           ? "Check your internet and try again!"
+           : err.error.delegate == "usage-limited-chat"
+           ? "Usage limit exceeded!"
+           : " Something went wrong!"
+       }</span>
+       </div>
+    `;
   }
 
   highlightCode();

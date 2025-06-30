@@ -20,7 +20,7 @@ export const welcomeMessageRender = () => {
   </div>`;
 };
 
-export const loadingDiv = () => {
+export const loadingDivRend = () => {
   return `
     <div class="think-div" id="think-div">
       <div class="loader">
