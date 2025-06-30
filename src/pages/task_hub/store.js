@@ -10,8 +10,10 @@ import { liveTrackTasks, useFlatepickr } from "./TaskHubLogic";
 
 export const systemMessage = {
   role: "system",
-  content:
-    "Hey, you are description generator base on given title do not write before and after sentences like this is your description and how can I help just write description no explaination bencause i will use this as textarea value.",
+  content: `Hey, you are description generator base on given title do not write before and after sentences like this is your description and how can I help just write description no explaination bencause I will use It as Input element value.
+    
+  **-- if user has not entered title give him a message to enter thier task title!
+    `,
 };
 
 export const isTasksPageOpen = atom(false);
