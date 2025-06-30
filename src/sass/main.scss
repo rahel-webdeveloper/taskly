@@ -94,14 +94,6 @@ body {
 }
 
 @media (width >= 704px) {
-  .welcome-first_section {
-    background-image: url("/pattern-lines.svg"), url("/pattern-circle.svg"),
-      url("/pattern-circle.svg");
-    background-size: cover, 27%, 20%;
-    background-repeat: no-repeat;
-    background-position: 20% top, left 2rem, center 20%;
-  }
-
   .task__hub-page {
     border-inline: 1px solid $border-color-transparent-2;
     border-radius: 0;
@@ -217,31 +209,38 @@ body {
     bottom: 2rem;
   }
 
+  .welcome-first_section::after {
+    background-size: cover, 27%, 20%;
+    background-repeat: no-repeat;
+    background-position: 20% top, left 2rem, center 20%;
+    opacity: 0.3;
+  }
+
+  .first-page_subtitle {
+    &::before {
+      @include abs-position;
+      content: "";
+      width: 12rem;
+      height: 12rem;
+      transform-origin: top left;
+      transform: rotate(50deg);
+      top: 0%;
+      left: 10%;
+      background-color: $count-color;
+      opacity: 0.5;
+      filter: blur(70px);
+      z-index: -1;
+    }
+
+    p {
+      max-width: 70%;
+    }
+  }
+
   .main-content {
     border-top-color: transparent;
     border-radius: 0rem 0rem 0.5rem 0.5rem;
     padding-top: 0.57rem;
-  }
-
-  .welcome-first_section::after {
-    @include abs-position;
-    content: "";
-    width: 12rem;
-    height: 12rem;
-    transform-origin: top left;
-    transform: rotate(50deg);
-    top: 0%;
-    left: 10%;
-    background-color: $count-color;
-    opacity: 0.5;
-    filter: blur(70px);
-    z-index: -1;
-  }
-
-  .first-page_subtitle {
-    p {
-      max-width: 70%;
-    }
   }
 
   .ai-advisor-annoucement_div {

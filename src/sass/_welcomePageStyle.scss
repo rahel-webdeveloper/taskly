@@ -5,21 +5,37 @@
 }
 
 .welcome-first_section {
-  background-image: url("/pattern-lines.svg"), url("/pattern-circle.svg"),
-    url("/pattern-circle.svg");
-  background-size: cover, 39%, 25%;
-  background-repeat: no-repeat;
-  background-position: 20% top, left 2rem, center 25%;
   padding-top: 4.7rem;
   text-align: center;
-  overflow-x: hidden;
   @include grid-center;
-  gap: 0.77rem;
+  gap: 1rem;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-image: url("/pattern-lines.svg"), url("/pattern-circle.svg"),
+      url("/pattern-circle.svg");
+    background-size: cover, 39%, 25%;
+    background-repeat: no-repeat;
+    background-position: 20% top, left 2rem, center 25%;
+    z-index: -1;
+    opacity: 0.4;
+  }
 
   h1 {
     margin-inline: 1rem;
-    font-size: 3.37rem;
+    font-size: 3.7rem;
     color: $second-text;
+
+    span {
+      color: $high-color;
+    }
   }
 }
 

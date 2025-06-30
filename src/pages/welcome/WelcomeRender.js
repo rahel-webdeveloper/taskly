@@ -4,7 +4,7 @@ const WelcomeRender = () => {
   return `
   <div class="welcome-page">
     <section class="welcome-first_section">
-      <h1>Welcome to Taskly</h1>
+      <h1>Welcome to <span>Taskly</span></h1>
       <div class="first-page_subtitle"> 
       <h2><span>Track</span>, <span>Chat</span>, and <span>Conquer</span> Your Tasks!</h2>
 
