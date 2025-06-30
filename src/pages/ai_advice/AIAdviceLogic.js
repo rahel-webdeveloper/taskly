@@ -50,9 +50,6 @@ const AIAdviceLogic = async () => {
 };
 
 export const getUserInput = async () => {
-  const aiAdviceContainer = document.querySelector(
-    ".ai-advice_container"
-  ).style;
   const inputSubmitBox = document.querySelector(".input-submit_box");
   const getAdviceBtn = document.getElementById("get-advice_btn");
   const userInputEl = document.getElementById("user-input");
@@ -79,44 +76,63 @@ export const getUserInput = async () => {
     }
   });
 
+  // **----- Controll style when user typing
   userInputEl.addEventListener("input", function () {
     this.style.height = "auto";
     this.style.height = `${this.scrollHeight}px`;
+    this.style.maxHeight = `${200}px`;
 
     this.value
       ? (getAdviceBtn.disabled = false)
       : (getAdviceBtn.disabled = true);
   });
 
-  getAdviceBtn.addEventListener("click", () => {
-    if (userInputEl.value.trim() === "") return;
+  // **----- Send Prompt by Pressing Button
+  getAdviceBtn.addEventListener("click", () =>
+    sendPrompt(getAdviceBtn, userInputEl)
+  );
 
-    deleteLocalStorage("task-to-assistant");
-
-    const isWindowLarge = window.innerWidth > 1024;
-
-    renderAdviceInHtml(userInputEl.value);
-
-    userInputEl.value = "";
-    getAdviceBtn.disabled = true;
-
-    userInputEl.style.height = `3rem`;
-
-    isWindowLarge
-      ? (aiAdviceContainer.cssText += `align-content: start; padding-bottom: 3.7rem;`)
-      : (aiAdviceContainer.cssText += `align-content: start; padding-bottom: 2rem;`);
+  // **----- Send Prompt by pressing enter
+  userInputEl.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      sendPrompt(getAdviceBtn, userInputEl);
+    }
   });
 
   if (taskToAssistant.get().length !== 0) {
     userInputEl.value = `Act as project manager for my this task:
+    title: ${taskToAssistant.get()[0].title}
     description: ${taskToAssistant.get()[0].description},
-    priority: ${taskToAssistant.get()[0].priority.label},
     start time: ${new Date(
       taskToAssistant.get()[0].startDateTime
     ).toLocaleString()},
     duration minutes: ${taskToAssistant.get()[0].durationMinutes}m`;
     getAdviceBtn.disabled = false;
   }
+};
+
+const sendPrompt = (getAdviceBtn, userInputEl) => {
+  const aiAdviceContainerStyle = document.querySelector(
+    ".ai-advice_container"
+  ).style;
+
+  if (userInputEl.value.trim() === "") return;
+
+  deleteLocalStorage("task-to-assistant");
+
+  const isWindowLarge = window.innerWidth > 1024;
+
+  renderAdviceInHtml(userInputEl.value);
+
+  userInputEl.value = "";
+  getAdviceBtn.disabled = true;
+
+  userInputEl.style.height = `3rem`;
+
+  isWindowLarge
+    ? (aiAdviceContainerStyle.cssText += `align-content: start; padding-bottom: 3.7rem;`)
+    : (aiAdviceContainerStyle.cssText += `align-content: start; padding-bottom: 2rem;`);
 };
 
 export const addStyleToMarkdownContainer = () => {

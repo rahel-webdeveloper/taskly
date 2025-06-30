@@ -66,7 +66,7 @@
   bottom: 6rem;
   background-color: $third-color;
   padding-inline: 1rem 1rem;
-  border-radius: 2rem;
+  border-radius: 1.5rem;
   @include flex-space;
   gap: 1rem;
   border: 1px solid $border-color-transparent-2;
@@ -85,6 +85,16 @@
     resize: none;
     transition: all 0.3s ease-in-out;
     font-family: inherit;
+
+    &::-webkit-scrollbar {
+      width: 0.6rem;
+      background-color: $first-color;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      width: 0.5rem;
+      background-color: $second-color;
+    }
   }
 
   button {
