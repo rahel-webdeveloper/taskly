@@ -1,4 +1,5 @@
 import { atom } from "nanostores";
+import { loadLocalStorage } from "../../data/localStorage";
 
 export const systemMsg = {
   role: "system",
@@ -40,5 +41,21 @@ export const refusalMsg = "I'm sorry, but I cannot assist with that.";
 
 export const historyMessages = atom([systemMsg]);
 
-export const markdownText = `# Authentication Flow Implementation Plan\n\n**I appreciate your trust in me to help with this important project!** Implementing a new authentication flow is a critical task that impacts both security and user experience. Lets break this down into manageable steps:\n\n## Project Overview\n\n### Step 1: Requirements Analysis\n* **Define authentication requirements** - Will you use OAuth, JWT, SAML, or another protocol?\n* **Identify user types** - Regular users, admins, API clients, etc.\n* **Document security requirements** - Password policies, MFA needs, session management\n* **Map out user journeys** - Registration, login, password reset, account recovery\n\n### Step 2: Design Phase\n* **Create technical specifications** - Authentication protocols, token handling, encryption methods\n* **Design database schema changes** - User tables, token storage, session management\n* **Develop API endpoints** - Authentication routes and services\n* **Create UI mockups** - Login screens, registration forms, verification pages\n\n### Step 3: Implementation\n* **Set up authentication libraries/services** - Auth0, Firebase, custom solution, etc.\n* **Implement backend authentication logic** - User verification, token generation/validation\n* **Develop frontend components** - Login forms, registration flows, error handling\n* **Integrate with existing systems** - User database, permissions, roles\n\n### Step 4: Testing & Security\n* **Conduct unit and integration tests** - Test all authentication paths\n* **Perform security testing** - Penetration testing, vulnerability scanning\n* **Test edge cases** - Account lockouts, expired tokens, concurrent sessions\n* **Validate against compliance requirements** - GDPR, CCPA, industry standards\n\n### Step 5: Deployment & Monitoring\n* **Create migration plan** for existing users\n* **Implement analytics and monitoring** - Failed login attempts, usage patterns\n* **Develop rollback strategy** in case of issues\n* **Plan for gradual rollout** - Beta testing, percentage-based deployment\n\n## Additional Considerations\n- **Documentation** - Create comprehensive docs for developers and end-users\n- **Training** - Ensure support team understands the new flow\n- **Performance testing** - Verify authentication doesnt create bottlenecks\n\n> "The best preparation for tomorrow is doing your best today." - Ibn al-Qayyim\n\nWould you like me to elaborate on any specific aspect of this authentication flow implementation plan?
-  `;
+export const allChatsHistory = atom(loadLocalStorage("ai-chat_history") || []);
+
+export const getAdvice = async (historyMessages) => {
+  const reply = await puter.ai.chat(historyMessages, {
+    // model: "deepseek-reasoner",
+    // model: "grok-beta",
+    // model: "gpt-4o",
+    model: "claude-3-7-sonnet",
+    // model: "deepseek-chat", // it is gpt 4
+    // model: "x-ai/grok-3-beta",
+    // model: "o3-mini",
+    stream: true,
+  });
+
+  return reply;
+};
+
+export default getAdvice;

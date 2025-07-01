@@ -24,7 +24,7 @@ import {
   systemMessage,
 } from "./store.js";
 import { addToDetailsCard } from "./TaskHubRender.js";
-import { loadingDivRend } from "../ai_advice/AIAdviceRender.js";
+import { loadingDivComp } from "../ai_advice/AIAdviceRender.js";
 import { converter } from "../ai_advice/AIAdviceLogic.js";
 
 export default async function TaskHubLogic() {
@@ -103,7 +103,7 @@ const generateDescription = async () => {
 
   descriTextArea.value = "";
   descriTextArea.attributes.placeholder.value = "";
-  descriLoadDiv.innerHTML = loadingDivRend();
+  descriLoadDiv.innerHTML = loadingDivComp();
 
   try {
     const res = await renderDescription(titleValue);

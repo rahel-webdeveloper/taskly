@@ -4,8 +4,8 @@
   min-height: 80vh;
 }
 
-#response-area {
-  padding: 1rem;
+#chat_area {
+  padding: 1.5rem;
   display: grid;
   align-items: center;
 }
@@ -47,16 +47,21 @@
   }
 }
 
-.user-message {
-  padding: 0.7rem 1rem;
-  background-color: $second-color;
-  place-self: end;
-  border-radius: 1.45rem 1.45rem 0.187rem;
-  max-width: 77%;
-  margin-block: 0.7rem;
-  height: auto;
-  display: inline;
-  word-wrap: break-word;
+#chat_area {
+  .user {
+    padding: 0.7rem 1rem;
+    background-color: $second-color;
+    place-self: end;
+    border-radius: 1.45rem 1.45rem 0.187rem;
+    max-width: 77%;
+    margin-block: 0.7rem;
+    height: auto;
+    display: inline;
+    word-wrap: break-word;
+  }
+
+  // .assistat {
+  // }
 }
 
 .input-submit_box {
@@ -70,7 +75,7 @@
   @include flex-space;
   gap: 1rem;
   border: 1px solid $border-color-transparent-2;
-  z-index: 4;
+  // z-index: 4;
   transition: all 0.167s ease-in-out;
 
   input,
@@ -187,5 +192,90 @@
 @keyframes bounce-3 {
   50% {
     transform: translateY(-8px);
+  }
+}
+
+#sidebar_toggle-btn {
+  position: absolute;
+  font-size: 1.25rem;
+  top: 5.5rem;
+  right: 1.5rem;
+  z-index: 3;
+  cursor: pointer;
+  transition: all 0.2s ease-in;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+// *** ----  Sidebar Style
+#ai__sidebar {
+  @include fixed-position;
+  background-color: $second-color;
+  top: 50%;
+  width: 100%;
+  height: 100vh;
+  z-index: 2;
+  padding: 1rem;
+  transition: all 0.3s ease-in-out;
+  left: -50%;
+
+  .chat__Library {
+    padding: 1rem 0.5rem 1rem;
+    display: grid;
+    row-gap: 1rem;
+
+    .library__header {
+      @include flex-space;
+
+      i {
+        cursor: pointer;
+      }
+    }
+
+    .library__contents {
+      height: 30%;
+      margin-inline: 0.3rem;
+      overflow: auto;
+
+      &::-webkit-scrollbar {
+        width: 0;
+      }
+
+      .content {
+        cursor: pointer;
+        // background-color: $third-color;
+        margin-bottom: 0.7rem;
+        border-bottom: 1px solid $border-color-transparent-2;
+        padding: 0.55rem;
+        // border-radius: 0.7rem;
+        display: grid;
+        row-gap: 0.25rem;
+        transition: all 0.3s ease-in-out;
+
+        &:hover {
+          opacity: 0.7;
+          scale: 1.03;
+        }
+
+        h4 {
+          font-size: 0.9rem;
+        }
+        p {
+          font-size: 0.8rem;
+          color: $second-text;
+        }
+
+        span {
+          color: $optional-color-transparent-4;
+          margin-top: 0.3rem;
+          font-size: 0.7rem;
+          i {
+            margin-right: 0.5rem;
+          }
+        }
+      }
+    }
   }
 }

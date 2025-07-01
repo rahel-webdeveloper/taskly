@@ -31,7 +31,7 @@
   h1 {
     margin-inline: 1rem;
     font-size: 3.7rem;
-    color: $second-text;
+    color: $first-text;
 
     span {
       color: $high-color;
@@ -42,10 +42,10 @@
 .welcome-first_section::before {
   @include abs-position;
   content: "";
-  width: 4rem;
+  width: 3rem;
   transform-origin: top left;
   transform: rotate(50deg);
-  height: 47rem;
+  height: 40rem;
   top: -7%;
   left: 85%;
   background-image: linear-gradient(
@@ -53,7 +53,7 @@
     rgba(255, 255, 255, 0),
     $btn-color 50%
   );
-  filter: blur(70px);
+  filter: blur(30px);
   z-index: -1;
   border-radius: 50%;
 }
@@ -66,6 +66,7 @@
   h2 {
     margin-inline: 1rem;
     font-size: 2.37rem;
+    color: $first-text;
 
     span:nth-child(1) {
       color: $moderate-color;

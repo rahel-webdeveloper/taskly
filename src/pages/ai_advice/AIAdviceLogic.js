@@ -1,7 +1,6 @@
 import hljs from "highlight.js/lib/core";
 import Showdown from "showdown";
-import getAdvice from "./getAdvice";
-import { loadingDivRend, welcomeMessageRender } from "./AIAdviceRender";
+import { loadingDivComp, welcomeMessageComp } from "./AIAdviceRender";
 
 import bash from "highlight.js/lib/languages/bash";
 import css from "highlight.js/lib/languages/css";
@@ -14,9 +13,9 @@ import html from "highlight.js/lib/languages/xml";
 
 import "highlight.js/styles/atom-one-dark.css";
 
-import { historyMessages, markdownText } from "./store";
+import { deleteLocalStorage, saveLocalStorage } from "../../data/localStorage";
 import { taskToAssistant } from "../../tasks/store";
-import { deleteLocalStorage } from "../../data/localStorage";
+import getAdvice, { allChatsHistory, historyMessages } from "./store";
 
 export const converter = new Showdown.Converter({
   tables: true,
@@ -46,6 +45,7 @@ const AIAdviceLogic = async () => {
   if (aiAdviceContainerEl) {
     addStyleToMarkdownContainer();
     getUserInput();
+    renderChatContent();
   }
 };
 
@@ -136,38 +136,41 @@ const sendPrompt = (getAdviceBtn, userInputEl) => {
 };
 
 export const addStyleToMarkdownContainer = () => {
-  const responseAreaEl = document.getElementById("response-area");
+  const chatAreaEl = document.getElementById("chat_area");
 
-  responseAreaEl.style.cssText += `
+  chatAreaEl.style.cssText += `
   min-width: 200px;
   width: 100%;
   max-width: 980px;
   margin: 1.77rem auto 3rem;
-  background-color: #14161e;
+  background-color: #151419;
   color: #f1f0f0;
   border-radius: 1rem;
 `;
 
-  window.addEventListener("load", () => {
-    responseAreaEl.innerHTML = welcomeMessageRender();
-  });
+  // window.addEventListener(
+  //   "load",
+  //   () => (chatAreaEl.innerHTML = welcomeMessageRender())
+  // );
 };
 
 const renderAdviceInHtml = async (userInput) => {
-  const responseAreaEl = document.getElementById("response-area");
+  const chatAreaEl = document.getElementById("chat_area");
   const welcomeMessage = document.querySelector(".ai-welcome_message");
 
   welcomeMessage.style.display = "none";
 
   const userEl = document.createElement("span");
-  userEl.classList.add("user-message");
+  userEl.classList.add("user");
   userEl.textContent = userInput.trim();
 
-  const assistantEl = document.createElement("div");
+  const assistantEl = document.createElement("article");
+  assistantEl.classList.add("markdown-body");
+  assistantEl.style.backgroundColor = "#151419";
 
-  responseAreaEl.appendChild(userEl);
-  responseAreaEl.innerHTML += loadingDivRend();
-  responseAreaEl.appendChild(assistantEl);
+  chatAreaEl.appendChild(userEl);
+  chatAreaEl.innerHTML += loadingDivComp();
+  chatAreaEl.appendChild(assistantEl);
 
   const loadingDiv = document.querySelectorAll(".think-div");
 
@@ -177,24 +180,9 @@ const renderAdviceInHtml = async (userInput) => {
     // Add user input
     historyMessages.get().push({ role: "user", content: userInput.trim() });
 
-    const response = await getAdvice();
+    const response = await getAdvice(historyMessages.get());
 
-    // **---- For complete response
-
-    // Add response of assistant
-    // historyMessages
-    //   .get()
-    //   .push({ role: "assistant", content: response.message.content[0].text });
-
-    // Conver markdown to html content
-    // const htmlContent = converter.makeHtml(response.message.content[0].text);
-
-    // for (let i = 0; i < thinkDiv.length; i++)
-    //   thinkDiv[i].style.display = "none";
-
-    // responseAreaEl.innerHTML += htmlContent;
-
-    // For streaming response
+    // **---------     For streaming response
     for await (const part of response) {
       fullMarkdown += part?.text;
 
@@ -203,12 +191,23 @@ const renderAdviceInHtml = async (userInput) => {
     }
     historyMessages.get().push({ role: "assistant", content: fullMarkdown });
 
+    allChatsHistory.set([
+      {
+        id: "msg-" + Date.now(),
+        chat: historyMessages.get(),
+      },
+      ...historyMessages.get(),
+    ]);
+
+    saveLocalStorage(allChatsHistory.get(), "ai-chat_history");
+
+    // **------   Delete loading div after completing response
+
     for (let i = 0; i < loadingDiv.length; i++) loadingDiv[i].remove();
   } catch (err) {
-    for (let i = 0; i < loadingDiv.length; i++)
-      loadingDiv[i].style.display = "none";
+    for (let i = 0; i < loadingDiv.length; i++) loadingDiv[i].remove();
 
-    responseAreaEl.innerHTML += `
+    chatAreaEl.innerHTML += `
        <div class="catch-error">
        <i class="bi bi-exclamation-circle"></i>
        <span> ${
@@ -237,6 +236,32 @@ const highlightCode = () => {
 
   // Initilize the highlight.js
   hljs.highlightAll();
+};
+
+// **-----------    Find current chat and update that one
+const renderChatContent = () => {
+  const chatAreaEl = document.getElementById("chat_area");
+  const welcomeMessage = document.querySelector(".ai-welcome_message");
+
+  // welcomeMessage.style.display = "none";
+
+  allChatsHistory.get()[0]["chat"].forEach((chat) => {
+    if (chat.role === "user") {
+      const userEl = document.createElement("span");
+
+      userEl.classList.add(chat.role);
+      userEl.textContent = chat.content;
+      chatAreaEl.appendChild(userEl);
+    }
+
+    if (chat.role === "assistant") {
+      const assistantEl = document.createElement("article");
+      assistantEl.classList.add("markdown-body");
+      assistantEl.innerHTML = converter.makeHtml(chat.content);
+      assistantEl.style.backgroundColor = "#151419";
+      chatAreaEl.appendChild(assistantEl);
+    }
+  });
 };
 
 export default AIAdviceLogic;

@@ -1,7 +1,7 @@
 .navbar {
-  z-index: 4;
+  z-index: 2;
 }
-.navbar-header {
+.navbar_top_area {
   @include fixed-position;
   position: absolute;
   top: 2.7rem;
@@ -11,9 +11,10 @@
   backdrop-filter: blur(9px);
   overflow: hidden;
   border: 1px solid $border-color-transparent-2;
+  @include flex-space;
 }
 
-.navbar-header::after {
+.navbar_top_area::after {
   content: "";
   @include abs-position;
   width: 1rem;
@@ -69,6 +70,7 @@
   border: 1px solid $border-color-transparent-2;
   transform-origin: left;
   transition: scale 0.3s ease-in-out;
+  @include flex-space;
 }
 
 .navbar-links {

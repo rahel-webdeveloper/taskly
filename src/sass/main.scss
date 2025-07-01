@@ -173,7 +173,7 @@ body {
     position: relative;
   }
 
-  .navbar-header {
+  .navbar_top_area {
     position: fixed;
   }
 
@@ -356,10 +356,39 @@ body {
 
   .ai-advice_container {
     min-height: 90vh;
+    grid-template-columns: 0.7fr 1fr 1fr;
+    grid-template-areas: ". chat chat";
+
+    #chat_area {
+      grid-area: chat;
+    }
+
+    #sidebar_toggle-btn {
+      display: none;
+    }
+
+    #ai__sidebar {
+      width: 25vw;
+      height: 520px;
+      top: 57%;
+      left: 12.5%;
+      padding-top: 0;
+      overflow: hidden;
+      border-radius: 0 0.7rem 0rem 0;
+
+      h2 {
+        font-size: 1.25rem;
+      }
+
+      .content:last-child {
+        margin-bottom: 6rem;
+      }
+    }
   }
 
   .input-submit_box {
-    bottom: 3rem;
+    bottom: 1.5rem;
+    z-index: 3;
   }
 
   .timer-container {
