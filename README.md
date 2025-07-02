@@ -12,15 +12,21 @@ Check out the live demo here: **[Taskly](https://task-ly-ai.vercel.app/)**
 
 ## 📋 Table of Contents
 
-1. [Description](#description)
-2. [Features](#features)
-3. [Tech Stack](#tech-stack)
-4. [Getting Started](#getting-started)
-   - [Installation](#installation)
-   - [Usage](#usage)
-5. [Project Structure](#project-structure)
-6. [Future Enhancements](#future-enhancements)
-7. [Author](#author)
+- [Taskly Pro](#taskly-pro)
+  - [🌐 Live Demo](#-live-demo)
+  - [📋 Table of Contents](#-table-of-contents)
+  - [🔍 Description](#-description)
+  - [✨ Features](#-features)
+      - [This app is completely responsive from small to large devices](#this-app-is-completely-responsive-from-small-to-large-devices)
+  - [🛠 Tech Stack](#-tech-stack)
+  - [🚀 Getting Started](#-getting-started)
+    - [Installation](#installation)
+    - [Usage](#usage)
+  - [🧠 Waht I Learned](#-waht-i-learned)
+  - [🤌 What Was Intreste For Me:](#-what-was-intreste-for-me)
+  - [project-structure 📂](#project-structure-)
+    - [Future Enhancements💡](#future-enhancements)
+    - [Author](#author)
 
 ---
 
@@ -34,8 +40,10 @@ Taskly Pro is a Progressive Web App that helps you create, track, and analyze yo
 
 - Task Hub
 
+  - Generate task description base on given title by AI
   - Create, edit, delete, and track tasks
-  - Filter tasks by status
+  - Filter tasks by statuses
+  - Sort by name and date
   - Special button for task assistant
 
 - AI Advisor
@@ -43,6 +51,7 @@ Taskly Pro is a Progressive Web App that helps you create, track, and analyze yo
   - Get personalized advice on how to prioritize or tackle your tasks
   - Powered by AI Advisor API through Puter.js
   - Achieve best advices base on your history messages feature
+  - Save every new chat saparatly on local storage
 
 - Dashboard
 
@@ -129,7 +138,10 @@ export const getAdvice = async () => {
 
 ## project-structure 📂
 
-```bash
+<details>
+ Show structure
+ <summary>
+ ```bash
 \---src
     |   main.js
     |   navbar.js
@@ -194,6 +206,8 @@ export const getAdvice = async () => {
             helper.js
             toastNotifications.js
 ```
+ </summary>
+</details>
 
 ### Future Enhancements💡
 

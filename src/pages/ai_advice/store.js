@@ -1,5 +1,28 @@
 import { atom } from "nanostores";
 import { loadLocalStorage } from "../../data/localStorage";
+import Showdown from "showdown";
+
+export const converter = new Showdown.Converter({
+  tables: true,
+  emoji: true,
+  strikethrough: false,
+  ghMentions: true,
+  simpleLineBreaks: true,
+  underline: true,
+  omitExtraWLInCodeBlocks: true,
+  ghCodeBlocks: true,
+  disableForced4SpacesIndentedSublists: true,
+  tasklists: true,
+  simplifiedAutoLink: true,
+  metadata: true,
+  backslashEscapesHTMLTags: true,
+  ghCompatibleHeaderId: true,
+  customizedHeaderId: true,
+  ghMentionsLink: true,
+  parseImgDimensions: true,
+  smoothLivePreview: true,
+  smartIndentationFix: true,
+});
 
 export const systemMsg = {
   role: "system",

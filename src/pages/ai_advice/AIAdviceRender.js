@@ -20,13 +20,15 @@ const aiSidebarComp = () => {
   </span>
 
   <div id="ai__sidebar">
-    <div class="chat__Library">
+    <div class="conversation__Library">
       <header class="library__header">
        <h2>Library</h2>
        <span><i class="bi bi-pencil-square"></i></span>
       </header>
-      <div class="library__contents">
-        <div class="content">
+
+      <ul class="conversation__lists">
+      
+        <li class="conversation">
           <h4 class="user__msg">What is streaming in AI response!</h4>
           <p class="assistant__res">
             It is the of generating response as it generated may be one letter...
@@ -35,9 +37,9 @@ const aiSidebarComp = () => {
           <span>
             <i class="bi bi-clock"></i>2d
           </span>
-        </div>
+        </li>
 
-        <div class="content">
+        <li class="conversation">
           <h4 class="user__msg">What is streaming in AI response!</h4>
           <p class="assistant__res">
             It is the of generating response as it generated may be one letter...
@@ -46,9 +48,9 @@ const aiSidebarComp = () => {
           <span>
             <i class="bi bi-clock"></i>2d
           </span>
-        </div>
+        </li>
 
-        <div class="content">
+        <li class="conversation">
           <h4 class="user__msg">What is streaming in AI response!</h4>
           <p class="assistant__res">
             It is the of generating response as it generated may be one letter...
@@ -57,10 +59,10 @@ const aiSidebarComp = () => {
           <span>
             <i class="bi bi-clock"></i>2d
           </span>
-        </div>
+        </li>
 
 
-        <div class="content">
+        <li class="conversation">
           <h4 class="user__msg">What is streaming in AI response!</h4>
           <p class="assistant__res">
             It is the of generating response as it generated may be one letter...
@@ -69,10 +71,10 @@ const aiSidebarComp = () => {
           <span>
             <i class="bi bi-clock"></i>2d
           </span>
-        </div>
+        </li>
 
 
-        <div class="content">
+        <li class="conversation">
           <h4 class="user__msg">What is streaming in AI response!</h4>
           <p class="assistant__res">
             It is the of generating response as it generated may be one letter...
@@ -81,10 +83,10 @@ const aiSidebarComp = () => {
           <span>
             <i class="bi bi-clock"></i>2d
           </span>
-        </div>
+        </li>
 
 
-        <div class="content">
+        <li class="conversation">
           <h4 class="user__msg">What is streaming in AI response!</h4>
           <p class="assistant__res">
             It is the of generating response as it generated may be one letter...
@@ -93,10 +95,10 @@ const aiSidebarComp = () => {
           <span>
             <i class="bi bi-clock"></i>2d
           </span>
-        </div>
+        </li>
 
 
-        <div class="content">
+        <li class="conversation">
           <h4 class="user__msg">What is streaming in AI response!</h4>
           <p class="assistant__res">
             It is the of generating response as it generated may be one letter...
@@ -105,10 +107,10 @@ const aiSidebarComp = () => {
           <span>
             <i class="bi bi-clock"></i>2d
           </span>
-        </div>
+        </li>
 
 
-        <div class="content">
+        <li class="conversation">
           <h4 class="user__msg">What is streaming in AI response!</h4>
           <p class="assistant__res">
             It is the of generating response as it generated may be one letter...
@@ -117,10 +119,10 @@ const aiSidebarComp = () => {
           <span>
             <i class="bi bi-clock"></i>2d
           </span>
-        </div>
+        </li>
 
 
-        <div class="content">
+        <li class="conversation">
           <h4 class="user__msg">What is streaming in AI response!</h4>
           <p class="assistant__res">
             It is the of generating response as it generated may be one letter...
@@ -129,9 +131,9 @@ const aiSidebarComp = () => {
           <span>
             <i class="bi bi-clock"></i>2d
           </span>
-        </div>
+        </li>
 
-        <div class="content">
+        <li class="conversation">
           <h4 class="user__msg">What is streaming in AI response!</h4>
           <p class="assistant__res">
             It is the of generating response as it generated may be one letter...
@@ -140,10 +142,10 @@ const aiSidebarComp = () => {
           <span>
             <i class="bi bi-clock"></i>2d
           </span>
-        </div>
+        </li>
 
 
-        <div class="content">
+        <li class="conversation">
           <h4 class="user__msg">What is streaming in AI response!</h4>
           <p class="assistant__res">
             It is the of generating response as it generated may be one letter...
@@ -152,10 +154,10 @@ const aiSidebarComp = () => {
           <span>
             <i class="bi bi-clock"></i>2d
           </span>
-        </div>
+        </li>
 
 
-        <div class="content">
+        <li class="conversation">
           <h4 class="user__msg">What is streaming in AI response!</h4>
           <p class="assistant__res">
             It is the of generating response as it generated may be one letter...
@@ -164,10 +166,10 @@ const aiSidebarComp = () => {
           <span>
             <i class="bi bi-clock"></i>2d
           </span>
-        </div>
+        </li>
 
 
-        <div class="content">
+        <li class="conversation">
           <h4 class="user__msg">What is streaming in AI response!</h4>
           <p class="assistant__res">
             It is the of generating response as it generated may be one letter...
@@ -176,8 +178,8 @@ const aiSidebarComp = () => {
           <span>
             <i class="bi bi-clock"></i>2d
           </span>
-        </div>
-      </div>
+        </li>
+      </ul>
     </div>
   </div>`;
 };

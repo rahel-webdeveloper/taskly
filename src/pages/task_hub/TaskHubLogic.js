@@ -25,7 +25,6 @@ import {
 } from "./store.js";
 import { addToDetailsCard } from "./TaskHubRender.js";
 import { loadingDivComp } from "../ai_advice/AIAdviceRender.js";
-import { converter } from "../ai_advice/AIAdviceLogic.js";
 
 export default async function TaskHubLogic() {
   const taskHubPage = document.getElementById("task__hub-page");

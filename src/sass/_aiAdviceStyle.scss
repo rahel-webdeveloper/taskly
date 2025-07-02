@@ -221,7 +221,7 @@
   transition: all 0.3s ease-in-out;
   left: -50%;
 
-  .chat__Library {
+  .conversation__Library {
     padding: 1rem 0.5rem 1rem;
     display: grid;
     row-gap: 1rem;
@@ -229,13 +229,18 @@
     .library__header {
       @include flex-space;
 
-      i {
+      span {
         cursor: pointer;
+        transition: all 0.2s ease-in;
+
+        &:hover {
+          opacity: 0.7;
+        }
       }
     }
 
-    .library__contents {
-      height: 30%;
+    .conversation__lists {
+      height: 35%;
       margin-inline: 0.3rem;
       overflow: auto;
 
@@ -243,13 +248,11 @@
         width: 0;
       }
 
-      .content {
+      .conversation {
         cursor: pointer;
-        // background-color: $third-color;
         margin-bottom: 0.7rem;
         border-bottom: 1px solid $border-color-transparent-2;
         padding: 0.55rem;
-        // border-radius: 0.7rem;
         display: grid;
         row-gap: 0.25rem;
         transition: all 0.3s ease-in-out;

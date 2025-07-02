@@ -1,5 +1,4 @@
 import hljs from "highlight.js/lib/core";
-import Showdown from "showdown";
 import { loadingDivComp, welcomeMessageComp } from "./AIAdviceRender";
 
 import bash from "highlight.js/lib/languages/bash";
@@ -15,29 +14,11 @@ import "highlight.js/styles/atom-one-dark.css";
 
 import { deleteLocalStorage, saveLocalStorage } from "../../data/localStorage";
 import { taskToAssistant } from "../../tasks/store";
-import getAdvice, { allChatsHistory, historyMessages } from "./store";
-
-export const converter = new Showdown.Converter({
-  tables: true,
-  emoji: true,
-  strikethrough: false,
-  ghMentions: true,
-  simpleLineBreaks: true,
-  underline: true,
-  omitExtraWLInCodeBlocks: true,
-  ghCodeBlocks: true,
-  disableForced4SpacesIndentedSublists: true,
-  tasklists: true,
-  simplifiedAutoLink: true,
-  metadata: true,
-  backslashEscapesHTMLTags: true,
-  ghCompatibleHeaderId: true,
-  customizedHeaderId: true,
-  ghMentionsLink: true,
-  parseImgDimensions: true,
-  smoothLivePreview: true,
-  smartIndentationFix: true,
-});
+import getAdvice, {
+  allChatsHistory,
+  converter,
+  historyMessages,
+} from "./store";
 
 const AIAdviceLogic = async () => {
   const aiAdviceContainerEl = document.querySelector(".ai-advice_container");
@@ -45,14 +26,42 @@ const AIAdviceLogic = async () => {
   if (aiAdviceContainerEl) {
     addStyleToMarkdownContainer();
     getUserInput();
-    renderChatContent();
+    renderActiveConve();
+
+    aiAdviceContainerEl.addEventListener("click", aiPageEvents);
   }
 };
 
-export const getUserInput = async () => {
+// ***------------   AI Page Dynamic UI
+
+const aiPageEvents = (event) => {
+  const target = event.target;
+
+  if (target.closest("#sidebar_toggle-btn")) toggleAiSideBar();
+};
+
+const toggleAiSideBar = () => {
+  const toggleBtnIcon = document.querySelector("#sidebar_toggle-btn i");
+  const aiSideBarStyle = document.getElementById("ai__sidebar").style;
+
+  aiSideBarStyle.left = aiSideBarStyle.left === "50%" ? "-50%" : "50%";
+
+  toggleBtnIcon.classList.toggle("bi-chevron-double-right");
+  toggleBtnIcon.classList.toggle("bi-chevron-double-left");
+
+  console.log(toggleBtnIcon);
+
+  if (window.innerWidth >= 1024) aiSideBarStyle.left = "12.5%";
+};
+
+window.addEventListener(
+  "resize",
+  () => window.innerWidth >= 1024 && toggleAiSideBar()
+);
+
+const userFocInOutContro = (userInputEl) => {
   const inputSubmitBox = document.querySelector(".input-submit_box");
-  const getAdviceBtn = document.getElementById("get-advice_btn");
-  const userInputEl = document.getElementById("user-input");
+
   const navbarMenu = document.getElementById("navbar_menu");
 
   userInputEl.addEventListener("focusin", function () {
@@ -75,7 +84,13 @@ export const getUserInput = async () => {
       inputSubmitBox.style.bottom = `${!isWindowSmall ? "3rem" : "6.25rem"}`;
     }
   });
+};
 
+export const getUserInput = async () => {
+  const getAdviceBtn = document.getElementById("get-advice_btn");
+  const userInputEl = document.getElementById("user-input");
+
+  userFocInOutContro(userInputEl);
   // **----- Controll style when user typing
   userInputEl.addEventListener("input", function () {
     this.style.height = "auto";
@@ -100,8 +115,10 @@ export const getUserInput = async () => {
     }
   });
 
+  // ***-------   Selected task from task list to assistant
   if (taskToAssistant.get().length !== 0) {
-    userInputEl.value = `Act as project manager for my this task:
+    userInputEl.value = `
+    Act as project manager for my this task:
     title: ${taskToAssistant.get()[0].title}
     description: ${taskToAssistant.get()[0].description},
     start time: ${new Date(
@@ -148,10 +165,10 @@ export const addStyleToMarkdownContainer = () => {
   border-radius: 1rem;
 `;
 
-  // window.addEventListener(
-  //   "load",
-  //   () => (chatAreaEl.innerHTML = welcomeMessageRender())
-  // );
+  window.addEventListener(
+    "load",
+    () => (chatAreaEl.innerHTML = welcomeMessageComp())
+  );
 };
 
 const renderAdviceInHtml = async (userInput) => {
@@ -239,7 +256,7 @@ const highlightCode = () => {
 };
 
 // **-----------    Find current chat and update that one
-const renderChatContent = () => {
+const renderActiveConve = () => {
   const chatAreaEl = document.getElementById("chat_area");
   const welcomeMessage = document.querySelector(".ai-welcome_message");
 
