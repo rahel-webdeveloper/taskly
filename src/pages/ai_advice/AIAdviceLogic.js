@@ -29,35 +29,30 @@ const AIAdviceLogic = async () => {
     renderActiveConve();
 
     aiAdviceContainerEl.addEventListener("click", aiPageEvents);
+    window.addEventListener("resize", () => toggleAiSideBar(false));
   }
 };
 
 // ***------------   AI Page Dynamic UI
-
 const aiPageEvents = (event) => {
   const target = event.target;
 
-  if (target.closest("#sidebar_toggle-btn")) toggleAiSideBar();
+  if (target.closest("#sidebar_show-btn")) toggleAiSideBar(true);
+
+  if (target.closest("#sidebar_hide-btn")) toggleAiSideBar(false);
 };
 
-const toggleAiSideBar = () => {
-  const toggleBtnIcon = document.querySelector("#sidebar_toggle-btn i");
+const toggleAiSideBar = (show = false) => {
   const aiSideBarStyle = document.getElementById("ai__sidebar").style;
 
-  aiSideBarStyle.left = aiSideBarStyle.left === "50%" ? "-50%" : "50%";
+  const isWindowLarge = window.innerWidth >= 1024;
 
-  toggleBtnIcon.classList.toggle("bi-chevron-double-right");
-  toggleBtnIcon.classList.toggle("bi-chevron-double-left");
+  if (show && !isWindowLarge) aiSideBarStyle.left = "50%";
+  else if (show && isWindowLarge) aiSideBarStyle.left = "12.5%";
 
-  console.log(toggleBtnIcon);
-
-  if (window.innerWidth >= 1024) aiSideBarStyle.left = "12.5%";
+  if (!show && !isWindowLarge) aiSideBarStyle.left = "-50%";
+  else if (!show && isWindowLarge) aiSideBarStyle.left = "-15%";
 };
-
-window.addEventListener(
-  "resize",
-  () => window.innerWidth >= 1024 && toggleAiSideBar()
-);
 
 const userFocInOutContro = (userInputEl) => {
   const inputSubmitBox = document.querySelector(".input-submit_box");
@@ -138,7 +133,7 @@ const sendPrompt = (getAdviceBtn, userInputEl) => {
 
   deleteLocalStorage("task-to-assistant");
 
-  const isWindowLarge = window.innerWidth > 1024;
+  const isWindowLarge = window.innerWidth >= 1024;
 
   renderAdviceInHtml(userInputEl.value);
 
@@ -148,7 +143,7 @@ const sendPrompt = (getAdviceBtn, userInputEl) => {
   userInputEl.style.height = `3rem`;
 
   isWindowLarge
-    ? (aiAdviceContainerStyle.cssText += `align-content: start; padding-bottom: 3.7rem;`)
+    ? (aiAdviceContainerStyle.cssText += `align-content: start; padding-bottom: 4rem;`)
     : (aiAdviceContainerStyle.cssText += `align-content: start; padding-bottom: 2rem;`);
 };
 
@@ -181,6 +176,8 @@ const renderAdviceInHtml = async (userInput) => {
   userEl.classList.add("user");
   userEl.textContent = userInput.trim();
 
+  chatAreaEl.scrollTop = 0;
+
   const assistantEl = document.createElement("article");
   assistantEl.classList.add("markdown-body");
   assistantEl.style.backgroundColor = "#151419";
@@ -205,6 +202,7 @@ const renderAdviceInHtml = async (userInput) => {
 
       const htmlContent = converter.makeHtml(fullMarkdown);
       assistantEl.innerHTML = htmlContent;
+      chatAreaEl.scrollTop = chatAreaEl.scrollHeight;
     }
     historyMessages.get().push({ role: "assistant", content: fullMarkdown });
 

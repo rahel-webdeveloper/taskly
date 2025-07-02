@@ -273,12 +273,12 @@
 .delete-ask-div {
   @include abs-position;
   top: -250%;
-  background-color: $backdrop-filter-color-transparent-2;
+  background-color: $second-color;
   width: 20rem;
   border-radius: 0.77rem;
   text-align: center;
   border: 1px solid $border-color-transparent-2;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(15px);
   padding: 0.7rem;
   color: $first-text;
   display: none;

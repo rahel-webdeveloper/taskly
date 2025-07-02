@@ -15,15 +15,20 @@ const AIAdviceContainer = () => {
 const aiSidebarComp = () => {
   return `
 
-  <span id="sidebar_toggle-btn">
-  <i class="bi bi-chevron-double-right"></i>
-  </span>
+  <div class="sidebar-tggle__new-chat">
+    <span id="sidebar_show-btn">
+    <i class="bi bi-window-sidebar"></i>
+    </span>
+    <span><i class="bi bi-escape"></i></span>
+  </div>
 
   <div id="ai__sidebar">
     <div class="conversation__Library">
       <header class="library__header">
        <h2>Library</h2>
-       <span><i class="bi bi-pencil-square"></i></span>
+       <span id="sidebar_hide-btn">
+    <i class="bi bi-window-x"></i>
+    </span>
       </header>
 
       <ul class="conversation__lists">
