@@ -1,32 +1,29 @@
-import hljs from "highlight.js/lib/core";
-import { loadingDivComp, welcomeMessageComp } from "./AIAdviceRender";
-
-import bash from "highlight.js/lib/languages/bash";
-import css from "highlight.js/lib/languages/css";
-import java from "highlight.js/lib/languages/java";
-import javascript from "highlight.js/lib/languages/javascript";
-import json from "highlight.js/lib/languages/json";
-import python from "highlight.js/lib/languages/python";
-import typescript from "highlight.js/lib/languages/typescript";
-import html from "highlight.js/lib/languages/xml";
+import {
+  conveListCompo,
+  loadingDivComp,
+  welcomeMessageComp,
+} from "./AIAdviceRender";
 
 import "highlight.js/styles/atom-one-dark.css";
 
 import { deleteLocalStorage, saveLocalStorage } from "../../data/localStorage";
 import { taskToAssistant } from "../../tasks/store";
 import getAdvice, {
-  allChatsHistory,
+  activeConversation_Id,
+  conversations,
   converter,
+  highlightCode,
   historyMessages,
 } from "./store";
+import { systemMessage } from "../task_hub/store";
 
 const AIAdviceLogic = async () => {
   const aiAdviceContainerEl = document.querySelector(".ai-advice_container");
 
   if (aiAdviceContainerEl) {
-    addStyleToMarkdownContainer();
-    getUserInput();
-    renderActiveConve();
+    styleOfChatContainerAfter_Loading();
+    getUserInputController();
+    renderConverList();
 
     aiAdviceContainerEl.addEventListener("click", aiPageEvents);
     window.addEventListener("resize", () => toggleAiSideBar(false));
@@ -34,12 +31,34 @@ const AIAdviceLogic = async () => {
 };
 
 // ***------------   AI Page Dynamic UI
+
+const styleOfChatContainerAfter_Loading = () => {
+  const chatAreaEl = document.getElementById("chat_area");
+
+  chatAreaEl.style.cssText += `
+  min-width: 200px;
+  width: 100%;
+  max-width: 980px;
+  margin: 1.77rem auto 3rem;
+  background-color: #151419;
+  color: #f1f0f0;
+  border-radius: 1rem;
+`;
+
+  window.addEventListener(
+    "load",
+    () => (chatAreaEl.innerHTML = welcomeMessageComp())
+  );
+};
+
 const aiPageEvents = (event) => {
   const target = event.target;
 
   if (target.closest("#sidebar_show-btn")) toggleAiSideBar(true);
 
   if (target.closest("#sidebar_hide-btn")) toggleAiSideBar(false);
+
+  if (target.closest("#new_chat")) createNewConve();
 };
 
 const toggleAiSideBar = (show = false) => {
@@ -54,7 +73,7 @@ const toggleAiSideBar = (show = false) => {
   else if (!show && isWindowLarge) aiSideBarStyle.left = "-15%";
 };
 
-const userFocInOutContro = (userInputEl) => {
+const userFocusIn_OutContro = (userInputEl) => {
   const inputSubmitBox = document.querySelector(".input-submit_box");
 
   const navbarMenu = document.getElementById("navbar_menu");
@@ -81,12 +100,14 @@ const userFocInOutContro = (userInputEl) => {
   });
 };
 
-export const getUserInput = async () => {
+export const getUserInputController = async () => {
   const getAdviceBtn = document.getElementById("get-advice_btn");
   const userInputEl = document.getElementById("user-input");
 
-  userFocInOutContro(userInputEl);
+  userFocusIn_OutContro(userInputEl);
+
   // **----- Controll style when user typing
+
   userInputEl.addEventListener("input", function () {
     this.style.height = "auto";
     this.style.height = `${this.scrollHeight}px`;
@@ -102,7 +123,7 @@ export const getUserInput = async () => {
     sendPrompt(getAdviceBtn, userInputEl)
   );
 
-  // **----- Send Prompt by pressing enter
+  // **----- Send Prompt by Pressing Enter
   userInputEl.addEventListener("keydown", (event) => {
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
@@ -110,18 +131,23 @@ export const getUserInput = async () => {
     }
   });
 
-  // ***-------   Selected task from task list to assistant
-  if (taskToAssistant.get().length !== 0) {
-    userInputEl.value = `
-    Act as project manager for my this task:
-    title: ${taskToAssistant.get()[0].title}
-    description: ${taskToAssistant.get()[0].description},
-    start time: ${new Date(
-      taskToAssistant.get()[0].startDateTime
-    ).toLocaleString()},
-    duration minutes: ${taskToAssistant.get()[0].durationMinutes}m`;
-    getAdviceBtn.disabled = false;
-  }
+  // ***-------   Send task to AI chat from task list
+  if (taskToAssistant.get().length !== 0)
+    sendTaskController(userInputEl, getAdviceBtn);
+};
+
+// ***---------        Send task to assitant controller
+const sendTaskController = (userInputEl, getAdviceBtn) => {
+  userInputEl.value = `Act as project manager for my this task:
+  title: ${taskToAssistant.get()[0].title}
+
+  description: ${taskToAssistant.get()[0].description}
+
+  start time: ${new Date(
+    taskToAssistant.get()[0].startDateTime
+  ).toLocaleString()},
+  duration minutes: ${taskToAssistant.get()[0].durationMinutes}m`;
+  getAdviceBtn.disabled = false;
 };
 
 const sendPrompt = (getAdviceBtn, userInputEl) => {
@@ -147,25 +173,6 @@ const sendPrompt = (getAdviceBtn, userInputEl) => {
     : (aiAdviceContainerStyle.cssText += `align-content: start; padding-bottom: 2rem;`);
 };
 
-export const addStyleToMarkdownContainer = () => {
-  const chatAreaEl = document.getElementById("chat_area");
-
-  chatAreaEl.style.cssText += `
-  min-width: 200px;
-  width: 100%;
-  max-width: 980px;
-  margin: 1.77rem auto 3rem;
-  background-color: #151419;
-  color: #f1f0f0;
-  border-radius: 1rem;
-`;
-
-  window.addEventListener(
-    "load",
-    () => (chatAreaEl.innerHTML = welcomeMessageComp())
-  );
-};
-
 const renderAdviceInHtml = async (userInput) => {
   const chatAreaEl = document.getElementById("chat_area");
   const welcomeMessage = document.querySelector(".ai-welcome_message");
@@ -175,8 +182,6 @@ const renderAdviceInHtml = async (userInput) => {
   const userEl = document.createElement("span");
   userEl.classList.add("user");
   userEl.textContent = userInput.trim();
-
-  chatAreaEl.scrollTop = 0;
 
   const assistantEl = document.createElement("article");
   assistantEl.classList.add("markdown-body");
@@ -206,16 +211,6 @@ const renderAdviceInHtml = async (userInput) => {
     }
     historyMessages.get().push({ role: "assistant", content: fullMarkdown });
 
-    allChatsHistory.set([
-      {
-        id: "msg-" + Date.now(),
-        chat: historyMessages.get(),
-      },
-      ...historyMessages.get(),
-    ]);
-
-    saveLocalStorage(allChatsHistory.get(), "ai-chat_history");
-
     // **------   Delete loading div after completing response
 
     for (let i = 0; i < loadingDiv.length; i++) loadingDiv[i].remove();
@@ -239,44 +234,40 @@ const renderAdviceInHtml = async (userInput) => {
   highlightCode();
 };
 
-const highlightCode = () => {
-  hljs.registerLanguage("javascript", javascript);
-  hljs.registerLanguage("python", python);
-  hljs.registerLanguage("java", java);
-  hljs.registerLanguage("css", css);
-  hljs.registerLanguage("html", html);
-  hljs.registerLanguage("bash", bash);
-  hljs.registerLanguage("typescript", typescript);
-  hljs.registerLanguage("json", json);
+const createNewConve = () => {
+  const Id = `chat-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 
-  // Initilize the highlight.js
-  hljs.highlightAll();
+  conversations.set([
+    {
+      id: Id,
+      title: `Chat-${Id.slice(0, 10)}`,
+      createdAt: new Date().toISOString(),
+      messages: [systemMessage],
+    },
+    ...conversations.get(),
+  ]);
+
+  saveLocalStorage(conversations.get(), "all_Conversations");
+
+  if (document.startViewTransition) {
+    document.startViewTransition(() => renderConverList());
+  } else {
+    renderConverList();
+  }
+};
+
+const renderConverList = () => {
+  const conversationListEl = document.getElementById("conversation__list");
+
+  conversationListEl.innerHTML = "";
+
+  conversations.get().forEach((conve, index) => {
+    // console.log(conve.messages[0].content);
+
+    conversationListEl.innerHTML += conveListCompo(conve);
+  });
 };
 
 // **-----------    Find current chat and update that one
-const renderActiveConve = () => {
-  const chatAreaEl = document.getElementById("chat_area");
-  const welcomeMessage = document.querySelector(".ai-welcome_message");
-
-  // welcomeMessage.style.display = "none";
-
-  allChatsHistory.get()[0]["chat"].forEach((chat) => {
-    if (chat.role === "user") {
-      const userEl = document.createElement("span");
-
-      userEl.classList.add(chat.role);
-      userEl.textContent = chat.content;
-      chatAreaEl.appendChild(userEl);
-    }
-
-    if (chat.role === "assistant") {
-      const assistantEl = document.createElement("article");
-      assistantEl.classList.add("markdown-body");
-      assistantEl.innerHTML = converter.makeHtml(chat.content);
-      assistantEl.style.backgroundColor = "#151419";
-      chatAreaEl.appendChild(assistantEl);
-    }
-  });
-};
 
 export default AIAdviceLogic;

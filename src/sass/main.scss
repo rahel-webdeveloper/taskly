@@ -17,6 +17,15 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+@view-transition {
+  navigation: auto;
+}
+
+// ::view-transition-old(root),
+// ::view-transition-new(root) {
+//   animation-duration: 0.7s;
+// }
+
 svg,
 img {
   width: 100%;
@@ -356,19 +365,9 @@ body {
 
   .ai-advice_container {
     min-height: 90vh;
-    // grid-template-columns: 0.7fr 1fr 1fr;
-    // grid-template-areas: ". chat chat";
-
-    // #chat_area {
-    //   grid-area: chat;
-    // }
-
-    #sidebar_show-btn {
-      // display: none;
-    }
 
     .sidebar-tggle__new-chat {
-      left: 15%;
+      left: 22%;
     }
 
     #ai__sidebar {
@@ -383,8 +382,8 @@ body {
         font-size: 1.25rem;
       }
 
-      .conversation__lists {
-        height: 33%;
+      .conversation__list {
+        height: 26rem;
       }
     }
   }

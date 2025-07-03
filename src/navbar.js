@@ -1,6 +1,6 @@
 import openNotification from "./services/toastNotifications";
 
-const activeLink = (attribute) => {
+const activeLink = (attribute = "/") => {
   const links = document.querySelectorAll(".navbar-links a");
   const singInBtn = document.querySelector(".sign-in-btn");
 

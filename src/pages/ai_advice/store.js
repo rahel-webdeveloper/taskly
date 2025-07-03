@@ -1,6 +1,17 @@
+import hljs from "highlight.js/lib/core";
+
+import bash from "highlight.js/lib/languages/bash";
+import css from "highlight.js/lib/languages/css";
+import java from "highlight.js/lib/languages/java";
+import javascript from "highlight.js/lib/languages/javascript";
+import json from "highlight.js/lib/languages/json";
+import python from "highlight.js/lib/languages/python";
+import typescript from "highlight.js/lib/languages/typescript";
+import html from "highlight.js/lib/languages/xml";
+
 import { atom } from "nanostores";
-import { loadLocalStorage } from "../../data/localStorage";
 import Showdown from "showdown";
+import { loadLocalStorage } from "../../data/localStorage";
 
 export const converter = new Showdown.Converter({
   tables: true,
@@ -64,7 +75,10 @@ export const refusalMsg = "I'm sorry, but I cannot assist with that.";
 
 export const historyMessages = atom([systemMsg]);
 
-export const allChatsHistory = atom(loadLocalStorage("ai-chat_history") || []);
+// export const allChatsHistory = atom(loadLocalStorage("ai-chat_history") || []);
+
+export const conversations = atom(loadLocalStorage("all_Conversations") || []);
+export const activeConversation_Id = atom(null);
 
 export const getAdvice = async (historyMessages) => {
   const reply = await puter.ai.chat(historyMessages, {
@@ -79,6 +93,20 @@ export const getAdvice = async (historyMessages) => {
   });
 
   return reply;
+};
+
+export const highlightCode = () => {
+  hljs.registerLanguage("javascript", javascript);
+  hljs.registerLanguage("python", python);
+  hljs.registerLanguage("java", java);
+  hljs.registerLanguage("css", css);
+  hljs.registerLanguage("html", html);
+  hljs.registerLanguage("bash", bash);
+  hljs.registerLanguage("typescript", typescript);
+  hljs.registerLanguage("json", json);
+
+  // Initilize the highlight.js
+  hljs.highlightAll();
 };
 
 export default getAdvice;

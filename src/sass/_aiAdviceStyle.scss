@@ -1,3 +1,30 @@
+/* This targets all conversation items for the transition */
+// ::view-transition-old(*[view-transition-name^="conve-"]),
+// ::view-transition-new(*[view-transition-name^="conve-"]) {
+//   animation: fade-in 0.7s;
+// }
+
+// ::view-transition-old(root),
+// ::view-transition-new(root) {
+//   animation: fade-in 1.5s;
+// }
+
+// @keyframes fade-in {
+//   from {
+//     opacity: 0;
+//     scale: 0;
+//     transform: translateX(-50px);
+//     background-color: red;
+//   }
+//   to {
+//     scale: 1;
+
+//     transform: translateX(0px);
+//     background-color: yellow;
+//     opacity: 1;
+//   }
+// }
+
 .ai-advice_container {
   @include grid-center;
   width: 100%;
@@ -11,10 +38,11 @@
 }
 
 .ai-welcome_message {
-  margin: auto;
+  // margin: auto;
+  @include grid-center;
   text-align: center;
   font-family: $karla-font;
-  margin-inline: 2rem;
+  row-gap: 1rem;
 
   .smile-icon {
     font-size: 2rem;
@@ -59,9 +87,6 @@
     display: inline;
     word-wrap: break-word;
   }
-
-  // .assistat {
-  // }
 }
 
 .input-submit_box {
@@ -251,8 +276,8 @@
       }
     }
 
-    .conversation__lists {
-      height: 40%;
+    .conversation__list {
+      height: 30rem;
       margin-inline: 0.3rem;
       overflow: auto;
       border: 1px solid $dark-blue-color-transparent-2;
