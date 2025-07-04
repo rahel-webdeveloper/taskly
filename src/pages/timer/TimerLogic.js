@@ -16,7 +16,7 @@ import {
   isCanceled,
 } from "./store";
 
-const timerLogic = () => {
+const TimerLogic = () => {
   // Initialize Infinite Picker
   populateInfinitePicker("hour-picker", 100);
   populateInfinitePicker("minute-picker", 60);
@@ -339,4 +339,4 @@ const isStartedTimer = (isStarted) => {
   }
 };
 
-export default timerLogic;
+export default TimerLogic;

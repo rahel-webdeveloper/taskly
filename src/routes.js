@@ -74,8 +74,6 @@ function renderPage(component, logic) {
     // document.startViewTransition(() => {
     mainContent.innerHTML = component();
     // });
-
-    if (logic) logic();
   } else {
     mainContent.innerHTML = component();
   }

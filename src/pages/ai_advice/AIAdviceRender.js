@@ -1,3 +1,5 @@
+import { converter } from "./store";
+
 const AIAdviceContainer = () => {
   return `
     <div class="ai-advice_container">
@@ -41,10 +43,22 @@ const aiSidebarComp = () => {
 
 export const conveListCompo = (conve) => {
   return `
-  <li class="conversation" view-transition-name="conve-${conve.id}">
-    <h4>${conve.title}</h4>
-    <p>It is the of generating response as it generated may be one letter...</p>
-    <span>
+  <li class="conversation" data-id="${conve.id}" view-transition-name="conve-${
+    conve.id
+  }">
+    <h4 data-id="${conve.id}">${
+    conve.messages.length === 1
+      ? "No message sended!"
+      : conve.messages[1].role === "user"
+      ? conve.messages[1].content.slice(0, 15)
+      : ""
+  }</h4>
+    <p data-id="${conve.id}">${
+    conve.messages.length === 1
+      ? conve.title
+      : conve.messages[2].content.slice(0, 70)
+  }</p>
+    <span data-id="${conve.id}">
       <i class="bi bi-clock"></i>2d
     </span>
   </li>`;

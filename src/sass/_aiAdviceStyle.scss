@@ -1,34 +1,8 @@
-/* This targets all conversation items for the transition */
-// ::view-transition-old(*[view-transition-name^="conve-"]),
-// ::view-transition-new(*[view-transition-name^="conve-"]) {
-//   animation: fade-in 0.7s;
-// }
-
-// ::view-transition-old(root),
-// ::view-transition-new(root) {
-//   animation: fade-in 1.5s;
-// }
-
-// @keyframes fade-in {
-//   from {
-//     opacity: 0;
-//     scale: 0;
-//     transform: translateX(-50px);
-//     background-color: red;
-//   }
-//   to {
-//     scale: 1;
-
-//     transform: translateX(0px);
-//     background-color: yellow;
-//     opacity: 1;
-//   }
-// }
-
 .ai-advice_container {
   @include grid-center;
   width: 100%;
   min-height: 80vh;
+  padding-bottom: 4rem;
 }
 
 #chat_area {
@@ -246,8 +220,7 @@
 // *** ----  Sidebar Style
 #ai__sidebar {
   @include fixed-position;
-  background-color: $dark-blue-color-transparent-2;
-
+  background-color: $first-color;
   top: 50%;
   width: 100%;
   height: 100vh;
@@ -255,7 +228,6 @@
   padding: 1rem;
   transition: all 0.3s ease-in-out;
   left: -50%;
-  backdrop-filter: blur(15px);
 
   .conversation__Library {
     padding: 1rem 0.5rem 1rem;
@@ -280,7 +252,6 @@
       height: 30rem;
       margin-inline: 0.3rem;
       overflow: auto;
-      border: 1px solid $dark-blue-color-transparent-2;
       border-radius: 0.5rem;
       padding-inline: 0.5rem;
 
@@ -296,6 +267,7 @@
         display: grid;
         row-gap: 0.25rem;
         transition: all 0.3s ease-in-out;
+        margin-top: 0.3rem;
 
         &:hover {
           opacity: 0.7;
@@ -318,6 +290,13 @@
             margin-right: 0.5rem;
           }
         }
+      }
+
+      .active__conver {
+        scale: 1.03;
+        background-color: $dark-blue-color-transparent-2;
+        border-radius: 0.5rem;
+        border-bottom: none;
       }
     }
   }
