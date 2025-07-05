@@ -30,7 +30,7 @@
   max-width: 20rem;
   width: 100%;
   padding-inline: 0.5rem;
-  background-color: $second-color;
+  background-color: $secondary-color;
   border: 1px solid $dark-blue-color-transparent-2;
   display: none;
 
@@ -65,7 +65,7 @@
     width: 100%;
     resize: none;
     border-radius: 7px;
-    background-color: $first-color;
+    background-color: $primary-color;
     color: $first-text;
     font-size: 0.85rem;
   }
@@ -101,7 +101,7 @@
 
     button:nth-child(2) {
       background-color: $count-color;
-      color: $first-color;
+      color: $primary-color;
     }
   }
 }

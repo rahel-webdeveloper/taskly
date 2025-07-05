@@ -52,7 +52,7 @@
 #chat_area {
   .user {
     padding: 0.7rem 1rem;
-    background-color: $second-color;
+    background-color: $secondary-color-transparent-4;
     place-self: end;
     border-radius: 1.45rem 1.45rem 0.187rem;
     max-width: 77%;
@@ -69,19 +69,20 @@
   width: 90%;
   position: fixed;
   bottom: 6rem;
-  background-color: $third-color;
+  background-color: $secondary-color-transparent-4;
+  backdrop-filter: blur(30px);
   padding-inline: 1rem 1rem;
   border-radius: 1.5rem;
   @include flex-space;
   gap: 1rem;
-  border: 1px solid $border-color-transparent-2;
+  // border: 1px solid $border-color-transparent-2;
   // z-index: 4;
   transition: all 0.167s ease-in-out;
 
   input,
   textarea {
-    margin-inline: 0.3rem;
-    padding-block: 0.9rem 0.7rem;
+    margin-left: 0.3rem;
+    padding-top: 0.9rem;
     font-size: 1rem;
     min-height: 3rem;
     width: 100%;
@@ -93,20 +94,26 @@
 
     &::-webkit-scrollbar {
       width: 0.6rem;
-      background-color: $first-color;
+      background-color: $primary-color;
     }
 
     &::-webkit-scrollbar-thumb {
       width: 0.5rem;
-      background-color: $second-color;
+      background-color: $secondary-color;
     }
   }
 
   button {
-    background-color: transparent;
+    // background-color: transparent;
     color: $first-text;
     cursor: pointer;
     transition: all 0.2s ease-in;
+    @include flex-center;
+    background-color: $secondary-color;
+    padding: 0.5rem 0.9rem;
+    border-radius: 1.5rem;
+    margin-right: -0.7rem;
+    gap: 0.5rem;
 
     &:hover {
       opacity: 0.57;
@@ -118,7 +125,7 @@
     }
 
     i {
-      font-size: 1.77rem;
+      font-size: 1.4rem;
     }
   }
 }
@@ -203,7 +210,7 @@
   top: 5.7rem;
 
   span {
-    background-color: $dark-blue-color-transparent-2;
+    background-color: $secondary-color-transparent-4;
     width: 2.5rem;
     height: 2.5rem;
     @include flex-center;
@@ -224,7 +231,7 @@
 // *** ----  Sidebar Style
 #ai__sidebar {
   @include fixed-position;
-  background-color: $first-color;
+  background-color: $primary-color;
   top: 50%;
   width: 100%;
   height: 100vh;
@@ -298,7 +305,7 @@
 
       .active__conver {
         scale: 1.03;
-        background-color: $dark-blue-color-transparent-2;
+        background-color: $secondary-color-transparent-4;
         border-radius: 0.5rem;
         border-bottom: none;
       }

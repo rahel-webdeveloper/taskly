@@ -1,5 +1,5 @@
 .task-list-container {
-  background-color: $second-color;
+  background-color: $secondary-color-transparent-4;
   border-radius: 2.5rem 2.5rem 0rem 0rem;
   padding: 0.7rem;
   padding-bottom: 0;
@@ -34,7 +34,6 @@
   color: $first-text;
   font-size: 0.9rem;
   border-radius: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0);
   transition: all 0.3s;
   background-color: $third-color;
 }
@@ -50,11 +49,9 @@
 
 .panel:hover .panel--filter {
   background-color: $orange-color-transparent-2;
-  border-color: $border-color-transparent-2;
 }
 .panel:hover .panel--sort {
   background-color: $hotpink-color-transparent-2;
-  border-color: $border-color-transparent-2;
 }
 
 .filter-icon {
@@ -124,7 +121,7 @@
 }
 .length {
   background-color: $count-color;
-  color: $first-color;
+  color: $primary-color;
   min-width: 1.2rem;
   padding: 0.14rem 0.37rem;
   border-radius: 2rem;
@@ -216,7 +213,7 @@
   height: 30px;
   border-radius: 50%;
   font-size: 1.15rem;
-  background-color: $third-color;
+  background-color: $secondary-color;
   cursor: pointer;
   @include flex-center;
 }
@@ -263,7 +260,7 @@
 }
 
 .done .check-icon {
-  color: $second-color;
+  color: $secondary-color;
   outline: 4px solid $checked-color-transparent-2;
   background-color: $checked-color;
 }
@@ -275,7 +272,7 @@
 }
 
 .on-hold .delete-icon {
-  background-color: $third-color;
+  background-color: $secondary-color;
 }
 
 .on-hold .list-task-div {
@@ -325,7 +322,7 @@
 }
 #cancel {
   background-color: $second-text;
-  color: $first-color;
+  color: $primary-color;
 }
 #save {
   background-color: $btn-color;

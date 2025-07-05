@@ -1,10 +1,16 @@
 :root {
-  --first-text: #f1f0f0;
+  --first-text: #f8f8f8;
   --second-text: #d3d3d3;
 
-  --first-color: #151419;
-  --second-color: #1f1e25;
-  --third-color: #292c38;
+  --primary-color: #020408;
+  --primary-color-transparent-4: rgba(23, 24, 28, 0.479);
+  --primary-color-transparent-2: rgba(23, 24, 28, 0.192);
+
+  --secondary-color: #17181c;
+  --secondary-color-transparent-4: #17181c80;
+  --secondary-color-transparent-2: #17181c3b;
+
+  --third-color: #13151a;
 
   --light-border-color-transparent-2: rgba(142, 143, 149, 0.18);
   --dark-blue-color-transparent-2: rgba(62, 66, 93, 0.192);
@@ -19,8 +25,14 @@ $DM-Sans: "DM Sans", sans-serif;
 $first-text: var(--first-text);
 $second-text: var(--second-text);
 
-$first-color: var(--first-color);
-$second-color: var(--second-color);
+$primary-color: var(--primary-color);
+$primary-color-transparent-4: var(--primary-color-transparent-4);
+$primary-color-transparent-2: var(--primary-color-transparent-2);
+
+$secondary-color: var(--secondary-color);
+$secondary-color-transparent-4: var(--secondary-color-transparent-4);
+$secondary-color-transparent-2: var(--secondary-color-transparent-2);
+
 $third-color: var(--third-color);
 
 //  Lightness colors
@@ -67,8 +79,8 @@ $optional-color-transparent-4: rgba($optional-color, 0.384);
   //   --first-text: #2e2e2e; /* Dark gray for text */
   //   --second-text: #555555; /* Lighter gray text for secondary elements */
 
-  //   --first-color: #e3e4e6; /* Light off-white background */
-  //   --second-color: #cdcdce; /* Soft light gray background */
+  //   --primary-color: #e3e4e6; /* Light off-white background */
+  //   --secondary-color: #cdcdce; /* Soft light gray background */
   //   --third-color: #d1d7db; /* Subtle grayish-blue background */
 
   //   --light-border-color-transparent-2: #d0d0d06d; /* Light gray borders for soft separation */

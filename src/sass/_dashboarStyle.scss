@@ -28,7 +28,7 @@
 
   .chart {
     text-align: center;
-    background-color: $second-color;
+    background-color: $secondary-color-transparent-4;
     padding: 0.7rem 0.35rem 0.35rem;
     border-radius: 1rem;
     border: 1px solid $border-color-transparent-2;
@@ -189,7 +189,7 @@
   }
 
   span {
-    color: $first-color;
+    color: $primary-color;
     padding: 0rem 0.13rem;
     border-radius: 0.15rem;
     font-size: 0.67rem;
@@ -247,7 +247,7 @@
   position: absolute;
   bottom: -0.0159rem;
   left: 0;
-  background-color: $backdrop-filter-color-transparent-2;
+  background-color: $primary-color-transparent-2;
   width: 100%;
   border-radius: 1.5rem 1.5rem 0rem 0rem;
   border-top: 1px solid $border-color-transparent-2;
@@ -273,7 +273,7 @@
 .delete-ask-div {
   @include abs-position;
   top: -250%;
-  background-color: $second-color;
+  background-color: $secondary-color;
   width: 20rem;
   border-radius: 0.77rem;
   text-align: center;
@@ -323,7 +323,7 @@
 
 #no {
   background-color: $second-text;
-  color: $first-color;
+  color: $primary-color;
 }
 #yes {
   background-color: $btn-color;

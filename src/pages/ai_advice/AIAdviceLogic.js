@@ -41,7 +41,7 @@ const styleOfChatContainerAfter_Loading = () => {
   width: 100%;
   max-width: 980px;
   margin: 1.77rem auto 3rem;
-  background-color: #151419;
+  background-color: #020408;
   color: #f1f0f0;
   border-radius: 1rem;
 `;
@@ -203,7 +203,10 @@ const renderAdviceInHtml = async (userInput) => {
 
   const assistantEl = document.createElement("article");
   assistantEl.classList.add("markdown-body");
-  assistantEl.style.backgroundColor = "#151419";
+  assistantEl.style.cssText += `
+  background-color: #020408;
+  color: #f8f8f8;
+  `;
 
   chatAreaEl.appendChild(userEl);
   chatAreaEl.innerHTML += loadingDivComp();
@@ -297,7 +300,10 @@ const renderMessages = (id) => {
     if (message.role === "assistant") {
       const assistantEl = document.createElement("article");
       assistantEl.classList.add("markdown-body");
-      assistantEl.style.backgroundColor = "#151419";
+      assistantEl.style.cssText += `
+      background-color: #020408;
+      color: #f8f8f8;
+      `;
 
       chatAreaEl.appendChild(assistantEl);
       assistantEl.innerHTML = converter.makeHtml(message.content);

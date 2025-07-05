@@ -48,7 +48,7 @@ a {
 
 body {
   font-family: $karla-font;
-  background-color: $first-color;
+  background-color: $primary-color;
   color: $first-text;
   min-height: 100vh;
   position: relative;
@@ -155,7 +155,6 @@ body {
     grid-area: tasks;
 
     .task-list-container {
-      background-color: $second-color;
       border-radius: 1rem 1rem 0.7rem 0.7rem;
       margin-inline: 0;
     }
@@ -233,6 +232,7 @@ body {
       background-color: $count-color;
       opacity: 0.5;
       filter: blur(70px);
+      mix-blend-mode: color-dodge;
       z-index: -1;
     }
 
@@ -330,7 +330,7 @@ body {
 
   .second-section {
     grid-area: second;
-    border-left: 1px solid $second-color;
+    border-left: 1px solid $secondary-color;
     border-bottom-right-radius: 1rem;
     border-top-right-radius: 1rem;
   }
@@ -381,6 +381,10 @@ body {
 
       .conversation__list {
         height: 26rem;
+
+        .active__conver {
+          background-color: $dark-blue-color-transparent-2;
+        }
       }
     }
   }

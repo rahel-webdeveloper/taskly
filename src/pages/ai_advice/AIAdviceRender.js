@@ -9,7 +9,7 @@ const AIAdviceContainer = () => {
       </div>
       <div class="input-submit_box">
         <textarea cols="1" rows="1" id="user-input" placeholder="Enter your task or question"></textarea>
-        <button id="get-advice_btn" disabled><i class="bi bi-arrow-up-circle-fill"></i></button>
+        <button id="get-advice_btn" disabled>Send<i class="ri-send-plane-2-fill"></i></button>
       </div>
     </div>
   `;
