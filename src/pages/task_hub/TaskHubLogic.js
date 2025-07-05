@@ -136,7 +136,7 @@ const renderDescription = async (title) => {
       systemMessage,
       {
         role: "user",
-        content: `Generate description base on this title (${title}), characters length must between 30 and 250!`,
+        content: `Generate description base on this title (${title}), characters length must between 30 and 350!`,
       },
     ],
     {
@@ -316,9 +316,9 @@ const validateFormData = () => {
     desErrEl.textContent = "The description must be at least 30 characters.";
 
     return false;
-  } else if (descriptionValue.length > 250) {
+  } else if (descriptionValue.length > 350) {
     desErrEl.style.opacity = "1";
-    desErrEl.textContent = "The description must be less than 250 characters.";
+    desErrEl.textContent = "The description must be less than 350 characters.";
 
     return false;
   } else {
@@ -458,7 +458,16 @@ export const liveTrackTasks = () => {
     });
   }, 1000);
 
-  addToDetailsCard(!isDashboardOpen.get() ? liveTasks.get() : listTasks.get());
+  if (document.startViewTransition)
+    document.startViewTransition(() =>
+      addToDetailsCard(
+        !isDashboardOpen.get() ? liveTasks.get() : listTasks.get()
+      )
+    );
+  else
+    addToDetailsCard(
+      !isDashboardOpen.get() ? liveTasks.get() : listTasks.get()
+    );
 };
 
 const cardTimerUI = (task, index, remainingTime) => {

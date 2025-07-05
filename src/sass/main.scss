@@ -21,11 +21,6 @@
   navigation: auto;
 }
 
-// ::view-transition-old(root),
-// ::view-transition-new(root) {
-//   animation-duration: 0.7s;
-// }
-
 svg,
 img {
   width: 100%;
@@ -386,7 +381,6 @@ body {
 
       .conversation__list {
         height: 26rem;
-        border: 1px solid $dark-blue-color-transparent-2;
       }
     }
   }

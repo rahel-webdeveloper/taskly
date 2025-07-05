@@ -71,6 +71,10 @@ export const completingTask = () => {
 export const deletingTask = () => {
   listTasks.set(listTasks.get().filter((task) => task.id !== Id.get()));
   controlTasksAllOperation();
+
+  if (document.startViewTransition)
+    document.startViewTransition(() => addToDetailsCard(liveTasks.get()));
+  else addToDetailsCard(liveTasks.get());
 };
 
 // deleting all done tasks
@@ -124,8 +128,17 @@ export const implementFilter = (tasks, state) => {
   visibleTasks.set(getFilterTasks(tasks, state));
 
   updateTaskCount(tasks, visibleTasks.get().length);
-  addTaskToList(visibleTasks.get());
-  addStyleToFilterControls();
+  if (document.startViewTransition)
+    document.startViewTransition(() => {
+      addTaskToList(visibleTasks.get());
+      addStyleToFilterControls();
+      addToDetailsCard(liveTasks.get());
+    });
+  else {
+    addTaskToList(visibleTasks.get());
+    addStyleToFilterControls();
+    addToDetailsCard(liveTasks.get());
+  }
 };
 
 const getFilterTasks = (tasks, state) => {

@@ -203,10 +203,13 @@
   top: 5.7rem;
 
   span {
-    background-color: $second-color;
-    padding: 0.57rem 0.77rem;
+    background-color: $dark-blue-color-transparent-2;
+    width: 2.5rem;
+    height: 2.5rem;
+    @include flex-center;
     border-radius: 1.5rem;
     font-size: 1rem;
+    backdrop-filter: blur(7px);
     z-index: 2;
     cursor: pointer;
     transition: all 0.2s ease-in;

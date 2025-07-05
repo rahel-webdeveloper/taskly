@@ -7,7 +7,7 @@
   top: 2.7rem;
   border-radius: 2rem;
   width: 95%;
-  padding: 0.6rem 1rem;
+  padding: 0.45rem 1rem;
   backdrop-filter: blur(9px);
   overflow: hidden;
   border: 1px solid $border-color-transparent-2;
@@ -22,7 +22,7 @@
   transform: rotate(37deg);
   left: 47%;
   top: -33%;
-  background-color: $high-color;
+  background-color: $btn-color;
   filter: blur(27px);
   z-index: -1;
 }

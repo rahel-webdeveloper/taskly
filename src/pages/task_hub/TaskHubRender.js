@@ -63,7 +63,7 @@ const TaskForm = () => {
 
     <div class="form-column" id="des_column">
       <label for="task-description" id="description-label">Description</label>
-      <textarea id="task-description" name="description" rows="7" min="30" max="250"
+      <textarea id="task-description" name="description" rows="7" min="30" max="470"
         placeholder="Write your task description or let Taskly to generate for you." required></textarea>
         <div id="descr_loading">
         
