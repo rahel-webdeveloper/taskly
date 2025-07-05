@@ -50,21 +50,21 @@ export const conveListCompo = (conve) => {
     conve.messages.length === 1
       ? "No message sended!"
       : conve.messages[1].role === "user"
-      ? conve.messages[1].content.slice(0, 15)
+      ? conve.messages[1].content.slice(0, 35)
       : ""
   }</h4>
     <p data-id="${conve.id}">${
     conve.messages.length === 1
       ? conve.title
-      : conve.messages[2].content.slice(0, 70)
+      : conve.messages[2].content.slice(0, 85)
   }</p>
     <span data-id="${conve.id}">
-      <i class="bi bi-clock"></i>2d
+      <i class="bi bi-clock"></i>${new Date(conve.createdAt).toLocaleString()}
     </span>
   </li>`;
 };
 
-export const welcomeMessageComp = () => {
+export const welcomeMessageCompo = () => {
   return ` 
   <div class="ai-welcome_message">
   <span class="smile-icon"><i class="bi bi-emoji-heart-eyes-fill"></i></span>

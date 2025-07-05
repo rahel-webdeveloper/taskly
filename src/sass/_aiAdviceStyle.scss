@@ -60,6 +60,7 @@
     height: auto;
     display: inline;
     word-wrap: break-word;
+    color: $first-text;
   }
 }
 
@@ -197,7 +198,7 @@
 .sidebar-tggle__new-chat {
   display: flex;
   gap: 1rem;
-  position: absolute;
+  position: fixed;
   left: 1.5rem;
   top: 5.7rem;
 
@@ -205,7 +206,7 @@
     background-color: $second-color;
     padding: 0.57rem 0.77rem;
     border-radius: 1.5rem;
-    font-size: 1.2rem;
+    font-size: 1rem;
     z-index: 2;
     cursor: pointer;
     transition: all 0.2s ease-in;

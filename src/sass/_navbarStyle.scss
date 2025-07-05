@@ -3,11 +3,11 @@
 }
 .navbar_top_area {
   @include fixed-position;
-  position: absolute;
+  // position: absolute;
   top: 2.7rem;
   border-radius: 2rem;
   width: 95%;
-  padding: 0.6rem 1.5rem;
+  padding: 0.6rem 1rem;
   backdrop-filter: blur(9px);
   overflow: hidden;
   border: 1px solid $border-color-transparent-2;
@@ -27,17 +27,28 @@
   z-index: -1;
 }
 
-.log-img {
-  width: 2.3rem;
-  transition: scale 0.1s ease-in;
+.name__logo-div {
+  @include flex-center;
+  gap: 0.5rem;
+  margin-left: 0.7rem;
+  transition: all 0.3s ease-in;
 
   &:hover {
     scale: 1.053;
   }
 }
 
+// .log-img {
+//   width: 2.2rem;
+//   transition: scale 0.1s ease-in;
+
+//   &:hover {
+//     scale: 1.053;
+//   }
+// }
+
 .sign-in-btn {
-  background-color: $high-color-transparent-4;
+  background-color: $dark-blue-color-transparent-2;
   padding: 0.59rem 1.27rem;
   font-family: inherit;
   color: $first-text;

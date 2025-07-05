@@ -1,7 +1,7 @@
 import {
   conveListCompo,
   loadingDivComp,
-  welcomeMessageComp,
+  welcomeMessageCompo,
 } from "./AIAdviceRender";
 
 import "highlight.js/styles/atom-one-dark.css";
@@ -47,7 +47,7 @@ const styleOfChatContainerAfter_Loading = () => {
 `;
 
   window.addEventListener("load", () => {
-    chatAreaEl.innerHTML = welcomeMessageComp();
+    renderWelcomeMessage(true);
 
     if (conversations.get()[0].messages.length === 1) {
       activeConversation_Id.set(conversations.get()[0].id);
@@ -193,10 +193,9 @@ const sendPrompt = (getAdviceBtn, userInputEl) => {
 
 const renderAdviceInHtml = async (userInput) => {
   const chatAreaEl = document.getElementById("chat_area");
-  const welcomeMessage = document.querySelector(".ai-welcome_message");
 
   if (activeCoversation(activeConversation_Id.get()).messages.length === 1)
-    welcomeMessage.style.display = "none";
+    renderWelcomeMessage(false);
 
   const userEl = document.createElement("span");
   userEl.classList.add("user");
@@ -284,8 +283,7 @@ const renderMessages = (id) => {
 
   chatAreaEl.innerHTML = "";
 
-  if (activeCoversation(id).messages.length === 1)
-    chatAreaEl.innerHTML = welcomeMessageComp();
+  if (activeCoversation(id).messages.length === 1) renderWelcomeMessage(true);
 
   activeCoversation(id).messages.forEach((message) => {
     if (message.role === "user") {
@@ -314,8 +312,13 @@ const createNewConve = () => {
   if (
     conversations.get().length !== 0 &&
     conversations.get()[0].messages.length === 1
-  )
+  ) {
+    renderWelcomeMessage(true);
+    activeConversation_Id.set(conversations.get()[0].id);
+    addStyleToActiveConve(activeConversation_Id.get());
+
     return;
+  }
 
   const Id = `chat-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 
@@ -349,6 +352,15 @@ const renderConversationList = () => {
   conversations.get().forEach((conve) => {
     conversationListEl.innerHTML += conveListCompo(conve);
   });
+};
+
+const renderWelcomeMessage = (show_Welcome) => {
+  const chatAreaEl = document.getElementById("chat_area");
+  const welcomeMessage = document.querySelector(".ai-welcome_message");
+
+  show_Welcome
+    ? (chatAreaEl.innerHTML = welcomeMessageCompo())
+    : welcomeMessage.remove();
 };
 
 // **-----------    Find current chat and update that one
