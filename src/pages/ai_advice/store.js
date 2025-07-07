@@ -95,6 +95,10 @@ export const getAdvice = async (historyMessages) => {
   return reply;
 };
 
+export function findActiveCoversation(id) {
+  return conversations.get().find((conve) => conve.id === id);
+}
+
 export const highlightCode = () => {
   hljs.registerLanguage("javascript", javascript);
   hljs.registerLanguage("python", python);

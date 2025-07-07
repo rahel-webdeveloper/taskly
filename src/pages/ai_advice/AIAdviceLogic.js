@@ -1,4 +1,5 @@
 import {
+  chatErrorCompo,
   conveListCompo,
   loadingDivComp,
   welcomeMessageCompo,
@@ -12,49 +13,25 @@ import getAdvice, {
   activeConversation_Id,
   conversations,
   converter,
+  findActiveCoversation,
   highlightCode,
-  historyMessages,
   systemMsg,
 } from "./store";
 
-const AIAdviceLogic = () => {
-  const aiAdviceContainerEl = document.querySelector(".ai-advice_container");
+// ***------------   AI Page Dynamic UI
 
-  if (aiAdviceContainerEl) {
-    styleOfChatContainerAfter_Loading();
-    getUserInputController();
-    renderConversationList();
+export const onReloadAIPageContro = () => {
+  renderWelcomeMessage(true);
+  getUserInputController();
+  renderConversationList();
 
-    aiAdviceContainerEl.addEventListener("click", aiPageEvents);
-    window.addEventListener("resize", () => toggleAiSideBar(false));
+  if (conversations.get()[0].messages.length === 1) {
+    activeConversation_Id.set(conversations.get()[0].id);
+    addStyleToActiveConve(activeConversation_Id.get());
   }
 };
 
-// ***------------   AI Page Dynamic UI
-
-const styleOfChatContainerAfter_Loading = () => {
-  const chatAreaEl = document.getElementById("chat_area");
-
-  chatAreaEl.style.cssText += `
-  min-width: 200px;
-  width: 100%;
-  max-width: 980px;
-  margin: 1.77rem auto 3rem;
-  color: #f1f0f0;
-  border-radius: 1rem;
-`;
-
-  window.addEventListener("load", () => {
-    renderWelcomeMessage(true);
-
-    if (conversations.get()[0].messages.length === 1) {
-      activeConversation_Id.set(conversations.get()[0].id);
-      addStyleToActiveConve(activeConversation_Id.get());
-    }
-  });
-};
-
-const aiPageEvents = (event) => {
+export const eventsHandler = (event) => {
   const target = event.target;
 
   if (target.closest("#sidebar_show-btn")) toggleAiSideBar(true);
@@ -69,15 +46,15 @@ const aiPageEvents = (event) => {
 
     if (document.startViewTransition)
       document.startViewTransition(() =>
-        renderMessages(activeConversation_Id.get())
+        renderActiveConve_Messages(activeConversation_Id.get())
       );
-    else renderMessages(activeConversation_Id.get());
+    else renderActiveConve_Messages(activeConversation_Id.get());
 
     addStyleToActiveConve(activeConversation_Id.get());
   }
 };
 
-const toggleAiSideBar = (show = false) => {
+export const toggleAiSideBar = (show = false) => {
   const aiSideBarStyle = document.getElementById("ai__sidebar").style;
 
   const isWindowLarge = window.innerWidth >= 1024;
@@ -149,11 +126,11 @@ export const getUserInputController = async () => {
 
   // ***-------   Send task to AI chat from task list
   if (taskToAssistant.get().length !== 0)
-    sendTaskController(userInputEl, getAdviceBtn);
+    givenTaskTo_AssistantContro(userInputEl, getAdviceBtn);
 };
 
 // ***---------        Send task to assitant controller
-const sendTaskController = (userInputEl, getAdviceBtn) => {
+const givenTaskTo_AssistantContro = (userInputEl, getAdviceBtn) => {
   userInputEl.value = `Act as project manager for my this task:
   title: ${taskToAssistant.get()[0].title}
 
@@ -185,14 +162,14 @@ const sendPrompt = (getAdviceBtn, userInputEl) => {
   userInputEl.style.height = `3rem`;
 
   isWindowLarge
-    ? (aiAdviceContainerStyle.cssText += `align-content: start; padding-bottom: 4rem;`)
+    ? (aiAdviceContainerStyle.cssText += `align-content: start; padding-bottom: 5rem;`)
     : (aiAdviceContainerStyle.cssText += `align-content: start; padding-bottom: 4rem;`);
 };
 
 const renderAdviceInHtml = async (userInput) => {
   const chatAreaEl = document.getElementById("chat_area");
 
-  if (activeCoversation(activeConversation_Id.get()).messages.length === 1)
+  if (findActiveCoversation(activeConversation_Id.get()).messages.length === 1)
     renderWelcomeMessage(false);
 
   const userEl = document.createElement("span");
@@ -216,13 +193,13 @@ const renderAdviceInHtml = async (userInput) => {
 
   try {
     // Add user input
-    activeCoversation(activeConversation_Id.get()).messages.push({
+    findActiveCoversation(activeConversation_Id.get()).messages.push({
       role: "user",
       content: userInput.trim(),
     });
 
     const response = await getAdvice(
-      activeCoversation(activeConversation_Id.get()).messages
+      findActiveCoversation(activeConversation_Id.get()).messages
     );
 
     // **---------     For streaming response
@@ -233,7 +210,7 @@ const renderAdviceInHtml = async (userInput) => {
       assistantEl.innerHTML = htmlContent;
       chatAreaEl.scrollTop = chatAreaEl.scrollHeight;
     }
-    activeCoversation(activeConversation_Id.get()).messages.push({
+    findActiveCoversation(activeConversation_Id.get()).messages.push({
       role: "assistant",
       content: fullMarkdown,
     });
@@ -246,26 +223,11 @@ const renderAdviceInHtml = async (userInput) => {
   } catch (err) {
     for (let i = 0; i < loadingDiv.length; i++) loadingDiv[i].remove();
 
-    chatAreaEl.innerHTML += `
-       <div class="catch-error">
-       <i class="bi bi-exclamation-circle"></i>
-       <span> ${
-         err.message === "puter is not defined"
-           ? "Check your internet and try again!"
-           : err.error.delegate == "usage-limited-chat"
-           ? "Usage limit exceeded!"
-           : " Something went wrong!"
-       }</span>
-       </div>
-    `;
+    chatAreaEl.innerHTML += chatErrorCompo(err);
   }
 
   highlightCode();
 };
-
-function activeCoversation(id) {
-  return conversations.get().find((conve) => conve.id === id);
-}
 
 const addStyleToActiveConve = (id) => {
   const conversationEls = document.querySelectorAll(".conversation");
@@ -279,14 +241,15 @@ const addStyleToActiveConve = (id) => {
   });
 };
 
-const renderMessages = (id) => {
+const renderActiveConve_Messages = (id) => {
   const chatAreaEl = document.getElementById("chat_area");
 
   chatAreaEl.innerHTML = "";
 
-  if (activeCoversation(id).messages.length === 1) renderWelcomeMessage(true);
+  if (findActiveCoversation(id).messages.length === 1)
+    renderWelcomeMessage(true);
 
-  activeCoversation(id).messages.forEach((message) => {
+  findActiveCoversation(id).messages.forEach((message) => {
     if (message.role === "user") {
       const userEl = document.createElement("span");
       userEl.classList.add("user");
@@ -309,9 +272,7 @@ const renderMessages = (id) => {
   });
 };
 
-const createNewConve = () => {
-  // ***_________  Don't create new conversation if user didn't send any message in last conversation
-
+const emptyConve_Controller = () => {
   addStyleToActiveConve(activeConversation_Id.get());
   if (
     conversations.get().length !== 0 &&
@@ -321,8 +282,13 @@ const createNewConve = () => {
     activeConversation_Id.set(conversations.get()[0].id);
     addStyleToActiveConve(activeConversation_Id.get());
 
-    return;
-  }
+    return false;
+  } else return true;
+};
+
+const createNewConve = () => {
+  // ***   Don't create new conversation if user didn't send any message in last conversation
+  if (!emptyConve_Controller()) return;
 
   const Id = `chat-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 
@@ -338,14 +304,12 @@ const createNewConve = () => {
 
   saveLocalStorage(conversations.get(), "all_Conversations");
 
-  if (document.startViewTransition) {
-    document.startViewTransition(() => renderConversationList());
-  } else {
-    renderConversationList();
-  }
+  document.startViewTransition
+    ? document.startViewTransition(() => renderConversationList())
+    : renderConversationList();
 };
 
-const renderConversationList = () => {
+export const renderConversationList = () => {
   const conversationListEl = document.getElementById("conversation__list");
 
   conversationListEl.innerHTML = "";
@@ -366,7 +330,3 @@ const renderWelcomeMessage = (show_Welcome) => {
     ? (chatAreaEl.innerHTML = welcomeMessageCompo())
     : welcomeMessage.remove();
 };
-
-// **-----------    Find current chat and update that one
-
-export default AIAdviceLogic;

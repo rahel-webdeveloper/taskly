@@ -1,3 +1,8 @@
+import {
+  eventsHandler,
+  onReloadAIPageContro,
+  toggleAiSideBar,
+} from "./AIAdviceLogic";
 import { converter } from "./store";
 
 const AIAdviceContainer = () => {
@@ -13,6 +18,14 @@ const AIAdviceContainer = () => {
       </div>
     </div>
   `;
+};
+
+AIAdviceContainer.init = function () {
+  const aiAdviceContainerEl = document.querySelector(".ai-advice_container");
+
+  aiAdviceContainerEl.addEventListener("click", eventsHandler);
+  window.addEventListener("resize", () => toggleAiSideBar(false));
+  onReloadAIPageContro();
 };
 
 const aiSidebarComp = () => {
@@ -83,6 +96,22 @@ export const loadingDivComp = () => {
       </div>
     </div>
   `;
+};
+
+export const chatErrorCompo = (err) => {
+  return `
+  <div class="catch-error">
+    <i class="bi bi-exclamation-circle"></i>
+    <span>
+      ${
+        err.message === "puter is not defined"
+          ? "Check your internet and try again!"
+          : err.error.delegate == "usage-limited-chat"
+          ? "Usage limit exceeded!"
+          : " Something went wrong!"
+      }
+    </span>
+  </div>`;
 };
 
 export default AIAdviceContainer;

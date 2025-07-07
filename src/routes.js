@@ -8,7 +8,6 @@ import TaskHubRender from "./pages/task_hub/TaskHubRender.js";
 import TimerRender from "./pages/timer/TimerRender.js";
 import WelcomeRender from "./pages/welcome/WelcomeRender.js";
 import TaskHubLogic from "./pages/task_hub/TaskHubLogic.js";
-import AIAdviceLogic from "./pages/ai_advice/AIAdviceLogic.js";
 import DashboardLogic from "./pages/dashboard/DashboardLogic.js";
 import timerLogic from "./pages/timer/TimerLogic.js";
 import WelcomeLogic from "./pages/welcome/WelcomeLogic.js";
@@ -35,7 +34,8 @@ const Router = () => {
 
       "/ai-advisor": () => {
         activeLink("/ai-advisor");
-        renderPage(AIAdviceRender, AIAdviceLogic);
+        renderPage(AIAdviceRender, null);
+        if (AIAdviceRender.init) AIAdviceRender.init();
       },
 
       "/dashboard": () => {

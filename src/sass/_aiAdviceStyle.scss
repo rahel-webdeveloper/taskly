@@ -9,6 +9,12 @@
   padding: 1.5rem;
   display: grid;
   align-items: center;
+
+  min-width: 200px;
+  max-width: 980px;
+  width: 100%;
+  margin: 1.77rem auto 3rem;
+  color: #f1f0f0;
 }
 
 .ai-welcome_message {
