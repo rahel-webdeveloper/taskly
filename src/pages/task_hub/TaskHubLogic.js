@@ -8,7 +8,7 @@ import {
 import openNotification from "../../services/toastNotifications.js";
 import { controlTasksAllOperation } from "../../tasks/ListTasksLogic.js";
 import { listTasks, liveTasks } from "../../tasks/store.js";
-import { isDashboardOpen } from "../dashboard/MainDashboard.js";
+
 import {
   AddNewTask,
   taskCategory,
@@ -25,6 +25,7 @@ import {
 } from "./store.js";
 import { addToDetailsCard } from "./TaskHubRender.js";
 import { loadingDivComp } from "../ai_advice/AIAdviceRender.js";
+import { isDashboardOpen } from "../../routes.js";
 
 export default async function TaskHubLogic() {
   const taskHubPage = document.getElementById("task__hub-page");

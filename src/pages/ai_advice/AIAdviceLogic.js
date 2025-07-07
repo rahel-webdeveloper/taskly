@@ -16,9 +16,8 @@ import getAdvice, {
   historyMessages,
   systemMsg,
 } from "./store";
-import { systemMessage } from "../task_hub/store";
 
-const AIAdviceLogic = async () => {
+const AIAdviceLogic = () => {
   const aiAdviceContainerEl = document.querySelector(".ai-advice_container");
 
   if (aiAdviceContainerEl) {

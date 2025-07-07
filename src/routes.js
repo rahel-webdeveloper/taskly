@@ -4,7 +4,6 @@ import { loadLocalStorage, saveLocalStorage } from "./data/localStorage.js";
 import activeLink from "./navbar.js";
 import AIAdviceRender from "./pages/ai_advice/AIAdviceRender.js";
 import DashboardRender from "./pages/dashboard/DashboardRender.js";
-import { isDashboardOpen } from "./pages/dashboard/MainDashboard.js";
 import TaskHubRender from "./pages/task_hub/TaskHubRender.js";
 import TimerRender from "./pages/timer/TimerRender.js";
 import WelcomeRender from "./pages/welcome/WelcomeRender.js";
@@ -14,6 +13,8 @@ import DashboardLogic from "./pages/dashboard/DashboardLogic.js";
 import timerLogic from "./pages/timer/TimerLogic.js";
 import WelcomeLogic from "./pages/welcome/WelcomeLogic.js";
 import TasksContainer from "./tasks/ListTasksRender.js";
+
+export const isDashboardOpen = atom(false);
 
 const router = new Navigo("/", {
   // linksSelector: "[data-link]",

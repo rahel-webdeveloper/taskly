@@ -1,6 +1,7 @@
 import { saveLocalStorage } from "../data/localStorage";
-import { isDashboardOpen } from "../pages/dashboard/MainDashboard";
+
 import { todayReport } from "../pages/task_hub/TaskHubLogic";
+import { isDashboardOpen } from "../routes";
 import openNotification from "../services/toastNotifications";
 import { updateTaskCount } from "./ListTasksRender";
 import {

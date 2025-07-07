@@ -8,7 +8,7 @@ import {
 } from "./ListTasksLogic.js";
 import { addTaskToList, updateTaskCount } from "./ListTasksRender.js";
 import { addToDetailsCard } from "../pages/task_hub/TaskHubRender.js";
-import { isDashboardOpen } from "../pages/dashboard/MainDashboard.js";
+import { isDashboardOpen } from "../routes.js";
 
 export const Id = atom(0);
 

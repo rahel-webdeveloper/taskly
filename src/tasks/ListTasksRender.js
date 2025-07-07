@@ -2,7 +2,7 @@ import DeleteCompleteTasksDiv from "../components/DeleteCompleteTasksDiv";
 import ListTasksHeader from "../components/ListTasksHeader";
 import TaskEditBox from "../components/TaskEdit";
 import TaskStateDiv from "../components/TaskStateDiv";
-import { isDashboardOpen } from "../pages/dashboard/MainDashboard";
+import { isDashboardOpen } from "../routes";
 import { eventsHandler } from "./ListTasksLogic";
 import { filterState, implementFilter, listTasks, liveTasks } from "./store";
 
