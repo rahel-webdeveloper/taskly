@@ -41,7 +41,6 @@ const styleOfChatContainerAfter_Loading = () => {
   width: 100%;
   max-width: 980px;
   margin: 1.77rem auto 3rem;
-  background-color: #020408;
   color: #f1f0f0;
   border-radius: 1rem;
 `;
@@ -204,7 +203,7 @@ const renderAdviceInHtml = async (userInput) => {
   const assistantEl = document.createElement("article");
   assistantEl.classList.add("markdown-body");
   assistantEl.style.cssText += `
-  background-color: #020408;
+  background-color: #0a0a0a;
   color: #f8f8f8;
   `;
 
@@ -301,7 +300,7 @@ const renderMessages = (id) => {
       const assistantEl = document.createElement("article");
       assistantEl.classList.add("markdown-body");
       assistantEl.style.cssText += `
-      background-color: #020408;
+      background-color: #0a0a0a;
       color: #f8f8f8;
       `;
 

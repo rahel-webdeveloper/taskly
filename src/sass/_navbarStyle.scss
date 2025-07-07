@@ -82,6 +82,7 @@
   transform-origin: left;
   transition: scale 0.3s ease-in-out;
   @include flex-space;
+  background-color: $primary-color-transparent-2;
 }
 
 .navbar-links {
@@ -109,7 +110,7 @@
 
 .navbar-links a:hover {
   transition: all 0.4s ease-in;
-  background-color: $high-color-transparent-4;
+  background-color: $border-color-transparent-2;
   padding: 0.12rem 0.5rem;
   border-radius: 1rem;
 
@@ -123,7 +124,7 @@
 
 .active-link {
   transition: all 0.3s ease-in;
-  background-color: $high-color-transparent-4;
+  background-color: $border-color-transparent-2;
   padding: 0.1rem 0.5rem;
   border-radius: 1rem;
 

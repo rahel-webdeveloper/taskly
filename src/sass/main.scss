@@ -232,7 +232,7 @@ body {
       background-color: $count-color;
       opacity: 0.5;
       filter: blur(70px);
-      mix-blend-mode: color-dodge;
+      // mix-blend-mode: color-dodge;
       z-index: -1;
     }
 

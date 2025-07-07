@@ -1,4 +1,3 @@
-import ListTaskMain from "./tasks/ListTaskMain";
 import MainAIAdvice from "./pages/ai_advice/MainAIAdvice";
 import MainDashboard from "./pages/dashboard/MainDashboard";
 import MainTaskHub from "./pages/task_hub/MainTaskHub";
@@ -12,7 +11,6 @@ const Main = () => {
   MainAIAdvice();
   MainDashboard();
   MainTimer();
-  ListTaskMain();
   SendSuggestionMain();
 };
 

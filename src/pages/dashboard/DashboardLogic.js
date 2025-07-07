@@ -1,6 +1,5 @@
 import { Chart } from "chart.js/auto";
 import { listTasks, setTodayTasks, todayTasks } from "../../tasks/store";
-import {} from "../../tasks/ListTasksLogic";
 import { todayReport } from "../task_hub/TaskHubLogic";
 
 const DashboardLogic = () => {

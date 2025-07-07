@@ -13,9 +13,10 @@ import AIAdviceLogic from "./pages/ai_advice/AIAdviceLogic.js";
 import DashboardLogic from "./pages/dashboard/DashboardLogic.js";
 import timerLogic from "./pages/timer/TimerLogic.js";
 import WelcomeLogic from "./pages/welcome/WelcomeLogic.js";
+import TasksContainer from "./tasks/ListTasksRender.js";
 
 const router = new Navigo("/", {
-  linksSelector: "[data-link]",
+  // linksSelector: "[data-link]",
   hash: false,
 });
 
@@ -25,8 +26,10 @@ const Router = () => {
   router
     .on({
       "/": () => {
+        isDashboardOpen.set(false);
         activeLink("/");
         renderPage(TaskHubRender, TaskHubLogic);
+        if (TasksContainer.init) TasksContainer.init();
       },
 
       "/ai-advisor": () => {
@@ -38,6 +41,7 @@ const Router = () => {
         isDashboardOpen.set(true);
         activeLink("/dashboard");
         renderPage(DashboardRender, DashboardLogic);
+        if (TasksContainer.init) TasksContainer.init();
       },
 
       "/timer": () => {
@@ -71,9 +75,8 @@ function renderPage(component, logic) {
   const mainContent = document.getElementById("main_content");
 
   if (document.startViewTransition) {
-    // document.startViewTransition(() => {
     mainContent.innerHTML = component();
-    // });
+    if (logic) logic();
   } else {
     mainContent.innerHTML = component();
   }

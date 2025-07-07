@@ -21,23 +21,8 @@ import {
   implementSort,
 } from "./store";
 
-const ListTasksLogic = () => {
-  const listTasksContainer = document.getElementById("task-list_container");
-
-  if (listTasksContainer)
-    listTasksContainer.addEventListener("click", function (event) {
-      eventsHandler(event);
-      // DashboardLogic();
-    });
-
-  implementFilter(
-    !isDashboardOpen.get() ? liveTasks.get() : listTasks.get(),
-    filterState.get()
-  );
-};
-
 // Events handler function
-const eventsHandler = (event) => {
+export const eventsHandler = (event) => {
   const panelFilter = document.getElementById("panel_filter");
   const panelSort = document.getElementById("panel_sort");
 
@@ -184,5 +169,3 @@ export function controlTasksAllOperation() {
   updateTaskCount(listTasks.get(), visibleTasks.get().length);
   todayReport(todayTasks.get());
 }
-
-export default ListTasksLogic;

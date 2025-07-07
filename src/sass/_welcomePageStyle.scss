@@ -54,8 +54,7 @@
     $btn-color 50%
   );
 
-  mix-blend-mode: color-dodge;
-  filter: blur(30px);
+  filter: blur(50px);
   z-index: -1;
   border-radius: 50%;
 }
@@ -201,11 +200,11 @@
   position: absolute;
   width: 9rem;
   height: 9rem;
-  background: linear-gradient(to left top, $count-color 30%, $moderate-color);
+  background: linear-gradient(to left top, $btn-color 30%, $count-color 70%);
   filter: blur(60px);
   top: 60%;
   z-index: -1;
-  mix-blend-mode: color-dodge;
+  // mix-blend-mode: color-dodge;
 }
 
 .copyRight {

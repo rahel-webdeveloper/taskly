@@ -3,7 +3,8 @@ import ListTasksHeader from "../components/ListTasksHeader";
 import TaskEditBox from "../components/TaskEdit";
 import TaskStateDiv from "../components/TaskStateDiv";
 import { isDashboardOpen } from "../pages/dashboard/MainDashboard";
-import { filterState } from "./store";
+import { eventsHandler } from "./ListTasksLogic";
+import { filterState, implementFilter, listTasks, liveTasks } from "./store";
 
 const TasksContainer = () => {
   return `
@@ -17,6 +18,17 @@ const TasksContainer = () => {
     ${isDashboardOpen.get() ? DeleteCompleteTasksDiv() : ""}
     </div>
   </div> `;
+};
+
+// Initialize events after rendering Tasks container
+TasksContainer.init = function () {
+  const listTasksContainer = document.getElementById("task-list_container");
+
+  implementFilter(
+    !isDashboardOpen.get() ? liveTasks.get() : listTasks.get(),
+    filterState.get()
+  );
+  listTasksContainer.addEventListener("click", eventsHandler);
 };
 
 const imgUrl = new URL("/empty-box.png", import.meta.url).href;
