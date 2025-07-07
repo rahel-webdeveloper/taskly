@@ -156,11 +156,10 @@ export const implementSort = (tasks, state) => {
   );
 
   updateTaskCount(tasks, visibleTasks.get().length);
-  addTaskToList(visibleTasks.get());
   addStyleToSortControls();
 };
 
-export const getSortTasks = (tasks, state) => {
+export const getSortTasks = (tasks, state = "date") => {
   // Name comparator
   const sortByName = (a, b) => a.description.localeCompare(b.description);
 

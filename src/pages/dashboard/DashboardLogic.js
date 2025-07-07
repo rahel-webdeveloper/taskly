@@ -1,6 +1,7 @@
 import { Chart } from "chart.js/auto";
 import { listTasks, setTodayTasks, todayTasks } from "../../tasks/store";
 import { todayReport } from "../task_hub/TaskHubLogic";
+import SendSuggestionMain from "../../services/send_Sug";
 
 const DashboardLogic = () => {
   const tasks = listTasks.get();
@@ -11,6 +12,7 @@ const DashboardLogic = () => {
   initTrackedTimeBars(tasks);
 
   // Set today's report on dashboard page
+  SendSuggestionMain();
   setTodayTasks(tasks);
   todayReport(todayTasks.get());
 };

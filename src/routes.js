@@ -9,20 +9,19 @@ import TimerRender from "./pages/timer/TimerRender.js";
 import WelcomeRender from "./pages/welcome/WelcomeRender.js";
 import TaskHubLogic from "./pages/task_hub/TaskHubLogic.js";
 import DashboardLogic from "./pages/dashboard/DashboardLogic.js";
-import timerLogic from "./pages/timer/TimerLogic.js";
 import WelcomeLogic from "./pages/welcome/WelcomeLogic.js";
 import TasksContainer from "./tasks/ListTasksRender.js";
 
 export const isDashboardOpen = atom(false);
 
-const router = new Navigo("/", {
+const isWelcomePageSeen = atom(loadLocalStorage("is_welcome_seen") || false);
+
+export const router = new Navigo("/", {
   // linksSelector: "[data-link]",
   hash: false,
 });
 
 const Router = () => {
-  const isWelcomePageSeen = atom(loadLocalStorage("is_welcome_seen") || false);
-
   router
     .on({
       "/": () => {
@@ -47,7 +46,8 @@ const Router = () => {
 
       "/timer": () => {
         activeLink("/timer");
-        renderPage(TimerRender, timerLogic);
+        renderPage(TimerRender, null);
+        if (TimerRender.init) TimerRender.init();
       },
 
       "/welcome": () => {

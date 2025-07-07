@@ -18,12 +18,17 @@ import getAdvice, {
   systemMsg,
 } from "./store";
 
+export const AIAdviceLogic = () => {
+  getUserInputController();
+  renderConversationList();
+
+  onReloadAIPageContro();
+};
+
 // ***------------   AI Page Dynamic UI
 
 export const onReloadAIPageContro = () => {
   renderWelcomeMessage(true);
-  getUserInputController();
-  renderConversationList();
 
   if (conversations.get()[0].messages.length === 1) {
     activeConversation_Id.set(conversations.get()[0].id);

@@ -1,4 +1,5 @@
 import {
+  AIAdviceLogic,
   eventsHandler,
   onReloadAIPageContro,
   toggleAiSideBar,
@@ -21,11 +22,12 @@ const AIAdviceContainer = () => {
 };
 
 AIAdviceContainer.init = function () {
-  const aiAdviceContainerEl = document.querySelector(".ai-advice_container");
-
-  aiAdviceContainerEl.addEventListener("click", eventsHandler);
+  document
+    .querySelector(".ai-advice_container")
+    .addEventListener("click", eventsHandler);
   window.addEventListener("resize", () => toggleAiSideBar(false));
-  onReloadAIPageContro();
+
+  AIAdviceLogic();
 };
 
 const aiSidebarComp = () => {

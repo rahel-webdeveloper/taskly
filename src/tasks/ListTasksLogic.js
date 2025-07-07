@@ -165,6 +165,7 @@ export function controlTasksAllOperation() {
     !isDashboardOpen.get() ? liveTasks.get() : listTasks.get(),
     filterState.get()
   );
+  implementSort(listTasks.get());
 
   saveLocalStorage(listTasks.get(), "listTask");
   updateTaskCount(listTasks.get(), visibleTasks.get().length);

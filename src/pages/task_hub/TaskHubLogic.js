@@ -26,6 +26,7 @@ import {
 import { addToDetailsCard } from "./TaskHubRender.js";
 import { loadingDivComp } from "../ai_advice/AIAdviceRender.js";
 import { isDashboardOpen } from "../../routes.js";
+import SendSuggestionMain from "../../services/send_Sug.js";
 
 export default async function TaskHubLogic() {
   const taskHubPage = document.getElementById("task__hub-page");
@@ -37,6 +38,7 @@ export default async function TaskHubLogic() {
     controlTasksAllOperation();
     liveTrackTasks();
     prioritySliderController();
+    SendSuggestionMain();
 
     taskHubPage.addEventListener("click", taskHub_Events);
   }

@@ -12,12 +12,10 @@ const WelcomeRender = () => {
       </div>
 
       <div class="welcome-btns">
-       <a href="#see_how-it-works">
         <button id="how-works_btn">
          <i class="bi bi-play"></i> See How It Works 
         </button>
-       </a>
-       <a href="/">
+       <a href="/" data-navigo>
         <button id="get_started_btn">
           Get Started Free <i class="bi bi-egg-fried"></i>
         </button>

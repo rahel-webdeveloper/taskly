@@ -1,3 +1,4 @@
+import SendSuggestionMain from "../../services/send_Sug";
 import {
   selectedHour,
   selectedMinute,
@@ -16,7 +17,7 @@ import {
   isCanceled,
 } from "./store";
 
-const TimerLogic = () => {
+export const TimerLogic = () => {
   // Initialize Infinite Picker
   populateInfinitePicker("hour-picker", 100);
   populateInfinitePicker("minute-picker", 60);
@@ -35,16 +36,10 @@ const TimerLogic = () => {
     totalSelectedTime();
   });
 
-  // Timer events
-  if (timerContainer)
-    timerContainer.addEventListener("click", handleTimerEvents);
-
-  // For large screen UI
-  window.addEventListener("resize", isWindowLarge);
+  SendSuggestionMain();
 };
 
-let timerContainer,
-  timerFirstSection,
+let timerFirstSection,
   timerSecondSection,
   countdownCircle,
   tapTimeDiv,
@@ -55,7 +50,6 @@ let timerContainer,
   cancelBtn;
 
 document.addEventListener("DOMContentLoaded", function () {
-  timerContainer = document.querySelector(".timer-container");
   timerFirstSection = document.querySelector(".timer-first-section");
   timerSecondSection = document.querySelector(".timer-second-section");
   countdownCircle = document.getElementById("countdown-circle");
@@ -232,13 +226,13 @@ const remainingTimerInUI = (
     }`;
 };
 
-const handleTimerEvents = (event) => {
+export const handleTimerEvents = (event) => {
   const id = event.target.id;
 
   if (id === "timer-start") {
     startTimer();
 
-    resetTimerState();
+    timerStartState();
     setAnimationId(getSelectedTimeOnSeconds());
 
     if (!isWindowLarge()) toggleStartSection(true);
@@ -291,7 +285,7 @@ const resetUI = () => {
   if (!isWindowLarge()) toggleStartSection(false);
 };
 
-const resetTimerState = () => {
+const timerStartState = () => {
   isPaused.set(false);
   isCanceled.set(false);
   isStarted.set(true);
@@ -315,7 +309,7 @@ const toggleStartSection = (isStarted) => {
   timerSecondSection.style.display = isStarted ? "inline" : "none";
 };
 
-const isWindowLarge = () => {
+export const isWindowLarge = () => {
   const width = window.innerWidth;
   if (timerFirstSection && timerSecondSection) {
     if (width >= 1024) {

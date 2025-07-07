@@ -1,3 +1,4 @@
+import SendSuggestionMain from "../../services/send_Sug";
 import openNotification from "../../services/toastNotifications";
 
 const WelcomeLogic = () => {
@@ -10,6 +11,8 @@ const WelcomeLogic = () => {
       if (event.target.closest("#how-works_btn"))
         openNotification("success", "You will recieve the guides very soon!");
     });
+
+  SendSuggestionMain();
 };
 
 export default WelcomeLogic;
