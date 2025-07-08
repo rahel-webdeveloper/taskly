@@ -60,8 +60,11 @@ export const eventsHandler = (event) => {
 };
 
 export const toggleAiSideBar = (show = false) => {
-  const aiSideBarStyle = document.getElementById("ai__sidebar").style;
+  const aiSideBar = document.getElementById("ai__sidebar");
 
+  if (!aiSideBar) return;
+
+  const aiSideBarStyle = aiSideBar.style;
   const isWindowLarge = window.innerWidth >= 1024;
 
   if (show && !isWindowLarge) aiSideBarStyle.left = "50%";

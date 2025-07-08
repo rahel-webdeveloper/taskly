@@ -6,13 +6,9 @@ import TasksContainer from "../../tasks/ListTasksRender";
 export default function TaskHubRender() {
   return `
   <div class="task__hub-page" id="task__hub-page">
-    <section class="first-section">
-      <div class="form-container">
-        ${TaskForm()}
-      </div>
-    </section>
-    <section class="second-section">
-      <div class="top-of-card">
+  <section class="first-section">
+  ${TaskForm()}
+    <div class="top-of-card">
         <label for="task-title" title="Add new task" id="add-task-icon"><i class="bi bi-plus"></i></label>
         <a id="scroll-end-icon" title="Scroll left and right of cards" href="#last-card"><i class="bi bi-align-end"></i></a>
       </div>
@@ -21,8 +17,10 @@ export default function TaskHubRender() {
           <!-- New task card will appear here -->
         </div>
       </div>
+  </section>
+  <section class="second-section"> 
       ${TasksContainer()}
-    </section>
+  </section>
     <section class="third-section">
       ${TodaysReportDiv()}
     </section>
@@ -34,6 +32,9 @@ export default function TaskHubRender() {
 
 const TaskForm = () => {
   return `
+  <div id="add_task_form-dialog">
+   <div class="form-container">
+   <button id="close_form-dialog"><i class="bi bi-x"></i></button>
   <form action="" class="form" id="form">
     <div class="form-row">
       <div class="form-column">
@@ -124,7 +125,9 @@ const TaskForm = () => {
     <button class="create-btn" type="submit" id="create_btn">
       Create Task <i class="bi bi-arrow-down-right"></i>
     </button>
-  </form>
+   </form>
+  </div>
+  </div>
   `;
 };
 

@@ -9,8 +9,9 @@
   width: 100%;
 }
 
-.form-container {
-  padding: 0.75rem;
+#close_form-dialog {
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 
 .form-container .form {
@@ -201,6 +202,8 @@
   .flatpickr-calendar {
     left: 50% !important;
     transform: translate(-50%) !important;
+    position: fixed !important;
+    z-index: 9993243242 !important;
   }
 }
 
@@ -250,7 +253,7 @@ input[type="number"] {
 
 .checkmark:nth-child(2) {
   left: 27%;
-  background-color: $third-color;
+  background-color: $primary-light-color;
 }
 
 .checkmark:nth-child(3) {
@@ -260,7 +263,7 @@ input[type="number"] {
 
 .switch-time-allDay input[type="checkbox"]:checked ~ .checkmark:nth-child(3) {
   border-radius: 1rem;
-  background-color: $third-color;
+  background-color: $primary-light-color;
 }
 
 .switch-time-allDay input[type="checkbox"]:checked ~ .checkmark:nth-child(2) {
@@ -269,9 +272,9 @@ input[type="number"] {
 }
 
 .create-btn {
-  background-color: $btn-color;
+  background-color: $count-color;
   border-radius: 2rem;
-  color: $first-text;
+  color: $primary-color;
   font-family: inherit;
   cursor: pointer;
   padding: 0.77rem 1.5rem;
@@ -317,6 +320,7 @@ input[type="number"] {
   background-color: $primary-color;
   text-align: center;
   color: $first-text;
+  padding-top: 0.7rem;
 }
 
 .card-container {
@@ -440,7 +444,7 @@ input[type="number"] {
         padding: 0.45rem 0.6rem;
         display: inline-block;
         color: $first-text;
-        background-color: $primary-color-transparent-4;
+        background-color: $dark-blue-color-transparent-2;
         border-radius: 0.5rem;
       }
 
@@ -470,95 +474,87 @@ input[type="number"] {
   }
 }
 
-// Form container on small devices
-@media (width < 1024px) {
-  .form-container {
-    @include abs-position;
-    z-index: 1;
-    max-width: 680px;
-    width: 95%;
-    top: 34.5%;
-    border: 1px solid $border-color-transparent-2;
-    border-radius: 0.7rem;
-    background-color: $backdrop-filter-color-transparent-2;
-    backdrop-filter: blur(37px);
-    overflow: hidden;
-    display: none;
-    padding-block: 1.27rem;
+#add_task_form-dialog {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  background-color: $primary-color-transparent-2;
+  z-index: 10;
+  display: none;
+  align-content: center;
+
+  &::-webkit-scrollbar {
+    width: 0;
   }
+}
 
-  .form-container::after {
-    content: "";
-    width: 110px;
-    height: 110px;
-    bottom: 30%;
-    left: -5%;
-    filter: blur(39px);
-    overflow: hidden;
-    background-color: $orange-color;
-    position: absolute;
-    z-index: -3;
+.form-container {
+  place-self: center;
+  max-width: 680px;
+  width: 95%;
+  height: 96%;
+  border: 1px solid $border-color-transparent-2;
+  border-radius: 0.7rem;
+  background-color: $primary-color-transparent-2;
+  backdrop-filter: blur(7px);
+  overflow: auto;
+  padding-block: 1.27rem;
+
+  &::-webkit-scrollbar {
+    width: 0;
   }
+}
 
-  .form-container::before {
-    content: "";
-    width: 110px;
-    height: 110px;
-    right: 3%;
-    bottom: 0%;
-    border-radius: 50%;
-    filter: blur(50px);
-    overflow: hidden;
-    background-color: $count-color;
-    position: absolute;
-    z-index: -3;
-  }
+.form-container::after {
+  content: "";
+  width: 110px;
+  height: 110px;
+  bottom: 30%;
+  left: -5%;
+  filter: blur(50px);
+  overflow: hidden;
+  background-color: $yellow-color;
+  position: absolute;
+  z-index: -3;
+}
 
-  .second-section {
-    padding-top: 2rem;
+.form-container::before {
+  content: "";
+  width: 110px;
+  height: 110px;
+  right: 3%;
+  bottom: 0%;
+  border-radius: 50%;
+  filter: blur(50px);
+  overflow: hidden;
+  background-color: $count-color;
+  position: absolute;
+  z-index: -3;
+}
 
-    .top-of-card {
-      @include flex-space;
-      padding-inline: 1.5rem;
-      color: $first-text;
+.top-of-card {
+  @include flex-space;
+  margin-top: 2.5rem;
+  padding-inline: 1.5rem;
+  font-size: 1.95rem;
 
-      i {
-        cursor: pointer;
+  i {
+    cursor: pointer;
 
-        &:hover {
-          opacity: 0.7;
-        }
-      }
-    }
-
-    #add-task-icon i {
-      font-size: 2.27rem;
-      position: relative;
-      z-index: 2;
+    &:hover {
+      opacity: 0.7;
     }
   }
 }
 
-.second-section {
-  padding-top: 2rem;
+#add-task-icon i {
+  font-size: 2.27rem;
+}
 
-  .top-of-card {
-    @include flex-space;
-    padding-inline: 1.5rem;
-    color: $first-text;
-    font-size: 1.95rem;
-
-    i {
-      cursor: pointer;
-
-      &:hover {
-        opacity: 0.7;
-      }
-    }
-  }
-
-  #scroll-end-icon {
-    font-size: 1.7rem;
-    margin-left: auto;
-  }
+#scroll-end-icon {
+  font-size: 1.7rem;
+  margin-left: auto;
 }

@@ -4,9 +4,8 @@ const WelcomeRender = () => {
   return `
   <div class="welcome-page">
     <section class="welcome-first_section">
-      <h1>Welcome to <span>Taskly</span></h1>
       <div class="first-page_subtitle"> 
-      <h2><span>Track</span>, <span>Chat</span>, and <span>Conquer</span> Your Tasks!</h2>
+      <h1><span>Automate Your</span> <br> Workflow Fast With <br> <span>Taskly's AI!</span></h1>
 
       <p>Master your to-dos with smart tracking and instant AI advice! Our platform offers a suite of advanced task tracking and instant AI tools!</p>
       </div>
@@ -26,7 +25,7 @@ const WelcomeRender = () => {
       <div class="ai-annoucement-text-div">
       <h2>Transform your workflow with AI</h2>
       <p>No waiting, No guessing, Just smart, instant answers tailored to your needs-available anytime to help you make faster, better, and more confident decisions.</p>
-      <a href="/ai-advisor"><button id="try-ai-advisor-btn">Try It Now <i class="bi bi-stars"></i></button></a>
+      <a href="/ai-advisor" data-navigo><button id="try-ai-advisor-btn">Try It Now <i class="bi bi-stars"></i></button></a>
       </div>
 
       <img src="/ai-advisor-img.png" class="advisor-annoucement-img" />

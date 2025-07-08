@@ -68,7 +68,7 @@ TimerRender.init = function () {
   // For large screen UI
   window.addEventListener("resize", isWindowLarge);
 
-  if (timerContainerEl) TimerLogic();
+  TimerLogic();
 };
 
 export default TimerRender;

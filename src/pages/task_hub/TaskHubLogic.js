@@ -52,7 +52,9 @@ const taskHub_Events = (event) => {
 
   if (target.closest("#des_generator_icon")) generateDescription();
 
-  if (target.closest("#add-task-icon i")) taskFormDisplayController(event);
+  if (target.closest("#add-task-icon i")) addTaskFormDialog_Contro(true);
+
+  if (target.closest("#close_form-dialog")) addTaskFormDialog_Contro(false);
 
   if (target.closest("#scroll-end-icon")) scrollToEndCard();
 
@@ -62,39 +64,13 @@ const taskHub_Events = (event) => {
 
 //  +______+ Task Form Container Display base on screen
 
-const taskFormDisplayController = (event) => {
-  const addTaskIcon = document.querySelector("#add-task-icon i");
-  const formContainer = document.querySelector(".form-container");
+const addTaskFormDialog_Contro = (showModal) => {
+  const addTaskFormDialog = document.getElementById("add_task_form-dialog");
 
-  if (!formContainer) return;
-
-  const formStyle = formContainer.style;
-
-  //  ** Base on Click event
-  if (event.type === "click")
-    if (window.innerWidth < 1024) {
-      formStyle.display = formStyle.display === "block" ? "none" : "block";
-
-      addTaskIcon.classList.toggle("bi-x");
-    } else {
-      addTaskIcon.classList.remove("bi-x");
-
-      formStyle.display = "block";
-    }
-
-  //  ** Base on Resize event
-  if (event.type === "resize")
-    if (window.innerWidth >= 1024) {
-      addTaskIcon.classList.remove("bi-x");
-      formStyle.display = "block";
-    } else {
-      !addTaskIcon.classList.contains("bi-x")
-        ? (formStyle.display = "none")
-        : (formStyle.display = "block");
-    }
+  showModal
+    ? (addTaskFormDialog.style.display = "block")
+    : (addTaskFormDialog.style.display = "none");
 };
-
-window.addEventListener("resize", taskFormDisplayController);
 
 //  +______+ Generate AI Description
 

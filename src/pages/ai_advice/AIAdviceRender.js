@@ -25,6 +25,7 @@ AIAdviceContainer.init = function () {
   document
     .querySelector(".ai-advice_container")
     .addEventListener("click", eventsHandler);
+
   window.addEventListener("resize", () => toggleAiSideBar(false));
 
   AIAdviceLogic();

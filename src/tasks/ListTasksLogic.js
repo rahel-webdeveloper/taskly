@@ -111,20 +111,21 @@ export const eventsHandler = (event) => {
 
   // If user was on dashboard page then add the delete complete tasks component
   if (isDashboardOpen.get()) {
-    const askDiv = document.querySelector(".delete-ask-div");
-    const askDivStyle = askDiv.style;
+    const askDeleteTasksDialog = document.getElementById(
+      "ask_delete_tasks-dialog"
+    );
 
     if (target.closest(".all-delete-btn") && listTasks.get().length !== 0)
-      askDivStyle.display = "block";
+      askDeleteTasksDialog.showModal();
 
     if (target.closest("#no")) {
-      askDivStyle.display = "none";
+      askDeleteTasksDialog.close();
 
       openNotification("error", "Deleting done tasks cancelled!");
     }
 
     if (target.closest("#yes")) {
-      askDivStyle.display = "none";
+      askDeleteTasksDialog.close();
 
       deletingCompleteTasks();
       openNotification("success", "You deleted all your done tasks!");

@@ -2,15 +2,15 @@
   --first-text: #f8f8f8;
   --second-text: #d3d3d3;
 
-  --primary-color: #0a0a0a;
+  --primary-color: rgb(10, 10, 10);
   --primary-color-transparent-4: rgba(23, 24, 28, 0.753);
   --primary-color-transparent-2: rgba(23, 24, 28, 0.192);
 
-  --secondary-color: #17181c;
+  --secondary-color: rgb(23, 24, 28);
   --secondary-color-transparent-4: #17181cb6;
   --secondary-color-transparent-2: #17181c3b;
 
-  --third-color: #13151a;
+  --primary-light-color: #282829;
 
   --light-border-color-transparent-2: rgba(142, 143, 149, 0.18);
   --dark-blue-color-transparent-2: rgba(62, 66, 93, 0.192);
@@ -33,7 +33,7 @@ $secondary-color: var(--secondary-color);
 $secondary-color-transparent-4: var(--secondary-color-transparent-4);
 $secondary-color-transparent-2: var(--secondary-color-transparent-2);
 
-$third-color: var(--third-color);
+$primary-light-color: var(--primary-light-color);
 
 //  Lightness colors
 $border-color-transparent-2: var(--light-border-color-transparent-2);
@@ -81,7 +81,7 @@ $optional-color-transparent-4: rgba($optional-color, 0.384);
 
   //   --primary-color: #e3e4e6; /* Light off-white background */
   //   --secondary-color: #cdcdce; /* Soft light gray background */
-  //   --third-color: #d1d7db; /* Subtle grayish-blue background */
+  //   --primary-light-color: #d1d7db; /* Subtle grayish-blue background */
 
   //   --light-border-color-transparent-2: #d0d0d06d; /* Light gray borders for soft separation */
   //   --dark-blue-color-transparent-2: #a6b3c0; /* Muted light blue for subtle emphasis */

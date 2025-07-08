@@ -1,4 +1,6 @@
-import DeleteCompleteTasksDiv from "../components/DeleteCompleteTasksDiv";
+import DeleteCompleteTasksDiv, {
+  askDialogDiv,
+} from "../components/DeleteCompleteTasksDiv";
 import ListTasksHeader from "../components/ListTasksHeader";
 import TaskEditBox from "../components/TaskEdit";
 import TaskStateDiv from "../components/TaskStateDiv";
@@ -16,6 +18,7 @@ const TasksContainer = () => {
     ${TaskEditBox()}
     <div id="delete-done-task_div">
     ${isDashboardOpen.get() ? DeleteCompleteTasksDiv() : ""}
+    ${askDialogDiv()}
     </div>
   </div> `;
 };

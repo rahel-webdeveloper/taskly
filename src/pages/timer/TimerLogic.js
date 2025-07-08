@@ -185,6 +185,8 @@ const remainingTimerInUI = (
   remainingMinutes,
   remainingSeconds
 ) => {
+  const { countdownCircle } = TimerEls();
+
   if (remainingSeconds < 6 && remainingHours <= 0 && remainingMinutes <= 0)
     countdownCircle.style.stroke = "#fa6e6e";
 
@@ -261,6 +263,9 @@ export const toggleStartSection = (isStarted) => {
 
 export const isWindowLarge = () => {
   const { timerFirstSection, timerSecondSection } = TimerEls();
+
+  if (!timerFirstSection || !timerSecondSection) return;
+
   const width = window.innerWidth;
   if (width >= 1024) {
     timerFirstSection.style.display = "grid";
@@ -274,6 +279,7 @@ export const isWindowLarge = () => {
 
 export const isStartedTimer = (isStarted) => {
   const { timerFirstSection, timerSecondSection } = TimerEls();
+
   if (isStarted) {
     timerFirstSection.style.display = "none";
     timerSecondSection.style.display = "grid";

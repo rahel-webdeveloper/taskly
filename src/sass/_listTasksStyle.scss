@@ -1,5 +1,5 @@
 .task-list-container {
-  background-color: $secondary-color-transparent-4;
+  background-color: $secondary-color;
   border-radius: 2.5rem 2.5rem 0rem 0rem;
   padding: 0.7rem;
   padding-bottom: 0;
@@ -30,12 +30,12 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-  column-gap: 7px;
+  gap: 7px;
   color: $first-text;
   font-size: 0.9rem;
   border-radius: 1rem;
   transition: all 0.3s;
-  background-color: $third-color;
+  background-color: $dark-blue-color-transparent-2;
 }
 
 .panel--filter {
@@ -44,7 +44,7 @@
 
 .panel--sort {
   padding: 1px 9px;
-  margin-left: 0.3rem;
+  margin-left: 0.37rem;
 }
 
 .panel:hover .panel--filter {
@@ -213,7 +213,7 @@
   height: 30px;
   border-radius: 50%;
   font-size: 1.15rem;
-  background-color: $secondary-color;
+  background-color: $primary-light-color;
   cursor: pointer;
   @include flex-center;
 }
@@ -255,10 +255,6 @@
   transform: scale(2);
 }
 
-.delete-icon {
-  background-color: $delete-color;
-}
-
 .done .check-icon {
   color: $secondary-color;
   outline: 4px solid $checked-color-transparent-2;
@@ -269,10 +265,6 @@
   outline: 4px solid $delete-color-transparent-2;
   background-color: $delete-color;
   padding: 1.5px 2px 0.5px;
-}
-
-.on-hold .delete-icon {
-  background-color: $secondary-color;
 }
 
 .on-hold .list-task-div {

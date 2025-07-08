@@ -76,8 +76,9 @@ const DashboardRender = () => {
         ${TasksContainer()}
        </div>
       
+       ${TodaysReportDiv()}
+       
       </div>
-      ${TodaysReportDiv()}
       
   </div>
 
