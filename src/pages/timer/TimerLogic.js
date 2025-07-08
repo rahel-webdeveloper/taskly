@@ -15,6 +15,11 @@ import {
   isStarted,
   isPaused,
   isCanceled,
+  timerStartState,
+  remainingTimeCalculation,
+  totalSelectedTime,
+  getSelectedTimeOnSeconds,
+  setInitialTimerScroll,
 } from "./store";
 
 export const TimerLogic = () => {
@@ -39,27 +44,29 @@ export const TimerLogic = () => {
   SendSuggestionMain();
 };
 
-let timerFirstSection,
-  timerSecondSection,
-  countdownCircle,
-  tapTimeDiv,
-  timerText,
-  startBtn,
-  pauseBtn,
-  resumeBtn,
-  cancelBtn;
+export const TimerEls = () => {
+  const timerFirstSection = document.querySelector(".timer-first-section");
+  const timerSecondSection = document.querySelector(".timer-second-section");
+  const countdownCircle = document.getElementById("countdown-circle");
+  const tapTimeDiv = document.getElementById("tap-time-div");
+  const timerText = document.getElementById("timer-text");
+  const startBtn = document.getElementById("timer-start");
+  const pauseBtn = document.getElementById("timer-pause");
+  const resumeBtn = document.getElementById("timer-resume");
+  const cancelBtn = document.getElementById("timer-cancel");
 
-document.addEventListener("DOMContentLoaded", function () {
-  timerFirstSection = document.querySelector(".timer-first-section");
-  timerSecondSection = document.querySelector(".timer-second-section");
-  countdownCircle = document.getElementById("countdown-circle");
-  tapTimeDiv = document.getElementById("tap-time-div");
-  timerText = document.getElementById("timer-text");
-  startBtn = document.getElementById("timer-start");
-  pauseBtn = document.getElementById("timer-pause");
-  resumeBtn = document.getElementById("timer-resume");
-  cancelBtn = document.getElementById("timer-cancel");
-});
+  return {
+    timerFirstSection,
+    timerSecondSection,
+    countdownCircle,
+    tapTimeDiv,
+    timerText,
+    startBtn,
+    pauseBtn,
+    resumeBtn,
+    cancelBtn,
+  };
+};
 
 const redius = 35;
 const circumference = 2 * Math.PI * redius;
@@ -86,16 +93,6 @@ function populateInfinitePicker(pickerId, range) {
   });
 
   setInitialTimerScroll(99.1, 119.1, 119.1);
-}
-
-function setInitialTimerScroll(hourScroSize, minuScroSize, secScroSize) {
-  const hourPicker = document.querySelector("#hour-picker");
-  const minutePicker = document.querySelector("#minute-picker");
-  const secondPicker = document.querySelector("#second-picker");
-
-  hourPicker.scrollTop = hourScroSize * 40;
-  minutePicker.scrollTop = minuScroSize * 40;
-  secondPicker.scrollTop = secScroSize * 40;
 }
 
 // Add infinite scroll adjustment
@@ -127,6 +124,8 @@ const addInfiniteScroll = (pickerId, range, onChange) => {
       item.classList.toggle("selected", i % range === index)
     );
 
+    const { startBtn } = TimerEls();
+
     totalSelectedTime() >= 1000
       ? (startBtn.disabled = false)
       : (startBtn.disabled = true);
@@ -136,7 +135,8 @@ const addInfiniteScroll = (pickerId, range, onChange) => {
   });
 };
 
-const tapChooseTimeFunc = (isStartBtnDisabled) => {
+export const tapChooseTimeFunc = (isStartBtnDisabled) => {
+  const { tapTimeDiv } = TimerEls();
   if (isStartBtnDisabled) {
     setInitialTimerScroll(99.1, 14.1, 119.1);
     tapTimeDiv.style.cssText = `
@@ -146,33 +146,22 @@ const tapChooseTimeFunc = (isStartBtnDisabled) => {
   } else {
     setInitialTimerScroll(99.1, 119.1, 119.1);
     tapTimeDiv.style.cssText = `
-        background-color: #3e425d5a;
+        background-color: #17181c;
         border: none;
       `;
   }
 };
 
-// Update selected time
-const totalSelectedTime = () => {
-  return (
-    (selectedHour.get() * 60 * 60 +
-      selectedMinute.get() * 60 +
-      selectedSecond.get()) *
-    1000
-  );
-};
-
-const getSelectedTimeOnSeconds = () => totalSelectedTime() / 1000;
-
 // Circle logic
 export const updateCountdownCircle = (totalSeconds) => {
+  const { countdownCircle, timerText } = TimerEls();
   const now = Date.now();
 
   elapsedTime.set(Math.min((now - startTime.get()) / 1000, totalSeconds));
 
   if (isPaused.get() || isCanceled.get()) return;
 
-  // Circle offset meainin how much circle should hide
+  // Circle offset meaining how much circle should hide
   const offset = (elapsedTime.get() / totalSeconds) * circumference;
   countdownCircle.style.strokeDashoffset = offset;
 
@@ -188,17 +177,6 @@ export const updateCountdownCircle = (totalSeconds) => {
   elapsedTime.get() < totalSeconds
     ? setAnimationId(getSelectedTimeOnSeconds())
     : resetUI();
-};
-
-// Remaining time calculation
-const remainingTimeCalculation = (totalSelectedTime, elapsedTime) => {
-  const remainingTime = Math.ceil(totalSelectedTime - elapsedTime);
-
-  const remainingHours = Math.floor((remainingTime / 60 / 60) % 60);
-  const remainingMinutes = Math.floor((remainingTime / 60) % 60);
-  const remainingSeconds = remainingTime % 60;
-
-  return { remainingHours, remainingMinutes, remainingSeconds };
 };
 
 // Remaining time in UI
@@ -226,49 +204,17 @@ const remainingTimerInUI = (
     }`;
 };
 
-export const handleTimerEvents = (event) => {
-  const id = event.target.id;
+export const resetUI = () => {
+  const {
+    countdownCircle,
+    timerText,
+    cancelBtn,
+    resumeBtn,
+    pauseBtn,
+    startBtn,
+    tapTimeDiv,
+  } = TimerEls();
 
-  if (id === "timer-start") {
-    startTimer();
-
-    timerStartState();
-    setAnimationId(getSelectedTimeOnSeconds());
-
-    if (!isWindowLarge()) toggleStartSection(true);
-  }
-
-  if (id === "tap-time-div") {
-    toggleTapTime();
-
-    totalSelectedTime();
-    tapChooseTimeFunc(isStarted.get());
-    isStarted.get() ? (startBtn.disabled = false) : (startBtn.disabled = true);
-  }
-
-  if (id === "timer-pause") {
-    pauseTimer();
-
-    cancelAnimationFrame(animationId.get());
-    togglePauseResumeBtns(true);
-  }
-
-  if (id === "timer-resume") {
-    resumeTimer();
-
-    setAnimationId(getSelectedTimeOnSeconds());
-    togglePauseResumeBtns(false);
-  }
-
-  if (id === "timer-cancel") {
-    cancelTimer();
-
-    cancelAnimationFrame(animationId.get());
-    resetUI();
-  }
-};
-
-const resetUI = () => {
   countdownCircle.style.strokeDashoffset = circumference;
   countdownCircle.style.stroke = "#bbb2cc";
   timerText.textContent = 0;
@@ -285,45 +231,49 @@ const resetUI = () => {
   if (!isWindowLarge()) toggleStartSection(false);
 };
 
-const timerStartState = () => {
-  isPaused.set(false);
-  isCanceled.set(false);
-  isStarted.set(true);
+export const togglePauseResumeBtns = (isPausedState) => {
+  const { pauseBtn, resumeBtn } = TimerEls();
 
-  pauseBtn.disabled = false;
-  resumeBtn.disabled = false;
-  cancelBtn.disabled = false;
-
-  startBtn.disabled = true;
-  tapTimeDiv.disabled = true;
-  elapsedTime.set(0);
-};
-
-const togglePauseResumeBtns = (isPausedState) => {
-  pauseBtn.style.display = isPausedState ? "none" : "inline";
-  resumeBtn.style.display = isPausedState ? "inline" : "none";
-};
-
-const toggleStartSection = (isStarted) => {
-  timerFirstSection.style.display = isStarted ? "none" : "inline";
-  timerSecondSection.style.display = isStarted ? "inline" : "none";
-};
-
-export const isWindowLarge = () => {
-  const width = window.innerWidth;
-  if (timerFirstSection && timerSecondSection) {
-    if (width >= 1024) {
-      timerFirstSection.style.display = "grid";
-      timerSecondSection.style.display = "grid";
-      return true;
-    } else {
-      isStartedTimer(isStarted.get());
-      return false;
-    }
+  if (document.startViewTransition) {
+    document.startViewTransition(() => {
+      pauseBtn.style.display = isPausedState ? "none" : "inline";
+      resumeBtn.style.display = isPausedState ? "inline" : "none";
+    });
+  } else {
+    pauseBtn.style.display = isPausedState ? "none" : "inline";
+    resumeBtn.style.display = isPausedState ? "inline" : "none";
   }
 };
 
-const isStartedTimer = (isStarted) => {
+export const toggleStartSection = (isStarted) => {
+  const { timerFirstSection, timerSecondSection } = TimerEls();
+
+  if (document.startViewTransition) {
+    document.startViewTransition(() => {
+      timerFirstSection.style.display = isStarted ? "none" : "inline";
+      timerSecondSection.style.display = isStarted ? "inline" : "none";
+    });
+  } else {
+    timerFirstSection.style.display = isStarted ? "none" : "inline";
+    timerSecondSection.style.display = isStarted ? "inline" : "none";
+  }
+};
+
+export const isWindowLarge = () => {
+  const { timerFirstSection, timerSecondSection } = TimerEls();
+  const width = window.innerWidth;
+  if (width >= 1024) {
+    timerFirstSection.style.display = "grid";
+    timerSecondSection.style.display = "grid";
+    return true;
+  } else {
+    isStartedTimer(isStarted.get());
+    return false;
+  }
+};
+
+export const isStartedTimer = (isStarted) => {
+  const { timerFirstSection, timerSecondSection } = TimerEls();
   if (isStarted) {
     timerFirstSection.style.display = "none";
     timerSecondSection.style.display = "grid";

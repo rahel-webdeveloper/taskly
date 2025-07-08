@@ -1,5 +1,6 @@
 import getSuggestionsComponent from "../../components/GetSuggesstion";
-import TimerLogic, { handleTimerEvents, isWindowLarge } from "./TimerLogic";
+import { handleTimerEvents } from "./store";
+import TimerLogic, { isWindowLarge } from "./TimerLogic";
 
 const TimerRender = () => {
   return `
@@ -61,14 +62,13 @@ ${getSuggestionsComponent()}
 };
 
 TimerRender.init = function () {
-  document
-    .querySelector(".timer-container")
-    .addEventListener("click", handleTimerEvents);
+  const timerContainerEl = document.querySelector(".timer-container");
+  timerContainerEl.addEventListener("click", handleTimerEvents);
 
   // For large screen UI
   window.addEventListener("resize", isWindowLarge);
 
-  TimerLogic();
+  if (timerContainerEl) TimerLogic();
 };
 
 export default TimerRender;
