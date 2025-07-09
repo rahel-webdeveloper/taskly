@@ -10,8 +10,12 @@
 }
 
 #close_form-dialog {
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   cursor: pointer;
+  background-color: transparent;
+  color: $first-text;
+  margin-left: 0.7rem;
+  margin-bottom: 0.5rem;
 }
 
 .form-container .form {
@@ -495,13 +499,13 @@ input[type="number"] {
   place-self: center;
   max-width: 680px;
   width: 95%;
-  height: 96%;
+  height: max-content;
   border: 1px solid $border-color-transparent-2;
   border-radius: 0.7rem;
   background-color: $primary-color-transparent-2;
   backdrop-filter: blur(7px);
   overflow: auto;
-  padding-block: 1.27rem;
+  padding-block: 0.5rem;
 
   &::-webkit-scrollbar {
     width: 0;
@@ -550,8 +554,15 @@ input[type="number"] {
   }
 }
 
-#add-task-icon i {
-  font-size: 2.27rem;
+#add-task-icon {
+  background-color: $dark-blue-color-transparent-2;
+  font-size: 1.5rem;
+  padding: 0.1rem 0.3rem;
+  border-radius: 0.35rem;
+
+  i {
+    // font-size: 2.27rem;
+  }
 }
 
 #scroll-end-icon {

@@ -70,9 +70,23 @@
   h1 {
     // margin-inline: 0.5rem;
     font-size: clamp(2.2rem, 7vw, 12rem);
+    // color: $yellow-color;
 
+    span:nth-child(1) {
+      color: $btn-color;
+    }
+
+    span:nth-child(3) {
+      color: $hotpink-color;
+    }
     span:nth-child(4) {
+      color: $hotpink-color;
+    }
+    span:nth-child(6) {
       color: $count-color;
+    }
+    span:nth-child(7) {
+      color: $yellow-color;
     }
   }
 
@@ -100,9 +114,9 @@
     gap: 0.7rem;
 
     &:hover {
-      background-color: $primary-color;
+      background-color: transparent;
       color: $first-text;
-      border: 1px solid $count-color;
+      border: 1px solid $yellow-color;
     }
 
     i {
@@ -111,14 +125,13 @@
   }
 
   #get_started_btn {
-    background-color: transparent;
-    border: 1px solid $count-color;
-    color: $second-text;
+    background-color: $yellow-color;
+    border: 1px solid;
 
     &:hover {
-      background-color: $count-color;
-      color: $primary-color;
-      border-color: none;
+      background-color: transparent;
+      border-color: $count-color;
+      color: $first-text;
     }
   }
 }

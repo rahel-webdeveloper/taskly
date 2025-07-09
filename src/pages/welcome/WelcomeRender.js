@@ -5,7 +5,7 @@ const WelcomeRender = () => {
   <div class="welcome-page">
     <section class="welcome-first_section">
       <div class="first-page_subtitle"> 
-      <h1><span>Automate Your</span> <br> Workflow Fast With <br> <span>Taskly's AI!</span></h1>
+      <h1><span>Automate</span> Your <br><span>Workflow</span> <span>Fast</span> With <br> <span>Taskly's</span> <span>AI!</span></h1>
 
       <p>Master your to-dos with smart tracking and instant AI advice! Our platform offers a suite of advanced task tracking and instant AI tools!</p>
       </div>
