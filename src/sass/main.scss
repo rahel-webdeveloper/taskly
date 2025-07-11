@@ -210,7 +210,7 @@ body {
     }
   }
 
-  .get-suggestions-form_div {
+  .get-feedback-form_div {
     bottom: 2rem;
   }
 
@@ -282,7 +282,7 @@ body {
     }
   }
 
-  .get-suggestions_icon-div {
+  .send-feedback_icon-div {
     right: 3.7rem;
     bottom: 3rem;
   }
@@ -290,7 +290,7 @@ body {
   .task__hub-page {
     @include grid-center;
     border: none;
-    padding: 1rem;
+    padding: 0.7rem;
     grid-template-columns: repeat(3, 1fr);
     width: 100%;
     gap: 1rem;
@@ -338,7 +338,7 @@ body {
     padding-top: 0rem;
   }
   .task-list-container {
-    border-radius: 1rem;
+    border-radius: 1.5rem;
   }
   .task-list-container .all-delete-div {
     border-bottom-right-radius: 0.5rem;

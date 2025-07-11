@@ -79,7 +79,7 @@ Taskly Pro is a Progressive Web App that helps you create, track, and analyze yo
 - [Notyf](https://github.com/caroso1222/notyf) for toast notifications
 - Puter.js + AI Advisor API for AI-driven task advising
 - Service Worker & Web App Manifest for PWA support
-- EmailJs for geting suggestions and opinions
+- EmailJs for geting feedback and opinions
 
 ---
 

@@ -43,21 +43,19 @@ $backdrop-filter-color-transparent-2: var(
 );
 
 // Components colors
-$btn-color: rgb(131, 115, 161);
-$checked-color: rgb(132, 214, 184);
-$delete-color: rgb(237, 88, 95);
-$count-color: rgb(106, 179, 203);
-$orange-color: rgb(237, 192, 123);
+$purple-color: rgb(131, 115, 161);
+$mint-green-color: rgb(132, 214, 184);
+$coral-red-color: rgb(237, 88, 95);
+$sky-blue-color: rgb(106, 179, 203);
+$goldenrod-color: rgb(237, 192, 123);
 $hotpink-color: rgb(255, 105, 180);
-
-$light-blue-color: rgb(202, 242, 247);
-$yellow-color: rgb(255, 224, 131);
+$light-goldenrod-color: rgb(255, 224, 131);
 
 // light components color
-$checked-color-transparent-2: rgba($checked-color, 0.192);
-$delete-color-transparent-2: rgba(255, 114, 114, 0.243);
-$dark-delete-color-transparent-4: rgba(65, 30, 30, 0.416);
-$orange-color-transparent-2: rgba($orange-color, 0.15);
+$mint-green-color-transparent-2: rgba($mint-green-color, 0.192);
+$coral-red-color-transparent-2: rgba(255, 114, 114, 0.243);
+$dark-coral-red-color-transparent-4: rgba(65, 30, 30, 0.416);
+$goldenrod-color-transparent-2: rgba($goldenrod-color, 0.15);
 $hotpink-color-transparent-2: rgba($hotpink-color, 0.15);
 
 // Priorities colors

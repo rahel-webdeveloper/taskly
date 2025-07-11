@@ -96,7 +96,7 @@
     margin-top: 2.5rem;
     padding: 0.67rem 2rem 0.67rem 1.5rem;
     font-size: 1.02rem;
-    background-color: $btn-color;
+    background-color: $purple-color;
     color: $first-text;
     letter-spacing: 1px;
   }
@@ -161,7 +161,7 @@
     stroke-width: 0.5;
   }
   #countdown-circle {
-    stroke: $high-color;
+    stroke: $purple-color;
     stroke-width: 2.5;
   }
 
@@ -177,12 +177,11 @@
     }
 
     #timer-pause {
-      background-color: $delete-color;
-      // opacity: 0.9;
+      background-color: rgba($color: $coral-red-color, $alpha: 0.5);
     }
 
     #timer-resume {
-      background-color: $btn-color;
+      background-color: rgba($color: $purple-color, $alpha: 0.5);
       display: none;
     }
   }

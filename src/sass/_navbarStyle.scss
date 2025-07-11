@@ -29,7 +29,7 @@
     bottom: 30%;
     left: 50%;
     filter: blur(55px);
-    background-color: $count-color;
+    background-color: $sky-blue-color;
     position: absolute;
     z-index: -5;
     mix-blend-mode: color-dodge;
@@ -60,7 +60,7 @@
     bottom: 30%;
     right: 55%;
     filter: blur(55px);
-    background-color: $yellow-color;
+    background-color: $light-goldenrod-color;
     position: absolute;
     z-index: -5;
   }

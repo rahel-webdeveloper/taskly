@@ -1,4 +1,4 @@
-import SendSuggestionMain from "../../services/send_Sug";
+import SendSuggestionMain from "../../services/send_feedback-logic";
 import openNotification from "../../services/toastNotifications";
 
 const WelcomeLogic = () => {

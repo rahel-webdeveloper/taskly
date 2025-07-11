@@ -48,7 +48,7 @@
 }
 
 .panel:hover .panel--filter {
-  background-color: $orange-color-transparent-2;
+  background-color: $goldenrod-color-transparent-2;
 }
 .panel:hover .panel--sort {
   background-color: $hotpink-color-transparent-2;
@@ -56,7 +56,7 @@
 
 .filter-icon {
   font-size: 1rem;
-  color: $orange-color;
+  color: $goldenrod-color;
 }
 .sort-icon {
   font-size: 1.37rem;
@@ -97,8 +97,8 @@
 }
 
 #panel_filter .option:hover {
-  background-color: $orange-color-transparent-2;
-  color: $orange-color;
+  background-color: $goldenrod-color-transparent-2;
+  color: $goldenrod-color;
 }
 
 #panel_sort .option:hover {
@@ -107,8 +107,8 @@
 }
 
 #panel_filter .added__filter {
-  background-color: $orange-color-transparent-2;
-  color: $orange-color;
+  background-color: $goldenrod-color-transparent-2;
+  color: $goldenrod-color;
 }
 
 #panel_sort .added__sort {
@@ -120,7 +120,7 @@
   display: flex;
 }
 .length {
-  background-color: $count-color;
+  background-color: $sky-blue-color;
   color: $primary-color;
   min-width: 1.2rem;
   padding: 0.14rem 0.37rem;
@@ -189,16 +189,16 @@
 }
 
 #done-task i {
-  color: $count-color;
+  color: $sky-blue-color;
   font-size: 0.65rem;
 }
 #in-progress-task i {
-  color: $orange-color;
+  color: $goldenrod-color;
   font-size: 0.5rem;
 }
 #on-hold-task i {
   font-size: 0.55rem;
-  color: $btn-color;
+  color: $purple-color;
 }
 
 .list-task-div {
@@ -257,13 +257,13 @@
 
 .done .check-icon {
   color: $secondary-color;
-  outline: 4px solid $checked-color-transparent-2;
-  background-color: $checked-color;
+  outline: 4px solid $mint-green-color-transparent-2;
+  background-color: $mint-green-color;
 }
 
 .done .delete-icon {
-  outline: 4px solid $delete-color-transparent-2;
-  background-color: $delete-color;
+  outline: 4px solid $coral-red-color-transparent-2;
+  background-color: $coral-red-color;
   padding: 1.5px 2px 0.5px;
 }
 
@@ -317,7 +317,7 @@
   color: $primary-color;
 }
 #save {
-  background-color: $btn-color;
+  background-color: $purple-color;
 }
 .edit-answer-btn:hover {
   opacity: 0.9;

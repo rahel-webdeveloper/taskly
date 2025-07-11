@@ -47,7 +47,7 @@
   h1 {
     background: linear-gradient(
       to bottom right,
-      $checked-color-transparent-2 5%,
+      $mint-green-color-transparent-2 5%,
       $first-text 95%
     );
     -webkit-background-clip: text;
@@ -142,12 +142,12 @@
   font-weight: 600;
   font-size: 0.94rem;
   place-self: center;
-  color: $delete-color;
-  border: 1px solid $delete-color-transparent-2;
+  color: $coral-red-color;
+  border: 1px solid $coral-red-color-transparent-2;
   width: max-content;
   padding: 0.7rem 1rem;
   border-radius: 0.7em;
-  background-color: $dark-delete-color-transparent-4;
+  background-color: $dark-coral-red-color-transparent-4;
   margin-top: 0.7rem;
 }
 

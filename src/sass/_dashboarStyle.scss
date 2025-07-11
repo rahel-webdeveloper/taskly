@@ -77,14 +77,14 @@
 
   .state-details {
     i {
-      color: $count-color;
+      color: $sky-blue-color;
       font-size: 1.12rem;
     }
   }
 
   .tracked-time-chart {
     i {
-      color: $count-color;
+      color: $sky-blue-color;
     }
   }
 
@@ -121,7 +121,7 @@
         }
 
         span:nth-child(1)::before {
-          background-color: $btn-color;
+          background-color: $purple-color;
         }
 
         span:nth-child(2)::before {
@@ -129,7 +129,7 @@
         }
 
         span:nth-child(3)::before {
-          background-color: $count-color;
+          background-color: $sky-blue-color;
         }
       }
     }
@@ -173,7 +173,7 @@
   }
 
   span:nth-child(1)::before {
-    background-color: $count-color;
+    background-color: $sky-blue-color;
   }
   span:nth-child(2)::before {
     background-color: $optional-color;
@@ -195,7 +195,7 @@
     font-size: 0.67rem;
   }
   #tracked-time {
-    background-color: $count-color;
+    background-color: $sky-blue-color;
   }
   #remaining-time {
     background-color: $optional-color;
@@ -259,7 +259,7 @@
 .all-delete-btn {
   @include grid-center;
   border-radius: 1.7rem;
-  background-color: $btn-color;
+  background-color: $purple-color;
   cursor: pointer;
   width: 2.8rem;
   height: 2.7rem;
@@ -302,7 +302,7 @@
 
 #exclamation-icon i {
   display: block;
-  color: $delete-color;
+  color: $coral-red-color;
   font-size: 2.7rem;
 }
 
@@ -326,7 +326,7 @@
   color: $primary-color;
 }
 #yes {
-  background-color: $btn-color;
+  background-color: $purple-color;
 }
 
 .all-delete-btn:hover,

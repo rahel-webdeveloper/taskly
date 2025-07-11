@@ -1,17 +1,17 @@
-const getSuggestionsComponent = () => {
+const sendFeedbackComponent = () => {
   return `
-       <div class="send-suggesstions-container">
-       <div class="get-suggestions_icon-div" id="feedback-icon-div">
+       <div class="send-feedback-container">
+       <div class="send-feedback_icon-div" id="feedback-icon-div">
        <span id="icon_div">Feedback<i class="bi bi-chat-dots-fill"></i></span>
       </div>
   
-      <div class="get-suggestions-form_div">
+      <div class="get-feedback-form_div">
       <div class="feedback-header">
       <h3>Report a feedback</h3>
       <img src="/Taskly-logo.webp" alt="Taskly logo" />
       </div>
   
-       <form id="get-suggestions-form">
+       <form id="get-feedback-form">
             <div class="name-block">
                 <label for="user_name">Your Name</label>
                 <input type="text" id="user_name" name="name" placeholder="enter your full name" required>
@@ -38,4 +38,4 @@ const getSuggestionsComponent = () => {
       `;
 };
 
-export default getSuggestionsComponent;
+export default sendFeedbackComponent;

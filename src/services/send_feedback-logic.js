@@ -15,49 +15,43 @@ export const templateParams = atom({
 
 // Dynamic UI of Send Suggestions component
 const SendSuggestionMain = () => {
-  document.addEventListener("DOMContentLoaded", () => {
-    const sendSuggesstionsContainer = document.querySelector(
-      ".send-suggesstions-container"
-    );
+  document
+    .querySelector(".send-feedback-container")
+    .addEventListener("click", eventsHandler);
 
-    const getSuggestionsFormDiv = document.querySelector(
-      ".get-suggestions-form_div"
-    );
+  document
+    .getElementById("get-feedback-form")
+    .addEventListener("submit", eventsHandler);
+};
 
-    if (!getSuggestionsFormDiv) return;
+// ***---- Send feedback events
+const eventsHandler = (event) => {
+  const getSuggestionsStyle = document.querySelector(
+    ".get-feedback-form_div"
+  ).style;
 
-    const getSuggestionsStyle = getSuggestionsFormDiv.style;
+  if (event.target.closest("#how-works_btn")) {
+    openNotification("success", "You will recieve the guides very soon!");
+  }
 
-    const getSuggestionsForm = document.getElementById("get-suggestions-form");
+  if (event.target.closest("#feedback-icon-div"))
+    getSuggestionsStyle.display = "block";
 
-    sendSuggesstionsContainer.addEventListener("click", (event) => {
-      if (event.target.closest("#how-works_btn")) {
-        openNotification("success", "You will recieve the guides very soon!");
-      }
+  if (event.target.closest("#send_btn"))
+    !validationOfGetSuggestionsForm() &&
+      openNotification("warning", "Please fill out the form correctly!");
 
-      if (event.target.closest("#feedback-icon-div"))
-        getSuggestionsStyle.display = "block";
+  if (event.target.closest("#cancel_btn")) getSuggestionsStyle.display = "none";
 
-      if (event.target.closest("#send_btn"))
-        !validationOfGetSuggestionsForm() &&
-          openNotification("warning", "Please fill out the form correctly!");
+  if (event.type === "submit") {
+    event.preventDefault();
 
-      if (event.target.closest("#cancel_btn")) {
-        getSuggestionsStyle.display = "none";
+    getSuggestionsStyle.display = "none";
 
-        openNotification("error", "You cancelled the feedback form.");
-      }
-    });
+    document.getElementById("get-feedback-form").reset();
 
-    getSuggestionsForm.addEventListener("submit", function (e) {
-      e.preventDefault();
-      getSuggestionsStyle.display = "none";
-
-      this.reset();
-
-      sendSuggestions(templateParams.get());
-    });
-  });
+    sendFeedback(templateParams.get());
+  }
 };
 
 // Validate the Suggestion form data
@@ -79,7 +73,7 @@ const validationOfGetSuggestionsForm = () => {
 };
 
 // Send Suggestion to the selected email through email.js
-export const sendSuggestions = (params) => {
+export const sendFeedback = (params) => {
   emailjs
     .send(SERVICE_ID, TEMPLATE_ID, params)
     .then((res) => {

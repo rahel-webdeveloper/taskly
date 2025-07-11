@@ -1,25 +1,18 @@
-import SendSuggestionMain from "../../services/send_Sug";
+import SendSuggestionMain from "../../services/send_feedback-logic";
 import {
+  elapsedTime,
+  getSelectedTimeOnSeconds,
+  isCanceled,
+  isPaused,
+  isStarted,
+  remainingTimeCalculation,
   selectedHour,
   selectedMinute,
   selectedSecond,
-  startTimer,
-  toggleTapTime,
-  pauseTimer,
-  resumeTimer,
-  cancelTimer,
-  startTime,
-  elapsedTime,
-  animationId,
   setAnimationId,
-  isStarted,
-  isPaused,
-  isCanceled,
-  timerStartState,
-  remainingTimeCalculation,
-  totalSelectedTime,
-  getSelectedTimeOnSeconds,
   setInitialTimerScroll,
+  startTime,
+  totalSelectedTime,
 } from "./store";
 
 export const TimerLogic = () => {
@@ -218,7 +211,7 @@ export const resetUI = () => {
   } = TimerEls();
 
   countdownCircle.style.strokeDashoffset = circumference;
-  countdownCircle.style.stroke = "#bbb2cc";
+  countdownCircle.style.stroke = "rgb(131, 115, 161)";
   timerText.textContent = 0;
 
   cancelBtn.disabled = true;
@@ -227,6 +220,8 @@ export const resetUI = () => {
 
   startBtn.disabled = false;
   tapTimeDiv.disabled = false;
+
+  isStarted.set(false);
 
   togglePauseResumeBtns(false);
 

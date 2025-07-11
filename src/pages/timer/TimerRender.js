@@ -1,4 +1,4 @@
-import getSuggestionsComponent from "../../components/GetSuggesstion";
+import sendFeedbackComponent from "../../components/SendFeedback";
 import { handleTimerEvents } from "./store";
 import TimerLogic, { isWindowLarge } from "./TimerLogic";
 
@@ -56,9 +56,9 @@ const TimerRender = () => {
     
 </div>
 
-${getSuggestionsComponent()}
+${sendFeedbackComponent()}
 
-    `;
+`;
 };
 
 TimerRender.init = function () {

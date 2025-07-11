@@ -9,9 +9,11 @@ import openNotification from "../../services/toastNotifications.js";
 import { controlTasksAllOperation } from "../../tasks/ListTasksLogic.js";
 import { listTasks, liveTasks } from "../../tasks/store.js";
 
+import { isDashboardOpen } from "../../routes.js";
+import SendSuggestionMain from "../../services/send_feedback-logic.js";
+import { loadingDivComp } from "../ai_advice/AIAdviceRender.js";
 import {
   AddNewTask,
-  taskCategory,
   check_Time_AllDay,
   checkTime_AllDay_Switch,
   dueDateTime,
@@ -19,14 +21,12 @@ import {
   notifiedTasks,
   setPriorityData,
   startDateTime,
+  systemMessage,
+  taskCategory,
   taskDescription,
   taskTitle,
-  systemMessage,
 } from "./store.js";
 import { addToDetailsCard } from "./TaskHubRender.js";
-import { loadingDivComp } from "../ai_advice/AIAdviceRender.js";
-import { isDashboardOpen } from "../../routes.js";
-import SendSuggestionMain from "../../services/send_Sug.js";
 
 export default async function TaskHubLogic() {
   const taskHubPage = document.getElementById("task__hub-page");

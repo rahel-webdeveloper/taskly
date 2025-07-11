@@ -39,7 +39,7 @@
     transform: rotate(50deg);
     top: 0%;
     left: 100%;
-    background: $count-color;
+    background: $sky-blue-color;
 
     opacity: 0.2;
     filter: blur(60px);
@@ -55,7 +55,7 @@
     transform: rotate(50deg);
     top: 10%;
     left: 0%;
-    background: $yellow-color;
+    background: $light-goldenrod-color;
     opacity: 0.2;
     filter: blur(60px);
     z-index: -1;
@@ -70,23 +70,21 @@
   h1 {
     // margin-inline: 0.5rem;
     font-size: clamp(2.2rem, 7vw, 12rem);
-    // color: $yellow-color;
+    // color: $light-goldenrod-color;
 
     span:nth-child(1) {
-      color: $btn-color;
+      color: $purple-color;
     }
 
-    span:nth-child(3) {
+    span:nth-child(5) {
       color: $hotpink-color;
     }
-    span:nth-child(4) {
-      color: $hotpink-color;
+
+    span:nth-child(8) {
+      color: $sky-blue-color;
     }
-    span:nth-child(6) {
-      color: $count-color;
-    }
-    span:nth-child(7) {
-      color: $yellow-color;
+    span:nth-child(9) {
+      color: $light-goldenrod-color;
     }
   }
 
@@ -104,8 +102,8 @@
   button {
     padding: 0.7rem 1.7rem;
     border-radius: 0.7rem;
-    background-color: $count-color;
-    // box-shadow: 0 0 7px -4.5px $count-color;
+    background-color: $sky-blue-color;
+    // box-shadow: 0 0 7px -4.5px $sky-blue-color;
     font-family: inherit;
     font-weight: 600;
     cursor: pointer;
@@ -116,7 +114,7 @@
     &:hover {
       background-color: transparent;
       color: $first-text;
-      border: 1px solid $yellow-color;
+      border: 1px solid $light-goldenrod-color;
     }
 
     i {
@@ -125,12 +123,12 @@
   }
 
   #get_started_btn {
-    background-color: $yellow-color;
+    background-color: $light-goldenrod-color;
     border: 1px solid;
 
     &:hover {
       background-color: transparent;
-      border-color: $count-color;
+      border-color: $sky-blue-color;
       color: $first-text;
     }
   }
@@ -155,18 +153,19 @@
     border-radius: 1rem;
     padding: 0.12rem 0.37rem;
     position: absolute;
+    color: $primary-color;
   }
 
   &::after {
     content: "\F589 Enter your prompt";
-    background-color: $count-color;
+    background-color: $sky-blue-color;
     left: 15%;
     top: 67%;
   }
 
   &::before {
     content: "\F1C9  Write description";
-    background-color: $btn-color;
+    background-color: $light-goldenrod-color;
     right: 7%;
     bottom: 7%;
   }
@@ -179,8 +178,7 @@
 
   #try-ai-advisor-btn {
     padding: 0.7rem 1.7rem;
-    background-color: $second-text;
-    // color: $first-text;
+    background-color: $first-text;
     border-radius: 0.7rem;
     font-size: 0.85rem;
     cursor: pointer;
@@ -192,7 +190,7 @@
 
     &:hover {
       scale: 1.05;
-      background-color: $secondary-color;
+      background-color: transparent;
       color: $first-text;
       border: 1px solid $second-text;
     }
@@ -210,7 +208,7 @@
   width: 9rem;
   height: 9rem;
   bottom: 30%;
-  background-color: $count-color;
+  background-color: $sky-blue-color;
   filter: blur(60px);
 
   opacity: 0.25;

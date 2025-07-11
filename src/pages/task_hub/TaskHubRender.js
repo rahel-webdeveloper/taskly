@@ -1,4 +1,4 @@
-import getSuggestionsComponent from "../../components/GetSuggesstion";
+import sendFeedbackComponent from "../../components/SendFeedback";
 import TodaysReportDiv from "../../components/Today'sReportDiv";
 import TasksContainer from "../../tasks/ListTasksRender";
 
@@ -26,7 +26,7 @@ export default function TaskHubRender() {
     </section>
   </div>
 
-  ${getSuggestionsComponent()}
+  ${sendFeedbackComponent()}
     `;
 }
 

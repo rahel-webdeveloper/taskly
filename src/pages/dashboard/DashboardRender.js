@@ -1,4 +1,4 @@
-import getSuggestionsComponent from "../../components/GetSuggesstion";
+import sendFeedbackComponent from "../../components/SendFeedback.js";
 import TodaysReportDiv from "../../components/Today'sReportDiv";
 import TasksContainer from "../../tasks/ListTasksRender";
 
@@ -82,7 +82,7 @@ const DashboardRender = () => {
       
   </div>
 
-  ${getSuggestionsComponent()}
+  ${sendFeedbackComponent()}
   
   `;
 };
