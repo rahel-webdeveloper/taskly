@@ -5,16 +5,22 @@ import activeLink from "./navbar.js";
 import AIAdviceRender from "./pages/ai_advice/AIAdviceRender.js";
 import DashboardRender from "./pages/dashboard/DashboardRender.js";
 import TaskHubRender from "./pages/task_hub/TaskHubRender.js";
-import TimerRender from "./pages/timer/TimerRender.js";
+import TimerRender, {
+  timerCircleCompo,
+  timerPickerCompo,
+} from "./pages/timer/TimerRender.js";
 import WelcomeRender from "./pages/welcome/WelcomeRender.js";
 import TaskHubLogic from "./pages/task_hub/TaskHubLogic.js";
 import DashboardLogic from "./pages/dashboard/DashboardLogic.js";
 import WelcomeLogic from "./pages/welcome/WelcomeLogic.js";
 import TasksContainer from "./tasks/ListTasksRender.js";
+import { navigateTimerPages } from "./pages/timer/TimerLogic.js";
 
 export const isDashboardOpen = atom(false);
 
 const isWelcomePageSeen = atom(loadLocalStorage("is_welcome_seen") || false);
+
+const mainContentEl = document.getElementById("main_content");
 
 export const router = new Navigo("/", {
   // linksSelector: "[data-link]",
@@ -45,8 +51,25 @@ const Router = () => {
       },
 
       "/timer": () => {
-        activeLink("/timer");
+        router.navigate("/timer/picker");
         renderPage(TimerRender, null);
+      },
+
+      "/timer/picker": () => {
+        activeLink("/timer");
+
+        renderPage(TimerRender, null);
+        navigateTimerPages(timerPickerCompo);
+
+        if (TimerRender.init) TimerRender.init();
+      },
+
+      "/timer/circle": () => {
+        activeLink("/timer");
+
+        renderPage(TimerRender, null);
+        navigateTimerPages(timerCircleCompo);
+
         if (TimerRender.init) TimerRender.init();
       },
 
@@ -60,7 +83,7 @@ const Router = () => {
     })
 
     .notFound(() => {
-      mainContent.innerHTML = "<h1>404 - Page Not Found</h1>";
+      mainContentEl.innerHTML = "<h1>404 - Page Not Found</h1>";
     })
 
     .resolve();

@@ -109,6 +109,10 @@ body {
 
   .dashboard-charts {
     width: 100%;
+
+    .chart {
+      padding: 1rem;
+    }
   }
 }
 
@@ -393,40 +397,6 @@ body {
     z-index: 3;
   }
 
-  .timer-container {
-    grid-template-columns: 43% 1fr;
-    border-radius: 0.7rem;
-    padding-bottom: 0rem;
-
-    .timer-first-section {
-      margin-top: 0;
-      border-right: 1px solid $border-color-transparent-2;
-    }
-
-    .timer-header {
-      margin-bottom: 0;
-    }
-
-    .tap-time-div {
-      margin-top: 0rem;
-    }
-
-    .timer-title {
-      margin-top: 2.5rem;
-    }
-
-    #timer-start {
-      margin-top: 0;
-    }
-
-    .timer-button {
-      padding: 0.75rem 1.55rem;
-    }
-    .timer-second-section {
-      display: grid;
-    }
-  }
-
   .dashboard {
     width: 100%;
     padding-top: 3rem;
@@ -463,6 +433,15 @@ body {
       .tracked-time-chart {
         width: 100%;
       }
+    }
+
+    .state-span {
+      margin-top: 1.5rem;
+      row-gap: 0.7rem;
+    }
+
+    .time-details {
+      margin-top: 1rem;
     }
   }
 

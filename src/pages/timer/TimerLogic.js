@@ -1,3 +1,4 @@
+import { router } from "../../routes";
 import SendSuggestionMain from "../../services/send_feedback-logic";
 import {
   elapsedTime,
@@ -21,6 +22,11 @@ export const TimerLogic = () => {
   populateInfinitePicker("minute-picker", 60);
   populateInfinitePicker("second-picker", 60);
 
+  addScrolledTime();
+  SendSuggestionMain();
+};
+
+const addScrolledTime = () => {
   addInfiniteScroll("hour-picker", 100, (hour) => {
     selectedHour.set(hour);
     totalSelectedTime();
@@ -33,13 +39,12 @@ export const TimerLogic = () => {
     selectedSecond.set(second);
     totalSelectedTime();
   });
-
-  SendSuggestionMain();
 };
 
 export const TimerEls = () => {
-  const timerFirstSection = document.querySelector(".timer-first-section");
-  const timerSecondSection = document.querySelector(".timer-second-section");
+  const timerContainerEl = document.querySelector(".timer-container");
+  const timerFirstSection = document.querySelector(".timer-picker");
+  const timerSecondSection = document.querySelector(".timer-circle");
   const countdownCircle = document.getElementById("countdown-circle");
   const tapTimeDiv = document.getElementById("tap-time-div");
   const timerText = document.getElementById("timer-text");
@@ -49,6 +54,7 @@ export const TimerEls = () => {
   const cancelBtn = document.getElementById("timer-cancel");
 
   return {
+    timerContainerEl,
     timerFirstSection,
     timerSecondSection,
     countdownCircle,
@@ -119,9 +125,10 @@ const addInfiniteScroll = (pickerId, range, onChange) => {
 
     const { startBtn } = TimerEls();
 
-    totalSelectedTime() >= 1000
-      ? (startBtn.disabled = false)
-      : (startBtn.disabled = true);
+    if (startBtn)
+      totalSelectedTime() >= 1000
+        ? (startBtn.disabled = false)
+        : (startBtn.disabled = true);
 
     // Trigger change event
     onChange(index);
@@ -146,7 +153,7 @@ export const tapChooseTimeFunc = (isStartBtnDisabled) => {
 };
 
 // Circle logic
-export const updateCountdownCircle = (totalSeconds) => {
+export const updateCountdownCircleUI = (totalSeconds) => {
   const { countdownCircle, timerText } = TimerEls();
   const now = Date.now();
 
@@ -200,32 +207,21 @@ const remainingTimerInUI = (
 };
 
 export const resetUI = () => {
-  const {
-    countdownCircle,
-    timerText,
-    cancelBtn,
-    resumeBtn,
-    pauseBtn,
-    startBtn,
-    tapTimeDiv,
-  } = TimerEls();
+  const { countdownCircle, timerText } = TimerEls();
 
-  countdownCircle.style.strokeDashoffset = circumference;
-  countdownCircle.style.stroke = "rgb(131, 115, 161)";
-  timerText.textContent = 0;
+  if (countdownCircle) {
+    countdownCircle.style.strokeDashoffset = circumference;
+    countdownCircle.style.stroke = "rgb(131, 115, 161)";
+    timerText.textContent = 0;
+  }
 
-  cancelBtn.disabled = true;
-  resumeBtn.disabled = true;
-  pauseBtn.disabled = true;
-
-  startBtn.disabled = false;
-  tapTimeDiv.disabled = false;
-
+  router.navigate("/timer/picker");
   isStarted.set(false);
 
-  togglePauseResumeBtns(false);
+  addScrolledTime();
 
-  if (!isWindowLarge()) toggleStartSection(false);
+  const { startBtn } = TimerEls();
+  startBtn.disabled = true;
 };
 
 export const togglePauseResumeBtns = (isPausedState) => {
@@ -242,46 +238,10 @@ export const togglePauseResumeBtns = (isPausedState) => {
   }
 };
 
-export const toggleStartSection = (isStarted) => {
-  const { timerFirstSection, timerSecondSection } = TimerEls();
+export const navigateTimerPages = (component) => {
+  const { timerContainerEl } = TimerEls();
 
-  if (document.startViewTransition) {
-    document.startViewTransition(() => {
-      timerFirstSection.style.display = isStarted ? "none" : "inline";
-      timerSecondSection.style.display = isStarted ? "inline" : "none";
-    });
-  } else {
-    timerFirstSection.style.display = isStarted ? "none" : "inline";
-    timerSecondSection.style.display = isStarted ? "inline" : "none";
-  }
-};
-
-export const isWindowLarge = () => {
-  const { timerFirstSection, timerSecondSection } = TimerEls();
-
-  if (!timerFirstSection || !timerSecondSection) return;
-
-  const width = window.innerWidth;
-  if (width >= 1024) {
-    timerFirstSection.style.display = "grid";
-    timerSecondSection.style.display = "grid";
-    return true;
-  } else {
-    isStartedTimer(isStarted.get());
-    return false;
-  }
-};
-
-export const isStartedTimer = (isStarted) => {
-  const { timerFirstSection, timerSecondSection } = TimerEls();
-
-  if (isStarted) {
-    timerFirstSection.style.display = "none";
-    timerSecondSection.style.display = "grid";
-  } else {
-    timerFirstSection.style.display = "grid";
-    timerSecondSection.style.display = "none";
-  }
+  timerContainerEl.innerHTML = component();
 };
 
 export default TimerLogic;

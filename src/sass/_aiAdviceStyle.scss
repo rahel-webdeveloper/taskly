@@ -75,14 +75,11 @@
   width: 90%;
   position: fixed;
   bottom: 6rem;
-  background-color: $secondary-color-transparent-4;
-  backdrop-filter: blur(30px);
-  padding-inline: 1rem 1rem;
+  background-color: $secondary-color;
+  padding-inline: 1rem 0.2rem;
   border-radius: 1.5rem;
   @include flex-space;
   gap: 1rem;
-  // border: 1px solid $border-color-transparent-2;
-  // z-index: 4;
   transition: all 0.167s ease-in-out;
 
   input,
@@ -110,16 +107,16 @@
   }
 
   button {
-    // background-color: transparent;
     color: $first-text;
     cursor: pointer;
     transition: all 0.2s ease-in;
     @include flex-center;
-    background-color: $secondary-color;
-    padding: 0.5rem 0.9rem;
-    border-radius: 1.5rem;
-    margin-right: -0.7rem;
+    background-color: $primary-color;
+    padding: 0.6rem 0.7rem;
+    border-radius: 2rem;
+
     gap: 0.5rem;
+    font-size: 1.25rem;
 
     &:hover {
       opacity: 0.57;
@@ -128,10 +125,6 @@
     &:disabled {
       opacity: 0.6;
       cursor: unset;
-    }
-
-    i {
-      font-size: 1.4rem;
     }
   }
 }

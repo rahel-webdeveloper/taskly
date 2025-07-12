@@ -31,7 +31,7 @@
     background-color: $secondary-color-transparent-4;
     padding: 0.7rem 0.35rem 0.35rem;
     border-radius: 1rem;
-    border: 1px solid $border-color-transparent-2;
+    // border: 1px solid $border-color-transparent-2;
     width: 100%;
     // margin-inline: 1rem;
 
@@ -91,49 +91,6 @@
   .state-chart {
     @include flex-space;
 
-    .state-details {
-      text-align: start;
-      place-self: start;
-      padding: 0.5rem 0.7rem;
-
-      h5 {
-        color: $high-color-transparent-4;
-      }
-
-      .state-span {
-        @include flex-center;
-        flex-direction: column;
-        row-gap: 0.3rem;
-        align-items: start;
-        font-size: 0.65rem;
-        margin-top: 0.77rem;
-        margin-left: 3rem;
-        position: relative;
-
-        span::before {
-          content: "";
-          position: absolute;
-          left: -1rem;
-          margin-top: 0.25rem;
-          width: 7px;
-          height: 7px;
-          border-radius: 1rem;
-        }
-
-        span:nth-child(1)::before {
-          background-color: $purple-color;
-        }
-
-        span:nth-child(2)::before {
-          background-color: $moderate-color;
-        }
-
-        span:nth-child(3)::before {
-          background-color: $sky-blue-color;
-        }
-      }
-    }
-
     #doughnut-chart_div {
       width: 104px;
       position: relative;
@@ -152,6 +109,49 @@
         }
       }
     }
+  }
+}
+
+.state-details {
+  text-align: start;
+  place-self: start;
+  padding: 0.5rem 0.7rem;
+
+  h5 {
+    color: $high-color-transparent-4;
+  }
+}
+
+.state-span {
+  @include flex-center;
+  flex-direction: column;
+  row-gap: 0.3rem;
+  align-items: start;
+  font-size: 0.65rem;
+  margin-top: 0.77rem;
+  margin-left: 3rem;
+  position: relative;
+
+  span::before {
+    content: "";
+    position: absolute;
+    left: -1rem;
+    margin-top: 0.25rem;
+    width: 7px;
+    height: 7px;
+    border-radius: 1rem;
+  }
+
+  span:nth-child(1)::before {
+    background-color: $purple-color;
+  }
+
+  span:nth-child(2)::before {
+    background-color: $moderate-color;
+  }
+
+  span:nth-child(3)::before {
+    background-color: $sky-blue-color;
   }
 }
 

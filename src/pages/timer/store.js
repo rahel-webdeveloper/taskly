@@ -1,11 +1,10 @@
+import { router } from "../../routes";
 import {
-  isWindowLarge,
   resetUI,
   tapChooseTimeFunc,
   TimerEls,
   togglePauseResumeBtns,
-  toggleStartSection,
-  updateCountdownCircle,
+  updateCountdownCircleUI,
 } from "./TimerLogic";
 import { atom } from "nanostores";
 
@@ -23,6 +22,8 @@ export const elapsedTime = atom(null);
 export const animationId = atom(null);
 
 export const startTimer = () => {
+  router.navigate("/timer/circle");
+
   isStarted.set(true);
   isPaused.set(false);
   startTime.set(Date.now());
@@ -44,18 +45,20 @@ export const resumeTimer = () => {
 };
 
 export const cancelTimer = () => {
+  router.navigate("/timer/picker");
+
   isStarted.set(false);
   isCanceled.set(true);
 };
 
 export const setAnimationId = (totalSelectedSeconds) => {
   animationId.set(
-    requestAnimationFrame(() => updateCountdownCircle(totalSelectedSeconds))
+    requestAnimationFrame(() => updateCountdownCircleUI(totalSelectedSeconds))
   );
 };
 
-export const timerStartState = () => {
-  const { pauseBtn, resumeBtn, cancelBtn, tapTimeDiv, startBtn } = TimerEls();
+export const timerStartStatus = () => {
+  const { pauseBtn, resumeBtn, cancelBtn } = TimerEls();
 
   isPaused.set(false);
   isCanceled.set(false);
@@ -65,8 +68,6 @@ export const timerStartState = () => {
   resumeBtn.disabled = false;
   cancelBtn.disabled = false;
 
-  startBtn.disabled = true;
-  tapTimeDiv.disabled = true;
   elapsedTime.set(0);
 };
 
@@ -109,10 +110,8 @@ export const handleTimerEvents = (event) => {
   if (id === "timer-start") {
     startTimer();
 
-    timerStartState();
+    timerStartStatus();
     setAnimationId(getSelectedTimeOnSeconds());
-
-    if (!isWindowLarge()) toggleStartSection(true);
   }
 
   if (id === "tap-time-div") {

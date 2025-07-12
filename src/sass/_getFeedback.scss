@@ -11,6 +11,7 @@
   font-weight: 700;
   font-size: 0.77rem;
   border: 1px solid $border-color-transparent-2;
+  z-index: 2;
 
   i {
     margin-left: 0.7rem;
@@ -33,6 +34,7 @@
   background-color: $secondary-color;
   border: 1px solid $dark-blue-color-transparent-2;
   display: none;
+  z-index: 3;
 
   .feedback-header {
     @include flex-space;

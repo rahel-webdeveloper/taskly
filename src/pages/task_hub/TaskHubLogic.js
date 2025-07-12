@@ -40,14 +40,14 @@ export default async function TaskHubLogic() {
     prioritySliderController();
     SendSuggestionMain();
 
-    taskHubPage.addEventListener("click", taskHub_Events);
+    taskHubPage.addEventListener("click", taskHub_EventsHandler);
   }
 }
 
 // --------**          Task Hub Dynamic UI Logic                 **--------//
 
 //  +______+ Task Hub Events
-const taskHub_Events = (event) => {
+const taskHub_EventsHandler = (event) => {
   const target = event.target;
 
   if (target.closest("#des_generator_icon")) generateDescription();

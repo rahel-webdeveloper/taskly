@@ -1,17 +1,18 @@
 .timer-container {
   display: grid;
+  place-items: center;
   width: 100%;
   text-align: center;
   padding-bottom: 1.5rem;
 }
 
-.timer-first-section {
+.timer-picker {
   margin-top: 3rem;
   @include grid-center;
+  row-gap: 1.5rem;
 
-  .timer-header {
+  .picker-header {
     @include flex-center;
-    margin-bottom: 1.7rem;
 
     .timer-title {
       color: $first-text;
@@ -22,7 +23,7 @@
     }
   }
 
-  .timer-picker {
+  .timer-picker-els {
     @include flex-center;
 
     .picker {
@@ -45,6 +46,7 @@
     }
 
     .colon {
+      color: $high-color;
       font-size: 4rem;
       margin-bottom: 0.7rem;
     }
@@ -67,13 +69,13 @@
   .tap-div {
     width: 100%;
     @include grid-center;
+    margin-top: 1.5rem;
   }
 
   .tap-time-div {
-    width: 97px;
-    height: 97px;
+    width: 95px;
+    height: 95px;
     border-radius: 50%;
-    margin-top: 4rem;
     @include grid-center;
     background-color: $secondary-color;
     color: $first-text;
@@ -93,7 +95,7 @@
   }
 
   #timer-start {
-    margin-top: 2.5rem;
+    margin-top: 1.5rem;
     padding: 0.67rem 2rem 0.67rem 1.5rem;
     font-size: 1.02rem;
     background-color: $purple-color;
@@ -118,7 +120,7 @@
 
   &:active {
     transition: 0.3s ease-in;
-    scale: 0.77;
+    scale: 0.95;
   }
 
   &:disabled {
@@ -134,15 +136,15 @@
   }
 }
 
-.timer-second-section {
+.timer-circle {
   position: relative;
-  display: none;
+  width: 95%;
 
   .svg-circle-container {
     transform: rotate(-90deg);
     max-width: 500px;
     width: 100%;
-    place-self: center;
+    margin-block: -1rem -2rem;
   }
 
   .timer-text {
@@ -165,12 +167,13 @@
     stroke-width: 2.5;
   }
 
-  .timer-buttons {
-    margin-bottom: 1.7rem;
+  .timer-circle-btns {
+    margin-bottom: 1rem;
     display: flex;
     justify-content: center;
     column-gap: 2rem;
-    // place-self: center;
+    position: relative;
+    z-index: 1;
 
     #timer-cancel {
       background-color: $secondary-color;
