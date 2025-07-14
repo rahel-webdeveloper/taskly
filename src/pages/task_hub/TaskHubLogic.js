@@ -10,7 +10,6 @@ import { controlTasksAllOperation } from "../../tasks/ListTasksLogic.js";
 import { listTasks, liveTasks } from "../../tasks/store.js";
 
 import { isDashboardOpen } from "../../routes.js";
-import SendSuggestionMain from "../../services/send_feedback-logic.js";
 import { loadingDivComp } from "../ai_advice/AIAdviceRender.js";
 import {
   AddNewTask,
@@ -27,6 +26,7 @@ import {
   taskTitle,
 } from "./store.js";
 import { addToDetailsCard } from "./TaskHubRender.js";
+import sendFeedbackMain from "../../services/send_feedback-logic.js";
 
 export default async function TaskHubLogic() {
   const taskHubPage = document.getElementById("task__hub-page");
@@ -38,7 +38,7 @@ export default async function TaskHubLogic() {
     controlTasksAllOperation();
     liveTrackTasks();
     prioritySliderController();
-    SendSuggestionMain();
+    sendFeedbackMain();
 
     taskHubPage.addEventListener("click", taskHub_EventsHandler);
   }
@@ -380,7 +380,6 @@ export const todayReport = (todayTasks) => {
   const lengthTasksEl = document.getElementById("lenght-tasks");
 
   const todayDoneTasks = todayTasks.filter((task) => task.state === "done");
-
   const todayTrackedTime = todayTasks.reduce(
     (accumlator, currentValue) => accumlator + currentValue.durationMinutes,
     0
@@ -404,6 +403,63 @@ export const todayReport = (todayTasks) => {
 };
 
 // --------**          Card logic                 **--------//
+
+export function formateCardDate(task) {
+  const now = new Date().getTime();
+  const startTimestamp = new Date(task.startDateTime).getTime();
+
+  let showDate, isToday;
+
+  // If task has not started yet, show start time
+  if (now < startTimestamp) {
+    showDate = new Date(task.startDateTime);
+    isToday = isDateToday(showDate);
+  } else {
+    // If task has started, show due time
+    showDate = new Date(task.dueDateTime);
+    isToday = isDateToday(showDate);
+  }
+
+  if (isToday) {
+    return showDate.toLocaleString("default", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
+  } else {
+    return showDate.toLocaleString("default", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    });
+  }
+}
+
+export function isDateToday(date) {
+  const now = new Date();
+  return (
+    date.getFullYear() === now.getFullYear() &&
+    date.getMonth() === now.getMonth() &&
+    date.getDate() === now.getDate()
+  );
+}
+
+export function returnTodayString(task) {
+  const now = new Date().getTime();
+  const startTimestamp = new Date(task.startDateTime).getTime();
+
+  let showDate;
+  if (now < startTimestamp) {
+    showDate = new Date(task.startDateTime);
+  } else {
+    showDate = new Date(task.dueDateTime);
+  }
+
+  return isDateToday(showDate) ? "Today " : "";
+}
 
 export const liveTrackTasks = () => {
   const durationInterval = setInterval(() => {
@@ -460,23 +516,9 @@ const cardTimerUI = (task, index, remainingTime) => {
   const remainingDays = Math.floor(remainingHours / 24);
 
   if (timeElements[index])
-    timeElements[index].textContent = ` ${
-      new Date().toISOString().slice(0, 10) !==
-      new Date(task.dueDateTime).toISOString().slice(0, 10)
-        ? new Date(task.dueDateTime).toISOString().slice(0, 10)
-        : "Today "
-    }
-    ${
-      new Date(task.dueDateTime).getHours() === 0
-        ? 12
-        : new Date(task.dueDateTime).getHours() > 12
-        ? Math.abs(new Date(task.dueDateTime).getHours() - 12)
-        : new Date(task.dueDateTime).getHours()
-    }: 
-
-    ${new Date(task.dueDateTime).getMinutes().toString().padStart(2, "0")} 
-
-    ${new Date(task.dueDateTime).getHours() >= 12 ? "PM" : "AM"}`;
+    timeElements[index].textContent = ` 
+  ${returnTodayString(task)}
+  ${formateCardDate(task)}`;
 
   if (startLabels[index]) startLabels[index].textContent = "End";
 
@@ -489,12 +531,10 @@ const cardTimerUI = (task, index, remainingTime) => {
         : ""
     } 
       ${remainingHours ? (remainingHours % 24) + "h " : ""} 
-
-      ${(remainingMinutes % 60).toString().padStart(2, "0") + "m "}  
+      ${(remainingMinutes % 60).toString().padStart(2, "0") + "m "} 
        
     <span id="duration-seconds">${
       (remainingSeconds % 60).toString().padStart(2, "0") + "s"
-    }</span>
-    
+    }</span>   
   `;
 };

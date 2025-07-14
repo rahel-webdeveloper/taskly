@@ -23,7 +23,7 @@ Check out the live demo here: **[Taskly](https://task-ly-ai.vercel.app/)**
     - [Installation](#installation)
     - [Usage](#usage)
   - [🧠 Waht I Learned](#-waht-i-learned)
-  - [🤌 What Was Intreste For Me:](#-what-was-intreste-for-me)
+  - [🤌 What Was Intresting For Me:](#-what-was-intresting-for-me)
   - [project-structure 📂](#project-structure-)
     - [Future Enhancements💡](#future-enhancements)
     - [Author](#author)
@@ -79,7 +79,7 @@ Taskly Pro is a Progressive Web App that helps you create, track, and analyze yo
 - [Notyf](https://github.com/caroso1222/notyf) for toast notifications
 - Puter.js + AI Advisor API for AI-driven task advising
 - Service Worker & Web App Manifest for PWA support
-- EmailJs for geting feedback and opinions
+- EmailJs for getting feedback and opinions
 
 ---
 
@@ -115,9 +115,9 @@ Building **Taskly** taught me to:
 - **Visualize data** via Chart.js (bar, doughnut, line, pie).
 - **Polish UX** with Notyf toasts and a custom SVG timer.
 
-## 🤌 What Was Intreste For Me:
+## 🤌 What Was Intresting For Me:
 
-For the fisrt time managing an AI assistant base on your own thoughts through code
+For the first time managing an AI assistant base on your own thoughts through code
 
 ```js
 export const systemMsg = {

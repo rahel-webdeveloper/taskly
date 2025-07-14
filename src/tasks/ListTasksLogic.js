@@ -9,7 +9,7 @@ import {
   deletingCompleteTasks,
   deletingTask,
   editingTask,
-  Id,
+  selectedTaskId,
   listTasks,
   liveTasks,
   implementFilter,
@@ -43,22 +43,22 @@ export const eventsHandler = (event) => {
   const getAttributeId = target.getAttribute("data-id");
 
   if (target.closest(".check-icon")) {
-    Id.set(getAttributeId);
+    selectedTaskId.set(getAttributeId);
     completingTask();
   }
 
   if (target.closest(".delete-icon")) {
-    Id.set(getAttributeId);
+    selectedTaskId.set(getAttributeId);
     deletingTask();
   }
 
   if (target.closest(".assistance-task-icon-div")) {
-    Id.set(getAttributeId);
-    setTaskToAssitant(Id.get());
+    selectedTaskId.set(getAttributeId);
+    setTaskToAssitant(selectedTaskId.get());
   }
 
   if (target.closest(".edit-icon-div")) {
-    Id.set(getAttributeId);
+    selectedTaskId.set(getAttributeId);
     editingTask(editBox, editInput);
   }
 
@@ -158,17 +158,23 @@ export const addStyleToSortControls = (idx = 1) => {
   });
 };
 
-// updateViewOnTask
-export function controlTasksAllOperation() {
-  setLiveTasks(listTasks.get());
-
+function filterAndSortTasks() {
   implementFilter(
     !isDashboardOpen.get() ? liveTasks.get() : listTasks.get(),
     filterState.get()
   );
   implementSort(listTasks.get());
+}
 
-  saveLocalStorage(listTasks.get(), "listTask");
+function updateTaskUI() {
   updateTaskCount(listTasks.get(), visibleTasks.get().length);
   todayReport(todayTasks.get());
+}
+
+// updateViewOnTask
+export function controlTasksAllOperation() {
+  setLiveTasks(listTasks.get());
+  filterAndSortTasks();
+  saveLocalStorage(listTasks.get(), "listTask");
+  updateTaskUI();
 }

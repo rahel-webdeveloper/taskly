@@ -13,7 +13,7 @@ import getAdvice, {
   activeConversation_Id,
   conversations,
   converter,
-  findActiveCoversation,
+  findActiveCoversation as findActiveConversation,
   highlightCode,
   systemMsg,
 } from "./store";
@@ -30,7 +30,10 @@ export const AIAdviceLogic = () => {
 export const onReloadAIPageContro = () => {
   renderWelcomeMessage(true);
 
-  if (conversations.get()[0].messages.length === 1) {
+  if (
+    conversations.get().length > 0 &&
+    conversations.get()[0].messages.length === 1
+  ) {
     activeConversation_Id.set(conversations.get()[0].id);
     addStyleToActiveConve(activeConversation_Id.get());
   }
@@ -177,7 +180,7 @@ const sendPrompt = (getAdviceBtn, userInputEl) => {
 const renderAdviceInHtml = async (userInput) => {
   const chatAreaEl = document.getElementById("chat_area");
 
-  if (findActiveCoversation(activeConversation_Id.get()).messages.length === 1)
+  if (findActiveConversation(activeConversation_Id.get()).messages.length === 1)
     renderWelcomeMessage(false);
 
   const userEl = document.createElement("span");
@@ -201,13 +204,13 @@ const renderAdviceInHtml = async (userInput) => {
 
   try {
     // Add user input
-    findActiveCoversation(activeConversation_Id.get()).messages.push({
+    findActiveConversation(activeConversation_Id.get()).messages.push({
       role: "user",
       content: userInput.trim(),
     });
 
     const response = await getAdvice(
-      findActiveCoversation(activeConversation_Id.get()).messages
+      findActiveConversation(activeConversation_Id.get()).messages
     );
 
     // **---------     For streaming response
@@ -218,7 +221,7 @@ const renderAdviceInHtml = async (userInput) => {
       assistantEl.innerHTML = htmlContent;
       chatAreaEl.scrollTop = chatAreaEl.scrollHeight;
     }
-    findActiveCoversation(activeConversation_Id.get()).messages.push({
+    findActiveConversation(activeConversation_Id.get()).messages.push({
       role: "assistant",
       content: fullMarkdown,
     });
@@ -254,10 +257,10 @@ const renderActiveConve_Messages = (id) => {
 
   chatAreaEl.innerHTML = "";
 
-  if (findActiveCoversation(id).messages.length === 1)
+  if (findActiveConversation(id).messages.length === 1)
     renderWelcomeMessage(true);
 
-  findActiveCoversation(id).messages.forEach((message) => {
+  findActiveConversation(id).messages.forEach((message) => {
     if (message.role === "user") {
       const userEl = document.createElement("span");
       userEl.classList.add("user");

@@ -8,7 +8,7 @@
 @import "navbarStyle";
 @import "TaskHubStyle";
 @import "dashboarStyle";
-@import "getSuggesstions";
+@import "sendFeedbackStyle";
 
 * {
   padding: 0;
@@ -393,7 +393,7 @@ body {
   }
 
   .input-submit_box {
-    bottom: 1.5rem;
+    bottom: 3rem;
     z-index: 3;
   }
 

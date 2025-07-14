@@ -6,6 +6,8 @@ export const SERVICE_ID = import.meta.env.VITE_SERVICE_ID;
 export const TEMPLATE_ID = import.meta.env.VITE_TEMPLATE_ID;
 export const PUBLIC_KEY = import.meta.env.VITE_PUBLIC_KEY;
 
+const emailPattern = /^[^\s@]+@[^\@]+\.[^\s@]+$/;
+
 // Suggestions Params
 export const templateParams = atom({
   user_name: "",
@@ -14,53 +16,55 @@ export const templateParams = atom({
 });
 
 // Dynamic UI of Send Suggestions component
-const SendSuggestionMain = () => {
-  document
-    .querySelector(".send-feedback-container")
-    .addEventListener("click", eventsHandler);
+const sendFeedbackMain = () => {
+  const container = document.querySelector(".send-feedback-container");
+  const form = document.getElementById("get-feedback-form");
 
-  document
-    .getElementById("get-feedback-form")
-    .addEventListener("submit", eventsHandler);
+  if (container && !container.hasListener) {
+    container.addEventListener("click", eventsHandler);
+    container.hasListener = true;
+  }
+
+  if (form && !form.hasListener) {
+    form.addEventListener("submit", eventsHandler);
+    form.hasListener = true;
+  }
 };
 
 // ***---- Send feedback events
 const eventsHandler = (event) => {
-  const getSuggestionsStyle = document.querySelector(
+  const sendFeedbackStyle = document.querySelector(
     ".get-feedback-form_div"
   ).style;
 
-  if (event.target.closest("#how-works_btn")) {
-    openNotification("success", "You will recieve the guides very soon!");
-  }
-
   if (event.target.closest("#feedback-icon-div"))
-    getSuggestionsStyle.display = "block";
+    sendFeedbackStyle.display = "block";
 
   if (event.target.closest("#send_btn"))
-    !validationOfGetSuggestionsForm() &&
+    if (!validationOfFeedbackForm()) {
       openNotification("warning", "Please fill out the form correctly!");
+      return;
+    }
 
-  if (event.target.closest("#cancel_btn")) getSuggestionsStyle.display = "none";
+  if (event.target.closest("#cancel_btn")) sendFeedbackStyle.display = "none";
 
   if (event.type === "submit") {
     event.preventDefault();
 
-    getSuggestionsStyle.display = "none";
-
+    sendFeedbackStyle.display = "none";
     document.getElementById("get-feedback-form").reset();
-
     sendFeedback(templateParams.get());
   }
 };
 
 // Validate the Suggestion form data
-const validationOfGetSuggestionsForm = () => {
+const validationOfFeedbackForm = () => {
   const userName = document.getElementById("user_name").value.trim();
   const userEmail = document.getElementById("user_email").value.trim();
   const userMessage = document.getElementById("user_message").value.trim();
 
-  if (!userName || !userEmail || !userMessage) return false;
+  if (!userName || !userEmail || !userMessage || !emailPattern.test(userEmail))
+    return false;
   else {
     templateParams.set({
       user_name: userName,
@@ -76,12 +80,15 @@ const validationOfGetSuggestionsForm = () => {
 export const sendFeedback = (params) => {
   emailjs
     .send(SERVICE_ID, TEMPLATE_ID, params)
-    .then((res) => {
+    .then(() => {
       openNotification("success", "You have successfully sent your feedback!");
     })
     .catch((err) => {
-      openNotification("error", err);
+      openNotification(
+        "error",
+        err?.text || "Something went wrong. Please try again!"
+      );
     });
 };
 
-export default SendSuggestionMain;
+export default sendFeedbackMain;

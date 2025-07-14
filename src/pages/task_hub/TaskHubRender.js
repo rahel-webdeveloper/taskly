@@ -1,6 +1,7 @@
 import sendFeedbackComponent from "../../components/SendFeedback";
 import TodaysReportDiv from "../../components/Today'sReportDiv";
 import TasksContainer from "../../tasks/ListTasksRender";
+import { formateCardDate, returnTodayString } from "./TaskHubLogic";
 
 // Const section main content
 export default function TaskHubRender() {
@@ -160,22 +161,8 @@ export function addToDetailsCard(liveTasks) {
   <div class="task-time">
     <div class="task-start-time">
       <h3 class="start-time">
-        ${
-          new Date().toISOString().slice(0, 10) !==
-          new Date(task.dueDateTime).toISOString().slice(0, 10)
-            ? new Date(task.dueDateTime).toISOString().slice(0, 10)
-            : "Today "
-        }
-        ${
-          new Date(task.startDateTime).getHours() === 0
-            ? 12
-            : new Date(task.startDateTime).getHours() > 12
-            ? Math.abs(new Date(task.startDateTime).getHours() - 12)
-            : new Date(task.startDateTime).getHours()
-        }:
-        ${new Date(task.startDateTime).getMinutes().toString().padStart(2, "0")}
-
-        ${new Date(task.startDateTime).getHours() >= 12 ? "PM" : "AM"}
+        ${returnTodayString(task)}
+        ${formateCardDate(task)}
       </h3>
       <p class="start-label">Start</p>
     </div>
@@ -201,7 +188,7 @@ export function addToDetailsCard(liveTasks) {
   </div>
  </div>
   `;
-
+        // Card container Grid style
         parentCardEl.style.gridTemplateColumns = `repeat(${
           liveTasks.length + 1
         }, 1fr)`;

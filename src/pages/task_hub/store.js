@@ -65,7 +65,7 @@ export const calculateTimeDifference = (startTime, dueTime) => {
 };
 
 export function AddNewTask() {
-  const updatedAt = new Date();
+  const createdAt = new Date();
 
   durationMinutes.set(
     calculateTimeDifference(
@@ -92,7 +92,7 @@ export function AddNewTask() {
       },
       state: "on-hold",
       isCompleted: false,
-      updatedAt: updatedAt.toISOString(),
+      createdAt: createdAt.toISOString(),
     },
     ...listTasks.get(),
   ]);

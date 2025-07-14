@@ -61,6 +61,19 @@ export function addTaskToList(tasks) {
         : tasks.map(NewTaskRender).join("");
 }
 
+function formateDate(date) {
+  const options = {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  };
+
+  return new Date(date).toLocaleString("default", options);
+}
+
 const NewTaskRender = (task) => {
   return `
   <li class="${task.state} list-task">
@@ -73,15 +86,7 @@ const NewTaskRender = (task) => {
     <div class="task-description-div">
       <p>${task.description.slice(0, 30) + "..."}</p>
       <span class="task-updated-time">
-        ${
-          new Date(task.updatedAt).getHours() === 0
-            ? 12
-            : new Date(task.updatedAt).getHours() > 12
-            ? Math.abs(new Date(task.updatedAt).getHours() - 12)
-            : new Date(task.updatedAt).getHours()
-        }
-        : ${new Date(task.updatedAt).getMinutes().toString().padStart(2, "0")}
-        ${new Date(task.updatedAt).getHours() >= 12 ? "PM" : "AM"}
+       ${formateDate(task.createdAt)}
       </span>
     </div>
 

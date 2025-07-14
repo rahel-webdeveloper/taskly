@@ -22,9 +22,10 @@ const AIAdviceContainer = () => {
 };
 
 AIAdviceContainer.init = function () {
-  document
-    .querySelector(".ai-advice_container")
-    .addEventListener("click", eventsHandler);
+  const aiAdviceCotainer = document.querySelector(".ai-advice_container");
+
+  aiAdviceCotainer?.removeEventListener("click", eventsHandler);
+  aiAdviceCotainer?.addEventListener("click", eventsHandler);
 
   window.addEventListener("resize", () => toggleAiSideBar(false));
 
@@ -107,9 +108,9 @@ export const chatErrorCompo = (err) => {
     <i class="bi bi-exclamation-circle"></i>
     <span>
       ${
-        err.message === "puter is not defined"
+        err?.message === "puter is not defined"
           ? "Check your internet and try again!"
-          : err.error.delegate == "usage-limited-chat"
+          : err?.error?.delegate == "usage-limited-chat"
           ? "Usage limit exceeded!"
           : " Something went wrong!"
       }

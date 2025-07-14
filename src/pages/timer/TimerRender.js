@@ -4,18 +4,15 @@ import TimerLogic, { TimerEls } from "./TimerLogic";
 
 const TimerRender = () => {
   return `
-   <div class="timer-container">
-
-  </div>
-  
+   <div class="timer-container">  </div>
   ${sendFeedbackComponent()}`;
 };
 
 TimerRender.init = function () {
   const { timerContainerEl } = TimerEls();
 
-  timerContainerEl.addEventListener("click", handleTimerEvents);
-
+  timerContainerEl?.removeEventListener("click", handleTimerEvents);
+  timerContainerEl?.addEventListener("click", handleTimerEvents);
   TimerLogic();
 };
 

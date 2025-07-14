@@ -1,7 +1,7 @@
 import { Chart } from "chart.js/auto";
 import { listTasks, setTodayTasks, todayTasks } from "../../tasks/store";
 import { todayReport } from "../task_hub/TaskHubLogic";
-import SendSuggestionMain from "../../services/send_feedback-logic.js";
+import sendFeedbackMain from "../../services/send_feedback-logic.js";
 
 const DashboardLogic = () => {
   const tasks = listTasks.get();
@@ -12,7 +12,7 @@ const DashboardLogic = () => {
   initTrackedTimeBars(tasks);
 
   // Set today's report on dashboard page
-  SendSuggestionMain();
+  sendFeedbackMain();
   setTodayTasks(tasks);
   todayReport(todayTasks.get());
 };
@@ -115,7 +115,7 @@ const initSevenDaysLine = (tasks) => {
   }
 
   tasks.forEach((task) => {
-    const taskDate = new Date(task.updatedAt).toString().slice(0, 10);
+    const taskDate = new Date(task.createdAt).toString().slice(0, 10);
 
     if (taskCounts.hasOwnProperty(taskDate)) {
       taskCounts[taskDate]++;
