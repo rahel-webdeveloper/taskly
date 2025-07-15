@@ -9,6 +9,7 @@ import {
 import { addTaskToList, updateTaskCount } from "./ListTasksRender.js";
 import { addToDetailsCard } from "../pages/task_hub/TaskHubRender.js";
 import { isDashboardOpen } from "../routes.js";
+import { liveTrackTasks } from "../pages/task_hub/TaskHubLogic.js";
 
 export const listTasks = atom(loadLocalStorage("listTask") || tasks);
 export const liveTasks = atom([]);
@@ -42,18 +43,11 @@ export const setLiveTasks = (tasks) => {
 
 // set today task
 export const setTodayTasks = (tasks) => {
-  const filterTodayTasks = tasks.filter((task) => {
-    const todayDate = new Date().toISOString().split("T")[0];
-    const taskDate = new Date(task.createdAt);
+  const todayDate = new Date().toISOString().split("T")[0];
 
-    if (!isNaN(taskDate)) {
-      taskDate.toISOString().split("T")[0];
-
-      return todayDate === taskDate && task;
-    } else {
-      console.log("today date", todayDate, "task Create date", taskDate);
-    }
-  });
+  const filterTodayTasks = tasks.filter(
+    (task) => todayDate === new Date(task.createdAt).toISOString().split("T")[0]
+  );
 
   todayTasks.set(filterTodayTasks);
 };
@@ -136,6 +130,7 @@ export const implementFilter = (tasks, state) => {
   visibleTasks.set(getFilterTasks(tasks, state));
 
   updateTaskCount(tasks, visibleTasks.get().length);
+
   if (document.startViewTransition)
     document.startViewTransition(() => {
       addTaskToList(visibleTasks.get());
@@ -162,7 +157,6 @@ export const implementSort = (tasks, state) => {
     !isDashboardOpen.get() ? liveTasks.get() : listTasks.get(),
     filterState.get()
   );
-
   updateTaskCount(tasks, visibleTasks.get().length);
   addStyleToSortControls();
 };

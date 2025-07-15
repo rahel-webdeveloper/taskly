@@ -400,7 +400,7 @@ export const todayReport = (todayTasks) => {
         ? "0h & 0m"
         : `${Math.floor(todayTrackedTime / 60) + "h"} ${
             todayTrackedTime / 60 > 0 && todayTrackedTime ? "&" : ""
-          } ${(todayTrackedTime % 60) + "m"}`;
+          } ${Math.floor(todayTrackedTime % 60) + "m"}`;
 };
 
 // --------**          Card logic                 **--------//
