@@ -44,9 +44,15 @@ export const setLiveTasks = (tasks) => {
 export const setTodayTasks = (tasks) => {
   const filterTodayTasks = tasks.filter((task) => {
     const todayDate = new Date().toISOString().split("T")[0];
-    const taskDate = new Date(task.createdAt).toISOString().split("T")[0];
+    const taskDate = new Date(task.createdAt);
 
-    return todayDate === taskDate && task;
+    if (!isNaN(taskDate)) {
+      taskDate.toISOString().split("T")[0];
+
+      return todayDate === taskDate && task;
+    } else {
+      console.log("today date", todayDate, "task Create date", taskDate);
+    }
   });
 
   todayTasks.set(filterTodayTasks);

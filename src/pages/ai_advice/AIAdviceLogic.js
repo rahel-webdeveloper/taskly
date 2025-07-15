@@ -232,6 +232,7 @@ const renderAdviceInHtml = async (userInput) => {
     saveLocalStorage(conversations.get(), "all_Conversations");
 
     // **------   Delete loading div after completing response
+
     for (let i = 0; i < loadingDiv.length; i++) loadingDiv[i].remove();
   } catch (err) {
     for (let i = 0; i < loadingDiv.length; i++) loadingDiv[i].remove();
@@ -283,6 +284,8 @@ const renderActiveConve_Messages = (id) => {
       assistantEl.innerHTML = converter.makeHtml(message.content);
     }
   });
+
+  highlightCode();
 };
 
 const emptyConve_Controller = () => {

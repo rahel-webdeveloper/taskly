@@ -179,7 +179,9 @@ export function addToDetailsCard(liveTasks) {
         }
         ${Math.floor((task.durationMinutes / 60) % 24) || 0}h
 
-        ${(task.durationMinutes % 60).toString().padStart(2, "0")}m
+        ${Math.floor(task.durationMinutes % 60)
+          .toString()
+          .padStart(2, "0")}m
       </h3>
     </div>
   </div>

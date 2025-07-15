@@ -203,6 +203,7 @@ export const useFlatepickr = () => {
     enableTime: true,
     noCalendar: true,
     dateFormat: "h:i K",
+    enableSeconds: true,
     time_24hr: false,
     disableMobile: true,
     position: "auto center",
@@ -216,7 +217,7 @@ export const useFlatepickr = () => {
   let dueDateTimeConfig = {
     enableTime: true,
     noCalendar: true,
-    // enableSeconds: true,
+    enableSeconds: true,
     dateFormat: "h:i K",
     time_24hr: false,
     disableMobile: true,
@@ -519,8 +520,9 @@ const cardTimerUI = (task, index, remainingTime) => {
 
   if (startLabels[index]) startLabels[index].textContent = "End";
 
-  durationSecondsEl[index].innerText =
-    (remainingSeconds % 60).toString().padStart(2, "0") + "s";
+  if (durationSecondsEl[index])
+    durationSecondsEl[index].textContent =
+      (remainingSeconds % 60).toString().padStart(2, "0") + "s";
 
   if (remainingTimeElements[index]) {
     remainingTimeElements[index].innerHTML = ` ${
