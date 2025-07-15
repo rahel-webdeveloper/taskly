@@ -76,7 +76,7 @@ const TaskForm = () => {
     
     <div class="form-row">
       <div class="form-column" id="start-datetime_div">
-        <label for="start_date-time" id="start-time-label">Start Time</label>
+        <label for="start_date-time" id="show-time-dev-label">Start Time</label>
         <div class="time-input">
           <label for="start_date-time" class="icon-label">
             <i class="ri-map-pin-time-fill"></i>
@@ -158,18 +158,20 @@ export function addToDetailsCard(liveTasks) {
               <i class="bi${" " + task.priority.icon}"></i>
             </div>
           </div>
-  <div class="task-time">
-    <div class="task-start-time">
-      <h3 class="start-time">
+  <div class="task-card-time-dev">
+    <div class="task-datetime">
+      <h3 class="show-time-dev">
         ${returnTodayString(task)}
         ${formateCardDate(task)}
       </h3>
-      <p class="start-label">Start</p>
+      <p class="time-label">Start</p>
     </div>
     <div class="task-duration">
+      <span id="duration-seconds" class="duration_seconds">
+         00
+      </span>
       <p>duration</p>
       <h3 id="duration" class="duration">
-
         ${
           Math.floor(task.durationMinutes / 60 / 24) > 1
             ? Math.floor(task.durationMinutes / 60 / 24) + "days"
@@ -177,13 +179,8 @@ export function addToDetailsCard(liveTasks) {
         }
         ${Math.floor((task.durationMinutes / 60) % 24) || 0}h
 
-        ${(task.durationMinutes % 60)
-          .toString()
-          .padStart(2, "0")}m <span id="duration-seconds">
-
-          ${((task.durationMinutes * 60) % 60)
-            .toString()
-            .padStart(2, "0")}s</span></h3>
+        ${(task.durationMinutes % 60).toString().padStart(2, "0")}m
+      </h3>
     </div>
   </div>
  </div>
@@ -217,9 +214,9 @@ const sampleOfCard = () => {
             <i class="bi bi-lightbuld-fill"></i>
             </div>
           </div>
-          <div class="task-time">
-            <div class="task-start-time">
-              <h3 class="start-time">0: 00 AM</h3>
+          <div class="task-card-time-dev">
+            <div class="task-datetime">
+              <h3 class="show-time-dev">0: 00 AM</h3>
               <p>Start</p>
             </div>
             <div class="task-duration">

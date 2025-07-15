@@ -25,7 +25,7 @@ import {
   taskDescription,
   taskTitle,
 } from "./store.js";
-import { addToDetailsCard } from "./TaskHubRender.js";
+import { addToDetailsCard as addDetailsCard } from "./TaskHubRender.js";
 import sendFeedbackMain from "../../services/send_feedback-logic.js";
 
 export default async function TaskHubLogic() {
@@ -463,18 +463,19 @@ export function returnTodayString(task) {
 
 export const liveTrackTasks = () => {
   const durationInterval = setInterval(() => {
-    listTasks.get().map((task, index) => {
-      const now = new Date().getTime();
+    listTasks.get().map((task, idx) => {
+      const nowTimestamp = new Date().getTime();
 
-      const startDateTime = new Date(task.startDateTime).getTime();
-      const dueDateTime = new Date(task.dueDateTime).getTime();
+      const startTimestamp = new Date(task.startDateTime).getTime();
+      const dueTimestamp = new Date(task.dueDateTime).getTime();
 
       liveTasks.get().length === 0 && clearInterval(durationInterval);
 
-      if (dueDateTime > now) {
+      if (dueTimestamp > nowTimestamp) {
         // Give notification when the task is started
         if (
-          Math.floor(now / 10000) >= Math.floor(startDateTime / 10000) &&
+          Math.floor(nowTimestamp / 10000) >=
+            Math.floor(startTimestamp / 10000) &&
           !notifiedTasks.has(task.id)
         ) {
           openNotification(
@@ -484,10 +485,10 @@ export const liveTrackTasks = () => {
 
           notifiedTasks.add(task.id);
         }
-        if (now > startDateTime) {
-          const remainingTime = dueDateTime - now;
+        if (nowTimestamp > startTimestamp) {
+          const remainingTime = dueTimestamp - nowTimestamp;
 
-          cardTimerUI(task, index, remainingTime);
+          cardTimerUI(task, idx, remainingTime);
         }
       }
     });
@@ -495,20 +496,17 @@ export const liveTrackTasks = () => {
 
   if (document.startViewTransition)
     document.startViewTransition(() =>
-      addToDetailsCard(
-        !isDashboardOpen.get() ? liveTasks.get() : listTasks.get()
-      )
+      addDetailsCard(!isDashboardOpen.get() ? liveTasks.get() : listTasks.get())
     );
   else
-    addToDetailsCard(
-      !isDashboardOpen.get() ? liveTasks.get() : listTasks.get()
-    );
+    addDetailsCard(!isDashboardOpen.get() ? liveTasks.get() : listTasks.get());
 };
 
 const cardTimerUI = (task, index, remainingTime) => {
-  const startLabels = document.querySelectorAll(".start-label");
-  const timeElements = document.querySelectorAll(".start-time");
+  const startLabels = document.querySelectorAll(".time-label");
+  const timeElements = document.querySelectorAll(".show-time-dev");
   const remainingTimeElements = document.querySelectorAll(".duration");
+  const durationSecondsEl = document.querySelectorAll(".duration_seconds");
 
   const remainingSeconds = Math.floor(remainingTime / 1000);
   const remainingMinutes = Math.floor(remainingSeconds / 60);
@@ -516,13 +514,15 @@ const cardTimerUI = (task, index, remainingTime) => {
   const remainingDays = Math.floor(remainingHours / 24);
 
   if (timeElements[index])
-    timeElements[index].textContent = ` 
-  ${returnTodayString(task)}
-  ${formateCardDate(task)}`;
+    timeElements[index].textContent = `
+  ${returnTodayString(task)} ${formateCardDate(task)}`;
 
   if (startLabels[index]) startLabels[index].textContent = "End";
 
-  if (remainingTimeElements[index])
+  durationSecondsEl[index].innerText =
+    (remainingSeconds % 60).toString().padStart(2, "0") + "s";
+
+  if (remainingTimeElements[index]) {
     remainingTimeElements[index].innerHTML = ` ${
       remainingDays
         ? remainingDays > 1
@@ -530,11 +530,8 @@ const cardTimerUI = (task, index, remainingTime) => {
           : remainingDays + "day "
         : ""
     } 
-      ${remainingHours ? (remainingHours % 24) + "h " : ""} 
-      ${(remainingMinutes % 60).toString().padStart(2, "0") + "m "} 
-       
-    <span id="duration-seconds">${
-      (remainingSeconds % 60).toString().padStart(2, "0") + "s"
-    }</span>   
+    ${remainingHours ? (remainingHours % 24) + "h " : ""} 
+    ${(remainingMinutes % 60).toString().padStart(2, "0") + "m "}   
   `;
+  }
 };

@@ -219,7 +219,10 @@ const renderAdviceInHtml = async (userInput) => {
 
       const htmlContent = converter.makeHtml(fullMarkdown);
       assistantEl.innerHTML = htmlContent;
-      chatAreaEl.scrollTop = chatAreaEl.scrollHeight;
+      //   chatAreaEl.scrollTo({
+      //   top: 0,
+      //   behavior: "smooth",
+      // });
     }
     findActiveConversation(activeConversation_Id.get()).messages.push({
       role: "assistant",
@@ -229,7 +232,6 @@ const renderAdviceInHtml = async (userInput) => {
     saveLocalStorage(conversations.get(), "all_Conversations");
 
     // **------   Delete loading div after completing response
-
     for (let i = 0; i < loadingDiv.length; i++) loadingDiv[i].remove();
   } catch (err) {
     for (let i = 0; i < loadingDiv.length; i++) loadingDiv[i].remove();
