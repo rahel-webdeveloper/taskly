@@ -10,10 +10,9 @@ import TimerRender, {
   timerPickerCompo,
 } from "./pages/timer/TimerRender.js";
 import WelcomeRender from "./pages/welcome/WelcomeRender.js";
-import TaskHubLogic from "./pages/task_hub/TaskHubLogic.js";
 import DashboardLogic from "./pages/dashboard/DashboardLogic.js";
 import WelcomeLogic from "./pages/welcome/WelcomeLogic.js";
-import TasksContainer from "./tasks/ListTasksRender.js";
+import TasksListRender from "./tasks/ListTasksRender.js";
 import { navigateTimerPages } from "./pages/timer/TimerLogic.js";
 
 export const isDashboardOpen = atom(false);
@@ -33,8 +32,11 @@ const Router = () => {
       "/": () => {
         isDashboardOpen.set(false);
         activeLink("/");
-        renderPage(TaskHubRender, TaskHubLogic);
-        if (TasksContainer.init) TasksContainer.init();
+        renderPage(TaskHubRender, null);
+        if (TaskHubRender.init) {
+          TaskHubRender.init();
+          TasksListRender.init();
+        }
       },
 
       "/ai-advisor": () => {
@@ -47,7 +49,7 @@ const Router = () => {
         isDashboardOpen.set(true);
         activeLink("/dashboard");
         renderPage(DashboardRender, DashboardLogic);
-        if (TasksContainer.init) TasksContainer.init();
+        if (TasksListRender.init) TasksListRender.init();
       },
 
       "/timer": () => {

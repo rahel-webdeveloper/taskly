@@ -18,6 +18,7 @@ import {
   dueDateTime,
   isScrolledToLeft,
   notifiedTasks,
+  renderDescription,
   setPriorityData,
   startDateTime,
   systemMessage,
@@ -27,26 +28,82 @@ import {
 } from "./store.js";
 import { addToDetailsCard } from "./TaskHubRender.js";
 
-export default async function TaskHubLogic() {
+export default function taskHubLogic() {
+  checkTime_AllDay_Switch();
+  useFlatepickr();
+  submitForm();
+  liveTrackTasks();
+  prioritySliderController();
+  sendFeedbackMain();
+}
+
+export function taskHubEls() {
   const taskHubPage = document.getElementById("task__hub-page");
+  const addTaskFormDialog = document.getElementById("add_task_form-dialog");
+  const title = document.getElementById("task-title");
+  const category = document.getElementById("category");
+  const description = document.getElementById("task-description");
+  const descriLoadDiv = document.getElementById("descr_loading");
+  const taskPriorityEl = document.querySelector(".task_priority span");
+  const priorityIcon = document.querySelector(".task_priority i");
 
-  if (taskHubPage) {
-    checkTime_AllDay_Switch();
-    useFlatepickr();
-    SubmitForm();
-    controlTasksAllOperation();
-    liveTrackTasks();
-    prioritySliderController();
-    sendFeedbackMain();
+  const prioritySliderEl = document.getElementById("priority_slider");
 
-    taskHubPage.addEventListener("click", taskHub_EventsHandler);
-  }
+  const cardsContainer = document.querySelector("#details_cards");
+  const scrollToEndIcon = document.querySelector("#scroll-end-icon i");
+  const titleErrEl = document.getElementById("title-error");
+  const cateErrEl = document.getElementById("category-error");
+  const desErrEl = document.getElementById("description-error");
+  const timeErrEl = document.getElementById("time-error");
+  const form = document.getElementById("form");
+
+  const doneTasksPercentageEl = document.getElementById("done-tasks");
+  const tasksTrackedTimeEl = document.getElementById("tasks-time");
+  const lengthTasksEl = document.getElementById("lenght-tasks");
+
+  const startLabels = document.querySelectorAll(".time-label");
+  const showTimeElements = document.querySelectorAll(".show-time-dev");
+  const remainingTimeElements = document.querySelectorAll(".duration");
+  const durationSecondsEl = document.querySelectorAll(".duration_seconds");
+
+  const toggleAllDayEl = document.getElementById("checkbox");
+  const dueTimeInput = document.getElementById("due_date-time");
+  const startTimeInput = document.getElementById("start_date-time");
+
+  return {
+    taskHubPage,
+    addTaskFormDialog,
+    title,
+    category,
+    description,
+    descriLoadDiv,
+    taskPriorityEl,
+    priorityIcon,
+    prioritySliderEl,
+    cardsContainer,
+    scrollToEndIcon,
+    form,
+    titleErrEl,
+    cateErrEl,
+    desErrEl,
+    timeErrEl,
+    doneTasksPercentageEl,
+    tasksTrackedTimeEl,
+    lengthTasksEl,
+    startLabels,
+    showTimeElements,
+    remainingTimeElements,
+    durationSecondsEl,
+    toggleAllDayEl,
+    dueTimeInput,
+    startTimeInput,
+  };
 }
 
 // --------**          Task Hub Dynamic UI Logic                 **--------//
 
 //  +______+ Task Hub Events
-const taskHub_EventsHandler = (event) => {
+export const taskHub_EventsHandler = (event) => {
   const target = event.target;
 
   if (target.closest("#des_generator_icon")) generateDescription();
@@ -64,7 +121,7 @@ const taskHub_EventsHandler = (event) => {
 //  +______+ Task Form Container Display base on screen
 
 const addTaskFormDialog_Contro = (showModal) => {
-  const addTaskFormDialog = document.getElementById("add_task_form-dialog");
+  const { addTaskFormDialog } = taskHubEls();
 
   showModal
     ? (addTaskFormDialog.style.display = "block")
@@ -74,25 +131,20 @@ const addTaskFormDialog_Contro = (showModal) => {
 //  +______+ Generate AI Description
 
 const generateDescription = async () => {
-  const titleValue = document.getElementById("task-title").value;
-  const descriTextArea = document.getElementById("task-description");
-  const descriLoadDiv = document.getElementById("descr_loading");
+  const { description: descriTextArea, descriLoadDiv, title } = taskHubEls();
 
   descriTextArea.value = "";
   descriTextArea.attributes.placeholder.value = "";
   descriLoadDiv.innerHTML = loadingDivComp();
 
   try {
-    const res = await renderDescription(titleValue);
+    const res = await renderDescription(title.value);
 
     descriLoadDiv.innerHTML = "";
-    // descriTextArea.value = response.message.content;
-
-    for await (const part of res) {
+    for await (const part of res)
       descriTextArea.value += part?.text?.replaceAll(`\n`, `<br>`);
 
-      console.log(part?.text);
-    }
+    //
   } catch (err) {
     descriLoadDiv.innerHTML = "";
 
@@ -108,34 +160,12 @@ const generateDescription = async () => {
   }
 };
 
-const renderDescription = async (title) => {
-  const reply = await puter.ai.chat(
-    [
-      systemMessage,
-      {
-        role: "user",
-        content: `Generate description base on this title (${title}), characters length must between 30 and 350!`,
-      },
-    ],
-    {
-      // model: "gpt-4o",
-      model: "grok-beta",
-      stream: true,
-    }
-  );
-
-  return reply;
-};
-
 //  +______+ Priority slider contoller
 
 const prioritySliderController = () => {
-  const taskPriorityEl = document.querySelector(".task_priority span");
-  const priorityIcon = document.querySelector(".task_priority i");
+  const { priorityIcon, taskPriorityEl, prioritySliderEl } = taskHubEls();
 
-  const prioritySliderEl = document.getElementById("priority_slider");
   const prioritySliderNumber = prioritySliderEl.value - 1;
-
   taskPriorityEl.textContent = priorityLabels[prioritySliderNumber];
 
   priorityIcon.className = "";
@@ -150,8 +180,8 @@ const prioritySliderController = () => {
 
 //  +______+ Scroll to end of cards
 const scrollToEndCard = () => {
-  const cardsContainer = document.querySelector("#details_cards");
-  const scrollToEndIcon = document.querySelector("#scroll-end-icon i");
+  const { scrollToEndIcon, cardsContainer } = taskHubEls();
+
   const targetScrollClass = scrollToEndIcon.classList;
 
   if (!isScrolledToLeft.get()) {
@@ -177,12 +207,10 @@ const scrollToEndCard = () => {
 
 // --------**          Form Logic                 **--------//
 
-function SubmitForm() {
-  const form = document.getElementById("form");
-
+function submitForm() {
+  const { form } = taskHubEls();
   // **-------      Validate form data with Change event
   form.addEventListener("change", () => validateFormData());
-
   form.addEventListener("submit", function (event) {
     event.preventDefault();
 
@@ -191,7 +219,6 @@ function SubmitForm() {
       openNotification("success", "New task created successfully!");
 
       form.reset();
-
       prioritySliderController();
     }
   });
@@ -257,13 +284,12 @@ export const useFlatepickr = () => {
 //  +______+ Validation of data
 
 const validateFormData = () => {
-  const titleErrEl = document.getElementById("title-error");
-  const cateErrEl = document.getElementById("category-error");
-  const desErrEl = document.getElementById("description-error");
+  const { titleErrEl, cateErrEl, desErrEl, title, description, category } =
+    taskHubEls();
 
-  const titleValue = document.getElementById("task-title").value;
-  const descriptionValue = document.getElementById("task-description").value;
-  const categoryValue = document.getElementById("category").value;
+  const titleValue = title.value;
+  const descriptionValue = description.value;
+  const categoryValue = category.value;
 
   if (titleValue.length < 10) {
     titleErrEl.style.opacity = "1";
@@ -324,7 +350,7 @@ const getTimeAsDate = (timeStr) => {
 };
 
 const timeValidation = () => {
-  const timeErrEl = document.getElementById("time-error");
+  const { timeErrEl } = taskHubEls();
 
   const startDateTimeValue = document.getElementById("start_date-time").value;
   const dueDateTimeValue = document.getElementById("due_date-time").value;
@@ -375,9 +401,8 @@ const timeValidation = () => {
 // --------**          Today's Report                 **--------//
 
 export const todayReport = (todayTasks) => {
-  const doneTasksPercentageEl = document.getElementById("done-tasks");
-  const tasksTrackedTimeEl = document.getElementById("tasks-time");
-  const lengthTasksEl = document.getElementById("lenght-tasks");
+  const { doneTasksPercentageEl, tasksTrackedTimeEl, lengthTasksEl } =
+    taskHubEls();
 
   const todayDoneTasks = todayTasks.filter((task) => task.state === "done");
   const todayTrackedTime = todayTasks.reduce(
@@ -385,21 +410,19 @@ export const todayReport = (todayTasks) => {
     0
   );
 
-  if (doneTasksPercentageEl)
-    doneTasksPercentageEl.innerText =
-      todayDoneTasks.length === 0
-        ? "0%"
-        : ((todayDoneTasks.length / todayTasks.length) * 100).toFixed(0) + "%";
+  doneTasksPercentageEl.innerText =
+    todayDoneTasks.length === 0
+      ? "0%"
+      : ((todayDoneTasks.length / todayTasks.length) * 100).toFixed(0) + "%";
 
-  if (lengthTasksEl) lengthTasksEl.textContent = todayTasks.length;
+  lengthTasksEl.textContent = todayTasks.length;
 
-  if (tasksTrackedTimeEl)
-    tasksTrackedTimeEl.textContent =
-      todayTasks.length === 0
-        ? "0h & 0m"
-        : `${Math.floor(todayTrackedTime / 60) + "h"} ${
-            todayTrackedTime / 60 > 0 && todayTrackedTime ? "&" : ""
-          } ${Math.floor(todayTrackedTime % 60) + "m"}`;
+  tasksTrackedTimeEl.textContent =
+    todayTasks.length === 0
+      ? "0h & 0m"
+      : `${Math.floor(todayTrackedTime / 60) + "h"} ${
+          todayTrackedTime / 60 > 0 && todayTrackedTime ? "&" : ""
+        } ${Math.floor(todayTrackedTime % 60) + "m"}`;
 };
 
 // --------**          Card logic                 **--------//
@@ -501,10 +524,12 @@ export const liveTrackTasks = () => {
 };
 
 const cardTimerUI = (task, index, remainingTime) => {
-  const startLabels = document.querySelectorAll(".time-label");
-  const showTimeElements = document.querySelectorAll(".show-time-dev");
-  const remainingTimeElements = document.querySelectorAll(".duration");
-  const durationSecondsEl = document.querySelectorAll(".duration_seconds");
+  const {
+    showTimeElements,
+    remainingTimeElements,
+    startLabels,
+    durationSecondsEl,
+  } = taskHubEls();
 
   const remainingSeconds = Math.floor(remainingTime / 1000);
   const remainingMinutes = Math.floor(remainingSeconds / 60);

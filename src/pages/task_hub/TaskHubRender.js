@@ -1,7 +1,13 @@
 import sendFeedbackComponent from "../../components/SendFeedback";
 import TodaysReportDiv from "../../components/Today'sReportDiv";
-import TasksContainer from "../../tasks/ListTasksRender";
-import { formateCardDate, returnTodayString } from "./TaskHubLogic";
+import { controlTasksAllOperation } from "../../tasks/ListTasksLogic";
+import TasksListRender from "../../tasks/ListTasksRender";
+import taskHubLogic, {
+  formateCardDate,
+  returnTodayString,
+  taskHub_EventsHandler,
+  taskHubEls,
+} from "./TaskHubLogic";
 
 // Const section main content
 export default function TaskHubRender() {
@@ -20,7 +26,7 @@ export default function TaskHubRender() {
       </div>
   </section>
   <section class="second-section"> 
-      ${TasksContainer()}
+      ${TasksListRender()}
   </section>
     <section class="third-section">
       ${TodaysReportDiv()}
@@ -30,6 +36,13 @@ export default function TaskHubRender() {
   ${sendFeedbackComponent()}
     `;
 }
+
+TaskHubRender.init = function () {
+  const { taskHubPage } = taskHubEls();
+
+  taskHubPage.addEventListener("click", taskHub_EventsHandler);
+  taskHubLogic();
+};
 
 const TaskForm = () => {
   return `

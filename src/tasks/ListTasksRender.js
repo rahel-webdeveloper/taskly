@@ -5,10 +5,10 @@ import ListTasksHeader from "../components/ListTasksHeader";
 import TaskEditBox from "../components/TaskEdit";
 import TaskStateDiv from "../components/TaskStateDiv";
 import { isDashboardOpen } from "../routes";
-import { eventsHandler } from "./ListTasksLogic";
+import { controlTasksAllOperation, eventsHandler } from "./ListTasksLogic";
 import { filterState, implementFilter, listTasks, liveTasks } from "./store";
 
-const TasksContainer = () => {
+const TasksListRender = () => {
   return `
   <div class="task-list-container" id="task-list_container">
     ${ListTasksHeader()}
@@ -24,14 +24,11 @@ const TasksContainer = () => {
 };
 
 // Initialize events after rendering Tasks container
-TasksContainer.init = function () {
+TasksListRender.init = function () {
   const listTasksContainer = document.getElementById("task-list_container");
 
-  implementFilter(
-    !isDashboardOpen.get() ? liveTasks.get() : listTasks.get(),
-    filterState.get()
-  );
   listTasksContainer.addEventListener("click", eventsHandler);
+  controlTasksAllOperation();
 };
 
 const imgUrl = new URL("/empty-box.png", import.meta.url).href;
@@ -123,4 +120,4 @@ export function updateTaskCount(totalTasks, visibleCount) {
   if (filterTaskLenght) filterTaskLenght.textContent = visibleCount;
 }
 
-export default TasksContainer;
+export default TasksListRender;

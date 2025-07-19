@@ -1,6 +1,6 @@
 import sendFeedbackComponent from "../../components/SendFeedback.js";
 import TodaysReportDiv from "../../components/Today'sReportDiv";
-import TasksContainer from "../../tasks/ListTasksRender";
+import TasksListRender from "../../tasks/ListTasksRender";
 
 const DashboardRender = () => {
   return `
@@ -73,7 +73,7 @@ const DashboardRender = () => {
 
     
        <div class="dashboard_tasks-list">
-        ${TasksContainer()}
+        ${TasksListRender()}
        </div>
       
        ${TodaysReportDiv()}

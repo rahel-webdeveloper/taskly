@@ -6,7 +6,7 @@ import {
 } from "../../data/ui-data";
 import { controlTasksAllOperation } from "../../tasks/ListTasksLogic";
 import { listTasks } from "../../tasks/store";
-import { liveTrackTasks, useFlatepickr } from "./TaskHubLogic";
+import { liveTrackTasks, taskHubEls, useFlatepickr } from "./TaskHubLogic";
 
 export const systemMessage = {
   role: "system",
@@ -36,12 +36,31 @@ export const durationMinutes = atom(0);
 
 export const notifiedTasks = new Set();
 
-export const checkTime_AllDay_Switch = () => {
-  const toggle_El_Time_AllDay = document.getElementById("checkbox");
+export const renderDescription = async (title) => {
+  const reply = await puter.ai.chat(
+    [
+      systemMessage,
+      {
+        role: "user",
+        content: `Generate description base on this title (${title}), characters length must between 30 and 350!`,
+      },
+    ],
+    {
+      // model: "gpt-4o",
+      model: "grok-beta",
+      stream: true,
+    }
+  );
 
-  toggle_El_Time_AllDay.addEventListener("click", function () {
-    document.getElementById("due_date-time").value = "";
-    document.getElementById("start_date-time").value = "";
+  return reply;
+};
+
+export const checkTime_AllDay_Switch = () => {
+  const { toggleAllDayEl, startTimeInput, dueTimeInput } = taskHubEls();
+
+  toggleAllDayEl.addEventListener("click", function () {
+    startTimeInput.value = "";
+    dueTimeInput.value = "";
 
     check_Time_AllDay.set(this.checked);
     useFlatepickr();
