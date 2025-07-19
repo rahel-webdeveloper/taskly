@@ -1,10 +1,4 @@
-import {
-  AIAdviceLogic,
-  eventsHandler,
-  onReloadAIPageContro,
-  toggleAiSideBar,
-} from "./AIAdviceLogic";
-import { converter } from "./store";
+import { AIAdviceLogic, eventsHandler, toggleAiSideBar } from "./AIAdviceLogic";
 
 const AIAdviceContainer = () => {
   return `

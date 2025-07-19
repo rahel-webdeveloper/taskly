@@ -1,7 +1,7 @@
 .ai-advice_container {
   @include grid-center;
-  width: 100%;
-  min-height: 80vh;
+  // width: 100%;
+  // min-height: 80vh;
   padding-bottom: 4rem;
 }
 
@@ -9,12 +9,15 @@
   padding: 1.5rem;
   display: grid;
   align-items: center;
+  margin: 2rem auto 3rem;
+  color: #f1f0f0;
+}
 
+.markdown-body {
   min-width: 200px;
   max-width: 980px;
-  width: 100%;
-  margin: 1.77rem auto 3rem;
-  color: #f1f0f0;
+  box-sizing: border-box;
+  margin: 0 auto;
 }
 
 .ai-welcome_message {
@@ -209,7 +212,7 @@
   top: 5.7rem;
 
   span {
-    background-color: $secondary-color-transparent-4;
+    background-color: $secondary-color-transparent-2;
     width: 2.5rem;
     height: 2.5rem;
     @include flex-center;
@@ -221,7 +224,7 @@
     transition: all 0.2s ease-in;
 
     &:hover {
-      opacity: 0.7;
+      // opacity: 0.7;
       scale: 1.05;
     }
   }
