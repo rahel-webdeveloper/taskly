@@ -1,20 +1,22 @@
 import { atom } from "nanostores";
 import { loadLocalStorage, saveLocalStorage } from "../data/localStorage.js";
 import tasks from "../data/tasks.js";
+import { liveTrackTasks } from "../pages/task_hub/TaskHubLogic.js";
+import { addToDetailsCard } from "../pages/task_hub/TaskHubRender.js";
 import {
   addStyleToFilterControls,
   addStyleToSortControls,
   controlTasksAllOperation,
 } from "./ListTasksLogic.js";
 import { addTaskToList, updateTaskCount } from "./ListTasksRender.js";
-import { addToDetailsCard } from "../pages/task_hub/TaskHubRender.js";
-import { isDashboardOpen } from "../routes.js";
-import { liveTrackTasks } from "../pages/task_hub/TaskHubLogic.js";
 
 export const listTasks = atom(loadLocalStorage("listTask") || tasks);
 export const liveTasks = atom([]);
 export const todayTasks = atom([]);
+
 export const filterState = atom("all");
+export const sortState = atom("date");
+
 export const visibleTasks = atom([]);
 export const taskToAssistant = atom(
   loadLocalStorage("task-to-assistant") || []
@@ -103,9 +105,9 @@ export const editingTask = (editBox, editInput) => {
 
 // Save edited task
 export const saveEditedTask = (editInput, editBox) => {
-  const createdAt = new Date();
+  const updatedAt = new Date();
 
-  if (editInput.value.length < 7 || editInput.length > 70) return;
+  if (editInput.value.length < 7 || editInput.length > 250) return;
 
   listTasks.set(
     listTasks.get().map((task) =>
@@ -135,12 +137,10 @@ export const implementFilter = (tasks, state) => {
     document.startViewTransition(() => {
       addTaskToList(visibleTasks.get());
       addStyleToFilterControls();
-      addToDetailsCard(liveTasks.get());
     });
   else {
     addTaskToList(visibleTasks.get());
     addStyleToFilterControls();
-    addToDetailsCard(liveTasks.get());
   }
 };
 
@@ -151,17 +151,15 @@ const getFilterTasks = (tasks, state) => {
 };
 
 export const implementSort = (tasks, state) => {
-  setLiveTasks(getSortTasks(tasks, state));
+  sortState.set(state);
+  const sortedTasks = getSortTasks(tasks, state);
 
-  implementFilter(
-    !isDashboardOpen.get() ? liveTasks.get() : listTasks.get(),
-    filterState.get()
-  );
-  updateTaskCount(tasks, visibleTasks.get().length);
+  implementFilter(sortedTasks, filterState.get());
   addStyleToSortControls();
+  liveTrackTasks();
 };
 
-export const getSortTasks = (tasks, state = "date") => {
+export const getSortTasks = (tasks, state) => {
   // Name comparator
   const sortByName = (a, b) => a.description.localeCompare(b.description);
 

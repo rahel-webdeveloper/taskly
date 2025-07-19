@@ -9,17 +9,18 @@ import {
   deletingCompleteTasks,
   deletingTask,
   editingTask,
-  selectedTaskId,
+  filterState,
+  implementFilter,
+  implementSort,
   listTasks,
   liveTasks,
-  implementFilter,
   saveEditedTask,
+  selectedTaskId,
   setLiveTasks,
   setTaskToAssitant,
-  filterState,
+  sortState,
   todayTasks,
   visibleTasks,
-  implementSort,
 } from "./store";
 
 // Events handler function
@@ -100,11 +101,13 @@ export const eventsHandler = (event) => {
 
   sortControlsOptions.forEach((option, idx) => {
     if (option.contains(target)) {
-      const stateData = idx === 0 ? "name" : "date";
+      const sortStateValue = idx === 0 ? "name" : "date";
 
-      implementSort(listTasks.get(), stateData);
+      implementSort(
+        !isDashboardOpen.get() ? liveTasks.get() : visibleTasks.get(),
+        sortStateValue
+      );
       addStyleToSortControls(idx);
-
       panelSortControls.style.display = "none";
     }
   });
@@ -158,12 +161,15 @@ export const addStyleToSortControls = (idx = 1) => {
   });
 };
 
-function filterAndSortTasks() {
+function filterAndSortFunc() {
   implementFilter(
     !isDashboardOpen.get() ? liveTasks.get() : listTasks.get(),
     filterState.get()
   );
-  implementSort(listTasks.get());
+  implementSort(
+    !isDashboardOpen.get() ? liveTasks.get() : visibleTasks.get(),
+    sortState.get()
+  );
 }
 
 function updateTaskUI() {
@@ -174,7 +180,7 @@ function updateTaskUI() {
 // updateViewOnTask
 export function controlTasksAllOperation() {
   setLiveTasks(listTasks.get());
-  filterAndSortTasks();
+  filterAndSortFunc();
   saveLocalStorage(listTasks.get(), "listTask");
   updateTaskUI();
 }

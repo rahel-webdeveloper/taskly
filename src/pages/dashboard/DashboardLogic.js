@@ -292,14 +292,14 @@ const initTrackedTimeBars = (tasks) => {
   trackedTimeEl.textContent = `${trackedTimeOnHour && trackedTime ? "" : 0} ${
     trackedTimeOnHour ? trackedTimeOnHour + "h" : ""
   } ${trackedTimeOnHour && trackedTime % 60 ? "&" : ""} ${
-    trackedTime % 60 ? (trackedTime % 60) + "m" : ""
+    trackedTime % 60 ? Math.floor(trackedTime % 60) + "m" : ""
   }`;
 
   remaingTimeEl.textContent = `${
     remainingTimeOnHour && remainingTime ? "" : 0
   } ${remainingTimeOnHour ? remainingTimeOnHour + "h" : ""} ${
     remainingTimeOnHour && remainingTime % 60 ? "&" : ""
-  } ${remainingTime % 60 ? (remainingTime % 60) + "m" : ""}`;
+  } ${remainingTime % 60 ? Math.floor(remainingTime % 60) + "m" : ""}`;
 
   new Chart(document.getElementById("tracked-time_bar"), {
     type: "bar",

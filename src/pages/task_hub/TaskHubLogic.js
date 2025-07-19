@@ -7,9 +7,9 @@ import {
 } from "../../data/ui-data.js";
 import openNotification from "../../services/toastNotifications.js";
 import { controlTasksAllOperation } from "../../tasks/ListTasksLogic.js";
-import { listTasks, liveTasks } from "../../tasks/store.js";
+import { liveTasks } from "../../tasks/store.js";
 
-import { isDashboardOpen } from "../../routes.js";
+import sendFeedbackMain from "../../services/send_feedback-logic.js";
 import { loadingDivComp } from "../ai_advice/AIAdviceRender.js";
 import {
   AddNewTask,
@@ -25,8 +25,7 @@ import {
   taskDescription,
   taskTitle,
 } from "./store.js";
-import { addToDetailsCard as addDetailsCard } from "./TaskHubRender.js";
-import sendFeedbackMain from "../../services/send_feedback-logic.js";
+import { addToDetailsCard } from "./TaskHubRender.js";
 
 export default async function TaskHubLogic() {
   const taskHubPage = document.getElementById("task__hub-page");
@@ -425,6 +424,7 @@ export function formateCardDate(task) {
     return showDate.toLocaleString("default", {
       hour: "numeric",
       minute: "2-digit",
+      second: "2-digit",
       hour12: true,
     });
   } else {
@@ -464,7 +464,7 @@ export function returnTodayString(task) {
 
 export const liveTrackTasks = () => {
   const durationInterval = setInterval(() => {
-    listTasks.get().map((task, idx) => {
+    liveTasks.get().map((task, idx) => {
       const nowTimestamp = new Date().getTime();
 
       const startTimestamp = new Date(task.startDateTime).getTime();
@@ -495,17 +495,14 @@ export const liveTrackTasks = () => {
     });
   }, 1000);
 
-  if (document.startViewTransition)
-    document.startViewTransition(() =>
-      addDetailsCard(!isDashboardOpen.get() ? liveTasks.get() : listTasks.get())
-    );
-  else
-    addDetailsCard(!isDashboardOpen.get() ? liveTasks.get() : listTasks.get());
+  document.startViewTransition
+    ? document.startViewTransition(() => addToDetailsCard(liveTasks.get()))
+    : addToDetailsCard(liveTasks.get());
 };
 
 const cardTimerUI = (task, index, remainingTime) => {
   const startLabels = document.querySelectorAll(".time-label");
-  const timeElements = document.querySelectorAll(".show-time-dev");
+  const showTimeElements = document.querySelectorAll(".show-time-dev");
   const remainingTimeElements = document.querySelectorAll(".duration");
   const durationSecondsEl = document.querySelectorAll(".duration_seconds");
 
@@ -514,8 +511,8 @@ const cardTimerUI = (task, index, remainingTime) => {
   const remainingHours = Math.floor(remainingMinutes / 60);
   const remainingDays = Math.floor(remainingHours / 24);
 
-  if (timeElements[index])
-    timeElements[index].textContent = `
+  if (showTimeElements[index])
+    showTimeElements[index].textContent = `
   ${returnTodayString(task)} ${formateCardDate(task)}`;
 
   if (startLabels[index]) startLabels[index].textContent = "End";
