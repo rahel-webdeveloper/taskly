@@ -1,4 +1,5 @@
 import sendFeedbackComponent from "../../components/SendFeedback";
+import WelcomeLogic from "./WelcomeLogic";
 
 const WelcomeRender = () => {
   return `
@@ -44,6 +45,10 @@ const WelcomeRender = () => {
 
   ${sendFeedbackComponent()}
    `;
+};
+
+WelcomeRender.init = function () {
+  WelcomeLogic();
 };
 
 export default WelcomeRender;

@@ -1,8 +1,7 @@
 import { atom } from "nanostores";
 import { loadLocalStorage, saveLocalStorage } from "../data/localStorage.js";
 import tasks from "../data/tasks.js";
-import { liveTrackTasks } from "../pages/task_hub/TaskHubLogic.js";
-import { addToDetailsCard } from "../pages/task_hub/TaskHubRender.js";
+import { liveTrackTasks } from "../pages/taskHub/TaskHubLogic.js";
 import {
   addStyleToFilterControls,
   addStyleToSortControls,
@@ -74,10 +73,6 @@ export const deletingTask = () => {
     listTasks.get().filter((task) => task.id !== selectedTaskId.get())
   );
   controlTasksAllOperation();
-
-  if (document.startViewTransition)
-    document.startViewTransition(() => addToDetailsCard(liveTasks.get()));
-  else addToDetailsCard(liveTasks.get());
 };
 
 // deleting all done tasks
@@ -121,8 +116,6 @@ export const saveEditedTask = (editInput, editBox) => {
     )
   );
   editBox.style.display = "none";
-
-  addToDetailsCard(liveTasks.get());
   controlTasksAllOperation();
 };
 

@@ -10,7 +10,7 @@ import { controlTasksAllOperation } from "../../tasks/ListTasksLogic.js";
 import { liveTasks } from "../../tasks/store.js";
 
 import sendFeedbackMain from "../../services/send_feedback-logic.js";
-import { loadingDivComp } from "../ai_advice/AIAdviceRender.js";
+import { loadingDivComp } from "../aiAdvice/AIAdviceRender.js";
 import {
   AddNewTask,
   check_Time_AllDay,

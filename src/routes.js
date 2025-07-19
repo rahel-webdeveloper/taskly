@@ -2,18 +2,16 @@ import { atom } from "nanostores";
 import Navigo from "navigo";
 import { loadLocalStorage, saveLocalStorage } from "./data/localStorage.js";
 import activeLink from "./navbar.js";
-import AIAdviceRender from "./pages/ai_advice/AIAdviceRender.js";
+import AIAdviceRender from "./pages/aiAdvice/AIAdviceRender.js";
 import DashboardRender from "./pages/dashboard/DashboardRender.js";
-import TaskHubRender from "./pages/task_hub/TaskHubRender.js";
+import TaskHubRender from "./pages/taskHub/TaskHubRender.js";
+import { navigateTimerPages } from "./pages/timer/TimerLogic.js";
 import TimerRender, {
   timerCircleCompo,
   timerPickerCompo,
 } from "./pages/timer/TimerRender.js";
 import WelcomeRender from "./pages/welcome/WelcomeRender.js";
-import DashboardLogic from "./pages/dashboard/DashboardLogic.js";
-import WelcomeLogic from "./pages/welcome/WelcomeLogic.js";
 import TasksListRender from "./tasks/ListTasksRender.js";
-import { navigateTimerPages } from "./pages/timer/TimerLogic.js";
 
 export const isDashboardOpen = atom(false);
 
@@ -32,7 +30,7 @@ const Router = () => {
       "/": () => {
         isDashboardOpen.set(false);
         activeLink("/");
-        renderPage(TaskHubRender, null);
+        renderPage(TaskHubRender);
         if (TaskHubRender.init) {
           TaskHubRender.init();
           TasksListRender.init();
@@ -41,26 +39,29 @@ const Router = () => {
 
       "/ai-advisor": () => {
         activeLink("/ai-advisor");
-        renderPage(AIAdviceRender, null);
+        renderPage(AIAdviceRender);
         if (AIAdviceRender.init) AIAdviceRender.init();
       },
 
       "/dashboard": () => {
         isDashboardOpen.set(true);
         activeLink("/dashboard");
-        renderPage(DashboardRender, DashboardLogic);
-        if (TasksListRender.init) TasksListRender.init();
+        renderPage(DashboardRender);
+        if (TasksListRender.init) {
+          DashboardRender.init();
+          TasksListRender.init();
+        }
       },
 
       "/timer": () => {
         router.navigate("/timer/picker");
-        renderPage(TimerRender, null);
+        renderPage(TimerRender);
       },
 
       "/timer/picker": () => {
         activeLink("/timer");
 
-        renderPage(TimerRender, null);
+        renderPage(TimerRender);
         navigateTimerPages(timerPickerCompo);
 
         if (TimerRender.init) TimerRender.init();
@@ -69,7 +70,7 @@ const Router = () => {
       "/timer/circle": () => {
         activeLink("/timer");
 
-        renderPage(TimerRender, null);
+        renderPage(TimerRender);
         navigateTimerPages(timerCircleCompo);
 
         if (TimerRender.init) TimerRender.init();
@@ -77,7 +78,9 @@ const Router = () => {
 
       "/welcome": () => {
         activeLink("/welcome");
-        renderPage(WelcomeRender, WelcomeLogic);
+        renderPage(WelcomeRender);
+
+        if (WelcomeRender.init) WelcomeRender.init();
 
         isWelcomePageSeen.set(true);
         saveLocalStorage(isWelcomePageSeen.get(), "is_welcome_seen");
@@ -97,15 +100,10 @@ const Router = () => {
   return { router };
 };
 
-function renderPage(component, logic) {
+function renderPage(component) {
   const mainContent = document.getElementById("main_content");
 
-  if (document.startViewTransition) {
-    mainContent.innerHTML = component();
-    if (logic) logic();
-  } else {
-    mainContent.innerHTML = component();
-  }
+  mainContent.innerHTML = component();
 }
 
 export default Router;

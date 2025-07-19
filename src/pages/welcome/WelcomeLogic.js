@@ -1,7 +1,7 @@
 import SendSuggestionMain from "../../services/send_feedback-logic";
 import openNotification from "../../services/toastNotifications";
 
-const WelcomeLogic = () => {
+export const WelcomeLogic = () => {
   const welcomeContainerEl = document.querySelector(".welcome-page");
 
   if (welcomeContainerEl)
