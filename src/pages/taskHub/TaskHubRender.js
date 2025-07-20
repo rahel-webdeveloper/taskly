@@ -4,6 +4,7 @@ import { controlTasksAllOperation } from "../../tasks/ListTasksLogic";
 import TasksListRender from "../../tasks/ListTasksRender";
 import taskHubLogic, {
   formateCardDate,
+  formateDuration,
   returnTodayString,
   taskHub_EventsHandler,
   taskHubEls,
@@ -148,12 +149,12 @@ const TaskForm = () => {
 export function addToDetailsCard(liveTasks) {
   const parentCardEl = document.getElementById("details_cards");
 
-  if (parentCardEl) {
-    parentCardEl.innerHTML = "";
+  // if (parentCardEl) {
+  parentCardEl.innerHTML = "";
 
-    if (liveTasks.length !== 0) {
-      liveTasks.forEach((task) => {
-        parentCardEl.innerHTML += `
+  if (liveTasks.length !== 0) {
+    liveTasks.forEach((task) => {
+      parentCardEl.innerHTML += `
 
     <div class="details-card" style = "background-color: ${
       task.priority.color
@@ -181,39 +182,31 @@ export function addToDetailsCard(liveTasks) {
     </div>
     <div class="task-duration">
       <span id="duration-seconds" class="duration_seconds">
-         00
+         00s
       </span>
       <p>duration</p>
       <h3 id="duration" class="duration">
-        ${
-          Math.floor(task.durationMinutes / 60 / 24) > 1
-            ? Math.floor(task.durationMinutes / 60 / 24) + "days"
-            : Math.floor(task.durationMinutes / 60 / 24) + "day"
-        }
-        ${Math.floor((task.durationMinutes / 60) % 24) || 0}h
-
-        ${Math.floor(task.durationMinutes % 60)
-          .toString()
-          .padStart(2, "0")}m
+        ${formateDuration(task.durationMinutes).days}
+        ${formateDuration(task.durationMinutes).hours}
+        ${formateDuration(task.durationMinutes).minutes}
       </h3>
     </div>
   </div>
  </div>
   `;
-        // Card container Grid style
-        parentCardEl.style.gridTemplateColumns = `repeat(${
-          liveTasks.length + 1
-        }, 1fr)`;
-      });
-    } else {
-      parentCardEl.innerHTML = sampleOfCard();
+      // Card container Grid style
+      parentCardEl.style.gridTemplateColumns = `repeat(${
+        liveTasks.length + 1
+      }, 1fr)`;
+    });
+  } else {
+    parentCardEl.innerHTML = sampleOfCard();
 
-      // Style base on overflow
-      const emptyCard = document.querySelector(".empty-card");
-      liveTasks.length === 0
-        ? (emptyCard.style.margin = ".5rem")
-        : (emptyCard.style.margin = "0rem");
-    }
+    // Style base on overflow
+    const emptyCard = document.querySelector(".empty-card");
+    liveTasks.length === 0
+      ? (emptyCard.style.margin = ".5rem")
+      : (emptyCard.style.margin = "0rem");
   }
 }
 

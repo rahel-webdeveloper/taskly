@@ -34,9 +34,9 @@ export const dueDateTime = atom(0);
 
 export const durationMinutes = atom(0);
 
-export const notifiedTasks = new Set();
+export const notifiedTasksId = new Set();
 
-export const renderDescription = async (title) => {
+export const generateDescription = async (title) => {
   const reply = await puter.ai.chat(
     [
       systemMessage,

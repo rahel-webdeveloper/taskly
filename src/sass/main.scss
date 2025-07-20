@@ -50,7 +50,6 @@ body {
   font-family: $karla-font;
   background-color: $primary-color;
   color: $first-text;
-  min-height: 100vh;
   position: relative;
   background-repeat: no-repeat, no-repeat;
   background-position: top right, bottom left;
@@ -181,10 +180,6 @@ body {
   .app-container {
     padding-bottom: 0rem;
     position: relative;
-  }
-
-  .navbar_top_area {
-    position: fixed;
   }
 
   .navbar-menu {
@@ -363,7 +358,7 @@ body {
   }
 
   .ai-advice_container {
-    min-height: 90vh;
+    place-self: center;
 
     .sidebar-tggle__new-chat {
       left: 22%;

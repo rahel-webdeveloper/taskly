@@ -1,8 +1,7 @@
 .ai-advice_container {
   @include grid-center;
-  // width: 100%;
-  // min-height: 80vh;
   padding-bottom: 4rem;
+  min-height: 75vh;
 }
 
 #chat_area {
@@ -21,7 +20,7 @@
 }
 
 .ai-welcome_message {
-  // margin: auto;
+  margin: 0 auto;
   @include grid-center;
   text-align: center;
   font-family: $karla-font;

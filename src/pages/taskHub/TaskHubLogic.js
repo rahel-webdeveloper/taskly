@@ -6,7 +6,6 @@ import {
   priorityLabels,
 } from "../../data/ui-data.js";
 import openNotification from "../../services/toastNotifications.js";
-import { controlTasksAllOperation } from "../../tasks/ListTasksLogic.js";
 import { liveTasks } from "../../tasks/store.js";
 
 import sendFeedbackMain from "../../services/send_feedback-logic.js";
@@ -16,12 +15,11 @@ import {
   check_Time_AllDay,
   checkTime_AllDay_Switch,
   dueDateTime,
+  generateDescription,
   isScrolledToLeft,
-  notifiedTasks,
-  renderDescription,
+  notifiedTasksId,
   setPriorityData,
   startDateTime,
-  systemMessage,
   taskCategory,
   taskDescription,
   taskTitle,
@@ -39,6 +37,7 @@ export default function taskHubLogic() {
 
 export function taskHubEls() {
   const taskHubPage = document.getElementById("task__hub-page");
+
   const addTaskFormDialog = document.getElementById("add_task_form-dialog");
   const title = document.getElementById("task-title");
   const category = document.getElementById("category");
@@ -46,7 +45,6 @@ export function taskHubEls() {
   const descriLoadDiv = document.getElementById("descr_loading");
   const taskPriorityEl = document.querySelector(".task_priority span");
   const priorityIcon = document.querySelector(".task_priority i");
-
   const prioritySliderEl = document.getElementById("priority_slider");
 
   const cardsContainer = document.querySelector("#details_cards");
@@ -106,7 +104,7 @@ export function taskHubEls() {
 export const taskHub_EventsHandler = (event) => {
   const target = event.target;
 
-  if (target.closest("#des_generator_icon")) generateDescription();
+  if (target.closest("#des_generator_icon")) renderDescription();
 
   if (target.closest("#add-task-icon i")) addTaskFormDialog_Contro(true);
 
@@ -130,7 +128,7 @@ const addTaskFormDialog_Contro = (showModal) => {
 
 //  +______+ Generate AI Description
 
-const generateDescription = async () => {
+const renderDescription = async () => {
   const { description: descriTextArea, descriLoadDiv, title } = taskHubEls();
 
   descriTextArea.value = "";
@@ -138,16 +136,14 @@ const generateDescription = async () => {
   descriLoadDiv.innerHTML = loadingDivComp();
 
   try {
-    const res = await renderDescription(title.value);
+    const res = await generateDescription(title.value);
 
     descriLoadDiv.innerHTML = "";
     for await (const part of res)
       descriTextArea.value += part?.text?.replaceAll(`\n`, `<br>`);
-
     //
   } catch (err) {
     descriLoadDiv.innerHTML = "";
-
     descriTextArea.value += `
         ${
           err.message === "puter is not defined"
@@ -170,8 +166,8 @@ const prioritySliderController = () => {
 
   priorityIcon.className = "";
   priorityIcon.classList.add(priorityIcons[prioritySliderNumber]);
-  priorityIcon.style.color = `${priorityColors[prioritySliderNumber]}`;
 
+  priorityIcon.style.color = `${priorityColors[prioritySliderNumber]}`;
   setPriorityData(prioritySliderNumber);
 
   // Call every time the slider changes
@@ -181,7 +177,6 @@ const prioritySliderController = () => {
 //  +______+ Scroll to end of cards
 const scrollToEndCard = () => {
   const { scrollToEndIcon, cardsContainer } = taskHubEls();
-
   const targetScrollClass = scrollToEndIcon.classList;
 
   if (!isScrolledToLeft.get()) {
@@ -191,7 +186,6 @@ const scrollToEndCard = () => {
     });
 
     targetScrollClass.add("bi-align-start");
-
     isScrolledToLeft.set(true);
   } else {
     cardsContainer.scrollTo({
@@ -200,7 +194,6 @@ const scrollToEndCard = () => {
     });
 
     targetScrollClass.remove("bi-align-start");
-
     isScrolledToLeft.set(false);
   }
 };
@@ -209,17 +202,17 @@ const scrollToEndCard = () => {
 
 function submitForm() {
   const { form } = taskHubEls();
-  // **-------      Validate form data with Change event
+  // **-------     alidate form data with evenry change change
   form.addEventListener("change", () => validateFormData());
   form.addEventListener("submit", function (event) {
     event.preventDefault();
 
     if (validateFormData()) {
       AddNewTask();
-      openNotification("success", "New task created successfully!");
-
       form.reset();
+
       prioritySliderController();
+      openNotification("success", "New task created successfully!");
     }
   });
 }
@@ -365,7 +358,7 @@ const timeValidation = () => {
     check_Time_AllDay.get() ? dueDateTimeValue : getTimeAsDate(dueDateTimeValue)
   ).getTime();
 
-  const now = new Date().getTime();
+  const nowTimestamp = new Date().getTime();
 
   if (!startDateTimeValue || !dueDateTimeValue) {
     timeErrEl.style.opacity = 1;
@@ -373,7 +366,7 @@ const timeValidation = () => {
     timeErrEl.textContent = "Please enter valid time!";
 
     return false;
-  } else if (startDateTime < now || dueDateTimeValue < now) {
+  } else if (startDateTime < nowTimestamp || dueDateTimeValue < nowTimestamp) {
     timeErrEl.style.opacity = "1";
 
     timeErrEl.textContent = "Start and due time should be greather than now!";
@@ -410,7 +403,7 @@ export const todayReport = (todayTasks) => {
     0
   );
 
-  doneTasksPercentageEl.innerText =
+  doneTasksPercentageEl.textContent =
     todayDoneTasks.length === 0
       ? "0%"
       : ((todayDoneTasks.length / todayTasks.length) * 100).toFixed(0) + "%";
@@ -428,22 +421,23 @@ export const todayReport = (todayTasks) => {
 // --------**          Card logic                 **--------//
 
 export function formateCardDate(task) {
-  const now = new Date().getTime();
-  const startTimestamp = new Date(task.startDateTime).getTime();
+  const { nowTimestamp, startTimestamp } = timeStamps(task);
 
-  let showDate, isToday;
+  let showDate, isToday, isTomorrow;
 
   // If task has not started yet, show start time
-  if (now < startTimestamp) {
+  if (nowTimestamp < startTimestamp) {
     showDate = new Date(task.startDateTime);
     isToday = isDateToday(showDate);
+    isTomorrow = isDateTomorrow(showDate);
   } else {
     // If task has started, show due time
     showDate = new Date(task.dueDateTime);
     isToday = isDateToday(showDate);
+    isTomorrow = isDateTomorrow(showDate);
   }
 
-  if (isToday) {
+  if (isToday || isTomorrow) {
     return showDate.toLocaleString("default", {
       hour: "numeric",
       minute: "2-digit",
@@ -471,49 +465,88 @@ export function isDateToday(date) {
   );
 }
 
+export function isDateTomorrow(date) {
+  const now = new Date();
+  return (
+    date.getFullYear() === now.getFullYear() &&
+    date.getMonth() === now.getMonth() &&
+    date.getDate() === now.getDate() + 1
+  );
+}
+
 export function returnTodayString(task) {
-  const now = new Date().getTime();
-  const startTimestamp = new Date(task.startDateTime).getTime();
+  const { nowTimestamp, startTimestamp } = timeStamps(task);
 
   let showDate;
-  if (now < startTimestamp) {
-    showDate = new Date(task.startDateTime);
-  } else {
-    showDate = new Date(task.dueDateTime);
-  }
 
-  return isDateToday(showDate) ? "Today " : "";
+  nowTimestamp < startTimestamp
+    ? (showDate = new Date(task.startDateTime))
+    : (showDate = new Date(task.dueDateTime));
+
+  return isDateToday(showDate)
+    ? "Today "
+    : isDateTomorrow(showDate)
+    ? "Tomorrow "
+    : "";
 }
+
+export const timeStamps = (task) => {
+  const nowTimestamp = new Date().getTime();
+
+  const startTimestamp = new Date(task.startDateTime).getTime();
+  const dueTimestamp = new Date(task.dueDateTime).getTime();
+
+  return { nowTimestamp, startTimestamp, dueTimestamp };
+};
+
+export function formateDuration(duration) {
+  const days =
+    Math.floor(duration / 60 / 24) > 1
+      ? Math.floor(duration / 60 / 24) + "days"
+      : Math.floor(duration / 60 / 24) + "day";
+
+  const hours = (Math.floor((duration / 60) % 24) || 0) + "h";
+
+  const minutes =
+    Math.floor(duration % 60)
+      .toString()
+      .padStart(2, "0") + "m";
+
+  const seconds =
+    Math.floor((duration * 60) % 60)
+      .toString()
+      .padStart(2, "0") + "s";
+
+  return { days, hours, minutes, seconds };
+}
+
+const isTaskStartedFunc = (task) => {
+  const { nowTimestamp, startTimestamp, dueTimestamp } = timeStamps(task);
+
+  if (dueTimestamp > nowTimestamp) {
+    if (nowTimestamp >= startTimestamp && !notifiedTasksId.has(task.id)) {
+      openNotification(
+        "info",
+        `Your (${task.description.slice(0, 12)}...) task is started!`
+      );
+      notifiedTasksId.add(task.id);
+    }
+    if (nowTimestamp > startTimestamp) return true;
+    else return false;
+  }
+};
 
 export const liveTrackTasks = () => {
   const durationInterval = setInterval(() => {
     liveTasks.get().map((task, idx) => {
-      const nowTimestamp = new Date().getTime();
-
-      const startTimestamp = new Date(task.startDateTime).getTime();
-      const dueTimestamp = new Date(task.dueDateTime).getTime();
-
       liveTasks.get().length === 0 && clearInterval(durationInterval);
 
-      if (dueTimestamp > nowTimestamp) {
-        // Give notification when the task is started
-        if (
-          Math.floor(nowTimestamp / 10000) >=
-            Math.floor(startTimestamp / 10000) &&
-          !notifiedTasks.has(task.id)
-        ) {
-          openNotification(
-            "info",
-            `Your (${task.description.slice(0, 12)}...) task is started!`
-          );
+      const { nowTimestamp, dueTimestamp } = timeStamps(task);
+      const isTaskStarted = isTaskStartedFunc(task);
 
-          notifiedTasks.add(task.id);
-        }
-        if (nowTimestamp > startTimestamp) {
-          const remainingTime = dueTimestamp - nowTimestamp;
-
-          cardTimerUI(task, idx, remainingTime);
-        }
+      if (isTaskStarted) {
+        const remainingTime = dueTimestamp - nowTimestamp;
+        cardTimerUI(task, idx, remainingTime);
       }
     });
   }, 1000);
@@ -531,10 +564,8 @@ const cardTimerUI = (task, index, remainingTime) => {
     durationSecondsEl,
   } = taskHubEls();
 
-  const remainingSeconds = Math.floor(remainingTime / 1000);
-  const remainingMinutes = Math.floor(remainingSeconds / 60);
-  const remainingHours = Math.floor(remainingMinutes / 60);
-  const remainingDays = Math.floor(remainingHours / 24);
+  const remainingMinutes = remainingTime / 1000 / 60;
+  const { days, hours, minutes, seconds } = formateDuration(remainingMinutes);
 
   if (showTimeElements[index])
     showTimeElements[index].textContent = `
@@ -542,20 +573,9 @@ const cardTimerUI = (task, index, remainingTime) => {
 
   if (startLabels[index]) startLabels[index].textContent = "End";
 
-  if (durationSecondsEl[index])
-    durationSecondsEl[index].textContent =
-      (remainingSeconds % 60).toString().padStart(2, "0") + "s";
+  if (durationSecondsEl[index]) durationSecondsEl[index].textContent = seconds;
 
   if (remainingTimeElements[index]) {
-    remainingTimeElements[index].innerHTML = ` ${
-      remainingDays
-        ? remainingDays > 1
-          ? remainingDays + "days "
-          : remainingDays + "day "
-        : ""
-    } 
-    ${remainingHours ? (remainingHours % 24) + "h " : ""} 
-    ${(remainingMinutes % 60).toString().padStart(2, "0") + "m "}   
-  `;
+    remainingTimeElements[index].innerHTML = `${days} ${hours} ${minutes}`;
   }
 };
