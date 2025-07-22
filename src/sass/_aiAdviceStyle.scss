@@ -15,8 +15,8 @@
 .markdown-body {
   min-width: 200px;
   max-width: 980px;
-  box-sizing: border-box;
   margin: 0 auto;
+  box-sizing: border-box;
 
   pre {
     white-space: pre-wrap;
@@ -74,16 +74,20 @@
 }
 
 #chat_area {
+  min-width: 200px;
+  max-width: 980px;
+  margin: 0 auto;
+
   .user {
     padding: 0.7rem 1rem;
     background-color: $secondary-color-transparent-4;
     place-self: end;
     border-radius: 1.45rem 1.45rem 0.187rem;
-    max-width: 77%;
+    max-width: 70%;
     margin-block: 1.5rem 0.7rem;
-    height: auto;
     display: inline;
     word-wrap: break-word;
+    word-break: break-all;
     color: $first-text;
   }
 }
@@ -95,7 +99,9 @@
   bottom: 6.25rem;
   background-color: $secondary-color;
   padding-inline: 1rem 0.2rem;
-  border-radius: 1.5rem;
+  border-radius: 1.8rem;
+  min-height: 3rem;
+  padding-block: 0 0.15rem;
   @include flex-space;
   gap: 1rem;
   transition: all 0.167s ease-in-out;
@@ -132,6 +138,8 @@
     background-color: $primary-color;
     padding: 0.6rem 0.7rem;
     border-radius: 2rem;
+    align-self: flex-end;
+    margin-bottom: 0.1rem;
 
     gap: 0.5rem;
     font-size: 1.25rem;

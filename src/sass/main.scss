@@ -442,6 +442,25 @@ body {
     }
   }
 
+  .timer-container {
+    padding: 0;
+  }
+
+  #timer-cancel,
+  #timer-pause,
+  #timer-resume {
+    position: absolute;
+    top: 50%;
+  }
+
+  #timer-cancel {
+    left: 10%;
+  }
+  #timer-pause,
+  #timer-resume {
+    right: 10%;
+  }
+
   .copyRight {
     margin-bottom: 1rem;
   }

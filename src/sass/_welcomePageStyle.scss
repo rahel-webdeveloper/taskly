@@ -99,11 +99,10 @@
   gap: 1.7rem;
   flex-direction: column;
 
-  button {
+  #how-works_btn,
+  #get_started_btn {
     padding: 0.7rem 1.7rem;
     border-radius: 0.7rem;
-    background-color: $sky-blue-color;
-    // box-shadow: 0 0 7px -4.5px $sky-blue-color;
     font-family: inherit;
     font-weight: 600;
     cursor: pointer;
@@ -111,24 +110,27 @@
     @include flex-center;
     gap: 0.7rem;
 
-    &:hover {
-      background-color: transparent;
-      color: $first-text;
-      border: 1px solid $light-goldenrod-color;
-    }
-
     i {
       font-size: 1rem;
     }
   }
 
-  #get_started_btn {
-    background-color: $light-goldenrod-color;
-    border: 1px solid;
+  #how-works_btn {
+    background-color: $sky-blue-color;
 
     &:hover {
       background-color: transparent;
-      border-color: $sky-blue-color;
+      color: $first-text;
+      border: 1px solid $light-goldenrod-color;
+    }
+  }
+
+  #get_started_btn {
+    background-color: $light-goldenrod-color;
+
+    &:hover {
+      background-color: transparent;
+      border: 1px solid $sky-blue-color;
       color: $first-text;
     }
   }
