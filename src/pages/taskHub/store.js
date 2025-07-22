@@ -112,6 +112,7 @@ export function AddNewTask() {
       state: "on-hold",
       isCompleted: false,
       createdAt: createdAt.toISOString(),
+      updatedAt: createdAt.toISOString(),
     },
     ...listTasks.get(),
   ]);

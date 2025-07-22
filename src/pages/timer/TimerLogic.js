@@ -87,7 +87,6 @@ function populateInfinitePicker(pickerId, range) {
 
     item.classList.add("picker-item");
     item.textContent = value;
-
     pickerItems.appendChild(item);
   });
 

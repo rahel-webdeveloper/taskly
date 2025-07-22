@@ -20,9 +20,9 @@ import getAdvice, {
 
 export const AIAdviceLogic = () => {
   getUserInputController();
-  renderConversationList();
-
   onReloadAIPageContro();
+
+  renderConversationList();
 };
 
 // ***------------   AI Page Dynamic UI
@@ -333,10 +333,31 @@ export const renderConversationList = () => {
   if (conversations.get().length === 0)
     conversationListEl.innerHTML = `<h5 align="center">No Conversation Exist! <br> Time to start new conversation</h5>`;
 
-  conversations.get().forEach((conve) => {
-    conversationListEl.innerHTML += conveListCompo(conve);
+  conversations.get().forEach((conversation) => {
+    conversationListEl.innerHTML += conveListCompo(conversation);
   });
 };
+
+export function renderMessageInList(conversation) {
+  const userMessage = `${
+    conversation.messages.length === 1
+      ? "No message sended!"
+      : conversation.messages[1].role === "user"
+      ? conversation.messages[1].content.slice(0, 35)
+      : ""
+  }`;
+
+  const assistantMessage = `${
+    conversation.messages.length === 1
+      ? conversation.title
+      : conversation.messages[2] &&
+        conversation.messages[2].role === "assistant"
+      ? conversation.messages[2].content.slice(0, 85)
+      : "Not answared this question"
+  }`;
+
+  return { userMessage, assistantMessage };
+}
 
 const renderWelcomeMessage = (show_Welcome) => {
   const chatAreaEl = document.getElementById("chat_area");

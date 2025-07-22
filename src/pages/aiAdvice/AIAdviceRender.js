@@ -1,4 +1,9 @@
-import { AIAdviceLogic, eventsHandler, toggleAiSideBar } from "./AIAdviceLogic";
+import {
+  AIAdviceLogic,
+  eventsHandler,
+  renderMessageInList,
+  toggleAiSideBar,
+} from "./AIAdviceLogic";
 
 const AIAdviceContainer = () => {
   return `
@@ -21,7 +26,7 @@ AIAdviceContainer.init = function () {
   aiAdviceCotainer?.removeEventListener("click", eventsHandler);
   aiAdviceCotainer?.addEventListener("click", eventsHandler);
 
-  window.addEventListener("resize", () => toggleAiSideBar(false));
+  // window.addEventListener("resize", () => toggleAiSideBar(false));
 
   AIAdviceLogic();
 };
@@ -57,18 +62,8 @@ export const conveListCompo = (conve) => {
   <li class="conversation" data-id="${conve.id}" view-transition-name="conve-${
     conve.id
   }">
-    <h4 data-id="${conve.id}">${
-    conve.messages.length === 1
-      ? "No message sended!"
-      : conve.messages[1].role === "user"
-      ? conve.messages[1].content.slice(0, 35)
-      : ""
-  }</h4>
-    <p data-id="${conve.id}">${
-    conve.messages.length === 1
-      ? conve.title
-      : conve.messages[2].content.slice(0, 85)
-  }</p>
+    <h4 data-id="${conve.id}">${renderMessageInList(conve).userMessage}</h4>
+    <p data-id="${conve.id}">${renderMessageInList(conve).assistantMessage}</p>
     <span data-id="${conve.id}">
       <i class="bi bi-clock"></i>${new Date(conve.createdAt).toLocaleString()}
     </span>

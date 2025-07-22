@@ -17,6 +17,22 @@
   max-width: 980px;
   box-sizing: border-box;
   margin: 0 auto;
+
+  pre {
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-x: auto;
+    box-sizing: border-box;
+  }
+}
+
+.github-markdown {
+  pre {
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-x: auto;
+    box-sizing: border-box;
+  }
 }
 
 .ai-welcome_message {
