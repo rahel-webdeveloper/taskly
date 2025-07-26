@@ -9,7 +9,7 @@ import openNotification from "../../services/toastNotifications.js";
 import { liveTasks } from "../../tasks/store.js";
 
 import sendFeedbackMain from "../../services/send_feedback-logic.js";
-import { loadingDivComp } from "../aiAdvice/AIAdviceRender.js";
+import loadingDivComp from "../../components/Loading.js";
 import {
   AddNewTask,
   check_Time_AllDay,
@@ -42,7 +42,7 @@ export function taskHubEls() {
   const title = document.getElementById("task-title");
   const category = document.getElementById("category");
   const description = document.getElementById("task-description");
-  const descriLoadDiv = document.getElementById("descr_loading");
+  const descriLoadDiv = document.getElementById("generating-des_loading-div");
   const taskPriorityEl = document.querySelector(".task_priority span");
   const priorityIcon = document.querySelector(".task_priority i");
   const prioritySliderEl = document.getElementById("priority_slider");

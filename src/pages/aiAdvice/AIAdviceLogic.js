@@ -1,10 +1,9 @@
 import {
   chatErrorCompo,
   conveListCompo,
-  loadingDivComp,
   welcomeMessageCompo,
 } from "./AIAdviceRender";
-
+import loadingDivComp from "../../components/Loading.js";
 import "highlight.js/styles/atom-one-dark.css";
 
 import { deleteLocalStorage, saveLocalStorage } from "../../data/localStorage";

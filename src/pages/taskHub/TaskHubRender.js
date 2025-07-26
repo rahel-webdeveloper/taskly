@@ -81,7 +81,7 @@ const TaskForm = () => {
       <label for="task-description" id="description-label">Description</label>
       <textarea id="task-description" name="description" rows="7" min="30" max="470"
         placeholder="Write your task description or let Taskly to generate for you." required></textarea>
-        <div id="descr_loading">
+        <div id="generating-des_loading-div">
         
         </div>
         <i class="ri-lightbulb-flash-fill" id="des_generator_icon" title="Generate description"></i>

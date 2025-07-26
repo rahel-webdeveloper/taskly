@@ -68,6 +68,7 @@ body {
   width: 100%;
   border-radius: 0.5rem;
   padding-bottom: 1rem;
+  min-height: 90vh;
 }
 
 @media screen and (width >= 470px) {
@@ -477,4 +478,13 @@ body {
 
 .opacity {
   opacity: 1;
+}
+
+fade-out {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+fade-in {
+  opacity: 1;
+  transition: opacity 0.3s ease;
 }

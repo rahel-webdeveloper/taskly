@@ -1,20 +1,18 @@
 import { atom } from "nanostores";
 import Navigo from "navigo";
+import loadingDivComp from "./components/Loading.js";
 import { loadLocalStorage, saveLocalStorage } from "./data/localStorage.js";
 import activeLink from "./navbar.js";
 import AIAdviceRender from "./pages/aiAdvice/AIAdviceRender.js";
 import DashboardRender from "./pages/dashboard/DashboardRender.js";
 import TaskHubRender from "./pages/taskHub/TaskHubRender.js";
 import { navigateTimerPages } from "./pages/timer/TimerLogic.js";
-import TimerRender, {
-  timerCircleCompo,
-  timerPickerCompo,
-} from "./pages/timer/TimerRender.js";
+import TimerRender from "./pages/timer/TimerRender.js";
 import WelcomeRender from "./pages/welcome/WelcomeRender.js";
 import TasksListRender from "./tasks/ListTasksRender.js";
 
 export const isDashboardOpen = atom(false);
-
+const currentRoute = atom(null);
 const isWelcomePageSeen = atom(loadLocalStorage("is_welcome_seen") || false);
 
 const mainContentEl = document.getElementById("main_content");
@@ -27,63 +25,38 @@ export const router = new Navigo("/", {
 const Router = () => {
   router
     .on({
+      "/welcome": () => {
+        activeLink("/welcome");
+        renderPage(WelcomeRender, { data: null });
+
+        isWelcomePageSeen.set(true);
+        saveLocalStorage(isWelcomePageSeen.get(), "is_welcome_seen");
+      },
+
       "/": () => {
         isDashboardOpen.set(false);
         activeLink("/");
-        renderPage(TaskHubRender);
-        if (TaskHubRender.init) {
-          TaskHubRender.init();
-          TasksListRender.init();
-        }
+        renderPage(TaskHubRender, TasksListRender);
       },
 
       "/ai-advisor": () => {
         activeLink("/ai-advisor");
-        renderPage(AIAdviceRender);
-        if (AIAdviceRender.init) AIAdviceRender.init();
+        renderPage(AIAdviceRender, { data: null });
       },
 
       "/dashboard": () => {
         isDashboardOpen.set(true);
         activeLink("/dashboard");
-        renderPage(DashboardRender);
-        if (TasksListRender.init) {
-          DashboardRender.init();
-          TasksListRender.init();
-        }
+        renderPage(DashboardRender, TasksListRender);
       },
 
-      "/timer": () => {
-        router.navigate("/timer/picker");
-        renderPage(TimerRender);
-      },
+      "/timer": () => router.navigate("/timer/picker"),
 
-      "/timer/picker": () => {
+      // Dynamic Route for timer
+      "/timer/:mode?": ({ data }) => {
         activeLink("/timer");
-
-        renderPage(TimerRender);
-        navigateTimerPages(timerPickerCompo);
-
-        if (TimerRender.init) TimerRender.init();
-      },
-
-      "/timer/circle": () => {
-        activeLink("/timer");
-
-        renderPage(TimerRender);
-        navigateTimerPages(timerCircleCompo);
-
-        if (TimerRender.init) TimerRender.init();
-      },
-
-      "/welcome": () => {
-        activeLink("/welcome");
-        renderPage(WelcomeRender);
-
-        if (WelcomeRender.init) WelcomeRender.init();
-
-        isWelcomePageSeen.set(true);
-        saveLocalStorage(isWelcomePageSeen.get(), "is_welcome_seen");
+        data.route = "dynamic";
+        renderPage(TimerRender, data);
       },
     })
 
@@ -97,13 +70,42 @@ const Router = () => {
 
   if (!isWelcomePageSeen.get()) router.navigate("/welcome");
 
+  // window.addEventListener("hashchange", () => router.resolve());
+
   return { router };
 };
 
-function renderPage(component) {
-  const mainContent = document.getElementById("main_content");
+router.hooks({
+  before(done, match) {
+    mainContentEl.innerHTML = loadingDivComp();
 
-  mainContent.innerHTML = component();
+    currentRoute.set(match.url);
+
+    done();
+  },
+  after(match) {
+    // console.log(match.url);
+  },
+});
+
+function renderPage(component, additionalInit) {
+  mainContentEl.innerHTML = component();
+
+  if (additionalInit.route === "dynamic") renderDynamicPages(additionalInit);
+
+  component?.init();
+  if (additionalInit.init) additionalInit?.init();
 }
+
+const renderDynamicPages = (data) => {
+  if (isRouteInTimer()) navigateTimerPages(data.mode);
+
+  // else other dyanamic routing
+};
+
+const isRouteInTimer = () =>
+  currentRoute.get() === "timer/picker" || currentRoute.get() === "timer/circle"
+    ? true
+    : false;
 
 export default Router;
