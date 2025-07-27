@@ -70,8 +70,6 @@ const Router = () => {
 
   if (!isWelcomePageSeen.get()) router.navigate("/welcome");
 
-  // window.addEventListener("hashchange", () => router.resolve());
-
   return { router };
 };
 
@@ -83,8 +81,17 @@ router.hooks({
 
     done();
   },
+
   after(match) {
-    // console.log(match.url);
+    // console.log(match);
+  },
+
+  leave(done, match) {
+    mainContentEl.innerHTML = loadingDivComp();
+
+    document.startViewTransition
+      ? document.startViewTransition(() => done())
+      : done();
   },
 });
 
@@ -104,8 +111,6 @@ const renderDynamicPages = (data) => {
 };
 
 const isRouteInTimer = () =>
-  currentRoute.get() === "timer/picker" || currentRoute.get() === "timer/circle"
-    ? true
-    : false;
+  currentRoute.get().slice(0, 5) === "timer" ? true : false;
 
 export default Router;

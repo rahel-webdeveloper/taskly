@@ -171,7 +171,7 @@
   margin-top: 0.7rem;
 }
 
-.think-div {
+.loading-div {
   @include grid-center;
   place-self: center;
   color: $first-text;
@@ -305,8 +305,21 @@
         row-gap: 0.25rem;
         transition: all 0.3s ease-in-out;
         margin-top: 0.3rem;
+        @include flex-space;
 
-        &:hover {
+        #convers_delete-icon {
+          font-size: 1rem;
+          color: $first-text;
+
+          &:hover {
+            scale: 1.03;
+            opacity: 0.7;
+          }
+        }
+
+        div:hover {
+          transition: all 0.3s ease-in-out;
+
           opacity: 0.7;
           scale: 1.03;
         }

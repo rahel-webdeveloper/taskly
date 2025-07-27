@@ -62,11 +62,17 @@ export const conveListCompo = (conve) => {
   <li class="conversation" data-id="${conve.id}" view-transition-name="conve-${
     conve.id
   }">
+    <div>
     <h4 data-id="${conve.id}">${renderMessageInList(conve).userMessage}</h4>
     <p data-id="${conve.id}">${renderMessageInList(conve).assistantMessage}</p>
     <span data-id="${conve.id}">
       <i class="bi bi-clock"></i>${new Date(conve.createdAt).toLocaleString()}
     </span>
+    </div>
+
+    <span>
+    <i class="bi bi-trash3-fill" id="convers_delete-icon" data-id="${conve.id}">
+     </i></span>
   </li>`;
 };
 

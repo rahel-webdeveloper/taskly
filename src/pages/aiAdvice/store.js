@@ -11,7 +11,11 @@ import html from "highlight.js/lib/languages/xml";
 
 import { atom } from "nanostores";
 import Showdown from "showdown";
-import { loadLocalStorage } from "../../data/localStorage";
+import { loadLocalStorage, saveLocalStorage } from "../../data/localStorage";
+import {
+  controAllConversaOperation,
+  renderConversationList,
+} from "./AIAdviceLogic";
 
 export const converter = new Showdown.Converter({
   tables: true,
@@ -95,9 +99,15 @@ export const getAdvice = async (historyMessages) => {
   return reply;
 };
 
-export function findActiveCoversation(id) {
+export function findActiveConversation(id) {
   return conversations.get().find((conve) => conve.id === id);
 }
+
+export const deleteConversation = (id) => {
+  conversations.set(conversations.get().filter((conve) => conve.id !== id));
+
+  controAllConversaOperation();
+};
 
 export const highlightCode = () => {
   hljs.registerLanguage("javascript", javascript);

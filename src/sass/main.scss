@@ -69,6 +69,19 @@ body {
   border-radius: 0.5rem;
   padding-bottom: 1rem;
   min-height: 90vh;
+
+  .loading-div {
+    border: none;
+
+    .loader {
+      width: 80px;
+
+      .ball {
+        width: 12px;
+        height: 12px;
+      }
+    }
+  }
 }
 
 @media screen and (width >= 470px) {

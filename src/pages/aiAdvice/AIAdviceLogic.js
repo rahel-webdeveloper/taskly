@@ -12,7 +12,8 @@ import getAdvice, {
   activeConversation_Id,
   conversations,
   converter,
-  findActiveCoversation as findActiveConversation,
+  deleteConversation,
+  findActiveConversation,
   highlightCode,
   systemMsg,
 } from "./store";
@@ -47,7 +48,7 @@ export const eventsHandler = (event) => {
 
   if (target.closest("#new_chat")) createNewConve();
 
-  if (target.closest(".conversation")) {
+  if (target.closest(".conversation div")) {
     activeConversation_Id.set(target.getAttribute("data-id"));
     toggleAiSideBar(false);
 
@@ -59,6 +60,9 @@ export const eventsHandler = (event) => {
 
     addStyleToActiveConve(activeConversation_Id.get());
   }
+
+  if (target.closest("#convers_delete-icon"))
+    deleteConversation(target.getAttribute("data-id"));
 };
 
 export const toggleAiSideBar = (show = false) => {
@@ -179,6 +183,8 @@ const sendPrompt = (getAdviceBtn, userInputEl) => {
 const renderAdviceInHtml = async (userInput) => {
   const chatAreaEl = document.getElementById("chat_area");
 
+  if (!findActiveConversation(activeConversation_Id.get())) createNewConve();
+
   if (findActiveConversation(activeConversation_Id.get()).messages.length === 1)
     renderWelcomeMessage(false);
 
@@ -197,7 +203,7 @@ const renderAdviceInHtml = async (userInput) => {
   chatAreaEl.innerHTML += loadingDivComp();
   chatAreaEl.appendChild(assistantEl);
 
-  const loadingDiv = document.querySelectorAll(".think-div");
+  const loadingDiv = document.querySelectorAll(".loading-div");
 
   let fullMarkdown = "";
 
@@ -218,10 +224,10 @@ const renderAdviceInHtml = async (userInput) => {
 
       const htmlContent = converter.makeHtml(fullMarkdown);
       assistantEl.innerHTML = htmlContent;
-      //   chatAreaEl.scrollTo({
-      //   top: 0,
-      //   behavior: "smooth",
-      // });
+      chatAreaEl.scrollTo({
+        top: chatAreaEl.scrollHeight,
+        behavior: "smooth",
+      });
     }
     findActiveConversation(activeConversation_Id.get()).messages.push({
       role: "assistant",
@@ -254,12 +260,15 @@ const addStyleToActiveConve = (id) => {
   });
 };
 
-const renderActiveConve_Messages = (id) => {
+export const renderActiveConve_Messages = (id) => {
   const chatAreaEl = document.getElementById("chat_area");
 
   chatAreaEl.innerHTML = "";
 
-  if (findActiveConversation(id).messages.length === 1)
+  if (
+    !findActiveConversation(id) ||
+    findActiveConversation(id).messages.length === 1
+  )
     renderWelcomeMessage(true);
 
   findActiveConversation(id).messages.forEach((message) => {
@@ -317,6 +326,8 @@ const createNewConve = () => {
     ...conversations.get(),
   ]);
 
+  activeConversation_Id.set(Id);
+
   saveLocalStorage(conversations.get(), "all_Conversations");
 
   document.startViewTransition
@@ -358,7 +369,7 @@ export function renderMessageInList(conversation) {
   return { userMessage, assistantMessage };
 }
 
-const renderWelcomeMessage = (show_Welcome) => {
+export const renderWelcomeMessage = (show_Welcome) => {
   const chatAreaEl = document.getElementById("chat_area");
   const welcomeMessage = document.querySelector(".ai-welcome_message");
 
@@ -366,3 +377,17 @@ const renderWelcomeMessage = (show_Welcome) => {
     ? (chatAreaEl.innerHTML = welcomeMessageCompo())
     : welcomeMessage.remove();
 };
+
+export function controAllConversaOperation() {
+  saveLocalStorage(conversations.get(), "all_Conversations");
+
+  if (document.startViewTransition) {
+    document.startViewTransition(() => {
+      renderConversationList();
+      renderActiveConve_Messages(activeConversation_Id.get());
+    });
+  } else {
+    renderConversationList();
+    renderActiveConve_Messages(activeConversation_Id.get());
+  }
+}
