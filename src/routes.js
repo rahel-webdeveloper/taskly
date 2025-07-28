@@ -10,6 +10,7 @@ import { navigateTimerPages } from "./pages/timer/TimerLogic.js";
 import TimerRender from "./pages/timer/TimerRender.js";
 import WelcomeRender from "./pages/welcome/WelcomeRender.js";
 import TasksListRender from "./tasks/tasksRender.js";
+import { SignInRender, SignUpRender } from "./pages/auth/authRender.js";
 
 export const isDashboardOpen = atom(false);
 const currentRoute = atom(null);
@@ -31,6 +32,18 @@ const Router = () => {
 
         isWelcomePageSeen.set(true);
         saveLocalStorage(isWelcomePageSeen.get(), "is_welcome_seen");
+      },
+
+      "/sign-up": () => {
+        activeLink("");
+
+        renderPage(SignUpRender, { data: null });
+      },
+
+      "/sign-in": () => {
+        activeLink("");
+
+        renderPage(SignInRender, { data: null });
       },
 
       "/": () => {
@@ -98,7 +111,7 @@ function renderPage(component, additionalInit) {
 
   if (additionalInit.route === "dynamic") renderDynamicPages(additionalInit);
 
-  component?.init();
+  if (component.init) component?.init();
   if (additionalInit.init) additionalInit?.init();
 }
 

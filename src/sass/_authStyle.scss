@@ -1,0 +1,132 @@
+.auth {
+  transition: all 0.4s ease;
+  width: 100%;
+  padding-block: 2rem 1rem;
+
+  @media (min-width: 768px) {
+    padding: 2rem;
+  }
+
+  &__container {
+    @include grid-center;
+    gap: 2rem;
+    width: 100%;
+
+    @media (min-width: 768px) {
+      grid-template-columns: 1fr 1.5fr;
+      width: 90%;
+      margin-left: auto;
+    }
+  }
+
+  &__image {
+    flex: 1;
+    text-align: center;
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 1rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+      &:hover {
+        transform: scale(1.02);
+      }
+    }
+  }
+
+  &__form {
+    flex: 1;
+    max-width: 400px;
+    width: 100%;
+    background: $secondary-color;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.05);
+    transition: background 0.3s ease;
+
+    @media (min-width: 768px) {
+      max-width: 550px;
+    }
+
+    h2 {
+      margin-bottom: 1.5rem;
+      font-size: 1.75rem;
+      color: $second-text;
+      text-align: center;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+
+        label {
+          font-weight: 500;
+          margin-bottom: 0.5rem;
+        }
+
+        input {
+          background-color: $primary-color;
+          padding: 0.75rem;
+          border: 1px solid $border-color-transparent-2;
+          border-radius: 0.5rem;
+          transition: border 0.3s ease;
+          color: $first-text;
+
+          &:focus {
+            border-color: rgba($color: $sky-blue-color, $alpha: 0.5);
+            outline: none;
+          }
+        }
+
+        .error-msg {
+          font-size: 0.8rem;
+          color: $coral-red-color;
+          margin-top: 0.25rem;
+          opacity: 0;
+          transform: translateY(-4px);
+          transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        input:invalid:focus + .error-msg {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      button {
+        padding: 0.75rem;
+        background-color: $sky-blue-color;
+        color: white;
+        font-weight: 600;
+        border: none;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: darken($sky-blue-color, 10%);
+        }
+      }
+    }
+
+    .auth__toggle {
+      margin-top: 1rem;
+      text-align: center;
+      font-size: 0.9rem;
+      a {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s;
+        &:hover {
+          color: #0056b3;
+        }
+      }
+    }
+  }
+}
