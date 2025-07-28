@@ -6,7 +6,7 @@ import {
 import loadingDivComp from "../../components/Loading.js";
 import "highlight.js/styles/atom-one-dark.css";
 
-import { deleteLocalStorage, saveLocalStorage } from "../../data/localStorage";
+import { removeLocalStorage, saveLocalStorage } from "../../data/localStorage";
 import { taskToAssistant } from "../../tasks/store";
 import getAdvice, {
   activeConversation_Id,
@@ -164,7 +164,7 @@ const sendPrompt = (getAdviceBtn, userInputEl) => {
 
   if (userInputEl.value.trim() === "") return;
 
-  deleteLocalStorage("task-to-assistant");
+  removeLocalStorage("task-to-assistant");
 
   const isWindowLarge = window.innerWidth >= 1024;
 

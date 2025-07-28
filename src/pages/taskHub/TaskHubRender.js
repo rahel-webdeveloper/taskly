@@ -1,7 +1,7 @@
 import sendFeedbackComponent from "../../components/SendFeedback";
 import TodaysReportDiv from "../../components/Today'sReportDiv";
-import { controlTasksAllOperation } from "../../tasks/ListTasksLogic";
-import TasksListRender from "../../tasks/ListTasksRender";
+import { controlTasksAllOperation } from "../../tasks/tasksLogic";
+import TasksListRender from "../../tasks/tasksRender";
 import taskHubLogic, {
   formateCardDate,
   formateDuration,

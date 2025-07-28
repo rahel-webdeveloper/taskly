@@ -5,8 +5,8 @@ import ListTasksHeader from "../components/ListTasksHeader";
 import TaskEditBox from "../components/TaskEdit";
 import TaskStateDiv from "../components/TaskStateDiv";
 import { isDashboardOpen } from "../routes";
-import { controlTasksAllOperation, eventsHandler } from "./ListTasksLogic";
-import { filterState, implementFilter, listTasks, liveTasks } from "./store";
+import { controlTasksAllOperation, eventsHandler } from "./tasksLogic";
+import { filterState, implementFilter, allTasks, liveTasks } from "./store";
 
 const TasksListRender = () => {
   return `
@@ -25,9 +25,9 @@ const TasksListRender = () => {
 
 // Initialize events after rendering Tasks container
 TasksListRender.init = function () {
-  const listTasksContainer = document.getElementById("task-list_container");
+  const tasksContainer = document.getElementById("task-list_container");
 
-  listTasksContainer.addEventListener("click", eventsHandler);
+  tasksContainer.addEventListener("click", eventsHandler);
   controlTasksAllOperation();
 };
 

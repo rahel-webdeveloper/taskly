@@ -6,6 +6,6 @@ export function loadLocalStorage(key) {
   return JSON.parse(localStorage.getItem(key));
 }
 
-export function deleteLocalStorage(key) {
+export function removeLocalStorage(key) {
   localStorage.removeItem(key);
 }

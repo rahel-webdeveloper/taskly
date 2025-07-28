@@ -1,6 +1,6 @@
 import sendFeedbackComponent from "../../components/SendFeedback.js";
 import TodaysReportDiv from "../../components/Today'sReportDiv";
-import TasksListRender from "../../tasks/ListTasksRender";
+import TasksListRender from "../../tasks/tasksRender.js";
 import DashboardLogic from "./DashboardLogic.js";
 
 const DashboardRender = () => {

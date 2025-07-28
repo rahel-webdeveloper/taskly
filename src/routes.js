@@ -9,7 +9,7 @@ import TaskHubRender from "./pages/taskHub/TaskHubRender.js";
 import { navigateTimerPages } from "./pages/timer/TimerLogic.js";
 import TimerRender from "./pages/timer/TimerRender.js";
 import WelcomeRender from "./pages/welcome/WelcomeRender.js";
-import TasksListRender from "./tasks/ListTasksRender.js";
+import TasksListRender from "./tasks/tasksRender.js";
 
 export const isDashboardOpen = atom(false);
 const currentRoute = atom(null);
@@ -87,8 +87,6 @@ router.hooks({
   },
 
   leave(done, match) {
-    mainContentEl.innerHTML = loadingDivComp();
-
     document.startViewTransition
       ? document.startViewTransition(() => done())
       : done();

@@ -3,7 +3,7 @@ import { saveLocalStorage } from "../data/localStorage";
 import { todayReport } from "../pages/taskHub/TaskHubLogic";
 import { isDashboardOpen } from "../routes";
 import openNotification from "../services/toastNotifications";
-import { updateTaskCount } from "./ListTasksRender";
+import { updateTaskCount } from "./tasksRender";
 import {
   completingTask,
   deletingCompleteTasks,
@@ -12,7 +12,7 @@ import {
   filterState,
   implementFilter,
   implementSort,
-  listTasks,
+  allTasks,
   liveTasks,
   saveEditedTask,
   selectedTaskId,
@@ -28,8 +28,10 @@ export const eventsHandler = (event) => {
   const panelFilter = document.getElementById("panel_filter");
   const panelSort = document.getElementById("panel_sort");
 
-  const panelFilterControls = document.getElementById("panel__filter_controls");
-  const filterControlsOptions = document.querySelectorAll(
+  const panelFilterControlls = document.getElementById(
+    "panel__filter_controls"
+  );
+  const filterControllsOptions = document.querySelectorAll(
     "#panel_filter .option"
   );
 
@@ -77,25 +79,26 @@ export const eventsHandler = (event) => {
 
   // Show filter panel
   if (target.closest(".panel--filter"))
-    panelFilterControls.style.display = "grid";
+    panelFilterControlls.style.display = "grid";
 
   // Show sort panel
   if (target.closest(".panel--sort")) panelSortControls.style.display = "grid";
 
   // Hide filter panel and sort panel because of out event
-  if (!panelFilter.contains(target)) panelFilterControls.style.display = "none";
+  if (!panelFilter.contains(target))
+    panelFilterControlls.style.display = "none";
 
   if (!panelSort.contains(target)) panelSortControls.style.display = "none";
 
-  filterControlsOptions.forEach((option) => {
+  filterControllsOptions.forEach((option) => {
     if (option.contains(target)) {
       implementFilter(
-        !isDashboardOpen.get() ? liveTasks.get() : listTasks.get(),
+        !isDashboardOpen.get() ? liveTasks.get() : allTasks.get(),
         option.dataset.value
       );
       addStyleToFilterControls();
 
-      panelFilterControls.style.display = "none";
+      panelFilterControlls.style.display = "none";
     }
   });
 
@@ -118,7 +121,7 @@ export const eventsHandler = (event) => {
       "ask_delete_tasks-dialog"
     );
 
-    if (target.closest(".all-delete-btn") && listTasks.get().length !== 0)
+    if (target.closest(".all-delete-btn") && allTasks.get().length !== 0)
       askDeleteTasksDialog.showModal();
 
     if (target.closest("#no")) {
@@ -163,7 +166,7 @@ export const addStyleToSortControls = (idx = 1) => {
 
 function filterAndSortFunc() {
   implementFilter(
-    !isDashboardOpen.get() ? liveTasks.get() : listTasks.get(),
+    !isDashboardOpen.get() ? liveTasks.get() : allTasks.get(),
     filterState.get()
   );
   implementSort(
@@ -173,14 +176,14 @@ function filterAndSortFunc() {
 }
 
 function updateTaskUI() {
-  updateTaskCount(listTasks.get(), visibleTasks.get().length);
+  updateTaskCount(allTasks.get(), visibleTasks.get().length);
   todayReport(todayTasks.get());
 }
 
 // updateViewOnTask
 export function controlTasksAllOperation() {
-  setLiveTasks(listTasks.get());
+  setLiveTasks(allTasks.get());
   filterAndSortFunc();
-  saveLocalStorage(listTasks.get(), "listTask");
+  saveLocalStorage(allTasks.get(), "listTask");
   updateTaskUI();
 }

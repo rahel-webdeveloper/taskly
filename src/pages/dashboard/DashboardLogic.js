@@ -1,10 +1,9 @@
 import { Chart } from "chart.js/auto";
-import { listTasks, setTodayTasks, todayTasks } from "../../tasks/store";
-import { todayReport } from "../taskHub/TaskHubLogic.js";
 import sendFeedbackMain from "../../services/send_feedback-logic.js";
+import { allTasks } from "../../tasks/store";
 
 export const DashboardLogic = () => {
-  const tasks = listTasks.get();
+  const tasks = allTasks.get();
 
   initCategoryBars(tasks);
   initSevenDaysLine(tasks);

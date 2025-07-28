@@ -1,15 +1,14 @@
 import { atom } from "nanostores";
 import { loadLocalStorage, saveLocalStorage } from "../data/localStorage.js";
-import tasks from "../data/tasks.js";
 import { liveTrackTasks } from "../pages/taskHub/TaskHubLogic.js";
 import {
   addStyleToFilterControls,
   addStyleToSortControls,
   controlTasksAllOperation,
-} from "./ListTasksLogic.js";
-import { addTaskToList, updateTaskCount } from "./ListTasksRender.js";
+} from "./tasksLogic.js";
+import { addTaskToList, updateTaskCount } from "./tasksRender.js";
 
-export const listTasks = atom(loadLocalStorage("listTask") || tasks);
+export const allTasks = atom(loadLocalStorage("listTask"));
 export const liveTasks = atom([]);
 export const todayTasks = atom([]);
 
@@ -39,7 +38,7 @@ export const setLiveTasks = (tasks) => {
   );
 
   liveTasks.set(filterLiveTasks);
-  setTodayTasks(listTasks.get());
+  setTodayTasks(allTasks.get());
 };
 
 // set today task
@@ -55,8 +54,8 @@ export const setTodayTasks = (tasks) => {
 
 // completing a task
 export const completingTask = () => {
-  listTasks.set(
-    listTasks
+  allTasks.set(
+    allTasks
       .get()
       .map((task) =>
         String(task.id) === selectedTaskId.get()
@@ -69,20 +68,20 @@ export const completingTask = () => {
 
 // deleting a task
 export const deletingTask = () => {
-  listTasks.set(
-    listTasks.get().filter((task) => task.id !== selectedTaskId.get())
+  allTasks.set(
+    allTasks.get().filter((task) => task.id !== selectedTaskId.get())
   );
   controlTasksAllOperation();
 };
 
 // deleting all done tasks
 export const deletingCompleteTasks = () => {
-  listTasks.set(listTasks.get().filter((task) => task.state !== STATE.DONE));
+  allTasks.set(allTasks.get().filter((task) => task.state !== STATE.DONE));
   controlTasksAllOperation();
 };
 
 export const setTaskToAssitant = (Id) => {
-  const selectedTask = listTasks.get().filter((task) => task.id === Id);
+  const selectedTask = allTasks.get().filter((task) => task.id === Id);
 
   taskToAssistant.set(selectedTask);
   saveLocalStorage(taskToAssistant.get(), "task-to-assistant");
@@ -90,7 +89,7 @@ export const setTaskToAssitant = (Id) => {
 
 // editing a task
 export const editingTask = (editBox, editInput) => {
-  const findTask = listTasks
+  const findTask = allTasks
     .get()
     .find((task) => task.id === selectedTaskId.get());
 
@@ -104,8 +103,8 @@ export const saveEditedTask = (editInput, editBox) => {
 
   if (editInput.value.length < 7 || editInput.length > 250) return;
 
-  listTasks.set(
-    listTasks.get().map((task) =>
+  allTasks.set(
+    allTasks.get().map((task) =>
       task.id === selectedTaskId.get()
         ? {
             ...task,
@@ -164,3 +163,15 @@ export const getSortTasks = (tasks, state) => {
     ? tasks.sort(sortByName)
     : tasks.sort(sortByDate).reverse();
 };
+
+// async function getA() {
+//   try {
+//     const res = await axios.get(
+//       "https://taskly-backend-rtg8.onrender.com/api/v1/tasks" // use valid route
+//     );
+//     console.log(res.data);
+//   } catch (e) {
+//     console.log("Error:", e.message);
+//   }
+// }
+// getA();

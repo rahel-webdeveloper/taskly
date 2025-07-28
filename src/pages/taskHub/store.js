@@ -4,8 +4,8 @@ import {
   priorityIcons,
   priorityLabels,
 } from "../../data/ui-data";
-import { controlTasksAllOperation } from "../../tasks/ListTasksLogic";
-import { listTasks } from "../../tasks/store";
+import { controlTasksAllOperation } from "../../tasks/tasksLogic";
+import { allTasks } from "../../tasks/store";
 import { liveTrackTasks, taskHubEls, useFlatepickr } from "./TaskHubLogic";
 
 export const systemMessage = {
@@ -94,9 +94,9 @@ export function AddNewTask() {
   );
 
   // Structure of task data
-  listTasks.set([
+  allTasks.set([
     {
-      id: String(listTasks.get().length + 1),
+      id: String(allTasks.get().length + 1),
       title: taskTitle.get(),
       description: taskDescription.get(),
       category: taskCategory.get(),
@@ -114,7 +114,7 @@ export function AddNewTask() {
       createdAt: createdAt.toISOString(),
       updatedAt: createdAt.toISOString(),
     },
-    ...listTasks.get(),
+    ...allTasks.get(),
   ]);
 
   controlTasksAllOperation();
