@@ -10,6 +10,7 @@
   backdrop-filter: blur(9px);
   border: 1px solid $border-color-transparent-2;
   @include flex-space;
+  height: 3.27rem;
 }
 
 .name__logo-div {

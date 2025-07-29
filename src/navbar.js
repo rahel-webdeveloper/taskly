@@ -1,3 +1,4 @@
+import Profile from "./components/Profile";
 import SidebarMenu from "./components/SidebarMenu";
 import SignInBtn from "./components/SignInBtn";
 import openNotification from "./services/toastNotifications";
@@ -14,12 +15,12 @@ const activeLink = (attribute = "/") => {
   });
 };
 
-export const renderSidebar = (protect) => {
+export const renderSidebar = (isLogged) => {
   const sidebarMenuContainer = document.getElementById("sidebar_menu");
 
   sidebarMenuContainer.innerHTML = "";
 
-  if (protect) {
+  if (isLogged) {
     sidebarMenuContainer.style.display = "block";
     document.startViewTransition
       ? document.startViewTransition(
@@ -37,10 +38,14 @@ renderSidebar(true);
 export const renderProfile = (isLogged) => {
   const navbarRight = document.querySelector(".navbar-right");
 
-  navbarRight.innerHTML = SignInBtn();
+  if (isLogged) {
+    navbarRight.innerHTML = Profile({ data: null });
+  } else {
+    navbarRight.innerHTML = SignInBtn();
+  }
 };
 
-renderProfile(true);
+renderProfile();
 
 const singInBtn = document.querySelector(".sign-in-btn");
 
