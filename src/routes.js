@@ -4,7 +4,6 @@ import loadingDivComp from "./components/Loading.js";
 import { loadLocalStorage, saveLocalStorage } from "./data/localStorage.js";
 import activeLink from "./navbar.js";
 import AIAdviceRender from "./pages/aiAdvice/AIAdviceRender.js";
-import AuthRender from "./pages/auth/authRender.js";
 import { navigateAuthPages } from "./pages/auth/store.js";
 import DashboardRender from "./pages/dashboard/DashboardRender.js";
 import TaskHubRender from "./pages/taskHub/TaskHubRender.js";
@@ -12,6 +11,7 @@ import { navigateTimerPages } from "./pages/timer/store.js";
 import TimerRender from "./pages/timer/TimerRender.js";
 import WelcomeRender from "./pages/welcome/WelcomeRender.js";
 import renderTasksList from "./tasks/tasksRender.js";
+import AuthRender from "./pages/auth/AuthRender.js";
 
 const currentRoute = atom(null);
 const isWelcomePageSeen = atom(loadLocalStorage("is_welcome_seen") || false);

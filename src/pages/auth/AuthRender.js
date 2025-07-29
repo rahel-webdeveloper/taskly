@@ -1,6 +1,6 @@
 import AuthLogic from "./AuthLogic";
 
-const AuthRender = (page) => {
+const AuthRender = () => {
   return `
   <section class="auth ">
       
@@ -12,11 +12,13 @@ AuthRender.init = function () {
   AuthLogic();
 };
 
+const imgUrl = new URL("/Taskly-logo.webp", import.meta.url).href;
+
 export const SignUpRender = () => {
   return `
      <div class="auth__container">
       <div class="auth__image">
-        <img src="/public/Taskly-logo.webp" alt="Sign Up" />
+        <img src="${imgUrl}" alt="Sign Up" />
         <h1>Taskly</h1>
       </div>
       <div class="auth__form">
@@ -48,7 +50,7 @@ export const SignInRender = () => {
   return `
   <div class="auth__container">
     <div class="auth__image">
-      <img src="/public/Taskly-logo.webp" alt="Sign Up" />
+      <img src="${imgUrl}" alt="Sign Up" />
         <h1>Taskly</h1>
     </div>
     <div class="auth__form">
