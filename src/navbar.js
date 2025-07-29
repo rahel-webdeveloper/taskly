@@ -1,7 +1,8 @@
-import Profile from "./components/Profile";
-import SidebarMenu from "./components/SidebarMenu";
-import SignInBtn from "./components/SignInBtn";
-import openNotification from "./services/toastNotifications";
+import { atom } from "nanostores";
+import { userId } from "./pages/auth/store";
+import APIClient from "./services/api-client";
+
+export const userData = atom(null);
 
 const activeLink = (attribute = "/") => {
   const links = document.querySelectorAll(".sidebar-links a");
@@ -15,37 +16,44 @@ const activeLink = (attribute = "/") => {
   });
 };
 
-export const renderSidebar = (isLogged) => {
+export const showSidebar = (isLogged = false) => {
   const sidebarMenuContainer = document.getElementById("sidebar_menu");
 
-  sidebarMenuContainer.innerHTML = "";
-
   if (isLogged) {
-    sidebarMenuContainer.style.display = "block";
-    document.startViewTransition
-      ? document.startViewTransition(
-          () => (sidebarMenuContainer.innerHTML = SidebarMenu())
-        )
-      : (sidebarMenuContainer.innerHTML = SidebarMenu());
+    sidebarMenuContainer.style.display = "flex";
   } else {
-    sidebarMenuContainer.innerHTML = "";
     sidebarMenuContainer.style.display = "none";
   }
 };
 
-renderSidebar(true);
-
-export const renderProfile = (isLogged) => {
-  const navbarRight = document.querySelector(".navbar-right");
+export const showProfile = (isLogged = false) => {
+  const profile = document.querySelector(".profile");
+  const profilePictue = document.querySelector(".profile span p");
+  const authBtn = document.querySelector("#auth-btn");
 
   if (isLogged) {
-    navbarRight.innerHTML = Profile({ data: null });
+    profile.style.display = "flex";
+    authBtn.style.display = "none";
+
+    profilePictue.textContent = userData.get().name.slice(0, 1);
   } else {
-    navbarRight.innerHTML = SignInBtn();
+    profile.style.display = "none";
+    authBtn.style.display = "block";
   }
 };
 
-renderProfile();
+const apiClient = new APIClient("users");
+
+apiClient
+  .getUserById(userId.get())
+  .then((res) => {
+    if (res.success) {
+      userData.set(res.data);
+      showSidebar(true);
+      showProfile(true);
+    }
+  })
+  .catch((err) => console.log(err));
 
 const singInBtn = document.querySelector(".sign-in-btn");
 

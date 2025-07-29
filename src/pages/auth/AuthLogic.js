@@ -1,4 +1,3 @@
-import { useTasks } from "../../hooks/useTasks.js";
 import { router } from "../../routes.js";
 import APIClient, { token } from "../../services/api-client.js";
 
@@ -23,7 +22,7 @@ const AuthLogic = () => {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("userId", res.data.user._id);
 
-        useTasks.getUserTasks(res.data.user._id);
+        // useTasks.getUserTasks(res.data.user._id);
       })
       .catch((err) => console.log(err));
   });

@@ -20,7 +20,7 @@ export const SignUpRender = () => {
       </div>
       <div class="auth__form">
         <h2>Create Your Account</h2>
-        <form >
+        <form>
           <div class="form-group">
             <label for="name">Full Name</label>
             <input type="text" id="name" name="name" required>

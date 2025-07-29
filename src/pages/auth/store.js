@@ -2,7 +2,6 @@ import { atom } from "nanostores";
 import { SignInRender, SignUpRender } from "./authRender";
 
 export const userId = atom("688769627fb1de373de97cbb" || null);
-export const userData = atom(null);
 
 export const navigateAuthPages = (route) => {
   const authContainer = document.querySelector(".auth");

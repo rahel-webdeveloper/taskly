@@ -100,8 +100,14 @@ class APIClient {
   };
 
   // ---------- USERS
+  getUsers = async () => {
+    const res = await axiosInstance.get(`/${this.endpoint}`);
+
+    return res.data;
+  };
+
   getUserById = async (userId) => {
-    const res = await axiosInstance.post(`/${this.endpoint}/${userId}`);
+    const res = await axiosInstance.get(`/${this.endpoint}/${userId}`);
 
     return res.data;
   };

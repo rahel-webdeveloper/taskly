@@ -28,12 +28,48 @@
           </a>
         </div>
         <div class="navbar-right">
+          <!-- Sing In Button  -->
+          <a href="/auth/sign-in" id="auth-btn" data-navigo>
+            <button class="sign-in-btn">
+              Sign In <i class="bi bi-arrow-right-circle"></i>
+            </button>
+          </a>
 
+          <!-- When signed the profile -->
+          <div class="profile"><span id="name">
+              <p></p>
+            </span></div>
         </div>
       </div>
     </nav>
 
-    <div class="sidebar-menu" id="sidebar_menu"> </div>
+    <div class="sidebar-menu" id="sidebar_menu">
+      <ul class="sidebar-links">
+        <li>
+          <a href="/" data-navigo>
+            <i class="bi bi-snow"></i> <span>Task Hub</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="/ai-advisor" id="ai_advice-link" data-navigo>
+            <i class="bi bi-stars"></i> <span>AI Advisor</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="/dashboard" data-navigo>
+            <i class="bi bi-pie-chart-fill"></i> <span>Dashboard</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="/timer" data-navigo>
+            <i class="bi bi-stopwatch-fill"></i> <span>Timer</span>
+          </a>
+        </li>
+      </ul>
+    </div>
 
     <div class="main-content" id="main_content"> </div>
   </div>

@@ -8,7 +8,7 @@ import {
 } from "./tasksLogic.js";
 import { renderTasks, updateTaskCount } from "./tasksRender.js";
 import { userId } from "../pages/auth/store.js";
-import { useTasks } from "../hooks/useTasks.js";
+import APIClient from "../services/api-client.js";
 
 export const tasks = atom(loadLocalStorage("listTask"));
 export const liveTasks = atom([]);
@@ -25,7 +25,12 @@ export const selectedTaskId = atom(null);
 
 const STATE = { IN_PROGRESS: "in-progress", DONE: "done", ON_HOLD: "on-hold" };
 
-useTasks.getUserTasks(userId.get());
+const apiClient = new APIClient("tasks");
+
+apiClient
+  .getTasks(userId.get())
+  .then((res) => console.log(res.data))
+  .catch((err) => console.log(err));
 
 function getNextState(current) {
   if (current === STATE.DONE) return STATE.ON_HOLD;

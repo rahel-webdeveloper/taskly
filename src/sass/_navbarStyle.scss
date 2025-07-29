@@ -91,6 +91,7 @@
   @include flex-space;
   background-color: $primary-color-transparent-2;
   z-index: 1;
+  display: none;
 }
 
 .sidebar-links {
