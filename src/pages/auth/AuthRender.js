@@ -16,7 +16,8 @@ export const SignUpRender = () => {
   return `
      <div class="auth__container">
       <div class="auth__image">
-        <img src="/path/to/signup-image.jpg" alt="Sign Up" />
+        <img src="/public/Taskly-logo.webp" alt="Sign Up" />
+        <h1>Taskly</h1>
       </div>
       <div class="auth__form">
         <h2>Create Your Account</h2>
@@ -36,11 +37,6 @@ export const SignUpRender = () => {
             <input type="password" id="password" name="password" required>
             <span class="error-msg">Minimum 6 characters</span>
           </div>
-          <div class="form-group">
-            <label for="confirm-password">Confirm Password</label>
-            <input type="password" id="confirm-password" name="confirm-password" required>
-            <span class="error-msg">Passwords must match</span>
-          </div>
           <button type="submit">Sign Up</button>
         </form>
         <p class="auth__toggle">Already have an account? <a href="/auth/sign-in" id="singin-link" data-navigo>Sign In</a></p>
@@ -52,7 +48,8 @@ export const SignInRender = () => {
   return `
   <div class="auth__container">
     <div class="auth__image">
-      <img src="/path/to/signin-image.jpg" alt="Sign In" />
+      <img src="/public/Taskly-logo.webp" alt="Sign Up" />
+        <h1>Taskly</h1>
     </div>
     <div class="auth__form">
       <h2>Welcome Back</h2>

@@ -1,25 +1,21 @@
 .navbar {
-  z-index: 2;
-}
-.navbar_top_area {
   @include fixed-position;
   top: 2.7rem;
-  border-radius: 2rem;
   width: 95%;
-  padding: 0.45rem 1rem;
-  backdrop-filter: blur(9px);
-  border: 1px solid $border-color-transparent-2;
   @include flex-space;
-  height: 3.27rem;
+  z-index: 3;
+  background-color: transparent;
 }
 
 .name__logo-div {
-  @include flex-center;
-  gap: 0.5rem;
   margin-left: 0.7rem;
   transition: all 0.3s ease-in;
-  position: relative;
-  z-index: 0;
+  border-radius: 2rem;
+  padding: 0 1.2rem;
+  backdrop-filter: blur(9px);
+  border: 1px solid $border-color-transparent-2;
+  @include flex-center;
+  height: 2.8rem;
 
   &::after {
     position: absolute;
@@ -42,15 +38,16 @@
 
 .sign-in-btn {
   background-color: $dark-blue-color-transparent-2;
-  padding: 0.59rem 1.27rem;
-  font-family: inherit;
+  padding: 0 1.27rem;
   color: $first-text;
   font-size: 0.915rem;
   border-radius: 2rem;
   font-weight: 700;
   cursor: pointer;
   transition: scale 0.3s ease-in;
-  position: relative;
+  backdrop-filter: blur(9px);
+  border: 1px solid $border-color-transparent-2;
+  height: 2.5rem;
 
   &::after {
     position: absolute;

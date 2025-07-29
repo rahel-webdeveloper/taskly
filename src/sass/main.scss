@@ -61,15 +61,13 @@ body {
 .app-container {
   @include grid-center;
   padding-bottom: 4rem;
-  padding-top: 3rem;
 }
 
 .main-content {
   @include grid-center;
   transition: all 0.7s;
   width: 100%;
-  border-radius: 0.5rem;
-  padding-bottom: 1rem;
+  padding-block: 3rem 1rem;
   min-height: 90vh;
 
   .loading-div {
@@ -114,11 +112,6 @@ body {
 }
 
 @media (width >= 704px) {
-  .task__hub-page {
-    border-inline: 1px solid $border-color-transparent-2;
-    border-radius: 0;
-  }
-
   .form-row:nth-child(3) {
     flex-wrap: nowrap;
   }
@@ -202,38 +195,26 @@ body {
     top: 50%;
     left: 3rem;
     height: min-content;
-    width: min-content;
-    // background-color: transparent;
-    // border-color: transparent $border-color-transparent-2;
-    // backdrop-filter: blur(0px);
+    width: 4rem;
     padding: 0.7rem 0.25rem;
 
     .sidebar-links {
       flex-direction: column;
-      gap: 1rem;
+      gap: 1.5rem;
     }
 
     .sidebar-links a {
-      gap: 0.5rem;
       font-size: 1.3rem;
       padding: 0.5rem;
-      border-radius: 1.7rem;
+      border-radius: 0.7rem;
 
       span {
-        font-size: 0.8rem;
-        width: 100%;
-        transform: scale(1);
         display: none;
       }
     }
 
     .sidebar-links a:hover {
-      padding: 0.5rem;
-      border-radius: 1.7rem;
-
-      span {
-        width: 100%;
-      }
+      border-radius: 0.7rem;
     }
   }
 
@@ -263,12 +244,6 @@ body {
     p {
       max-width: 70%;
     }
-  }
-
-  .main-content {
-    border-top-color: transparent;
-    border-radius: 0rem 0rem 0.5rem 0.5rem;
-    padding-top: 0.57rem;
   }
 
   .ai-advisor-annoucement_div {
@@ -317,7 +292,8 @@ body {
   .task__hub-page {
     @include grid-center;
     border: none;
-    padding: 0.7rem;
+
+    padding: 0.7rem 0.7rem 0.7rem 5.7rem;
     grid-template-columns: repeat(3, 1fr);
     width: 100%;
     gap: 1rem;

@@ -3,10 +3,11 @@
   min-height: 100vh;
   position: relative;
   overflow: hidden;
+  margin-top: -3rem;
 }
 
 .welcome-first_section {
-  padding-top: 4.7rem;
+  padding-top: 7rem;
   text-align: center;
   @include grid-center;
   gap: 1rem;

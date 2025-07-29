@@ -1,6 +1,7 @@
 import { atom } from "nanostores";
 import { userId } from "./pages/auth/store";
 import APIClient from "./services/api-client";
+import { router } from "./routes";
 
 export const userData = atom(null);
 
@@ -53,7 +54,14 @@ apiClient
       showProfile(true);
     }
   })
-  .catch((err) => console.log(err));
+  .catch((err) => {
+    console.log(err);
+
+    showSidebar(false);
+    showProfile(false);
+
+    // router.navigate("auth/sign-in");
+  });
 
 const singInBtn = document.querySelector(".sign-in-btn");
 
