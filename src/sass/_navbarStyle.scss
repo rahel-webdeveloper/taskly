@@ -75,7 +75,7 @@
   }
 }
 
-.navbar-menu {
+.sidebar-menu {
   @include fixed-position;
   bottom: 0rem;
   backdrop-filter: blur(9px);
@@ -89,9 +89,10 @@
   transition: scale 0.3s ease-in-out;
   @include flex-space;
   background-color: $primary-color-transparent-2;
+  z-index: 1;
 }
 
-.navbar-links {
+.sidebar-links {
   @include flex-space;
   width: 100%;
   padding: 0.37rem 0.47rem;
@@ -114,7 +115,7 @@
   }
 }
 
-.navbar-links a:hover {
+.sidebar-links a:hover {
   transition: all 0.4s ease-in;
   background-color: $border-color-transparent-2;
   padding: 0.12rem 0.5rem;

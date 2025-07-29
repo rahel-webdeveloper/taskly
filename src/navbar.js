@@ -1,7 +1,8 @@
+import SidebarMenu from "./components/SidebarMenu";
 import openNotification from "./services/toastNotifications";
 
 const activeLink = (attribute = "/") => {
-  const links = document.querySelectorAll(".navbar-links a");
+  const links = document.querySelectorAll(".sidebar-links a");
 
   links.forEach((el) => {
     const linkAttribute = el.getAttribute("href");
@@ -12,10 +13,26 @@ const activeLink = (attribute = "/") => {
   });
 };
 
-const singInBtn = document.querySelector(".sign-in-btn");
+export const renderSidebar = (protect) => {
+  const sidebarMenuContainer = document.getElementById("sidebar_menu");
 
-singInBtn.addEventListener("click", () =>
-  openNotification("info", "This feature is coming soon! Stay tuned!")
-);
+  sidebarMenuContainer.innerHTML = "";
+
+  if (protect) {
+    sidebarMenuContainer.style.display = "block";
+    document.startViewTransition
+      ? document.startViewTransition(
+          () => (sidebarMenuContainer.innerHTML = SidebarMenu())
+        )
+      : (sidebarMenuContainer.innerHTML = SidebarMenu());
+  } else {
+    sidebarMenuContainer.innerHTML = "";
+    sidebarMenuContainer.style.display = "none";
+  }
+};
+
+renderSidebar(true);
+
+const singInBtn = document.querySelector(".sign-in-btn");
 
 export default activeLink;

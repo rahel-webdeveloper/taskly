@@ -1,7 +1,7 @@
 import sendFeedbackComponent from "../../components/SendFeedback";
 import TodaysReportDiv from "../../components/Today'sReportDiv";
 import { controlTasksAllOperation } from "../../tasks/tasksLogic";
-import TasksListRender from "../../tasks/tasksRender";
+import renderTasksList from "../../tasks/tasksRender";
 import taskHubLogic, {
   formateCardDate,
   formateDuration,
@@ -27,7 +27,7 @@ export default function TaskHubRender() {
       </div>
   </section>
   <section class="second-section"> 
-      ${TasksListRender()}
+      ${renderTasksList()}
   </section>
     <section class="third-section">
       ${TodaysReportDiv()}

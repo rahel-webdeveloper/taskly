@@ -12,7 +12,7 @@ import {
   filterState,
   implementFilter,
   implementSort,
-  allTasks,
+  tasks,
   liveTasks,
   saveEditedTask,
   selectedTaskId,
@@ -93,7 +93,7 @@ export const eventsHandler = (event) => {
   filterControllsOptions.forEach((option) => {
     if (option.contains(target)) {
       implementFilter(
-        !isDashboardOpen.get() ? liveTasks.get() : allTasks.get(),
+        !isDashboardOpen.get() ? liveTasks.get() : tasks.get(),
         option.dataset.value
       );
       addStyleToFilterControls();
@@ -121,7 +121,7 @@ export const eventsHandler = (event) => {
       "ask_delete_tasks-dialog"
     );
 
-    if (target.closest(".all-delete-btn") && allTasks.get().length !== 0)
+    if (target.closest(".all-delete-btn") && tasks.get().length !== 0)
       askDeleteTasksDialog.showModal();
 
     if (target.closest("#no")) {
@@ -166,7 +166,7 @@ export const addStyleToSortControls = (idx = 1) => {
 
 function filterAndSortFunc() {
   implementFilter(
-    !isDashboardOpen.get() ? liveTasks.get() : allTasks.get(),
+    !isDashboardOpen.get() ? liveTasks.get() : tasks.get(),
     filterState.get()
   );
   implementSort(
@@ -176,14 +176,14 @@ function filterAndSortFunc() {
 }
 
 function updateTaskUI() {
-  updateTaskCount(allTasks.get(), visibleTasks.get().length);
+  updateTaskCount(tasks.get(), visibleTasks.get().length);
   todayReport(todayTasks.get());
 }
 
 // updateViewOnTask
 export function controlTasksAllOperation() {
-  setLiveTasks(allTasks.get());
+  setLiveTasks(tasks.get());
   filterAndSortFunc();
-  saveLocalStorage(allTasks.get(), "listTask");
+  saveLocalStorage(tasks.get(), "listTask");
   updateTaskUI();
 }

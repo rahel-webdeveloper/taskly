@@ -6,9 +6,9 @@ import TaskEditBox from "../components/TaskEdit";
 import TaskStateDiv from "../components/TaskStateDiv";
 import { isDashboardOpen } from "../routes";
 import { controlTasksAllOperation, eventsHandler } from "./tasksLogic";
-import { filterState, implementFilter, allTasks, liveTasks } from "./store";
+import { filterState, implementFilter, tasks, liveTasks } from "./store";
 
-const TasksListRender = () => {
+const renderTasksList = () => {
   return `
   <div class="task-list-container" id="task-list_container">
     ${ListTasksHeader()}
@@ -24,7 +24,7 @@ const TasksListRender = () => {
 };
 
 // Initialize events after rendering Tasks container
-TasksListRender.init = function () {
+renderTasksList.init = function () {
   const tasksContainer = document.getElementById("task-list_container");
 
   tasksContainer.addEventListener("click", eventsHandler);
@@ -33,7 +33,7 @@ TasksListRender.init = function () {
 
 const imgUrl = new URL("/empty-box.png", import.meta.url).href;
 
-export function addTaskToList(tasks) {
+export function renderTasks(tasks) {
   const list = document.getElementById("task-list-div");
   if (list)
     list.innerHTML =
@@ -120,4 +120,4 @@ export function updateTaskCount(totalTasks, visibleCount) {
   if (filterTaskLenght) filterTaskLenght.textContent = visibleCount;
 }
 
-export default TasksListRender;
+export default renderTasksList;

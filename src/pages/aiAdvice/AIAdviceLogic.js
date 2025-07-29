@@ -83,7 +83,7 @@ export const toggleAiSideBar = (show = false) => {
 const userFocusIn_OutContro = (userInputEl) => {
   const inputSubmitBox = document.querySelector(".input-submit_box");
 
-  const navbarMenu = document.getElementById("navbar_menu");
+  const navbarMenu = document.getElementById("sidebar_menu");
 
   userInputEl.addEventListener("focusin", function () {
     this.style.height = "auto";

@@ -5,7 +5,7 @@ import {
   priorityLabels,
 } from "../../data/ui-data";
 import { controlTasksAllOperation } from "../../tasks/tasksLogic";
-import { allTasks } from "../../tasks/store";
+import { tasks } from "../../tasks/store";
 import { liveTrackTasks, taskHubEls, useFlatepickr } from "./TaskHubLogic";
 
 export const systemMessage = {
@@ -94,9 +94,9 @@ export function AddNewTask() {
   );
 
   // Structure of task data
-  allTasks.set([
+  tasks.set([
     {
-      id: String(allTasks.get().length + 1),
+      id: String(tasks.get().length + 1),
       title: taskTitle.get(),
       description: taskDescription.get(),
       category: taskCategory.get(),
@@ -114,7 +114,7 @@ export function AddNewTask() {
       createdAt: createdAt.toISOString(),
       updatedAt: createdAt.toISOString(),
     },
-    ...allTasks.get(),
+    ...tasks.get(),
   ]);
 
   controlTasksAllOperation();

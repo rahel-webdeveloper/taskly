@@ -6,9 +6,11 @@ import {
   addStyleToSortControls,
   controlTasksAllOperation,
 } from "./tasksLogic.js";
-import { addTaskToList, updateTaskCount } from "./tasksRender.js";
+import { renderTasks, updateTaskCount } from "./tasksRender.js";
+import { userId } from "../pages/auth/store.js";
+import { useTasks } from "../hooks/useTasks.js";
 
-export const allTasks = atom(loadLocalStorage("listTask"));
+export const tasks = atom(loadLocalStorage("listTask"));
 export const liveTasks = atom([]);
 export const todayTasks = atom([]);
 
@@ -22,6 +24,8 @@ export const taskToAssistant = atom(
 export const selectedTaskId = atom(null);
 
 const STATE = { IN_PROGRESS: "in-progress", DONE: "done", ON_HOLD: "on-hold" };
+
+useTasks.getUserTasks(userId.get());
 
 function getNextState(current) {
   if (current === STATE.DONE) return STATE.ON_HOLD;
@@ -38,7 +42,7 @@ export const setLiveTasks = (tasks) => {
   );
 
   liveTasks.set(filterLiveTasks);
-  setTodayTasks(allTasks.get());
+  setTodayTasks(tasks);
 };
 
 // set today task
@@ -54,8 +58,8 @@ export const setTodayTasks = (tasks) => {
 
 // completing a task
 export const completingTask = () => {
-  allTasks.set(
-    allTasks
+  tasks.set(
+    tasks
       .get()
       .map((task) =>
         String(task.id) === selectedTaskId.get()
@@ -68,20 +72,18 @@ export const completingTask = () => {
 
 // deleting a task
 export const deletingTask = () => {
-  allTasks.set(
-    allTasks.get().filter((task) => task.id !== selectedTaskId.get())
-  );
+  tasks.set(tasks.get().filter((task) => task.id !== selectedTaskId.get()));
   controlTasksAllOperation();
 };
 
 // deleting all done tasks
 export const deletingCompleteTasks = () => {
-  allTasks.set(allTasks.get().filter((task) => task.state !== STATE.DONE));
+  tasks.set(tasks.get().filter((task) => task.state !== STATE.DONE));
   controlTasksAllOperation();
 };
 
 export const setTaskToAssitant = (Id) => {
-  const selectedTask = allTasks.get().filter((task) => task.id === Id);
+  const selectedTask = tasks.get().filter((task) => task.id === Id);
 
   taskToAssistant.set(selectedTask);
   saveLocalStorage(taskToAssistant.get(), "task-to-assistant");
@@ -89,9 +91,7 @@ export const setTaskToAssitant = (Id) => {
 
 // editing a task
 export const editingTask = (editBox, editInput) => {
-  const findTask = allTasks
-    .get()
-    .find((task) => task.id === selectedTaskId.get());
+  const findTask = tasks.get().find((task) => task.id === selectedTaskId.get());
 
   editBox.style.display = "flex";
   editInput.value = findTask.description;
@@ -103,8 +103,8 @@ export const saveEditedTask = (editInput, editBox) => {
 
   if (editInput.value.length < 7 || editInput.length > 250) return;
 
-  allTasks.set(
-    allTasks.get().map((task) =>
+  tasks.set(
+    tasks.get().map((task) =>
       task.id === selectedTaskId.get()
         ? {
             ...task,
@@ -127,11 +127,11 @@ export const implementFilter = (tasks, state) => {
 
   if (document.startViewTransition)
     document.startViewTransition(() => {
-      addTaskToList(visibleTasks.get());
+      renderTasks(visibleTasks.get());
       addStyleToFilterControls();
     });
   else {
-    addTaskToList(visibleTasks.get());
+    renderTasks(visibleTasks.get());
     addStyleToFilterControls();
   }
 };

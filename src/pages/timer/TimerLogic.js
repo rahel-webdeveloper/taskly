@@ -15,7 +15,6 @@ import {
   startTime,
   totalSelectedTime,
 } from "./store";
-import { timerCircleCompo, timerPickerCompo } from "./TimerRender";
 
 export const TimerLogic = () => {
   // Initialize Infinite Picker
@@ -236,14 +235,6 @@ export const togglePauseResumeBtns = (isPausedState) => {
     pauseBtn.style.display = isPausedState ? "none" : "inline";
     resumeBtn.style.display = isPausedState ? "inline" : "none";
   }
-};
-
-export const navigateTimerPages = (mode) => {
-  const { timerContainerEl } = TimerEls();
-
-  mode === "picker"
-    ? (timerContainerEl.innerHTML = timerPickerCompo())
-    : (timerContainerEl.innerHTML = timerCircleCompo());
 };
 
 export default TimerLogic;

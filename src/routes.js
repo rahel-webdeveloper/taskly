@@ -4,19 +4,20 @@ import loadingDivComp from "./components/Loading.js";
 import { loadLocalStorage, saveLocalStorage } from "./data/localStorage.js";
 import activeLink from "./navbar.js";
 import AIAdviceRender from "./pages/aiAdvice/AIAdviceRender.js";
+import AuthRender from "./pages/auth/authRender.js";
+import { navigateAuthPages } from "./pages/auth/store.js";
 import DashboardRender from "./pages/dashboard/DashboardRender.js";
 import TaskHubRender from "./pages/taskHub/TaskHubRender.js";
-import { navigateTimerPages } from "./pages/timer/TimerLogic.js";
+import { navigateTimerPages } from "./pages/timer/store.js";
 import TimerRender from "./pages/timer/TimerRender.js";
 import WelcomeRender from "./pages/welcome/WelcomeRender.js";
-import TasksListRender from "./tasks/tasksRender.js";
-import { SignInRender, SignUpRender } from "./pages/auth/authRender.js";
+import renderTasksList from "./tasks/tasksRender.js";
 
-export const isDashboardOpen = atom(false);
 const currentRoute = atom(null);
 const isWelcomePageSeen = atom(loadLocalStorage("is_welcome_seen") || false);
-
 const mainContentEl = document.getElementById("main_content");
+
+export const isDashboardOpen = atom(false);
 
 export const router = new Navigo("/", {
   // linksSelector: "[data-link]",
@@ -34,22 +35,17 @@ const Router = () => {
         saveLocalStorage(isWelcomePageSeen.get(), "is_welcome_seen");
       },
 
-      "/sign-up": () => {
+      "/auth": () => router.navigate("/auth/sign-up"),
+      "/auth/:mode?": ({ data }) => {
         activeLink("");
-
-        renderPage(SignUpRender, { data: null });
-      },
-
-      "/sign-in": () => {
-        activeLink("");
-
-        renderPage(SignInRender, { data: null });
+        data.route = "dynamic";
+        renderPage(AuthRender, data);
       },
 
       "/": () => {
         isDashboardOpen.set(false);
         activeLink("/");
-        renderPage(TaskHubRender, TasksListRender);
+        renderPage(TaskHubRender, renderTasksList);
       },
 
       "/ai-advisor": () => {
@@ -60,7 +56,7 @@ const Router = () => {
       "/dashboard": () => {
         isDashboardOpen.set(true);
         activeLink("/dashboard");
-        renderPage(DashboardRender, TasksListRender);
+        renderPage(DashboardRender, renderTasksList);
       },
 
       "/timer": () => router.navigate("/timer/picker"),
@@ -118,10 +114,14 @@ function renderPage(component, additionalInit) {
 const renderDynamicPages = (data) => {
   if (isRouteInTimer()) navigateTimerPages(data.mode);
 
+  if (isRouteInAuth()) navigateAuthPages(data.mode);
   // else other dyanamic routing
 };
 
 const isRouteInTimer = () =>
   currentRoute.get().slice(0, 5) === "timer" ? true : false;
+
+const isRouteInAuth = () =>
+  currentRoute.get().slice(0, 4) === "auth" ? true : false;
 
 export default Router;

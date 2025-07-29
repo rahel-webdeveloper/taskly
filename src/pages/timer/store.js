@@ -7,6 +7,7 @@ import {
   updateCountdownCircleUI,
 } from "./TimerLogic";
 import { atom } from "nanostores";
+import { timerCircleCompo, timerPickerCompo } from "./TimerRender";
 
 // Timer state
 export const selectedHour = atom(0);
@@ -142,4 +143,12 @@ export const handleTimerEvents = (event) => {
     cancelAnimationFrame(animationId.get());
     resetUI();
   }
+};
+
+export const navigateTimerPages = (mode) => {
+  const { timerContainerEl } = TimerEls();
+
+  mode === "picker"
+    ? (timerContainerEl.innerHTML = timerPickerCompo())
+    : (timerContainerEl.innerHTML = timerCircleCompo());
 };

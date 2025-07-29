@@ -1,14 +1,14 @@
 import { Chart } from "chart.js/auto";
 import sendFeedbackMain from "../../services/send_feedback-logic.js";
-import { allTasks } from "../../tasks/store";
+import { tasks } from "../../tasks/store";
 
 export const DashboardLogic = () => {
-  const tasks = allTasks.get();
+  const allTasks = tasks.get();
 
-  initCategoryBars(tasks);
-  initSevenDaysLine(tasks);
-  initStateChart(tasks);
-  initTrackedTimeBars(tasks);
+  initCategoryBars(allTasks);
+  initSevenDaysLine(allTasks);
+  initStateChart(allTasks);
+  initTrackedTimeBars(allTasks);
 
   sendFeedbackMain();
 };
