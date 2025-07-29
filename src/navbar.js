@@ -1,4 +1,5 @@
 import SidebarMenu from "./components/SidebarMenu";
+import SignInBtn from "./components/SignInBtn";
 import openNotification from "./services/toastNotifications";
 
 const activeLink = (attribute = "/") => {
@@ -32,6 +33,14 @@ export const renderSidebar = (protect) => {
 };
 
 renderSidebar(true);
+
+export const renderProfile = (isLogged) => {
+  const navbarRight = document.querySelector(".navbar-right");
+
+  navbarRight.innerHTML = SignInBtn();
+};
+
+renderProfile(true);
 
 const singInBtn = document.querySelector(".sign-in-btn");
 
