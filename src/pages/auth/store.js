@@ -1,5 +1,5 @@
 import { atom } from "nanostores";
-import { SignInRender, SignUpRender } from "./authRender";
+import { SignInRender, SignUpRender } from "./AuthRender";
 
 export const userId = atom("688769627fb1de373de97cbb" || null);
 
