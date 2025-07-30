@@ -8,6 +8,11 @@ import {
 } from "./tasksLogic.js";
 import { renderTasks, updateTaskCount } from "./tasksRender.js";
 import APIClient from "../services/api-client.js";
+import DashboardLogic, {
+  initStatusChart,
+  initTrackedTimeBars,
+} from "../pages/dashboard/DashboardLogic.js";
+import { userData, userId } from "../pages/auth/store.js";
 
 export const tasks = atom([]);
 export const liveTasks = atom([]);
@@ -23,6 +28,16 @@ export const taskToAssistant = atom(
 export const selectedTaskId = atom(null);
 
 const STATE = { IN_PROGRESS: "in-progress", DONE: "done", ON_HOLD: "on-hold" };
+
+const apiClientTasks = new APIClient("tasks");
+
+apiClientTasks.getTasks(userId.get()).then((res) => {
+  tasks.set(res.tasks);
+
+  controlTasksAllOperation();
+  liveTrackTasks();
+  DashboardLogic(true);
+});
 
 function getNextState(current) {
   if (current === STATE.DONE) return STATE.ON_HOLD;
@@ -63,12 +78,16 @@ export const completingTask = () => {
       )
   );
   controlTasksAllOperation();
+  initStatusChart(tasks.get(), true);
+  initTrackedTimeBars(tasks.get(), true);
 };
 
 // deleting a task
 export const deletingTask = () => {
   tasks.set(tasks.get().filter((task) => task.id !== selectedTaskId.get()));
   controlTasksAllOperation();
+  initStatusChart(tasks.get(), true);
+  initTrackedTimeBars(tasks.get(), true);
 };
 
 // deleting all done tasks

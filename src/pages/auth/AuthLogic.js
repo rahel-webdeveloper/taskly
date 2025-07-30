@@ -101,7 +101,7 @@ class AuthServices {
       .then((res) => {
         userData.set(res.user);
 
-        console.log(res);
+        // console.log(res);
         showSidebar(true);
         showProfile(true);
       })

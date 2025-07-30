@@ -1,19 +1,32 @@
 import { Chart } from "chart.js/auto";
 import sendFeedbackMain from "../../services/send_feedback-logic.js";
 import { tasks } from "../../tasks/store";
+import { userData } from "../auth/store.js";
 
-export const DashboardLogic = () => {
+export const DashboardLogic = (isChanged = false) => {
   const allTasks = tasks.get();
 
-  initCategoryBars(allTasks);
-  initSevenDaysLine(allTasks);
-  initStateChart(allTasks);
-  initTrackedTimeBars(allTasks);
+  initCategoriesBars(allTasks, isChanged);
+  initSevenDaysLine(allTasks, isChanged);
+  initStatusChart(allTasks, isChanged);
+  initTrackedTimeBars(allTasks, isChanged);
 
   sendFeedbackMain();
+  setTimeout(
+    () =>
+      (document.getElementById("user_name").textContent = userData.get()?.name),
+    500
+  );
 };
 
-const initCategoryBars = (tasks) => {
+let categoryChart = null;
+let activityChart = null;
+let statusChart = null;
+let trackedTimeChart = null;
+
+export const initCategoriesBars = (tasks, isChanged) => {
+  if (isChanged && categoryChart) categoryChart.destroy();
+
   const categoryCountEl = document.getElementById("ctegory-count");
 
   const categoryObjects = tasks.reduce((accumlator, current) => {
@@ -28,7 +41,7 @@ const initCategoryBars = (tasks) => {
 
   categoryCountEl.textContent = categoryArray.length;
 
-  new Chart(document.getElementById("category_bar"), {
+  const config = {
     type: "bar",
     data: {
       labels: categoryArray.map((task) => task.category.slice(0, 5)),
@@ -93,10 +106,14 @@ const initCategoryBars = (tasks) => {
         },
       },
     },
-  });
+  };
+
+  categoryChart = new Chart(document.getElementById("category_bar"), config);
 };
 
-const initSevenDaysLine = (tasks) => {
+export const initSevenDaysLine = (tasks, isChanged) => {
+  if (isChanged && activityChart) activityChart.destroy();
+
   const seventDays = document.getElementById("seven-days-count");
 
   const today = new Date();
@@ -129,7 +146,7 @@ const initSevenDaysLine = (tasks) => {
     0
   );
 
-  new Chart(document.getElementById("days_line"), {
+  const config = {
     type: "line",
     data: {
       labels: taskCountsArray.map((task) => task.date.slice(0, 3)),
@@ -192,10 +209,14 @@ const initSevenDaysLine = (tasks) => {
         },
       },
     },
-  });
+  };
+
+  activityChart = new Chart(document.getElementById("days_line"), config);
 };
 
-const initStateChart = (tasks) => {
+export const initStatusChart = (tasks, isChanged) => {
+  if (isChanged && statusChart) statusChart.destroy();
+
   const statusSpans = document.querySelectorAll(".status-span span");
   const donePercetageEl = document.getElementById("done-task_percetage");
 
@@ -213,7 +234,7 @@ const initStateChart = (tasks) => {
     tasks.length !== 0 ? Math.floor((doneLength / tasks.length) * 100) : 0
   }% ${"<p>Done!</p>"}`;
 
-  new Chart(document.getElementById("status_doughnut").getContext("2d"), {
+  const config = {
     type: "doughnut",
     data: {
       labels: ["On hold", "In Progress", "Done"],
@@ -262,10 +283,17 @@ const initStateChart = (tasks) => {
         },
       },
     },
-  });
+  };
+
+  statusChart = new Chart(
+    document.getElementById("status_doughnut").getContext("2d"),
+    config
+  );
 };
 
-const initTrackedTimeBars = (tasks) => {
+export const initTrackedTimeBars = (tasks, isChanged) => {
+  if (isChanged && trackedTimeChart) trackedTimeChart.destroy();
+
   const trackedTimeEl = document.getElementById("tracked-time");
   const remaingTimeEl = document.getElementById("remaining-time");
 
@@ -294,8 +322,7 @@ const initTrackedTimeBars = (tasks) => {
   } ${remainingTimeOnHour ? remainingTimeOnHour + "h" : ""} ${
     remainingTimeOnHour && remainingTime % 60 ? "&" : ""
   } ${remainingTime % 60 ? Math.floor(remainingTime % 60) + "m" : ""}`;
-
-  new Chart(document.getElementById("tracked-time_bar"), {
+  const config = {
     type: "bar",
     data: {
       labels: ["Time details"],
@@ -386,7 +413,12 @@ const initTrackedTimeBars = (tasks) => {
         },
       },
     },
-  });
+  };
+
+  trackedTimeChart = new Chart(
+    document.getElementById("tracked-time_bar"),
+    config
+  );
 };
 
 export default DashboardLogic;

@@ -40,6 +40,20 @@
 
 .navbar-right {
   pointer-events: all;
+  position: relative;
+
+  &::after {
+    position: absolute;
+    content: "";
+    width: 50px;
+    height: 100px;
+    bottom: 30%;
+    right: 55%;
+    filter: blur(55px);
+    background-color: $light-goldenrod-color;
+    position: absolute;
+    z-index: -5;
+  }
 }
 
 .sign-in-btn {
@@ -54,19 +68,6 @@
   backdrop-filter: blur(9px);
   border: 1px solid $border-color-transparent-2;
   height: 2.5rem;
-
-  &::after {
-    position: absolute;
-    content: "";
-    width: 50px;
-    height: 100px;
-    bottom: 30%;
-    right: 55%;
-    filter: blur(55px);
-    background-color: $light-goldenrod-color;
-    position: absolute;
-    z-index: -5;
-  }
 
   i {
     vertical-align: middle;

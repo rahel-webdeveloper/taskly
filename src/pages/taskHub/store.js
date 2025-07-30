@@ -70,17 +70,8 @@ export const calculateTimeDifference = (startTime, dueTime) => {
   return res / 1000 / 60;
 };
 
-apiClientTasks.getTasks(userId.get()).then((res) => {
-  tasks.set(res.tasks);
-
-  controlTasksAllOperation();
-  liveTrackTasks();
-});
-
 export function AddNewTask() {
   const createdAt = new Date().toISOString();
-
-  console.log(prioritylevel.get());
 
   duration.set(
     calculateTimeDifference(
@@ -111,20 +102,19 @@ export function AddNewTask() {
   apiClientTasks
     .createTask(tasks.get()[0])
     .then((res) => {
-      console.log(res);
-      // apiClientTasks.getTasks(userId.get()).then((res) => {
-      // tasks.set(res.tasks);
+      if (res.success)
+        apiClientTasks.getTasks(userId.get()).then((res) => {
+          tasks.set(res.tasks);
 
-      // console.log(res);
-
-      // controlTasksAllOperation();
-      // liveTrackTasks();
-      // });
+          controlTasksAllOperation();
+          liveTrackTasks();
+        });
     })
     .catch((err) => {
-      // tasks.get().shift();
-      // controlTasksAllOperation();
-      // liveTrackTasks();
+      tasks.get().shift();
+
+      controlTasksAllOperation();
+      liveTrackTasks();
 
       console.log(err);
     });

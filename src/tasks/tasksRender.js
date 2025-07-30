@@ -5,8 +5,8 @@ import ListTasksHeader from "../components/ListTasksHeader";
 import TaskEditBox from "../components/TaskEdit";
 import TaskStateDiv from "../components/TaskStateDiv";
 import { isDashboardOpen } from "../routes";
+import { filterState } from "./store";
 import { controlTasksAllOperation, eventsHandler } from "./tasksLogic";
-import { filterState, implementFilter, tasks, liveTasks } from "./store";
 
 const renderTasksList = () => {
   return `

@@ -8,7 +8,7 @@ const DashboardRender = () => {
   return `
   <div class="dashboard">
     <div class="dash-header">
-      <h2>Hi, ${!userData.get() ? "(User Name)" : userData.get()?.name}!</h2>
+      <h2>Hi, <span id="user_name">${!userData.get()?.name}</span>!</h2>
       <h5>Let's take a look to your workout</h5>
     </div>
     <div class="dashboard-charts">

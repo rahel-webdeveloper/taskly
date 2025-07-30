@@ -1,6 +1,5 @@
 .profile {
   font-size: 1rem;
-  // display: none;
   text-align: center;
   margin-right: 0.5rem;
 }
@@ -16,4 +15,10 @@
   font-size: $DM-Sans;
   @include flex-center;
   cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 0 0 7px $secondary-color-transparent-2;
+
+  &:hover {
+    box-shadow: 0 0 0 1px $secondary-color-transparent-2;
+  }
 }
