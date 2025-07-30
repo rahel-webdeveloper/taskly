@@ -2,13 +2,15 @@
   font-size: 1rem;
   display: none;
   text-align: center;
+  margin-right: 0.5rem;
 }
 
 #profile-picture {
   width: min-content;
   height: 40px;
   width: 40px;
-  background-color: $border-color-transparent-2;
+  background-color: $sky-blue-color;
+  color: $primary-color;
   border-radius: 1.7rem;
   font-size: 1.4rem;
   font-size: $DM-Sans;

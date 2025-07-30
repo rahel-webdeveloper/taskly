@@ -1,8 +1,7 @@
 import axios from "axios";
 import { atom } from "nanostores";
 import { router } from "../routes";
-
-export const token = atom(localStorage.getItem("token") || null);
+import { token } from "../pages/auth/store";
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
@@ -31,7 +30,7 @@ axiosInstance.interceptors.response.use(
     if (err.response && [401, 403].includes(err.response.status)) {
       token.set(null);
 
-      localStorage.removeItem("token");
+      localStorage.removeItem("tasklyToken");
       // alert("Your session expired. Please log in again.");
       router.navigate("/auth/sign-in");
     }
@@ -46,71 +45,71 @@ class APIClient {
 
   // ------ Auth
 
-  signUp = async (data) => {
+  async signUp(data) {
     const res = await axiosInstance.post(`${this.endpoint}/sign-up`, data);
 
     return res.data;
-  };
+  }
 
-  singIn = async (data) => {
+  async singIn(data) {
     const response = await axiosInstance.post(`${this.endpoint}/sign-in`, data);
 
     return response.data;
-  };
+  }
 
-  signOut = async () => {
+  async signOut() {
     const res = await axiosInstance.get(`/${this.endpoint}/sign-out`);
 
     return res.data;
-  };
+  }
 
   // ------ TASKS
 
-  getTasks = async (userId) => {
+  async getTasks(userId) {
     const res = await axiosInstance.get(`/${this.endpoint}/user/${userId}`);
 
     return res.data;
-  };
+  }
 
-  getTaskById = async (taskId) => {
+  async getTaskById(taskId) {
     const res = await axiosInstance.get(`/${this.endpoint}/${taskId}`);
 
     return res.data;
-  };
+  }
 
-  createTask = async (newTask) => {
+  async createTask(newTask) {
     const res = await axiosInstance.post(`/${this.endpoint}`, newTask);
 
     return res.data;
-  };
+  }
 
-  updateTask = async (taskId, updatedTask) => {
+  async updateTask(taskId, updatedTask) {
     const res = await axiosInstance.post(
       `/${this.endpoint}/${taskId}`,
       updatedTask
     );
 
     return res.data;
-  };
+  }
 
-  deleteTask = async (taskId) => {
+  async deleteTask(taskId) {
     const res = await axiosInstance.post(`/${this.endpoint}/${taskId}`);
 
     return res.data;
-  };
+  }
 
   // ---------- USERS
-  getUsers = async () => {
+  async getUsers() {
     const res = await axiosInstance.get(`/${this.endpoint}`);
 
     return res.data;
-  };
+  }
 
-  getUserById = async (userId) => {
+  async getUserById(userId) {
     const res = await axiosInstance.get(`/${this.endpoint}/${userId}`);
 
     return res.data;
-  };
+  }
 }
 
 export default APIClient;

@@ -1,13 +1,14 @@
 import sendFeedbackComponent from "../../components/SendFeedback.js";
 import TodaysReportDiv from "../../components/Today'sReportDiv";
 import renderTasksList from "../../tasks/tasksRender.js";
+import { userData } from "../auth/store.js";
 import DashboardLogic from "./DashboardLogic.js";
 
 const DashboardRender = () => {
   return `
   <div class="dashboard">
     <div class="dash-header">
-      <h2>Hi, My friend!</h2>
+      <h2>Hi, ${!userData.get() ? "(User Name)" : userData.get()?.name}!</h2>
       <h5>Let's take a look to your workout</h5>
     </div>
     <div class="dashboard-charts">

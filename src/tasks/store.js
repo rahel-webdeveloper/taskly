@@ -29,7 +29,7 @@ const apiClient = new APIClient("tasks");
 
 apiClient
   .getTasks(userId.get())
-  .then((res) => console.log(res.data))
+  .then((res) => console.log(res))
   .catch((err) => console.log(err));
 
 function getNextState(current) {

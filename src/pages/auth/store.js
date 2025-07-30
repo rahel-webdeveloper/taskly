@@ -1,7 +1,10 @@
 import { atom } from "nanostores";
 import { SignInRender, SignUpRender } from "./AuthRender";
+import { router } from "../../routes";
 
-export const userId = atom("688769627fb1de373de97cbb" || null);
+export const userId = atom(localStorage.getItem("userId") || null);
+export const token = atom(localStorage.getItem("tasklyToken") || null);
+export const userData = atom(null);
 
 export const navigateAuthPages = (route) => {
   const authContainer = document.querySelector(".auth");

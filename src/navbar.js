@@ -1,9 +1,5 @@
-import { atom } from "nanostores";
-import { userId } from "./pages/auth/store";
-import APIClient from "./services/api-client";
-import { router } from "./routes";
-
-export const userData = atom(null);
+import { authServices } from "./pages/auth/AuthLogic";
+import { userData, userId } from "./pages/auth/store";
 
 const activeLink = (attribute = "/") => {
   const links = document.querySelectorAll(".sidebar-links a");
@@ -43,25 +39,7 @@ export const showProfile = (isLogged = false) => {
   }
 };
 
-const apiClient = new APIClient("users");
-
-apiClient
-  .getUserById(userId.get())
-  .then((res) => {
-    if (res.success) {
-      userData.set(res.data);
-      showSidebar(true);
-      showProfile(true);
-    }
-  })
-  .catch((err) => {
-    console.log(err);
-
-    showSidebar(false);
-    showProfile(false);
-
-    // router.navigate("auth/sign-in");
-  });
+authServices.controlleLogged(userId.get());
 
 const singInBtn = document.querySelector(".sign-in-btn");
 
