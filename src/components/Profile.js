@@ -1,6 +1,10 @@
 const Profile = (data) => {
   return `
-    <div class="profile">Profile</div>
+    <div class="profile">
+    <span id="profile-picture">
+            <p></p>
+    </span>
+    </div>
   `;
 };
 

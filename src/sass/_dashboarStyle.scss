@@ -4,6 +4,7 @@
   padding: 0.77rem;
   font-family: $DM-Sans;
   margin-top: 1rem;
+  width: 100%;
 
   .dash-header {
     width: 100%;
@@ -75,7 +76,7 @@
     }
   }
 
-  .state-details {
+  .status-details {
     i {
       color: $sky-blue-color;
       font-size: 1.12rem;
@@ -88,7 +89,7 @@
     }
   }
 
-  .state-chart {
+  .status-chart {
     @include flex-space;
 
     #doughnut-chart_div {
@@ -112,7 +113,7 @@
   }
 }
 
-.state-details {
+.status-details {
   text-align: start;
   place-self: start;
   padding: 0.5rem 0.7rem;
@@ -122,7 +123,7 @@
   }
 }
 
-.state-span {
+.status-span {
   @include flex-center;
   flex-direction: column;
   row-gap: 0.3rem;
@@ -230,7 +231,7 @@
   }
 }
 
-.statechart-tracktime-div {
+.statuschart-tracktime-div {
   @include grid-center;
   gap: 1rem;
   width: 100%;

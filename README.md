@@ -57,7 +57,7 @@ Taskly Pro is a Progressive Web App that helps you create, track, and analyze yo
 
   - Categories Bar: breakdown of tasks by category
   - 7-Day Activity: line/bar chart of tasks completed over the last week
-  - Progress Donut Chart: visual summary of On-Hold, In-Progress, and Done states
+  - Progress Donut Chart: visual summary of On-Hold, In-Progress, and Done statuss
   - Time Reports: tracked vs. remaining time per task
 
 - Timer
@@ -74,7 +74,7 @@ Taskly Pro is a Progressive Web App that helps you create, track, and analyze yo
 - HTML5 & SCSS
 - Vanilla JavaScript (ES6+)
 - [Chart.js](https://www.chartjs.org/) for interactive charts
-- [NanoStores](https://nanostores.dev/) for global state management
+- [NanoStores](https://nanostores.dev/) for global status management
 - [Navigo](https://github.com/krasimir/navigo) for client-side routing
 - [Notyf](https://github.com/caroso1222/notyf) for toast notifications
 - Puter.js + AI Advisor API for AI-driven task advising
@@ -110,7 +110,7 @@ Building **Taskly** taught me to:
 ---
 
 - **Integrate AI** advice with AI Advisor API via Puter.js
-- **Manage state** effectively with Nano Stores.
+- **Manage status** effectively with Nano Stores.
 - **Route** seamlessly using Navigo.
 - **Visualize data** via Chart.js (bar, doughnut, line, pie).
 - **Polish UX** with Notyf toasts and a custom SVG timer.

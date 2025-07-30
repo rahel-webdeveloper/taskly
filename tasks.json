@@ -12,7 +12,7 @@
       "color": "#cb9ca3",
       "icon": "./src/assets/fire.png"
     },
-    "state": "in-progress",
+    "status": "in-progress",
     "isCompleted": false,
     "createdAt": "2025-02-01T23:15:00Z"
   },
@@ -29,7 +29,7 @@
       "color": "#bbb2cc",
       "icon": "./src/assets/warning-s.png"
     },
-    "state": "on-hold",
+    "status": "on-hold",
     "isCompleted": true,
     "createdAt": "2025-02-01T10:10:00Z"
   },
@@ -46,7 +46,7 @@
       "color": "#e4b875",
       "icon": "./src/assets/star.png"
     },
-    "state": "done",
+    "status": "done",
     "isCompleted": false,
     "createdAt": "2025-02-01T14:25:00Z"
   },
@@ -63,7 +63,7 @@
       "color": "#86b5b2",
       "icon": "./src/assets/flag.png"
     },
-    "state": "on-hold",
+    "status": "on-hold",
     "isCompleted": false,
     "createdAt": "2025-02-01T12:40:00Z"
   },
@@ -80,7 +80,7 @@
       "color": "#b0bbbc",
       "icon": "./src/assets/sprout.png"
     },
-    "state": "on-hold",
+    "status": "on-hold",
     "isCompleted": false,
     "createdAt": "2025-02-01T13:55:00Z"
   },
@@ -97,7 +97,7 @@
       "color": "#cb9ca3",
       "icon": "./src/assets/fire.png"
     },
-    "state": "in-progress",
+    "status": "in-progress",
     "isCompleted": false,
     "createdAt": "2025-02-01T15:50:00Z"
   },
@@ -114,7 +114,7 @@
       "color": "#bbb2cc",
       "icon": "./src/assets/warning-s.png"
     },
-    "state": "done",
+    "status": "done",
     "isCompleted": true,
     "createdAt": "2025-02-01T18:05:00Z"
   },
@@ -131,7 +131,7 @@
       "color": "#e4b875",
       "icon": "./src/assets/star.png"
     },
-    "state": "in-progress",
+    "status": "in-progress",
     "isCompleted": false,
     "createdAt": "2025-02-01T19:45:00Z"
   },
@@ -148,7 +148,7 @@
       "color": "#86b5b2",
       "icon": "./src/assets/flag.png"
     },
-    "state": "on-hold",
+    "status": "on-hold",
     "isCompleted": false,
     "createdAt": "2025-02-01T22:10:00Z"
   },
@@ -165,7 +165,7 @@
       "color": "#b0bbbc",
       "icon": "./src/assets/sprout.png"
     },
-    "state": "done",
+    "status": "done",
     "isCompleted": true,
     "createdAt": "2025-02-01T10:20:00Z"
   },
@@ -182,7 +182,7 @@
       "color": "#e4b875",
       "icon": "./src/assets/star.png"
     },
-    "state": "in-progress",
+    "status": "in-progress",
     "isCompleted": false,
     "createdAt": "2025-02-01T17:00:00Z"
   },
@@ -199,7 +199,7 @@
       "color": "#cb9ca3",
       "icon": "./src/assets/fire.png"
     },
-    "state": "in-progress",
+    "status": "in-progress",
     "isCompleted": false,
     "createdAt": "2025-02-01T20:00:00Z"
   },
@@ -217,7 +217,7 @@
       "color": "#bbb2cc",
       "icon": "./src/assets/warning-s.png"
     },
-    "state": "done",
+    "status": "done",
     "isCompleted": true,
     "createdAt": "2025-02-01T10:10:00Z"
   },
@@ -234,7 +234,7 @@
       "color": "#e4b875",
       "icon": "./src/assets/star.png"
     },
-    "state": "in-progress",
+    "status": "in-progress",
     "isCompleted": false,
     "createdAt": "2025-02-01T14:25:00Z"
   },
@@ -252,7 +252,7 @@
       "color": "#bbb2cc",
       "icon": "./src/assets/warning-s.png"
     },
-    "state": "done",
+    "status": "done",
     "isCompleted": true,
     "createdAt": "2025-02-01T10:10:00Z"
   },
@@ -269,7 +269,7 @@
       "color": "#e4b875",
       "icon": "./src/assets/star.png"
     },
-    "state": "in-progress",
+    "status": "in-progress",
     "isCompleted": false,
     "createdAt": "2025-02-01T14:25:00Z"
   },
@@ -287,7 +287,7 @@
       "color": "#bbb2cc",
       "icon": "./src/assets/warning-s.png"
     },
-    "state": "on-hold",
+    "status": "on-hold",
     "isCompleted": true,
     "createdAt": "2025-02-01T10:10:00Z"
   },
@@ -304,7 +304,7 @@
       "color": "#e4b875",
       "icon": "./src/assets/star.png"
     },
-    "state": "in-progress",
+    "status": "in-progress",
     "isCompleted": false,
     "createdAt": "2025-02-01T14:25:00Z"
   },
@@ -322,7 +322,7 @@
       "color": "#bbb2cc",
       "icon": "./src/assets/warning-s.png"
     },
-    "state": "on-hold",
+    "status": "on-hold",
     "isCompleted": true,
     "createdAt": "2025-02-01T10:10:00Z"
   },
@@ -339,7 +339,7 @@
       "color": "#e4b875",
       "icon": "./src/assets/star.png"
     },
-    "state": "in-progress",
+    "status": "in-progress",
     "isCompleted": false,
     "createdAt": "2025-02-01T14:25:00Z"
   },
@@ -357,7 +357,7 @@
       "color": "#bbb2cc",
       "icon": "./src/assets/warning-s.png"
     },
-    "state": "on-hold",
+    "status": "on-hold",
     "isCompleted": true,
     "createdAt": "2025-02-01T10:10:00Z"
   },
@@ -374,7 +374,7 @@
       "color": "#e4b875",
       "icon": "./src/assets/star.png"
     },
-    "state": "in-progress",
+    "status": "in-progress",
     "isCompleted": false,
     "createdAt": "2025-02-01T14:25:00Z"
   },
@@ -392,7 +392,7 @@
       "color": "#bbb2cc",
       "icon": "./src/assets/warning-s.png"
     },
-    "state": "done",
+    "status": "done",
     "isCompleted": true,
     "createdAt": "2025-02-01T10:10:00Z"
   },
@@ -409,7 +409,7 @@
       "color": "#e4b875",
       "icon": "./src/assets/star.png"
     },
-    "state": "in-progress",
+    "status": "in-progress",
     "isCompleted": false,
     "createdAt": "2025-02-01T14:25:00Z"
   },
@@ -426,7 +426,7 @@
       "color": "#bbb2cc",
       "icon": "./src/assets/warning-s.png"
     },
-    "state": "done",
+    "status": "done",
     "isCompleted": true,
     "createdAt": "2025-02-01T10:10:00Z"
   },
@@ -443,7 +443,7 @@
       "color": "#e4b875",
       "icon": "./src/assets/star.png"
     },
-    "state": "in-progress",
+    "status": "in-progress",
     "isCompleted": false,
     "createdAt": "2025-02-01T14:25:00Z"
   },
@@ -460,7 +460,7 @@
       "color": "#bbb2cc",
       "icon": "./src/assets/warning-s.png"
     },
-    "state": "done",
+    "status": "done",
     "isCompleted": true,
     "createdAt": "2025-02-01T10:10:00Z"
   },
@@ -477,7 +477,7 @@
       "color": "#e4b875",
       "icon": "./src/assets/star.png"
     },
-    "state": "in-progress",
+    "status": "in-progress",
     "isCompleted": false,
     "createdAt": "2025-02-01T14:25:00Z"
   },
@@ -494,7 +494,7 @@
       "color": "#bbb2cc",
       "icon": "./src/assets/warning-s.png"
     },
-    "state": "done",
+    "status": "done",
     "isCompleted": true,
     "createdAt": "2025-02-01T10:10:00Z"
   },
@@ -511,7 +511,7 @@
       "color": "#e4b875",
       "icon": "./src/assets/star.png"
     },
-    "state": "in-progress",
+    "status": "in-progress",
     "isCompleted": false,
     "createdAt": "2025-02-01T14:25:00Z"
   },
@@ -528,7 +528,7 @@
       "color": "#bbb2cc",
       "icon": "./src/assets/warning-s.png"
     },
-    "state": "done",
+    "status": "done",
     "isCompleted": true,
     "createdAt": "2025-02-01T10:10:00Z"
   },
@@ -545,7 +545,7 @@
       "color": "#e4b875",
       "icon": "./src/assets/star.png"
     },
-    "state": "in-progress",
+    "status": "in-progress",
     "isCompleted": false,
     "createdAt": "2025-02-01T14:25:00Z"
   },
@@ -562,7 +562,7 @@
       "color": "#bbb2cc",
       "icon": "./src/assets/warning-s.png"
     },
-    "state": "done",
+    "status": "done",
     "isCompleted": true,
     "createdAt": "2025-02-01T10:10:00Z"
   },
@@ -579,7 +579,7 @@
       "color": "#e4b875",
       "icon": "./src/assets/star.png"
     },
-    "state": "in-progress",
+    "status": "in-progress",
     "isCompleted": false,
     "createdAt": "2025-02-01T14:25:00Z"
   },
@@ -596,7 +596,7 @@
       "color": "#bbb2cc",
       "icon": "./src/assets/warning-s.png"
     },
-    "state": "on-hold",
+    "status": "on-hold",
     "isCompleted": true,
     "createdAt": "2025-02-01T10:10:00Z"
   },
@@ -613,7 +613,7 @@
       "color": "#e4b875",
       "icon": "./src/assets/star.png"
     },
-    "state": "in-progress",
+    "status": "in-progress",
     "isCompleted": false,
     "createdAt": "2025-02-01T14:25:00Z"
   },
@@ -630,7 +630,7 @@
       "color": "#bbb2cc",
       "icon": "./src/assets/warning-s.png"
     },
-    "state": "on-hold",
+    "status": "on-hold",
     "isCompleted": true,
     "createdAt": "2025-02-01T10:10:00Z"
   },
@@ -647,7 +647,7 @@
       "color": "#e4b875",
       "icon": "./src/assets/star.png"
     },
-    "state": "in-progress",
+    "status": "in-progress",
     "isCompleted": false,
     "createdAt": "2025-02-01T14:25:00Z"
   }

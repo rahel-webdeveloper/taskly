@@ -22,6 +22,7 @@ import {
   todayTasks,
   visibleTasks,
 } from "./store";
+import APIClient from "../services/api-client";
 
 // Events handler function
 export const eventsHandler = (event) => {
@@ -184,6 +185,5 @@ function updateTaskUI() {
 export function controlTasksAllOperation() {
   setLiveTasks(tasks.get());
   filterAndSortFunc();
-  saveLocalStorage(tasks.get(), "listTask");
   updateTaskUI();
 }

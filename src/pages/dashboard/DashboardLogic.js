@@ -112,7 +112,6 @@ const initSevenDaysLine = (tasks) => {
 
   tasks.forEach((task) => {
     const taskDate = new Date(task.createdAt).toString().slice(0, 10);
-
     if (taskCounts.hasOwnProperty(taskDate)) {
       taskCounts[taskDate]++;
     }
@@ -197,24 +196,24 @@ const initSevenDaysLine = (tasks) => {
 };
 
 const initStateChart = (tasks) => {
-  const stateSpans = document.querySelectorAll(".state-span span");
+  const statusSpans = document.querySelectorAll(".status-span span");
   const donePercetageEl = document.getElementById("done-task_percetage");
 
-  const doneLength = tasks.filter((task) => task.state === "done").length;
+  const doneLength = tasks.filter((task) => task.status === "done").length;
   const inProgressLength = tasks.filter(
-    (task) => task.state === "in-progress"
+    (task) => task.status === "in-progress"
   ).length;
-  const onHoldLength = tasks.filter((task) => task.state === "on-hold").length;
+  const onHoldLength = tasks.filter((task) => task.status === "on-hold").length;
 
-  stateSpans[0].textContent = "On hold / " + onHoldLength;
-  stateSpans[1].textContent = "In progress / " + inProgressLength;
-  stateSpans[2].textContent = "Done / " + doneLength;
+  statusSpans[0].textContent = "On hold / " + onHoldLength;
+  statusSpans[1].textContent = "In progress / " + inProgressLength;
+  statusSpans[2].textContent = "Done / " + doneLength;
 
   donePercetageEl.innerHTML = `${
     tasks.length !== 0 ? Math.floor((doneLength / tasks.length) * 100) : 0
   }% ${"<p>Done!</p>"}`;
 
-  new Chart(document.getElementById("state_doughnut").getContext("2d"), {
+  new Chart(document.getElementById("status_doughnut").getContext("2d"), {
     type: "doughnut",
     data: {
       labels: ["On hold", "In Progress", "Done"],
@@ -271,9 +270,8 @@ const initTrackedTimeBars = (tasks) => {
   const remaingTimeEl = document.getElementById("remaining-time");
 
   const trackTimeObjects = tasks.reduce((accumlator, current) => {
-    const category = current.state;
-    accumlator[category] =
-      (accumlator[category] || 0) + current.durationMinutes;
+    const category = current.status;
+    accumlator[category] = (accumlator[category] || 0) + current.duration;
     return accumlator;
   }, {});
 

@@ -1,16 +1,16 @@
-const TaskStateDiv = (state) => {
+const TaskStateDiv = (status) => {
   return `
-  <div class="state-of-task">
-    <p id="${state}-task">
+  <div class="status-of-task">
+    <p id="${status}-task">
       <i class="bi ${
-        (state === "done" && "bi-star-fill") ||
-        (state === "in-progress" && "bi-circle-fill") ||
-        (state === "on-hold" && "bi-triangle-fill")
+        (status === "done" && "bi-star-fill") ||
+        (status === "in-progress" && "bi-circle-fill") ||
+        (status === "on-hold" && "bi-triangle-fill")
       }"></i>
       ${
-        (state === "done" && "Done") ||
-        (state === "in-progress" && "In progress") ||
-        (state === "on-hold" && "On hold")
+        (status === "done" && "Done") ||
+        (status === "in-progress" && "In progress") ||
+        (status === "on-hold" && "On hold")
       }
     </p>
   </div>

@@ -146,8 +146,8 @@ body {
     grid-auto-rows: min-content;
     grid-template-areas:
       "tasks tasks tasks todayreport"
-      "category category statetrack statetrack"
-      "category category statetrack statetrack"
+      "category category statustrack statustrack"
+      "category category statustrack statustrack"
       "days days . .";
 
     .today-report-div {
@@ -163,8 +163,8 @@ body {
       grid-area: days;
     }
 
-    .statechart-tracktime-div {
-      grid-area: statetrack;
+    .statuschart-tracktime-div {
+      grid-area: statustrack;
       place-self: center;
     }
   }
@@ -196,7 +196,7 @@ body {
     left: 3rem;
     height: min-content;
     width: 4rem;
-    padding: 0.7rem 0.25rem;
+    padding: 1rem 0.25rem;
 
     .sidebar-links {
       flex-direction: column;
@@ -204,7 +204,6 @@ body {
     }
 
     .sidebar-links a {
-      font-size: 1.3rem;
       padding: 0.5rem;
       border-radius: 0.7rem;
 
@@ -412,7 +411,7 @@ body {
       grid-template-areas:
         "todayreport  tasks tasks"
         "category tasks tasks"
-        "days statetrack statetrack";
+        "days statustrack statustrack";
     }
 
     .today-report-div {
@@ -426,7 +425,7 @@ body {
       width: 100%;
     }
 
-    .statechart-tracktime-div {
+    .statuschart-tracktime-div {
       grid-template-columns: 1fr 1fr;
 
       .tracked-time-chart {
@@ -434,7 +433,7 @@ body {
       }
     }
 
-    .state-span {
+    .status-span {
       margin-top: 1.5rem;
       row-gap: 0.7rem;
       font-size: 0.75rem;

@@ -37,12 +37,12 @@ const DashboardRender = () => {
         <canvas id="days_line"></canvas>
       </div>
 
-      <div class="statechart-tracktime-div">
-        <div class="state-chart chart">
-        <div class="state-details">
-         <p class="chart-title">Tasks by state <i class="bi bi-lightning-charge"></i></p>
+      <div class="statuschart-tracktime-div">
+        <div class="status-chart chart">
+        <div class="status-details">
+         <p class="chart-title">Tasks by status <i class="bi bi-lightning-charge"></i></p>
 
-         <div class="state-span">
+         <div class="status-span">
           <span>On hold</span>
           <span>In progress</span>
           <span>Done</span>
@@ -50,7 +50,7 @@ const DashboardRender = () => {
         </div>
         <div id="doughnut-chart_div">
           <span id="done-task_percetage">0%</span>
-          <canvas id="state_doughnut"></canvas>
+          <canvas id="status_doughnut"></canvas>
         </div>
       </div>
 
@@ -63,7 +63,7 @@ const DashboardRender = () => {
           <span>Remaining time</span>
          </div>
         </div>
-        <div class="state-div">
+        <div class="status-div">
          <canvas id="tracked-time_bar"></canvas>
         </div>
         <div class="time-details">

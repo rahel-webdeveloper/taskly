@@ -1,6 +1,6 @@
 import sendFeedbackComponent from "../../components/SendFeedback";
 import TodaysReportDiv from "../../components/Today'sReportDiv";
-import { controlTasksAllOperation } from "../../tasks/tasksLogic";
+import { priorityColors, priorityIcons } from "../../data/ui-data";
 import renderTasksList from "../../tasks/tasksRender";
 import taskHubLogic, {
   formateCardDate,
@@ -54,7 +54,7 @@ const TaskForm = () => {
     <div class="form-row">
       <div class="form-column">
         <label for="task-title" id="title-label">Title</label>
-        <input type="text" id="task-title" name="title" minlength="10" maxlength="60"
+        <input type="text" id="task-title" name="title" minlength="3" maxlength="30"
         placeholder="Write your task title..." required></input>
         <p class="error-message" id="title-error">The title must be at least 3 characters.</p>
       </div>
@@ -62,16 +62,17 @@ const TaskForm = () => {
         <label for="category" id="select-label">Category</label>
         <select id="category" name="category">
           <option value=""></option>
-          <option value="work">Work</option>
-          <option value="study">Study</option>
-          <option value="coding">Coding</option>
-          <option value="development">Development</option>
-          <option value="desing">Desing</option>
-          <option value="exercise">Exercise</option>
-          <option value="social">Social</option>
-          <option value="research">Research</option>
-          <option value="management">Management</option>
-          <option value="other...">Other...</option>
+          <option value="Work">Work</option>
+          <option value="Study">Study</option>
+          <option value="Coding">Coding</option>
+          <option value="Development">Development</option>
+          <option value="Design">Desing</option>
+          <option value="Exercise">Exercise</option>
+          <option value="Social">Social</option>
+          <option value="Research">Research</option>
+          <option value="Management">Management</option>
+          <option value="Content">Content</option>
+          <option value="Other...">Other...</option>
         </select>
         <p class="error-message" id="category-error">Select at least one category.</p>
       </div> 
@@ -157,7 +158,7 @@ export function addToDetailsCard(liveTasks) {
       parentCardEl.innerHTML += `
 
     <div class="details-card" style = "background-color: ${
-      task.priority.color
+      priorityColors[task.prioritylevel - 1]
     }; ">
   <div class="task-details">
             <div class="task-title">
@@ -169,7 +170,7 @@ export function addToDetailsCard(liveTasks) {
               <span id="category">${task.category}</span>
             </div>
             <div class="priority-icon">
-              <i class="bi${" " + task.priority.icon}"></i>
+              <i class="bi${" " + priorityIcons[task.prioritylevel - 1]}"></i>
             </div>
           </div>
   <div class="task-card-time-dev">
@@ -186,9 +187,9 @@ export function addToDetailsCard(liveTasks) {
       </span>
       <p>duration</p>
       <h3 id="duration" class="duration">
-        ${formateDuration(task.durationMinutes).days}
-        ${formateDuration(task.durationMinutes).hours}
-        ${formateDuration(task.durationMinutes).minutes}
+        ${formateDuration(task.duration).days}
+        ${formateDuration(task.duration).hours}
+        ${formateDuration(task.duration).minutes}
       </h3>
     </div>
   </div>

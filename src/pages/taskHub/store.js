@@ -7,6 +7,8 @@ import {
 import { controlTasksAllOperation } from "../../tasks/tasksLogic";
 import { tasks } from "../../tasks/store";
 import { liveTrackTasks, taskHubEls, useFlatepickr } from "./TaskHubLogic";
+import APIClient from "../../services/api-client";
+import { userId } from "../auth/store";
 
 export const systemMessage = {
   role: "system",
@@ -23,18 +25,13 @@ export const isScrolledToLeft = atom(false);
 export const taskTitle = atom("");
 export const taskDescription = atom("");
 export const taskCategory = atom("");
-export const taskPriority = atom({
-  level: 0,
-  label: "",
-  color: "",
-  icon: "",
-});
+export const prioritylevel = atom(3);
 export const startDateTime = atom(0);
 export const dueDateTime = atom(0);
-
-export const durationMinutes = atom(0);
-
+export const duration = atom(0);
 export const notifiedTasksId = new Set();
+
+const apiClientTasks = new APIClient("tasks");
 
 export const generateDescription = async (title) => {
   const reply = await puter.ai.chat(
@@ -67,26 +64,25 @@ export const checkTime_AllDay_Switch = () => {
   });
 };
 
-// Set priority related data
-export const setPriorityData = (inputPriority) => {
-  taskPriority.set({
-    level: parseInt(inputPriority),
-    label: priorityLabels[inputPriority],
-    color: priorityColors[inputPriority],
-    icon: priorityIcons[inputPriority],
-  });
-};
-
 // Set time difference in minutes from start and due date & time
 export const calculateTimeDifference = (startTime, dueTime) => {
   const res = Math.abs(dueTime - startTime);
   return res / 1000 / 60;
 };
 
-export function AddNewTask() {
-  const createdAt = new Date();
+apiClientTasks.getTasks(userId.get()).then((res) => {
+  tasks.set(res.tasks);
 
-  durationMinutes.set(
+  controlTasksAllOperation();
+  liveTrackTasks();
+});
+
+export function AddNewTask() {
+  const createdAt = new Date().toISOString();
+
+  console.log(prioritylevel.get());
+
+  duration.set(
     calculateTimeDifference(
       new Date(startDateTime.get()).getTime(),
       new Date(dueDateTime.get()).getTime()
@@ -96,27 +92,40 @@ export function AddNewTask() {
   // Structure of task data
   tasks.set([
     {
-      id: String(tasks.get().length + 1),
       title: taskTitle.get(),
       description: taskDescription.get(),
       category: taskCategory.get(),
-      startDateTime: startDateTime.get(),
-      dueDateTime: dueDateTime.get(),
-      durationMinutes: durationMinutes.get(),
-      priority: {
-        level: taskPriority.get().level,
-        label: taskPriority.get().label,
-        color: taskPriority.get().color,
-        icon: taskPriority.get().icon,
-      },
-      state: "on-hold",
-      isCompleted: false,
-      createdAt: createdAt.toISOString(),
-      updatedAt: createdAt.toISOString(),
+      startTime: startDateTime.get(),
+      dueTime: dueDateTime.get(),
+      duration: duration.get(),
+      prioritylevel: prioritylevel.get(),
+      status: "on-hold",
+      createdAt: createdAt,
     },
     ...tasks.get(),
   ]);
 
   controlTasksAllOperation();
   liveTrackTasks();
+
+  apiClientTasks
+    .createTask(tasks.get()[0])
+    .then((res) => {
+      console.log(res);
+      // apiClientTasks.getTasks(userId.get()).then((res) => {
+      // tasks.set(res.tasks);
+
+      // console.log(res);
+
+      // controlTasksAllOperation();
+      // liveTrackTasks();
+      // });
+    })
+    .catch((err) => {
+      // tasks.get().shift();
+      // controlTasksAllOperation();
+      // liveTrackTasks();
+
+      console.log(err);
+    });
 }

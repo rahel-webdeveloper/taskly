@@ -1,5 +1,7 @@
+import Profile from "./components/Profile";
 import { authServices } from "./pages/auth/AuthLogic";
-import { userData, userId } from "./pages/auth/store";
+import { token, userData, userId } from "./pages/auth/store";
+import SignInBtn from "./components/SignInBtn";
 
 const activeLink = (attribute = "/") => {
   const links = document.querySelectorAll(".sidebar-links a");
@@ -24,19 +26,40 @@ export const showSidebar = (isLogged = false) => {
 };
 
 export const showProfile = (isLogged = false) => {
-  const profile = document.querySelector(".profile");
-  const profilePictue = document.querySelector(".profile span p");
-  const authBtn = document.querySelector("#auth-btn");
+  const navbarRight = document.querySelector(".navbar-right");
 
   if (isLogged) {
-    profile.style.display = "flex";
-    authBtn.style.display = "none";
+    if (document.startViewTransition)
+      document.startViewTransition(() => {
+        navbarRight.innerHTML = Profile({ data: null });
+        const profilePictue = document.querySelector(".profile span p");
+        profilePictue.textContent = userData.get().name.slice(0, 1);
 
-    profilePictue.textContent = userData.get().name.slice(0, 1);
+        controLogoutFunc();
+      });
+    else {
+      navbarRight.innerHTML = Profile({ data: null });
+      const profilePictue = document.querySelector(".profile span p");
+      profilePictue.textContent = userData.get().name.slice(0, 1);
+
+      controLogoutFunc();
+    }
   } else {
-    profile.style.display = "none";
-    authBtn.style.display = "block";
+    document.startViewTransition
+      ? document.startViewTransition(
+          () => (navbarRight.innerHTML = SignInBtn())
+        )
+      : (navbarRight.innerHTML = SignInBtn());
   }
+};
+
+const controLogoutFunc = () => {
+  const logoutBtn = document.getElementById("profile-picture");
+
+  logoutBtn?.addEventListener("click", function (e) {
+    e.preventDefault();
+    if (authServices.isLogged(token.get())) authServices.signOut();
+  });
 };
 
 authServices.controlleLogged(userId.get());

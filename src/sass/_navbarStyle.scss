@@ -5,6 +5,7 @@
   @include flex-space;
   z-index: 2;
   background-color: transparent;
+  pointer-events: none;
 }
 
 .name__logo-div {
@@ -16,6 +17,7 @@
   border: 1px solid $border-color-transparent-2;
   @include flex-center;
   height: 2.8rem;
+  pointer-events: all;
 
   &::after {
     position: absolute;
@@ -34,6 +36,10 @@
   &:hover {
     scale: 1.053;
   }
+}
+
+.navbar-right {
+  pointer-events: all;
 }
 
 .sign-in-btn {
@@ -78,64 +84,49 @@
   bottom: 0rem;
   backdrop-filter: blur(9px);
   border-radius: 2rem;
-  padding: 0.45rem 0.77rem;
-  max-width: 30rem;
+  padding: 0.45rem 1.5rem;
+  max-width: 400px;
   width: 90%;
-  column-gap: 0.75rem;
   border: 1px solid $border-color-transparent-2;
   transform-origin: left;
   transition: scale 0.3s ease-in-out;
-  @include flex-space;
   background-color: $primary-color-transparent-2;
   z-index: 1;
+  height: 4rem;
   display: none;
 }
 
 .sidebar-links {
   @include flex-space;
   width: 100%;
-  padding: 0.37rem 0.47rem;
 
   a {
     @include flex-space;
-    column-gap: 0.47rem;
-    font-size: 1.37rem;
+    font-size: 1.35rem;
     color: $first-text;
-    letter-spacing: 0.5px;
     cursor: pointer;
+    padding: 0.5rem 0.7rem;
+    border-radius: 0.7rem;
   }
 
   span {
-    width: 0;
-    font-weight: 600;
-    transform: scale(0);
-    font-size: 0.83rem;
-    transition: transform 0.2s ease-in;
+    display: none;
   }
 }
 
 .sidebar-links a:hover {
   transition: all 0.4s ease-in;
   background-color: $border-color-transparent-2;
-  padding: 0.12rem 0.5rem;
-  border-radius: 1rem;
-
-  span {
-    transition: all 0.4s ease-in;
-    width: 100%;
-    font-weight: 600;
-    transform: scale(1);
-  }
 }
 
 .active-link {
   transition: all 0.3s ease-in;
   background-color: $border-color-transparent-2;
-  padding: 0.1rem 0.5rem;
-  border-radius: 1rem;
+  // padding: 0.1rem 0.5rem;
+  // border-radius: 1rem;
 
   span {
-    transform: scale(1);
-    width: 100%;
+    // transform: scale(1);
+    // width: 100%;
   }
 }

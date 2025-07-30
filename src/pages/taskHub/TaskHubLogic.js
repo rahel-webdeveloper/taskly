@@ -8,8 +8,8 @@ import {
 import openNotification from "../../services/toastNotifications.js";
 import { liveTasks } from "../../tasks/store.js";
 
-import sendFeedbackMain from "../../services/send_feedback-logic.js";
 import loadingDivComp from "../../components/Loading.js";
+import sendFeedbackMain from "../../services/send_feedback-logic.js";
 import {
   AddNewTask,
   check_Time_AllDay,
@@ -18,7 +18,7 @@ import {
   generateDescription,
   isScrolledToLeft,
   notifiedTasksId,
-  setPriorityData,
+  prioritylevel,
   startDateTime,
   taskCategory,
   taskDescription,
@@ -168,7 +168,8 @@ const prioritySliderController = () => {
   priorityIcon.classList.add(priorityIcons[prioritySliderNumber]);
 
   priorityIcon.style.color = `${priorityColors[prioritySliderNumber]}`;
-  setPriorityData(prioritySliderNumber);
+
+  prioritylevel.set(prioritySliderNumber + 1);
 
   // Call every time the slider changes
   prioritySliderEl.addEventListener("change", prioritySliderController);
@@ -397,9 +398,9 @@ export const todayReport = (todayTasks) => {
   const { doneTasksPercentageEl, tasksTrackedTimeEl, lengthTasksEl } =
     taskHubEls();
 
-  const todayDoneTasks = todayTasks.filter((task) => task.state === "done");
+  const todayDoneTasks = todayTasks.filter((task) => task.status === "done");
   const todayTrackedTime = todayTasks.reduce(
-    (accumlator, currentValue) => accumlator + currentValue.durationMinutes,
+    (accumlator, currentValue) => accumlator + currentValue.duration,
     0
   );
 
@@ -427,12 +428,12 @@ export function formateCardDate(task) {
 
   // If task has not started yet, show start time
   if (nowTimestamp < startTimestamp) {
-    showDate = new Date(task.startDateTime);
+    showDate = new Date(task.startTime);
     isToday = isDateToday(showDate);
     isTomorrow = isDateTomorrow(showDate);
   } else {
     // If task has started, show due time
-    showDate = new Date(task.dueDateTime);
+    showDate = new Date(task.dueTime);
     isToday = isDateToday(showDate);
     isTomorrow = isDateTomorrow(showDate);
   }
@@ -480,8 +481,8 @@ export function returnTodayString(task) {
   let showDate;
 
   nowTimestamp < startTimestamp
-    ? (showDate = new Date(task.startDateTime))
-    : (showDate = new Date(task.dueDateTime));
+    ? (showDate = new Date(task.startTime))
+    : (showDate = new Date(task.dueTime));
 
   return isDateToday(showDate)
     ? "Today "
@@ -493,8 +494,8 @@ export function returnTodayString(task) {
 export const timeStamps = (task) => {
   const nowTimestamp = new Date().getTime();
 
-  const startTimestamp = new Date(task.startDateTime).getTime();
-  const dueTimestamp = new Date(task.dueDateTime).getTime();
+  const startTimestamp = new Date(task.startTime).getTime();
+  const dueTimestamp = new Date(task.dueTime).getTime();
 
   return { nowTimestamp, startTimestamp, dueTimestamp };
 };

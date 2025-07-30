@@ -1,7 +1,6 @@
 import axios from "axios";
-import { atom } from "nanostores";
-import { router } from "../routes";
 import { token } from "../pages/auth/store";
+import { router } from "../routes";
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,

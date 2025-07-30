@@ -153,7 +153,7 @@ const givenTaskTo_AssistantContro = (userInputEl, getAdviceBtn) => {
   start time: ${new Date(
     taskToAssistant.get()[0].startDateTime
   ).toLocaleString()},
-  duration minutes: ${taskToAssistant.get()[0].durationMinutes}m`;
+  duration minutes: ${taskToAssistant.get()[0].duration}m`;
   getAdviceBtn.disabled = false;
 };
 

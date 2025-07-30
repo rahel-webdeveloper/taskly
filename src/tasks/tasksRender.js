@@ -73,8 +73,8 @@ function formateDate(date) {
 
 const NewTaskRender = (task) => {
   return `
-  <li class="${task.state} list-task">
-    ${TaskStateDiv(task.state)}
+  <li class="${!task.status ? "on-hold" : task.status} list-task">
+    ${TaskStateDiv(task.status)}
   <div class="list-task-div">
     <div title="done or uncomplete this task">
       <i class="check-icon bi bi-check"

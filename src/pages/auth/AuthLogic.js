@@ -19,7 +19,6 @@ function authEls() {
 
 const AuthLogic = () => {
   const { signInForm, signUpForm } = authEls();
-  const logoutBtn = document.getElementById("profile-picture");
 
   signInForm?.addEventListener("submit", function (e) {
     e.preventDefault();
@@ -42,10 +41,6 @@ const AuthLogic = () => {
       email: fd.get("email"),
       password: fd.get("password"),
     });
-  });
-
-  logoutBtn?.addEventListener("click", function () {
-    if (authServices.isLogged(token.get())) authServices.signOut();
   });
 };
 

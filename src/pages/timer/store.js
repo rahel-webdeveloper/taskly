@@ -9,7 +9,7 @@ import {
 import { atom } from "nanostores";
 import { timerCircleCompo, timerPickerCompo } from "./TimerRender";
 
-// Timer state
+// Timer status
 export const selectedHour = atom(0);
 export const selectedMinute = atom(0);
 export const selectedSecond = atom(0);
