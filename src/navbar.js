@@ -1,7 +1,6 @@
 import Profile from "./components/Profile";
-import { authServices } from "./pages/auth/AuthLogic";
-import { token, userData, userId } from "./pages/auth/store";
 import SignInBtn from "./components/SignInBtn";
+import authService, { userData, userId } from "./services/auth.service";
 
 const activeLink = (attribute = "/") => {
   const links = document.querySelectorAll(".sidebar-links a");
@@ -15,20 +14,18 @@ const activeLink = (attribute = "/") => {
   });
 };
 
-export const showSidebar = (isLogged = false) => {
+export const showSidebar = (isAuthenticated = false) => {
   const sidebarMenuContainer = document.getElementById("sidebar_menu");
 
-  if (isLogged) {
-    sidebarMenuContainer.style.display = "flex";
-  } else {
-    sidebarMenuContainer.style.display = "none";
-  }
+  isAuthenticated
+    ? (sidebarMenuContainer.style.display = "flex")
+    : (sidebarMenuContainer.style.display = "none");
 };
 
-export const showProfile = (isLogged = false) => {
+export const showProfile = (isAuthenticated = false) => {
   const navbarRight = document.querySelector(".navbar-right");
 
-  if (isLogged) {
+  if (isAuthenticated) {
     if (document.startViewTransition)
       document.startViewTransition(() => {
         navbarRight.innerHTML = Profile({ data: null });
@@ -58,11 +55,11 @@ const controLogoutFunc = () => {
 
   logoutBtn?.addEventListener("click", function (e) {
     e.preventDefault();
-    if (authServices.isLogged(token.get())) authServices.signOut();
+    // if (authServices.isAuthenticated(token.get())) authServices.signOut();
   });
 };
 
-authServices.controlleLogged(userId.get());
+authService.controlleLogged(userId.get());
 
 const singInBtn = document.querySelector(".sign-in-btn");
 

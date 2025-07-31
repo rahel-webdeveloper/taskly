@@ -1,14 +1,9 @@
 import { atom } from "nanostores";
-import {
-  priorityColors,
-  priorityIcons,
-  priorityLabels,
-} from "../../data/ui-data";
-import { controlTasksAllOperation } from "../../tasks/tasksLogic";
-import { tasks } from "../../tasks/store";
-import { liveTrackTasks, taskHubEls, useFlatepickr } from "./TaskHubLogic";
 import APIClient from "../../services/api-client";
-import { userId } from "../auth/store";
+import { userId } from "../../services/auth.service";
+import { tasks } from "../../tasks/store";
+import { controlTasksAllOperation } from "../../tasks/tasksLogic";
+import { liveTrackTasks, taskHubEls, useFlatepickr } from "./TaskHubLogic";
 
 export const systemMessage = {
   role: "system",

@@ -1,22 +1,25 @@
 import { Chart } from "chart.js/auto";
 import sendFeedbackMain from "../../services/send_feedback-logic.js";
 import { tasks } from "../../tasks/store";
-import { userData } from "../auth/store.js";
+import { userData } from "../../services/auth.service.js";
 
 export const DashboardLogic = (isChanged = false) => {
-  const allTasks = tasks.get();
+  setTimeout(() => {
+    const allTasks = tasks.get();
 
-  initCategoriesBars(allTasks, isChanged);
-  initSevenDaysLine(allTasks, isChanged);
-  initStatusChart(allTasks, isChanged);
-  initTrackedTimeBars(allTasks, isChanged);
+    initCategoriesBars(allTasks, isChanged);
+    initSevenDaysLine(allTasks, isChanged);
+    initStatusChart(allTasks, isChanged);
+    initTrackedTimeBars(allTasks, isChanged);
 
-  sendFeedbackMain();
-  setTimeout(
-    () =>
-      (document.getElementById("user_name").textContent = userData.get()?.name),
-    500
-  );
+    sendFeedbackMain();
+    setTimeout(
+      () =>
+        (document.getElementById("user_name").textContent =
+          userData.get()?.name),
+      500
+    );
+  }, 100);
 };
 
 let categoryChart = null;
@@ -39,7 +42,7 @@ export const initCategoriesBars = (tasks, isChanged) => {
     ([category, count]) => ({ category, count })
   );
 
-  categoryCountEl.textContent = categoryArray.length;
+  if (categoryCountEl) categoryCountEl.textContent = categoryArray.length;
 
   const config = {
     type: "bar",
@@ -141,10 +144,11 @@ export const initSevenDaysLine = (tasks, isChanged) => {
     }))
     .sort((a, b) => new Date(a.date) - new Date(b.date));
 
-  seventDays.textContent = taskCountsArray.reduce(
-    (accumlator, currentValue) => accumlator + currentValue.count,
-    0
-  );
+  if (seventDays)
+    seventDays.textContent = taskCountsArray.reduce(
+      (accumlator, currentValue) => accumlator + currentValue.count,
+      0
+    );
 
   const config = {
     type: "line",

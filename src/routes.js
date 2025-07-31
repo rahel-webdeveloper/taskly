@@ -12,6 +12,7 @@ import TimerRender from "./pages/timer/TimerRender.js";
 import WelcomeRender from "./pages/welcome/WelcomeRender.js";
 import renderTasksList from "./tasks/tasksRender.js";
 import AuthRender from "./pages/auth/AuthRender.js";
+import authService, { token } from "./services/auth.service.js";
 
 const currentRoute = atom(null);
 const isWelcomePageSeen = atom(loadLocalStorage("is_welcome_seen") || false);
@@ -27,52 +28,95 @@ export const router = new Navigo("/", {
 const Router = () => {
   router
     .on({
-      "/welcome": () => {
-        activeLink("/welcome");
-        renderPage(WelcomeRender, { data: null });
+      "/welcome": {
+        uses: () => {
+          activeLink("/welcome");
+          renderPage(WelcomeRender, { data: null });
 
-        isWelcomePageSeen.set(true);
-        saveLocalStorage(isWelcomePageSeen.get(), "is_welcome_seen");
+          isWelcomePageSeen.set(true);
+          saveLocalStorage(isWelcomePageSeen.get(), "is_welcome_seen");
+        },
+        hooks: {
+          leave: viewTransition,
+        },
       },
 
-      "/auth": () => router.navigate("/auth/sign-up"),
-      "/auth/:mode?": ({ data }) => {
-        activeLink("");
-        data.route = "dynamic";
-        renderPage(AuthRender, data);
+      "/auth": {
+        uses: () => router.navigate("/auth/sign-in"),
+      },
+      "/auth/:mode?": {
+        uses: ({ data }) => {
+          activeLink("");
+          data.route = "dynamic";
+          renderPage(AuthRender, data);
+        },
+        hooks: {
+          before: setCurrentRoute,
+          leave: viewTransition,
+        },
       },
 
-      "/": () => {
-        isDashboardOpen.set(false);
-        activeLink("/");
-        renderPage(TaskHubRender, renderTasksList);
+      "/": {
+        uses: () => {
+          isDashboardOpen.set(false);
+          activeLink("/");
+          renderPage(TaskHubRender, renderTasksList);
+        },
+        hooks: {
+          before: requireAuth,
+          leave: viewTransition,
+        },
       },
 
-      "/ai-advisor": () => {
-        activeLink("/ai-advisor");
-        renderPage(AIAdviceRender, { data: null });
+      "/ai-advisor": {
+        uses: () => {
+          activeLink("/ai-advisor");
+          renderPage(AIAdviceRender, { data: null });
+        },
+        hooks: {
+          before: requireAuth,
+          leave: viewTransition,
+        },
       },
 
-      "/dashboard": () => {
-        isDashboardOpen.set(true);
-        activeLink("/dashboard");
-        renderPage(DashboardRender, renderTasksList);
+      "/dashboard": {
+        uses: () => {
+          isDashboardOpen.set(true);
+          activeLink("/dashboard");
+          renderPage(DashboardRender, renderTasksList);
+        },
+
+        hooks: {
+          before: requireAuth,
+          leave: viewTransition,
+        },
       },
 
-      "/timer": () => router.navigate("/timer/picker"),
+      "/timer": {
+        uses: () => router.navigate("/timer/picker"),
+        hooks: {
+          before: requireAuth,
+          leave: viewTransition,
+        },
+      },
 
       // Dynamic Route for timer
-      "/timer/:mode?": ({ data }) => {
-        activeLink("/timer");
-        data.route = "dynamic";
-        renderPage(TimerRender, data);
+      "/timer/:mode?": {
+        uses: ({ data }) => {
+          activeLink("/timer");
+          data.route = "dynamic";
+          renderPage(TimerRender, data);
+        },
+        hooks: {
+          before: requireAuth,
+          leave: viewTransition,
+        },
       },
     })
 
     .notFound(() => {
       mainContentEl.innerHTML = "<h1>404 - Page Not Found</h1>";
     })
-
     .resolve();
 
   router.updatePageLinks();
@@ -82,25 +126,27 @@ const Router = () => {
   return { router };
 };
 
-router.hooks({
-  before(done, match) {
-    mainContentEl.innerHTML = loadingDivComp();
+// Route Gaurds
+const requireAuth = (done, match) => {
+  mainContentEl.innerHTML = loadingDivComp();
+  setCurrentRoute(done, match);
 
-    currentRoute.set(match.url);
-
+  if (authService.isAuthenticated(token.get())) done();
+  else {
+    router.navigate("/auth/sign-up");
     done();
-  },
+  }
+};
 
-  after(match) {
-    // console.log(match);
-  },
+const setCurrentRoute = (done, match) => {
+  currentRoute.set(match.url);
+  done();
+};
 
-  leave(done, match) {
-    document.startViewTransition
-      ? document.startViewTransition(() => done())
-      : done();
-  },
-});
+const viewTransition = (done, match) =>
+  document.startViewTransition
+    ? document.startViewTransition(() => done())
+    : done();
 
 function renderPage(component, additionalInit) {
   mainContentEl.innerHTML = component();
@@ -115,6 +161,7 @@ const renderDynamicPages = (data) => {
   if (isRouteInTimer()) navigateTimerPages(data.mode);
 
   if (isRouteInAuth()) navigateAuthPages(data.mode);
+
   // else other dyanamic routing
 };
 

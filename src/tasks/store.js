@@ -1,18 +1,19 @@
 import { atom } from "nanostores";
 import { loadLocalStorage, saveLocalStorage } from "../data/localStorage.js";
+import DashboardLogic, {
+  initStatusChart,
+  initTrackedTimeBars,
+} from "../pages/dashboard/DashboardLogic.js";
 import { liveTrackTasks } from "../pages/taskHub/TaskHubLogic.js";
+import APIClient from "../services/api-client.js";
 import {
   addStyleToFilterControls,
   addStyleToSortControls,
   controlTasksAllOperation,
 } from "./tasksLogic.js";
 import { renderTasks, updateTaskCount } from "./tasksRender.js";
-import APIClient from "../services/api-client.js";
-import DashboardLogic, {
-  initStatusChart,
-  initTrackedTimeBars,
-} from "../pages/dashboard/DashboardLogic.js";
-import { userData, userId } from "../pages/auth/store.js";
+import { isDashboardOpen } from "../routes.js";
+// import { userId } from "../services/auth.service.js";
 
 export const tasks = atom([]);
 export const liveTasks = atom([]);
@@ -31,13 +32,16 @@ const STATE = { IN_PROGRESS: "in-progress", DONE: "done", ON_HOLD: "on-hold" };
 
 const apiClientTasks = new APIClient("tasks");
 
-apiClientTasks.getTasks(userId.get()).then((res) => {
-  tasks.set(res.tasks);
+apiClientTasks
+  .getTasks(localStorage.getItem("userId"))
+  .then((res) => {
+    tasks.set(res.tasks);
 
-  controlTasksAllOperation();
-  liveTrackTasks();
-  DashboardLogic(true);
-});
+    controlTasksAllOperation();
+    liveTrackTasks();
+    if (isDashboardOpen.get()) DashboardLogic(true);
+  })
+  .catch((err) => console.log(err));
 
 function getNextState(current) {
   if (current === STATE.DONE) return STATE.ON_HOLD;

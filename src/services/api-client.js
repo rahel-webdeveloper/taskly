@@ -1,6 +1,6 @@
 import axios from "axios";
-import { token } from "../pages/auth/store";
 import { router } from "../routes";
+import { token } from "./auth.service";
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
