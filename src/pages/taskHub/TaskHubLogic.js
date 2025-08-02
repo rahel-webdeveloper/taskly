@@ -525,12 +525,12 @@ const isTaskStartedFunc = (task) => {
   const { nowTimestamp, startTimestamp, dueTimestamp } = timeStamps(task);
 
   if (dueTimestamp > nowTimestamp) {
-    if (nowTimestamp >= startTimestamp && !notifiedTasksId.has(task.id)) {
+    if (nowTimestamp >= startTimestamp && !notifiedTasksId.has(task._id)) {
       openNotification(
         "info",
         `Your (${task.description.slice(0, 12)}...) task is started!`
       );
-      notifiedTasksId.add(task.id);
+      notifiedTasksId.add(task._id);
     }
     if (nowTimestamp > startTimestamp) return true;
     else return false;

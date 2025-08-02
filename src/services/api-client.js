@@ -83,7 +83,7 @@ class APIClient {
   }
 
   async updateTask(taskId, updatedTask) {
-    const res = await axiosInstance.post(
+    const res = await axiosInstance.put(
       `/${this.endpoint}/${taskId}`,
       updatedTask
     );
@@ -92,7 +92,7 @@ class APIClient {
   }
 
   async deleteTask(taskId) {
-    const res = await axiosInstance.post(`/${this.endpoint}/${taskId}`);
+    const res = await axiosInstance.delete(`/${this.endpoint}/${taskId}`);
 
     return res.data;
   }

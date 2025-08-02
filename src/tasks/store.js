@@ -1,4 +1,4 @@
-import { atom } from "nanostores";
+import { atom, task } from "nanostores";
 import { loadLocalStorage, saveLocalStorage } from "../data/localStorage.js";
 import DashboardLogic, {
   initStatusChart,
@@ -13,6 +13,7 @@ import {
 } from "./tasksLogic.js";
 import { renderTasks, updateTaskCount } from "./tasksRender.js";
 import { isDashboardOpen } from "../routes.js";
+import { userId } from "../services/auth.service.js";
 // import { userId } from "../services/auth.service.js";
 
 export const tasks = atom([]);
@@ -76,7 +77,7 @@ export const completingTask = () => {
     tasks
       .get()
       .map((task) =>
-        String(task.id) === selectedTaskId.get()
+        String(task._id) === selectedTaskId.get()
           ? { ...task, status: getNextState(task.status) }
           : task
       )
@@ -84,12 +85,49 @@ export const completingTask = () => {
   controlTasksAllOperation();
   initStatusChart(tasks.get(), true);
   initTrackedTimeBars(tasks.get(), true);
+
+  const updatedTask = tasks
+    .get()
+    .find((task) => task._id === selectedTaskId.get());
+
+  apiClientTasks
+    .updateTask(selectedTaskId.get(), updatedTask)
+    .then((res) => {
+      // console.log(res);
+      // tasks.set(res.tasks)
+    })
+    .catch((err) => {
+      apiClientTasks.getTasks(userId.get()).then((res) => {
+        tasks.set(res.tasks);
+
+        controlTasksAllOperation();
+        initStatusChart(tasks.get(), true);
+        initTrackedTimeBars(tasks.get(), true);
+        console.log(err);
+      });
+    });
 };
 
 // deleting a task
 export const deletingTask = () => {
-  tasks.set(tasks.get().filter((task) => task.id !== selectedTaskId.get()));
+  tasks.set(tasks.get().filter((task) => task._id !== selectedTaskId.get()));
+
+  apiClientTasks
+    .deleteTask(selectedTaskId.get())
+    .then((res) => {})
+    .catch(() => {
+      apiClientTasks.getTasks(userId.get()).then((res) => {
+        tasks.set(res.tasks);
+
+        controlTasksAllOperation();
+
+        initStatusChart(tasks.get(), true);
+        initTrackedTimeBars(tasks.get(), true);
+      });
+    });
+
   controlTasksAllOperation();
+
   initStatusChart(tasks.get(), true);
   initTrackedTimeBars(tasks.get(), true);
 };
@@ -101,7 +139,7 @@ export const deletingCompleteTasks = () => {
 };
 
 export const setTaskToAssitant = (Id) => {
-  const selectedTask = tasks.get().filter((task) => task.id === Id);
+  const selectedTask = tasks.get().filter((task) => task._id === Id);
 
   taskToAssistant.set(selectedTask);
   saveLocalStorage(taskToAssistant.get(), "task-to-assistant");
@@ -109,7 +147,9 @@ export const setTaskToAssitant = (Id) => {
 
 // editing a task
 export const editingTask = (editBox, editInput) => {
-  const findTask = tasks.get().find((task) => task.id === selectedTaskId.get());
+  const findTask = tasks
+    .get()
+    .find((task) => task._id === selectedTaskId.get());
 
   editBox.style.display = "flex";
   editInput.value = findTask.description;
@@ -119,21 +159,39 @@ export const editingTask = (editBox, editInput) => {
 export const saveEditedTask = (editInput, editBox) => {
   const updatedAt = new Date();
 
-  if (editInput.value.length < 7 || editInput.length > 250) return;
+  if (editInput.value.length < 30 || editInput.length > 250) return;
 
   tasks.set(
     tasks.get().map((task) =>
-      task.id === selectedTaskId.get()
+      task._id === selectedTaskId.get()
         ? {
             ...task,
             description: editInput.value,
-            updatedAt: updatedAt.toISOString(),
           }
         : task
     )
   );
   editBox.style.display = "none";
   controlTasksAllOperation();
+
+  const updatedTask = tasks
+    .get()
+    .find((task) => task._id === selectedTaskId.get());
+
+  apiClientTasks
+    .updateTask(selectedTaskId.get(), updatedTask)
+    .then((res) => {
+      // console.log(res);
+      // tasks.set(res.tasks)
+    })
+    .catch((err) => {
+      apiClientTasks.getTasks(userId.get()).then((res) => {
+        tasks.set(res.tasks);
+
+        controlTasksAllOperation();
+        console.log(err);
+      });
+    });
 };
 
 // Implement filter base on status

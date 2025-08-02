@@ -78,7 +78,7 @@ const NewTaskRender = (task) => {
   <div class="list-task-div">
     <div title="done or uncomplete this task">
       <i class="check-icon bi bi-check"
-        data-id="${task.id}"></i>
+        data-id="${task._id}"></i>
     </div>
     <div class="task-description-div">
       <p>${task.description.slice(0, 30) + "..."}</p>
@@ -92,7 +92,7 @@ const NewTaskRender = (task) => {
         <div class="assistance-task-icon-div" title="assistance to task">
           <i
             class="bi bi-stars assistance-task-icon"
-            data-id="${task.id}"
+            data-id="${task._id}"
           ></i>
         </div>
       </a>
@@ -100,13 +100,13 @@ const NewTaskRender = (task) => {
       <div class="edit-icon-div" title="edit task">
         <i
           class="bi bi-input-cursor-text task-edit-icon"
-          data-id="${task.id}"
+          data-id="${task._id}"
         ></i>
       </div>
 
       <div class="delete-icon-div" title="delete task">
         <i class="delete-icon bi bi-dash"
-          data-id="${task.id}"></i>
+          data-id="${task._id}"></i>
       </div>
     </div>
   </div>
