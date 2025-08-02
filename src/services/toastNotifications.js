@@ -20,7 +20,7 @@ const notyf = new Notyf({
     },
     {
       type: "info",
-      background: "rgb(176, 187, 188, .87)",
+      background: "rgb(106, 179, 203, .87)",
       icon: "<i class='bi bi-info-circle-fill'></i>",
     },
   ],
@@ -50,8 +50,10 @@ const openNotification = (type, message) => {
 
   // add some custome style
   for (let i = 0; i < notyfToasts.length; i++) {
-    notyfWrapper[i].style.cssText +=
-      " padding-block: 13px; padding-right: 45px;";
+    notyfWrapper[i].style.cssText += ` 
+    padding-block: 10px; padding-right: 45px;
+    font-size: .9rem;
+      `;
 
     notyfToasts[i].style.cssText +=
       "border-radius: 2rem .67rem .67rem 2rem; backdrop-filter: blur(12px); max-width: max-content; width: 90%; margin: 1.15rem .45rem .8rem 0;";

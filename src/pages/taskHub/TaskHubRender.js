@@ -66,7 +66,7 @@ const TaskForm = () => {
           <option value="Study">Study</option>
           <option value="Coding">Coding</option>
           <option value="Development">Development</option>
-          <option value="Design">Desing</option>
+          <option value="Design">Design</option>
           <option value="Exercise">Exercise</option>
           <option value="Social">Social</option>
           <option value="Research">Research</option>
