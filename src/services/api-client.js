@@ -97,6 +97,12 @@ class APIClient {
     return res.data;
   }
 
+  async deleteTasks() {
+    const res = await axiosInstance.delete(`/${this.endpoint}`);
+
+    return res.data;
+  }
+
   // ---------- USERS
   async getUsers() {
     const res = await axiosInstance.get(`/${this.endpoint}`);

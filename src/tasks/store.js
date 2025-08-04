@@ -115,7 +115,7 @@ export const deletingTask = () => {
   apiClientTasks
     .deleteTask(selectedTaskId.get())
     .then((res) => {})
-    .catch(() => {
+    .catch((err) => {
       apiClientTasks.getTasks(userId.get()).then((res) => {
         tasks.set(res.tasks);
 
@@ -123,6 +123,8 @@ export const deletingTask = () => {
 
         initStatusChart(tasks.get(), true);
         initTrackedTimeBars(tasks.get(), true);
+
+        console.log(err);
       });
     });
 
@@ -135,7 +137,25 @@ export const deletingTask = () => {
 // deleting all done tasks
 export const deletingCompleteTasks = () => {
   tasks.set(tasks.get().filter((task) => task.status !== STATE.DONE));
+
+  apiClientTasks
+    .deleteTasks()
+    .then((res) => {})
+    .then((err) => {
+      // apiClientTasks.getTasks(userId.get()).then((res) => {
+      //   tasks.set(res.tasks);
+
+      //   controlTasksAllOperation();
+      //   initStatusChart(tasks.get(), true);
+      //   initTrackedTimeBars(tasks.get(), true);
+
+      console.log(err);
+      // });
+    });
+
   controlTasksAllOperation();
+  initStatusChart(tasks.get(), true);
+  initTrackedTimeBars(tasks.get(), true);
 };
 
 export const setTaskToAssitant = (Id) => {
