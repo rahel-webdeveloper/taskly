@@ -28,7 +28,7 @@ export const showProfile = (isAuthenticated = false) => {
   if (isAuthenticated) {
     if (document.startViewTransition)
       document.startViewTransition(() => {
-        navbarRight.innerHTML = Profile({ data: null });
+        navbarRight.innerHTML = Profile({ data: userData.get() });
         const profilePictue = document.getElementById("profile-btn");
         profilePictue.textContent = userData.get().name.slice(0, 1);
 

@@ -1,4 +1,4 @@
-#profile-btn {
+.profile-avatar {
   // font-size: 1rem;
   margin-right: 0.5rem;
   width: min-content;
@@ -20,7 +20,104 @@
 }
 
 #profile-pop {
-  margin-inline: auto 1rem;
-  margin-top: 5rem;
+  margin-inline: auto 1.5rem;
+  margin-top: 4.5rem;
   align-self: flex-start;
+  border: none;
+  padding: 1rem;
+  border-radius: 1rem;
+  background-color: $primary-color-transparent-4;
+  color: $first-text;
+  backdrop-filter: blur(7px);
+
+  i {
+    color: $second-text;
+    font-size: 0.95rem;
+  }
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 1px solid $border-color-transparent-2;
+  padding-bottom: 1rem;
+
+  .profile-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid $border-color-transparent-2;
+    box-shadow: none;
+  }
+
+  .profile-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    // color: $primary-color;
+  }
+}
+
+.profile-details {
+  padding-block: 1rem;
+
+  p {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0.3rem 0;
+
+    i {
+      color: $secondary-color;
+      font-size: 1.1rem;
+    }
+
+    strong {
+      margin-right: 0.25rem;
+    }
+  }
+}
+
+.profile-actions {
+  display: grid;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid $border-color-transparent-2;
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    // padding: 0.5rem 1.2rem;
+    border: none;
+    border-radius: 0.5rem;
+    background: transparent;
+    color: $first-text;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+
+    i {
+      font-size: 1.1rem;
+    }
+
+    &:hover {
+      a {
+        border-bottom: 1px solid $border-color-transparent-2;
+        opacity: 0.7;
+      }
+    }
+  }
+}
+
+#logout-btn {
+  a {
+    color: $coral-red-color;
+    font-weight: 700;
+  }
+
+  i {
+    color: $coral-red-color;
+  }
 }
