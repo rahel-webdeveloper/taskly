@@ -1,6 +1,6 @@
 # Taskly Pro
 
-> A lightweight, front-end task-management PWA built with Vanilla JavaScript, NanoStores, Chart.js and AI Advisor powered task advising.
+> A lightweight, Full Stack task-management PWA built with Vanilla JavaScript, NanoStores, Chart.js and AI Advisor powered task advising.
 
 ![📷Screenshot](./public/welcome%20page%20screenshot.png)
 
@@ -85,7 +85,7 @@ Taskly Pro is a Progressive Web App that helps you create, track, and analyze yo
 - Puter.js + AI Advisor API for AI-driven task advising
 - Service Worker & Web App Manifest for PWA support
 - EmailJs for getting feedback and opinions
-- Notfy for giving beutifull UI notification
+- Notyf for giving beutifull UI notification
 
 ---
 

@@ -330,12 +330,19 @@ const createNewConve = () => {
   ]);
 
   activeConversation_Id.set(Id);
-
   saveLocalStorage(conversations.get(), "all_Conversations");
 
-  document.startViewTransition
-    ? document.startViewTransition(() => renderConversationList())
-    : renderConversationList();
+  if (document.startViewTransition)
+    document.startViewTransition(() => {
+      renderConversationList();
+      addStyleToActiveConve(activeConversation_Id.get());
+      renderActiveConve_Messages(activeConversation_Id.get());
+    });
+  else {
+    renderConversationList();
+    addStyleToActiveConve(activeConversation_Id.get());
+    renderActiveConve_Messages(activeConversation_Id.get());
+  }
 };
 
 export const renderConversationList = () => {
