@@ -4,6 +4,7 @@ import { userId } from "../../services/auth.service";
 import { tasks } from "../../tasks/store";
 import { controlTasksAllOperation } from "../../tasks/tasksLogic";
 import { liveTrackTasks, taskHubEls, useFlatepickr } from "./TaskHubLogic";
+import APIErrorController from "../../services/data.error.controller";
 
 export const systemMessage = {
   role: "system",
@@ -103,6 +104,8 @@ export function AddNewTask() {
 
           controlTasksAllOperation();
           liveTrackTasks();
+
+          openNotification("success", "New task created successfully!");
         });
     })
     .catch((err) => {
@@ -111,6 +114,9 @@ export function AddNewTask() {
       controlTasksAllOperation();
       liveTrackTasks();
 
-      console.log(err);
+      APIErrorController(
+        err,
+        "Creating new task faild please check out your internet."
+      );
     });
 }

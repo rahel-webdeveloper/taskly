@@ -5,6 +5,7 @@ import { router } from "../routes";
 import { tasks } from "../tasks/store";
 import { controlTasksAllOperation } from "../tasks/tasksLogic";
 import APIClient from "./api-client";
+import APIErrorController from "./data.error.controller";
 
 export const userId = atom(localStorage.getItem("userId") || null);
 export const token = atom(localStorage.getItem("tasklyToken") || null);
@@ -21,8 +22,6 @@ class AuthService {
     apiClientAuth
       .singIn({ email: data.email, password: data.password })
       .then((res) => {
-        // console.log(res);
-
         token.set(res.data.token);
         userId.set(res.data.user._id);
         this.controlleLogged(res.data.user._id);
@@ -32,25 +31,20 @@ class AuthService {
 
         router.navigate("/");
 
-        apiClientTasks
-          .getTasks(res.data.user._id)
-          .then((res) => {
-            tasks.set(res.tasks);
+        apiClientTasks.getTasks(res.data.user._id).then((res) => {
+          tasks.set(res.tasks);
 
-            controlTasksAllOperation();
-            liveTrackTasks();
-          })
-          .catch((err) => console.log(err));
+          controlTasksAllOperation();
+          liveTrackTasks();
+        });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => APIErrorController(err));
   }
 
   signUp(data) {
     apiClientAuth
       .signUp({ name: data.name, email: data.email, password: data.password })
       .then((res) => {
-        // console.log(res);
-
         token.set(res.data.token);
         userId.set(res.data.user._id);
         this.controlleLogged(res.data.user._id);
@@ -59,18 +53,8 @@ class AuthService {
         localStorage.setItem("userId", res.data.user._id);
 
         router.navigate("/");
-
-        apiClientTasks
-          .getTasks(res.data.user._id)
-          .then((res) => {
-            tasks.set(res.tasks);
-
-            controlTasksAllOperation();
-            liveTrackTasks();
-          })
-          .catch((err) => console.log(err));
       })
-      .catch((err) => console.log(err));
+      .catch((err) => APIErrorController(err));
   }
 
   controlleLogged(userId) {
@@ -79,12 +63,11 @@ class AuthService {
       .then((res) => {
         userData.set(res.user);
 
-        // console.log(res);
         showSidebar(true);
         showProfile(true);
       })
       .catch((err) => {
-        console.log(err);
+        // APIErrorController(err);
 
         showSidebar(false);
         showProfile(false);

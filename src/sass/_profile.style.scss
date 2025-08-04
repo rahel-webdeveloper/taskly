@@ -30,6 +30,10 @@
   color: $first-text;
   backdrop-filter: blur(7px);
 
+  &::backdrop {
+    background-color: $secondary-color-transparent-2;
+  }
+
   i {
     color: $second-text;
     font-size: 0.95rem;
@@ -103,6 +107,7 @@
     }
 
     &:hover {
+      p,
       a {
         border-bottom: 1px solid $border-color-transparent-2;
         opacity: 0.7;
@@ -112,9 +117,14 @@
 }
 
 #logout-btn {
+  p,
   a {
     color: $coral-red-color;
     font-weight: 700;
+
+    &:hover {
+      border-bottom: 1px solid $coral-red-color-transparent-2;
+    }
   }
 
   i {

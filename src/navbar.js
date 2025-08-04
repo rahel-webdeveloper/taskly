@@ -1,6 +1,8 @@
 import Profile from "./components/Profile";
 import SignInBtn from "./components/SignInBtn";
-import authService, { userData, userId } from "./services/auth.service";
+import { router } from "./routes";
+import authService, { token, userData, userId } from "./services/auth.service";
+import openNotification from "./services/toastNotifications";
 
 const activeLink = (attribute = "/") => {
   const links = document.querySelectorAll(".sidebar-links a");
@@ -32,14 +34,14 @@ export const showProfile = (isAuthenticated = false) => {
         const profilePictue = document.getElementById("profile-btn");
         profilePictue.textContent = userData.get().name.slice(0, 1);
 
-        controLogoutFunc();
+        controProfileEvents();
       });
     else {
       navbarRight.innerHTML = Profile({ data: null });
       const profilePictue = document.getElementById("profile-btn");
       profilePictue.textContent = userData.get().name.slice(0, 1);
 
-      controLogoutFunc();
+      controProfileEvents();
     }
   } else {
     document.startViewTransition
@@ -50,16 +52,32 @@ export const showProfile = (isAuthenticated = false) => {
   }
 };
 
-const controLogoutFunc = () => {
-  // const logoutBtn = document.getElementById("profile-btn");
-  // logoutBtn?.addEventListener("click", function (e) {
-  // e.preventDefault();
-  // if (authServices.isAuthenticated(token.get())) authServices.signOut();
-  // });
+const controProfileEvents = () => {
+  const profilePopover = document.getElementById("profile-pop");
+
+  profilePopover?.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const target = e.target;
+
+    if (
+      target.closest("#logout-btn") &&
+      authService.isAuthenticated(token.get())
+    ) {
+      console.log("it works");
+      authService.signOut();
+    }
+
+    if (target.closest("#create-acount-btn")) {
+      authService.signOut();
+      router.navigate("/auth/sign-up");
+    }
+
+    if (target.closest("#settings-btn"))
+      openNotification("info", "This feature is coming soon stay tuned!");
+  });
 };
 
 authService.controlleLogged(userId.get());
-
-const singInBtn = document.querySelector(".sign-in-btn");
 
 export default activeLink;

@@ -14,6 +14,8 @@ import {
 import { renderTasks, updateTaskCount } from "./tasksRender.js";
 import { isDashboardOpen } from "../routes.js";
 import { userId } from "../services/auth.service.js";
+import APIErrorController from "../services/data.error.controller.js";
+import openNotification from "../services/toastNotifications.js";
 // import { userId } from "../services/auth.service.js";
 
 export const tasks = atom([]);
@@ -42,7 +44,7 @@ apiClientTasks
     liveTrackTasks();
     if (isDashboardOpen.get()) DashboardLogic(true);
   })
-  .catch((err) => console.log(err));
+  .catch((err) => APIErrorController(err));
 
 function getNextState(current) {
   if (current === STATE.DONE) return STATE.ON_HOLD;
@@ -93,8 +95,8 @@ export const completingTask = () => {
   apiClientTasks
     .updateTask(selectedTaskId.get(), updatedTask)
     .then((res) => {
-      // console.log(res);
-      // tasks.set(res.tasks)
+      console.log(res);
+      tasks.set(res.tasks);
     })
     .catch((err) => {
       apiClientTasks.getTasks(userId.get()).then((res) => {
@@ -103,7 +105,7 @@ export const completingTask = () => {
         controlTasksAllOperation();
         initStatusChart(tasks.get(), true);
         initTrackedTimeBars(tasks.get(), true);
-        console.log(err);
+        APIErrorController(err);
       });
     });
 };
@@ -124,7 +126,10 @@ export const deletingTask = () => {
         initStatusChart(tasks.get(), true);
         initTrackedTimeBars(tasks.get(), true);
 
-        console.log(err);
+        APIErrorController(
+          err,
+          "Your not deleted please try again and check out your internet."
+        );
       });
     });
 
@@ -142,15 +147,15 @@ export const deletingCompleteTasks = () => {
     .deleteTasks()
     .then((res) => {})
     .then((err) => {
-      // apiClientTasks.getTasks(userId.get()).then((res) => {
-      //   tasks.set(res.tasks);
+      apiClientTasks.getTasks(userId.get()).then((res) => {
+        tasks.set(res.tasks);
 
-      //   controlTasksAllOperation();
-      //   initStatusChart(tasks.get(), true);
-      //   initTrackedTimeBars(tasks.get(), true);
+        controlTasksAllOperation();
+        initStatusChart(tasks.get(), true);
+        initTrackedTimeBars(tasks.get(), true);
+      });
 
-      console.log(err);
-      // });
+      APIErrorController(err);
     });
 
   controlTasksAllOperation();
@@ -177,8 +182,6 @@ export const editingTask = (editBox, editInput) => {
 
 // Save edited task
 export const saveEditedTask = (editInput, editBox) => {
-  const updatedAt = new Date();
-
   if (editInput.value.length < 30 || editInput.length > 250) return;
 
   tasks.set(
@@ -201,15 +204,17 @@ export const saveEditedTask = (editInput, editBox) => {
   apiClientTasks
     .updateTask(selectedTaskId.get(), updatedTask)
     .then((res) => {
-      // console.log(res);
-      // tasks.set(res.tasks)
+      if (res.success) openNotification("success", "Your edited task saved!");
     })
     .catch((err) => {
       apiClientTasks.getTasks(userId.get()).then((res) => {
         tasks.set(res.tasks);
 
         controlTasksAllOperation();
-        console.log(err);
+        APIErrorController(
+          err,
+          "Your edited task not saved please check out your internet."
+        );
       });
     });
 };

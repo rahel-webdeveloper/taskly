@@ -66,11 +66,7 @@ export const eventsHandler = (event) => {
     editingTask(editBox, editInput);
   }
 
-  if (target.closest("#save")) {
-    saveEditedTask(editInput, editBox);
-
-    openNotification("success", "Your edited task saved!");
-  }
+  if (target.closest("#save")) saveEditedTask(editInput, editBox);
 
   if (target.closest("#cancel")) {
     editBox.style.display = "none";

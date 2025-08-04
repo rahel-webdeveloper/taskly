@@ -13,11 +13,11 @@ const Profile = ({ data }) => {
   <p><i class="bi bi-person"></i> <span>Username:</span> ${data.name}</p>
 </div>
 <div class="profile-actions">
-  <button id="edit-profile-btn"><i class="bi bi-person-gear"></i><a>Settings</a></button>
+  <button id="settings-btn"><i class="bi bi-person-gear"></i><p>Settings</p></button>
 
   <button id="create-acount-btn"><i class="bi bi-person-plus"></i><a href="/auth/sign-up">Add account</a></button>
   
-  <button id="logout-btn"><i class="bi bi-box-arrow-right"></i> <a href="/auth/sign-in">Logout</a></button>
+  <button id="logout-btn"><i class="bi bi-box-arrow-right"></i> <a href="/auth/sign-in" data-navigo>Logout</p></button>
 </div>
     </div>
   `;

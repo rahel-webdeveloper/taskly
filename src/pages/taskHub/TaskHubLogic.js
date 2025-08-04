@@ -213,7 +213,6 @@ function submitForm() {
       form.reset();
 
       prioritySliderController();
-      openNotification("success", "New task created successfully!");
     }
   });
 }
