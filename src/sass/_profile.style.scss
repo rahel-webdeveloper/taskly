@@ -1,10 +1,6 @@
-.profile {
-  font-size: 1rem;
-  text-align: center;
+#profile-btn {
+  // font-size: 1rem;
   margin-right: 0.5rem;
-}
-
-#profile-picture {
   width: min-content;
   height: 40px;
   width: 40px;
@@ -21,4 +17,10 @@
   &:hover {
     box-shadow: 0 0 0 1px $secondary-color-transparent-2;
   }
+}
+
+#profile-pop {
+  margin-inline: auto 1rem;
+  margin-top: 5rem;
+  align-self: flex-start;
 }

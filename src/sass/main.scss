@@ -367,26 +367,7 @@ body {
     }
 
     #ai__sidebar {
-      width: 25vw;
-      height: 520px;
-      top: 57%;
-      padding-top: 0;
-      overflow: hidden;
-      border-radius: 0 0.7rem 0rem 0;
-      background-color: $dark-blue-color-transparent-2;
-      backdrop-filter: blur(15px);
-
-      h2 {
-        font-size: 1.25rem;
-      }
-
-      .conversation__list {
-        height: 26rem;
-
-        .active__conver {
-          background-color: $dark-blue-color-transparent-2;
-        }
-      }
+      background-color: transparent;
     }
   }
 

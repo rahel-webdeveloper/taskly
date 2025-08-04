@@ -38,11 +38,16 @@ Taskly Pro is a Progressive Web App that helps you create, track, and analyze yo
 
 ## ✨ Features
 
+- Authentacation and Authorization
+
+  - Creating account via Sign Up page
+  - Sign In to your account via Sign In page
+
 - Task Hub
 
   - Generate task description base on given title by AI
   - Create, edit, delete, and track tasks
-  - Filter tasks by statuses
+  - Filter tasks by status
   - Sort by name and date
   - Special button for task assistant
 
@@ -80,6 +85,7 @@ Taskly Pro is a Progressive Web App that helps you create, track, and analyze yo
 - Puter.js + AI Advisor API for AI-driven task advising
 - Service Worker & Web App Manifest for PWA support
 - EmailJs for getting feedback and opinions
+- Notfy for giving beutifull UI notification
 
 ---
 
@@ -90,14 +96,14 @@ Taskly Pro is a Progressive Web App that helps you create, track, and analyze yo
 1. Clone the repo
 
    ```bash
-   git clone sorry it is privte for now, but if you are recruiter you can message me
+   git clone 
    ```
 
 ### Usage
 
 - **Task Creation:** Navigate to Task Hub and click "Create task or plus icon"
 - **Task Management:** Drag tasks between status columns to update progress
-- **Productivity Insights:** Visit the Dashboard to view your productivity metrics
+- **Productivity Insights:** Visit the Dashboard to view your productivity metrics and today's report
 - **Focus Sessions:** Use the Timer feature to maintain concentration on important tasks
 - **AI Assistance:** Consult the AI Advisor when you need help organizing or prioritizing tasks
 
@@ -106,9 +112,6 @@ Taskly Pro is a Progressive Web App that helps you create, track, and analyze yo
 Building **Taskly** taught me to:
 
 - **Creating and structuring an AI driven app from scratch📝**
-
----
-
 - **Integrate AI** advice with AI Advisor API via Puter.js
 - **Manage status** effectively with Nano Stores.
 - **Route** seamlessly using Navigo.
@@ -211,7 +214,6 @@ export const getAdvice = async () => {
 
 ### Future Enhancements💡
 
-- Authentacation and authorization features
 - Mobile application with cross-platform synchronization
 - Calender integration for deadline management
 - Team collabration features

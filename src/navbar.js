@@ -29,14 +29,14 @@ export const showProfile = (isAuthenticated = false) => {
     if (document.startViewTransition)
       document.startViewTransition(() => {
         navbarRight.innerHTML = Profile({ data: null });
-        const profilePictue = document.querySelector(".profile span p");
+        const profilePictue = document.getElementById("profile-btn");
         profilePictue.textContent = userData.get().name.slice(0, 1);
 
         controLogoutFunc();
       });
     else {
       navbarRight.innerHTML = Profile({ data: null });
-      const profilePictue = document.querySelector(".profile span p");
+      const profilePictue = document.getElementById("profile-btn");
       profilePictue.textContent = userData.get().name.slice(0, 1);
 
       controLogoutFunc();
@@ -51,12 +51,11 @@ export const showProfile = (isAuthenticated = false) => {
 };
 
 const controLogoutFunc = () => {
-  const logoutBtn = document.getElementById("profile-picture");
-
-  logoutBtn?.addEventListener("click", function (e) {
-    e.preventDefault();
-    // if (authServices.isAuthenticated(token.get())) authServices.signOut();
-  });
+  // const logoutBtn = document.getElementById("profile-btn");
+  // logoutBtn?.addEventListener("click", function (e) {
+  // e.preventDefault();
+  // if (authServices.isAuthenticated(token.get())) authServices.signOut();
+  // });
 };
 
 authService.controlleLogged(userId.get());

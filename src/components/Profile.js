@@ -1,9 +1,10 @@
 const Profile = (data) => {
   return `
-    <div class="profile">
-    <span id="profile-picture">
-            <p></p>
-    </span>
+    <button id="profile-btn" popovertarget="profile-pop">
+    </button>
+
+    <div id="profile-pop" popover>
+       <p>This is profile popover</p>
     </div>
   `;
 };

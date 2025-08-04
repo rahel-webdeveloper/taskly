@@ -398,6 +398,8 @@ export const todayReport = (todayTasks) => {
   const { doneTasksPercentageEl, tasksTrackedTimeEl, lengthTasksEl } =
     taskHubEls();
 
+  if (!doneTasksPercentageEl && !tasksTrackedTimeEl && !lengthTasksEl) return;
+
   const todayDoneTasks = todayTasks.filter((task) => task.status === "done");
   const todayTrackedTime = todayTasks.reduce(
     (accumlator, currentValue) => accumlator + currentValue.duration,

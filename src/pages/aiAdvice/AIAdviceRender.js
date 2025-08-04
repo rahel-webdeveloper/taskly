@@ -23,7 +23,6 @@ const AIAdviceContainer = () => {
 AIAdviceContainer.init = function () {
   const aiAdviceCotainer = document.querySelector(".ai-advice_container");
 
-  aiAdviceCotainer?.removeEventListener("click", eventsHandler);
   aiAdviceCotainer?.addEventListener("click", eventsHandler);
 
   // window.addEventListener("resize", () => toggleAiSideBar(false));

@@ -150,12 +150,12 @@ const TaskForm = () => {
 export function addToDetailsCard(liveTasks) {
   const parentCardEl = document.getElementById("details_cards");
 
-  // if (parentCardEl) {
-  parentCardEl.innerHTML = "";
+  if (parentCardEl) {
+    parentCardEl.innerHTML = "";
 
-  if (liveTasks.length !== 0) {
-    liveTasks.forEach((task) => {
-      parentCardEl.innerHTML += `
+    if (liveTasks.length !== 0) {
+      liveTasks.forEach((task) => {
+        parentCardEl.innerHTML += `
 
     <div class="details-card" style = "background-color: ${
       priorityColors[task.prioritylevel - 1]
@@ -195,19 +195,20 @@ export function addToDetailsCard(liveTasks) {
   </div>
  </div>
   `;
-      // Card container Grid style
-      parentCardEl.style.gridTemplateColumns = `repeat(${
-        liveTasks.length + 1
-      }, 1fr)`;
-    });
-  } else {
-    parentCardEl.innerHTML = sampleOfCard();
+        // Card container Grid style
+        parentCardEl.style.gridTemplateColumns = `repeat(${
+          liveTasks.length + 1
+        }, 1fr)`;
+      });
+    } else {
+      parentCardEl.innerHTML = sampleOfCard();
 
-    // Style base on overflow
-    const emptyCard = document.querySelector(".empty-card");
-    liveTasks.length === 0
-      ? (emptyCard.style.margin = ".5rem")
-      : (emptyCard.style.margin = "0rem");
+      // Style base on overflow
+      const emptyCard = document.querySelector(".empty-card");
+      liveTasks.length === 0
+        ? (emptyCard.style.margin = ".5rem")
+        : (emptyCard.style.margin = "0rem");
+    }
   }
 }
 

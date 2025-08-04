@@ -48,6 +48,12 @@ export const eventsHandler = (event) => {
 
   if (target.closest("#new_chat")) createNewConve();
 
+  if (
+    target.closest("#ai__sidebar") &&
+    !target.closest(".conversation__Library")
+  )
+    toggleAiSideBar(false);
+
   if (target.closest(".conversation div")) {
     activeConversation_Id.set(target.getAttribute("data-id"));
     toggleAiSideBar(false);
@@ -71,13 +77,10 @@ export const toggleAiSideBar = (show = false) => {
   if (!aiSideBar) return;
 
   const aiSideBarStyle = aiSideBar.style;
-  const isWindowLarge = window.innerWidth >= 1024;
 
-  if (show && !isWindowLarge) aiSideBarStyle.left = "50%";
-  else if (show && isWindowLarge) aiSideBarStyle.left = "12.5%";
+  if (show) aiSideBarStyle.left = "50%";
 
-  if (!show && !isWindowLarge) aiSideBarStyle.left = "-50%";
-  else if (!show && isWindowLarge) aiSideBarStyle.left = "-15%";
+  if (!show) aiSideBarStyle.left = "-50%";
 };
 
 const userFocusIn_OutContro = (userInputEl) => {

@@ -2,6 +2,7 @@
   @include grid-center;
   padding-bottom: 4rem;
   min-height: 75vh;
+  position: relative;
 }
 
 #chat_area {
@@ -257,19 +258,22 @@
 // *** ----  Sidebar Style
 #ai__sidebar {
   @include fixed-position;
-  background-color: $primary-color;
+  background-color: $secondary-color-transparent-2;
   top: 50%;
+  left: -50%;
   width: 100%;
   height: 100vh;
-  z-index: 2;
-  padding: 1rem;
-  transition: all 0.3s ease-in-out;
-  left: -50%;
+  z-index: 3;
+  transition: all 0.25s ease-in-out;
 
   .conversation__Library {
-    padding: 1rem 0.5rem 1rem;
+    padding: 2rem 1rem 2rem;
     display: grid;
     row-gap: 1rem;
+    max-width: 340px;
+    height: 100%;
+    backdrop-filter: blur(12px);
+    background-color: $primary-color-transparent-2;
 
     .library__header {
       @include flex-space;
@@ -293,19 +297,27 @@
       padding-inline: 0.5rem;
 
       &::-webkit-scrollbar {
-        width: 0;
+        width: 0.5rem;
+        border-radius: 1rem;
+        background-color: $primary-color;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: $secondary-color-transparent-4;
       }
 
       .conversation {
         cursor: pointer;
-        margin-bottom: 0.7rem;
+        margin-block: 0.3rem 0.7rem;
         border-bottom: 1px solid $border-color-transparent-2;
-        padding: 0.55rem;
-        display: grid;
-        row-gap: 0.25rem;
+        padding: 0.7rem;
         transition: all 0.3s ease-in-out;
-        margin-top: 0.3rem;
         @include flex-space;
+
+        div {
+          display: grid;
+          gap: 0.25rem;
+        }
 
         #convers_delete-icon {
           font-size: 1rem;
@@ -344,8 +356,9 @@
 
       .active__conver {
         scale: 1.03;
-        background-color: $secondary-color-transparent-4;
         border-radius: 0.5rem;
+        background-color: $dark-blue-color-transparent-2;
+
         border-bottom: none;
       }
     }
