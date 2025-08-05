@@ -1,11 +1,12 @@
 const Profile = ({ data }) => {
   return `
-    <button class="profile-avatar" id="profile-btn" popovertarget="profile-pop">
+    <button class="profile-avatar" id="profile-btn" popovertarget="profile-popover">
+    ${data.name.slice(0, 1)}
     </button>
 
-    <div id="profile-pop" popover>
+    <div id="profile-popover" popover>
      <div class="profile-header">
-     <span class="profile-avatar">${data.name.slice(0, 1)}</span>
+     <span class="profile-avatar"><i class="bi bi-person"></i></span>
   <h2 class="profile-name">${data.name}</h2>
  </div>
  <div class="profile-details">

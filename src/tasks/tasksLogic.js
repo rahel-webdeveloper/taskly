@@ -1,9 +1,6 @@
-import { saveLocalStorage } from "../data/localStorage";
-
 import { todayReport } from "../pages/taskHub/TaskHubLogic";
 import { isDashboardOpen } from "../routes";
 import openNotification from "../services/toastNotifications";
-import { updateTaskCount } from "./tasksRender";
 import {
   completingTask,
   deletingCompleteTasks,
@@ -12,17 +9,17 @@ import {
   filterState,
   implementFilter,
   implementSort,
-  tasks,
   liveTasks,
   saveEditedTask,
   selectedTaskId,
   setLiveTasks,
   setTaskToAssitant,
   sortState,
+  tasks,
   todayTasks,
   visibleTasks,
 } from "./store";
-import APIClient from "../services/api-client";
+import { updateTaskCount } from "./tasksRender";
 
 // Events handler function
 export const eventsHandler = (event) => {
@@ -118,20 +115,21 @@ export const eventsHandler = (event) => {
       "ask_delete_tasks-dialog"
     );
 
-    if (target.closest(".all-delete-btn") && tasks.get().length !== 0)
-      askDeleteTasksDialog.showModal();
+    if (target.closest(".all-delete-btn"))
+      tasks.get().filter((task) => task.status === "done").length !== 0
+        ? askDeleteTasksDialog.showModal()
+        : openNotification("info", "You don't have completed tasks");
 
     if (target.closest("#no")) {
       askDeleteTasksDialog.close();
 
-      openNotification("error", "Your tasks are safe!");
+      openNotification("info", "Your tasks are safe!");
     }
 
     if (target.closest("#yes")) {
       askDeleteTasksDialog.close();
 
       deletingCompleteTasks();
-      openNotification("success", "Your completed tasks deleted successfully!");
     }
   }
 };

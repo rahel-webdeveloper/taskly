@@ -8,7 +8,7 @@ const DashboardRender = () => {
   <div class="dashboard">
     <div class="dash-header">
       <h2>Hi,👋 <span id="user_name"></span>!</h2>
-      <h5>Let's take a look to your workout</h5>
+      <h5>Let's take a look to your productivity</h5>
     </div>
     <div class="dashboard-charts">
 

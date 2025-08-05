@@ -31,15 +31,11 @@ export const showProfile = (isAuthenticated = false) => {
     if (document.startViewTransition)
       document.startViewTransition(() => {
         navbarRight.innerHTML = Profile({ data: userData.get() });
-        const profilePictue = document.getElementById("profile-btn");
-        profilePictue.textContent = userData.get().name.slice(0, 1);
 
         controProfileEvents();
       });
     else {
-      navbarRight.innerHTML = Profile({ data: null });
-      const profilePictue = document.getElementById("profile-btn");
-      profilePictue.textContent = userData.get().name.slice(0, 1);
+      navbarRight.innerHTML = Profile({ data: userData.get() });
 
       controProfileEvents();
     }

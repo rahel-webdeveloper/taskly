@@ -145,7 +145,13 @@ export const deletingCompleteTasks = () => {
 
   apiClientTasks
     .deleteTasks()
-    .then((res) => {})
+    .then((res) => {
+      if (res.success)
+        openNotification(
+          "success",
+          "Your completed tasks deleted successfully!"
+        );
+    })
     .catch((err) => {
       tasks.set(previousTasks);
       controlTasksAllOperation();
