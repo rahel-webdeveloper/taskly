@@ -67,10 +67,7 @@ class AuthService {
         showProfile(true);
       })
       .catch((err) => {
-        // APIErrorController(err);
-
-        showSidebar(false);
-        showProfile(false);
+        if (localStorage.getItem("userId")) APIErrorController(err);
       });
   }
 

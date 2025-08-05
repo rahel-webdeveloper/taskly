@@ -74,7 +74,7 @@ const controProfileEvents = () => {
     }
 
     if (target.closest("#settings-btn"))
-      openNotification("info", "This feature is coming soon stay tuned!");
+      openNotification("info", "This feature is under development");
   });
 };
 

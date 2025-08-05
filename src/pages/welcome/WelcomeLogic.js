@@ -9,7 +9,7 @@ export const WelcomeLogic = () => {
       // Send guidance to user
 
       if (event.target.closest("#how-works_btn"))
-        openNotification("success", "You will recieve the guides very soon!");
+        openNotification("success", "Check out the guide to get started!");
     });
 
   SendSuggestionMain();

@@ -7,7 +7,7 @@ const notyf = new Notyf({
   types: [
     {
       type: "success",
-      background: "rgb(134, 181, 178, .87)",
+      background: "rgb(132, 214, 184, .87)",
     },
     {
       type: "error",

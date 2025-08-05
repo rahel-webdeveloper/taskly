@@ -113,7 +113,7 @@ export const taskHub_EventsHandler = (event) => {
   if (target.closest("#scroll-end-icon")) scrollToEndCard();
 
   if (target.closest("#create_btn") && !validateFormData())
-    openNotification("warning", "Please fill out the form!");
+    openNotification("warning", "Please fill all fields correctly!");
 };
 
 //  +______+ Task Form Container Display base on screen
@@ -527,10 +527,7 @@ const isTaskStartedFunc = (task) => {
 
   if (dueTimestamp > nowTimestamp) {
     if (nowTimestamp >= startTimestamp && !notifiedTasksId.has(task._id)) {
-      openNotification(
-        "info",
-        `Your (${task.description.slice(0, 12)}...) task is started!`
-      );
+      openNotification("info", `Your task "${task.title}" has started!`);
       notifiedTasksId.add(task._id);
     }
     if (nowTimestamp > startTimestamp) return true;

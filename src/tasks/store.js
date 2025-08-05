@@ -34,18 +34,14 @@ const STATE = { IN_PROGRESS: "in-progress", DONE: "done", ON_HOLD: "on-hold" };
 
 const apiClientTasks = new APIClient("tasks");
 
-apiClientTasks
-  .getTasks(localStorage.getItem("userId"))
-  .then((res) => {
+if (localStorage.getItem("tasklyToken"))
+  apiClientTasks.getTasks(localStorage.getItem("userId")).then((res) => {
     tasks.set(res.tasks);
 
     controlTasksAllOperation();
     liveTrackTasks();
     if (isDashboardOpen.get()) DashboardLogic(true);
-  })
-  .catch((err) =>
-    APIErrorController(err, "Your tasks not loaded please try again.")
-  );
+  });
 
 function getNextState(current) {
   if (current === STATE.DONE) return STATE.ON_HOLD;

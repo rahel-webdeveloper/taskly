@@ -42,7 +42,7 @@ const eventsHandler = (event) => {
 
   if (event.target.closest("#send_btn"))
     if (!validationOfFeedbackForm()) {
-      openNotification("warning", "Please fill out the form correctly!");
+      openNotification("warning", "Please fill all fields correctly!");
       return;
     }
 
@@ -88,12 +88,12 @@ export const sendFeedback = (params) => {
   emailjs
     .send(SERVICE_ID, TEMPLATE_ID, params)
     .then(() => {
-      openNotification("success", "You have successfully sent your feedback!");
+      openNotification("success", "Your feedback has been sent successfully!");
     })
     .catch((err) => {
       openNotification(
         "error",
-        err?.text || "Something went wrong. Please try again!"
+        err?.text || "Failed to send feedback. Please try again later."
       );
     });
 };

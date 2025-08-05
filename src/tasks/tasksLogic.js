@@ -71,7 +71,7 @@ export const eventsHandler = (event) => {
   if (target.closest("#cancel")) {
     editBox.style.display = "none";
 
-    openNotification("error", "Your edited task cancelled!");
+    openNotification("error", "Editing task cancelled!");
   }
 
   // Show filter panel
@@ -124,14 +124,14 @@ export const eventsHandler = (event) => {
     if (target.closest("#no")) {
       askDeleteTasksDialog.close();
 
-      openNotification("error", "Deleting done tasks cancelled!");
+      openNotification("error", "Your tasks are safe!");
     }
 
     if (target.closest("#yes")) {
       askDeleteTasksDialog.close();
 
       deletingCompleteTasks();
-      openNotification("success", "You deleted all your done tasks!");
+      openNotification("success", "Your completed tasks deleted successfully!");
     }
   }
 };
