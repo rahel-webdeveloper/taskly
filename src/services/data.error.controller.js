@@ -1,34 +1,32 @@
 import openNotification from "./toastNotifications";
 
-const APIErrorController = (error, hardTypedMsg = "") => {
-  console.log(error);
-
+const APIErrorController = (error, customMsg = "") => {
   let message = "";
   let type = "error";
 
-  if (error.status === 401 && error.response.data.message === "Unauthorized") {
+  if (customMsg) message = customMsg;
+  else if (
+    error?.status === 401 &&
+    error?.response?.data?.message === "Unauthorized"
+  ) {
     type = "info";
-    message = "Please sign in to your account or create new one.";
-  }
-
-  const isAuthStatus =
-    error.status === 404 ||
-    error.status === 401 ||
-    error.status === 409 ||
-    false;
-
-  if (isAuthStatus && error.response.data.error) {
-    console.log(error.response.data);
-    type = "error";
+    message =
+      "Your session has expired, please sign in again. or create a new account.";
+  } else if (
+    [404, 401, 409].includes(error?.status) &&
+    error?.response?.data?.error
+  )
     message = error.response.data.error;
+  else if (error.message === "Network Error")
+    message = "Fetching data failed. Please check your internet connection!";
+  else {
+    message =
+      error?.response?.data?.message ||
+      error?.message ||
+      "An unexpected error occurred.";
   }
 
-  if (error.message === "Network Error") {
-    type = "error";
-    message = "Fetching data faild please check out your internet!";
-  }
-
-  openNotification(type, hardTypedMsg || message);
+  openNotification(type, message);
 };
 
 export default APIErrorController;
