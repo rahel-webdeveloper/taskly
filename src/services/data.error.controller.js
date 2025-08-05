@@ -1,6 +1,6 @@
 import openNotification from "./toastNotifications";
 
-const APIErrorController = (error, manualMsg = "") => {
+const APIErrorController = (error, hardTypedMsg = "") => {
   console.log(error);
 
   let message = "";
@@ -28,7 +28,7 @@ const APIErrorController = (error, manualMsg = "") => {
     message = "Fetching data faild please check out your internet!";
   }
 
-  openNotification(type, manualMsg || message);
+  openNotification(type, hardTypedMsg || message);
 };
 
 export default APIErrorController;

@@ -14,10 +14,10 @@ import AuthRender from "./pages/auth/AuthRender.js";
 import authService, { token } from "./services/auth.service.js";
 import { navigateAuthPages } from "./pages/auth/AuthLogic.js";
 
-const currentRoute = atom(null);
 const isWelcomePageSeen = atom(loadLocalStorage("is_welcome_seen") || false);
 const mainContentEl = document.getElementById("main_content");
 
+export const currentRoute = atom(null);
 export const isDashboardOpen = atom(false);
 
 export const router = new Navigo("/", {

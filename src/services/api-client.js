@@ -1,5 +1,5 @@
 import axios from "axios";
-import { router } from "../routes";
+import { currentRoute, router } from "../routes";
 import { token } from "./auth.service";
 
 const axiosInstance = axios.create({
@@ -30,8 +30,10 @@ axiosInstance.interceptors.response.use(
       token.set(null);
 
       localStorage.removeItem("tasklyToken");
-      // alert("Your session expired. Please log in again.");
-      router.navigate("/auth/sign-in");
+
+      currentRoute.get() === "auth/sign-in"
+        ? router.navigate("/auth/sign-in")
+        : router.navigate("/auth/sign-up");
     }
     return Promise.reject(err);
   }

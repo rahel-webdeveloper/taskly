@@ -77,7 +77,6 @@ class AuthService {
   signOut() {
     localStorage.removeItem("tasklyToken");
     userData.set(null);
-    router?.navigate("/auth/sign-in");
 
     showSidebar(false);
     showProfile(false);

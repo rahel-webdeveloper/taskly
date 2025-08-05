@@ -64,8 +64,8 @@ const controProfileEvents = () => {
       target.closest("#logout-btn") &&
       authService.isAuthenticated(token.get())
     ) {
-      console.log("it works");
       authService.signOut();
+      router.navigate("/auth/sign-in");
     }
 
     if (target.closest("#create-acount-btn")) {

@@ -1,22 +1,20 @@
-import { atom, task } from "nanostores";
+import { atom } from "nanostores";
 import { loadLocalStorage, saveLocalStorage } from "../data/localStorage.js";
 import DashboardLogic, {
   initStatusChart,
   initTrackedTimeBars,
 } from "../pages/dashboard/DashboardLogic.js";
 import { liveTrackTasks } from "../pages/taskHub/TaskHubLogic.js";
+import { isDashboardOpen } from "../routes.js";
 import APIClient from "../services/api-client.js";
+import APIErrorController from "../services/data.error.controller.js";
+import openNotification from "../services/toastNotifications.js";
 import {
   addStyleToFilterControls,
   addStyleToSortControls,
   controlTasksAllOperation,
 } from "./tasksLogic.js";
 import { renderTasks, updateTaskCount } from "./tasksRender.js";
-import { isDashboardOpen } from "../routes.js";
-import { userId } from "../services/auth.service.js";
-import APIErrorController from "../services/data.error.controller.js";
-import openNotification from "../services/toastNotifications.js";
-// import { userId } from "../services/auth.service.js";
 
 export const tasks = atom([]);
 export const liveTasks = atom([]);
@@ -30,6 +28,7 @@ export const taskToAssistant = atom(
   loadLocalStorage("task-to-assistant") || []
 );
 export const selectedTaskId = atom(null);
+export const previousTasks = atom(null);
 
 const STATE = { IN_PROGRESS: "in-progress", DONE: "done", ON_HOLD: "on-hold" };
 
@@ -44,7 +43,9 @@ apiClientTasks
     liveTrackTasks();
     if (isDashboardOpen.get()) DashboardLogic(true);
   })
-  .catch((err) => APIErrorController(err));
+  .catch((err) =>
+    APIErrorController(err, "Your tasks not loaded please try again.")
+  );
 
 function getNextState(current) {
   if (current === STATE.DONE) return STATE.ON_HOLD;
@@ -75,6 +76,8 @@ export const setTodayTasks = (tasks) => {
 
 // completing a task
 export const completingTask = () => {
+  previousTasks.set(tasks.get());
+
   tasks.set(
     tasks
       .get()
@@ -84,9 +87,12 @@ export const completingTask = () => {
           : task
       )
   );
+
   controlTasksAllOperation();
-  initStatusChart(tasks.get(), true);
-  initTrackedTimeBars(tasks.get(), true);
+  if (isDashboardOpen.get()) {
+    initStatusChart(tasks.get(), true);
+    initTrackedTimeBars(tasks.get(), true);
+  }
 
   const updatedTask = tasks
     .get()
@@ -94,43 +100,39 @@ export const completingTask = () => {
 
   apiClientTasks
     .updateTask(selectedTaskId.get(), updatedTask)
-    .then((res) => {
-      console.log(res);
-      tasks.set(res.tasks);
-    })
+    .then((res) => {})
     .catch((err) => {
-      apiClientTasks.getTasks(userId.get()).then((res) => {
-        tasks.set(res.tasks);
+      tasks.set(previousTasks.get());
 
-        controlTasksAllOperation();
+      controlTasksAllOperation();
+      if (isDashboardOpen.get()) {
         initStatusChart(tasks.get(), true);
         initTrackedTimeBars(tasks.get(), true);
-        APIErrorController(err);
-      });
+      }
+
+      APIErrorController(err, "Your task not updated please try again.");
     });
 };
 
 // deleting a task
 export const deletingTask = () => {
+  previousTasks.set(tasks.get());
+
   tasks.set(tasks.get().filter((task) => task._id !== selectedTaskId.get()));
 
   apiClientTasks
     .deleteTask(selectedTaskId.get())
     .then((res) => {})
     .catch((err) => {
-      apiClientTasks.getTasks(userId.get()).then((res) => {
-        tasks.set(res.tasks);
+      tasks.set(previousTasks.get());
+      controlTasksAllOperation();
 
-        controlTasksAllOperation();
-
+      if (isDashboardOpen.get()) {
         initStatusChart(tasks.get(), true);
         initTrackedTimeBars(tasks.get(), true);
+      }
 
-        APIErrorController(
-          err,
-          "Your not deleted please try again and check out your internet."
-        );
-      });
+      APIErrorController(err, "Your task not deleted please try again.");
     });
 
   controlTasksAllOperation();
@@ -141,26 +143,30 @@ export const deletingTask = () => {
 
 // deleting all done tasks
 export const deletingCompleteTasks = () => {
+  const previousTasks = tasks.get();
+
   tasks.set(tasks.get().filter((task) => task.status !== STATE.DONE));
 
   apiClientTasks
     .deleteTasks()
     .then((res) => {})
-    .then((err) => {
-      apiClientTasks.getTasks(userId.get()).then((res) => {
-        tasks.set(res.tasks);
+    .catch((err) => {
+      tasks.set(previousTasks);
+      controlTasksAllOperation();
 
-        controlTasksAllOperation();
+      if (isDashboardOpen.get()) {
         initStatusChart(tasks.get(), true);
         initTrackedTimeBars(tasks.get(), true);
-      });
+      }
 
-      APIErrorController(err);
+      APIErrorController(err, "Your tasks not deleted please try again.");
     });
 
   controlTasksAllOperation();
-  initStatusChart(tasks.get(), true);
-  initTrackedTimeBars(tasks.get(), true);
+  if (isDashboardOpen.get()) {
+    initStatusChart(tasks.get(), true);
+    initTrackedTimeBars(tasks.get(), true);
+  }
 };
 
 export const setTaskToAssitant = (Id) => {
@@ -184,6 +190,10 @@ export const editingTask = (editBox, editInput) => {
 export const saveEditedTask = (editInput, editBox) => {
   if (editInput.value.length < 30 || editInput.length > 250) return;
 
+  let previousTask = tasks
+    .get()
+    .find((task) => task._id === selectedTaskId.get());
+
   tasks.set(
     tasks.get().map((task) =>
       task._id === selectedTaskId.get()
@@ -204,18 +214,23 @@ export const saveEditedTask = (editInput, editBox) => {
   apiClientTasks
     .updateTask(selectedTaskId.get(), updatedTask)
     .then((res) => {
-      if (res.success) openNotification("success", "Your edited task saved!");
+      if (res.success)
+        openNotification("success", "Your task saved successfully!");
     })
     .catch((err) => {
-      apiClientTasks.getTasks(userId.get()).then((res) => {
-        tasks.set(res.tasks);
+      tasks.set(
+        tasks.get().map((task) =>
+          task._id === selectedTaskId.get()
+            ? {
+                ...task,
+                description: previousTask.description,
+              }
+            : task
+        )
+      );
 
-        controlTasksAllOperation();
-        APIErrorController(
-          err,
-          "Your edited task not saved please check out your internet."
-        );
-      });
+      controlTasksAllOperation();
+      APIErrorController(err, "Your task not saved please try again.");
     });
 };
 

@@ -17,7 +17,7 @@ const Profile = ({ data }) => {
 
   <button id="create-acount-btn"><i class="bi bi-person-plus"></i><a href="/auth/sign-up">Add account</a></button>
   
-  <button id="logout-btn"><i class="bi bi-box-arrow-right"></i> <a href="/auth/sign-in" data-navigo>Logout</p></button>
+  <button id="logout-btn"><i class="bi bi-box-arrow-right"></i> <a href="/auth/sign-in">Logout</a></button>
 </div>
     </div>
   `;

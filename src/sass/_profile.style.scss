@@ -1,14 +1,12 @@
 .profile-avatar {
-  // font-size: 1rem;
   margin-right: 0.5rem;
   width: min-content;
   height: 40px;
   width: 40px;
   background-color: $sky-blue-color;
   color: $primary-color;
-  border-radius: 1.7rem;
+  border-radius: 50%;
   font-size: 1.4rem;
-  font-size: $DM-Sans;
   @include flex-center;
   cursor: pointer;
   transition: all 0.25s ease;
@@ -26,9 +24,10 @@
   border: none;
   padding: 1rem;
   border-radius: 1rem;
-  background-color: $primary-color-transparent-4;
+  background-color: $primary-color-transparent-2;
   color: $first-text;
   backdrop-filter: blur(7px);
+  border: 1px solid $border-color-transparent-2;
 
   &::backdrop {
     background-color: $secondary-color-transparent-2;
@@ -47,19 +46,9 @@
   border-bottom: 1px solid $border-color-transparent-2;
   padding-bottom: 1rem;
 
-  .profile-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid $border-color-transparent-2;
-    box-shadow: none;
-  }
-
   .profile-name {
     font-size: 1.5rem;
     font-weight: bold;
-    // color: $primary-color;
   }
 }
 

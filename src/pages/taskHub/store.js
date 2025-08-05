@@ -5,6 +5,7 @@ import { tasks } from "../../tasks/store";
 import { controlTasksAllOperation } from "../../tasks/tasksLogic";
 import { liveTrackTasks, taskHubEls, useFlatepickr } from "./TaskHubLogic";
 import APIErrorController from "../../services/data.error.controller";
+import openNotification from "../../services/toastNotifications";
 
 export const systemMessage = {
   role: "system",
@@ -99,14 +100,7 @@ export function AddNewTask() {
     .createTask(tasks.get()[0])
     .then((res) => {
       if (res.success)
-        apiClientTasks.getTasks(userId.get()).then((res) => {
-          tasks.set(res.tasks);
-
-          controlTasksAllOperation();
-          liveTrackTasks();
-
-          openNotification("success", "New task created successfully!");
-        });
+        openNotification("success", "New task created successfully!");
     })
     .catch((err) => {
       tasks.get().shift();
@@ -114,9 +108,6 @@ export function AddNewTask() {
       controlTasksAllOperation();
       liveTrackTasks();
 
-      APIErrorController(
-        err,
-        "Creating new task faild please check out your internet."
-      );
+      APIErrorController(err, "Your task not created please try again.");
     });
 }

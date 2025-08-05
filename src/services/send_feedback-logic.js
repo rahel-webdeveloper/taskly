@@ -59,21 +59,28 @@ const eventsHandler = (event) => {
 
 // Validate the Suggestion form data
 const validationOfFeedbackForm = () => {
-  const userName = document.getElementById("user_name").value.trim();
-  const userEmail = document.getElementById("user_email").value.trim();
-  const userMessage = document.getElementById("user_message").value.trim();
+  document.addEventListener("DOMContentLoaded", () => {
+    const userName = document.getElementById("user_name").value.trim();
+    const userEmail = document.getElementById("user_email").value.trim();
+    const userMessage = document.getElementById("user_message").value.trim();
 
-  if (!userName || !userEmail || !userMessage || !emailPattern.test(userEmail))
-    return false;
-  else {
-    templateParams.set({
-      user_name: userName,
-      user_email: userEmail,
-      user_message: userMessage,
-    });
+    if (
+      !userName ||
+      !userEmail ||
+      !userMessage ||
+      !emailPattern.test(userEmail)
+    )
+      return false;
+    else {
+      templateParams.set({
+        user_name: userName,
+        user_email: userEmail,
+        user_message: userMessage,
+      });
 
-    return true;
-  }
+      return true;
+    }
+  });
 };
 
 // Send Suggestion to the selected email through email.js
