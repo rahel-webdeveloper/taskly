@@ -20,14 +20,13 @@ import getAdvice, {
 
 export const AIAdviceLogic = () => {
   getUserInputController();
-  onReloadAIPageContro();
-
+  onReloadAIPageController();
   renderConversationList();
 };
 
 // ***------------   AI Page Dynamic UI
 
-export const onReloadAIPageContro = () => {
+export const onReloadAIPageController = () => {
   renderWelcomeMessage(true);
 
   if (
@@ -48,12 +47,14 @@ export const eventsHandler = (event) => {
 
   if (target.closest("#new_chat")) createNewConve();
 
+  // Hide AI sidebar if event was out of sidebar
   if (
     target.closest("#ai__sidebar") &&
     !target.closest(".conversation__Library")
   )
     toggleAiSideBar(false);
 
+  // Events inter of AI sidebar
   if (target.closest(".conversation div")) {
     activeConversation_Id.set(target.getAttribute("data-id"));
     toggleAiSideBar(false);
@@ -83,9 +84,8 @@ export const toggleAiSideBar = (show = false) => {
   if (!show) aiSideBarStyle.left = "-50%";
 };
 
-const userFocusIn_OutContro = (userInputEl) => {
+const userFocusIn_OutController = (userInputEl) => {
   const inputSubmitBox = document.querySelector(".input-submit_box");
-
   const navbarMenu = document.getElementById("sidebar_menu");
 
   userInputEl.addEventListener("focusin", function () {
@@ -95,7 +95,6 @@ const userFocusIn_OutContro = (userInputEl) => {
     const isWindowLarge = window.innerWidth > 1024;
 
     navbarMenu.style.scale = `${!isWindowLarge ? "0" : "1"}`;
-
     inputSubmitBox.style.bottom = `${isWindowLarge ? "3rem" : ".57rem"}`;
   });
 
@@ -104,7 +103,6 @@ const userFocusIn_OutContro = (userInputEl) => {
       const isWindowSmall = window.innerWidth < 1024;
 
       navbarMenu.style.scale = "1";
-
       inputSubmitBox.style.bottom = `${!isWindowSmall ? "3rem" : "6.25rem"}`;
     }
   });
@@ -114,7 +112,7 @@ export const getUserInputController = async () => {
   const getAdviceBtn = document.getElementById("get-advice_btn");
   const userInputEl = document.getElementById("user-input");
 
-  userFocusIn_OutContro(userInputEl);
+  userFocusIn_OutController(userInputEl);
 
   // **----- Controll style when user typing
 
@@ -143,11 +141,11 @@ export const getUserInputController = async () => {
 
   // ***-------   Send task to AI chat from task list
   if (taskToAssistant.get().length !== 0)
-    givenTaskTo_AssistantContro(userInputEl, getAdviceBtn);
+    givenTaskTo_AssistantController(userInputEl, getAdviceBtn);
 };
 
 // ***---------        Send task to assitant controller
-const givenTaskTo_AssistantContro = (userInputEl, getAdviceBtn) => {
+const givenTaskTo_AssistantController = (userInputEl, getAdviceBtn) => {
   userInputEl.value = `Act as project manager for my this task:
   title: ${taskToAssistant.get()[0].title}
 
@@ -195,16 +193,16 @@ const renderAdviceInHtml = async (userInput) => {
   userEl.classList.add("user");
   userEl.textContent = userInput.trim();
 
-  const assistantEl = document.createElement("article");
-  assistantEl.classList.add("markdown-body");
-  assistantEl.style.cssText += `
+  const aiAdviceOutputEl = document.createElement("article");
+  aiAdviceOutputEl.className = "ai-advice-output markdown-body";
+  aiAdviceOutputEl.style.cssText += `
   background-color: #0a0a0a;
   color: #f8f8f8;
   `;
 
   chatAreaEl.appendChild(userEl);
   chatAreaEl.innerHTML += loadingDivComp();
-  chatAreaEl.appendChild(assistantEl);
+  chatAreaEl.appendChild(aiAdviceOutputEl);
 
   const loadingDiv = document.querySelectorAll(".loading-div");
 
@@ -226,7 +224,7 @@ const renderAdviceInHtml = async (userInput) => {
       fullMarkdown += part?.text;
 
       const htmlContent = converter.makeHtml(fullMarkdown);
-      assistantEl.innerHTML = htmlContent;
+      aiAdviceOutputEl.innerHTML = htmlContent;
       chatAreaEl.scrollTo({
         top: chatAreaEl.scrollHeight,
         behavior: "smooth",
@@ -248,8 +246,36 @@ const renderAdviceInHtml = async (userInput) => {
     chatAreaEl.innerHTML += chatErrorCompo(err);
   }
 
+  addCopyButtonsToCodeBlocks();
   highlightCode();
 };
+
+function addCopyButtonsToCodeBlocks(containerSelector = ".ai-advice-output") {
+  const container = document.querySelector(containerSelector);
+  if (!container) return;
+
+  container.querySelectorAll("pre code").forEach((codeBlock) => {
+    console.log(codeBlock);
+    // Avoid adding multiple buttons
+    if (codeBlock.parentElement.querySelector(".copy-code-btn")) return;
+
+    const button = document.createElement("button");
+    button.className = "copy-code-btn";
+    button.innerHTML = `<i class="bi bi-clipboard"></i> Copy`;
+
+    button.addEventListener("click", () => {
+      navigator.clipboard.writeText(codeBlock.textContent);
+      button.textContent = "Copied!";
+      setTimeout(
+        () => (button.innerHTML = `<i class="bi bi-clipboard"></i> Copy`),
+        1500
+      );
+    });
+
+    codeBlock.parentElement.style.position = "relative";
+    codeBlock.parentElement.appendChild(button);
+  });
+}
 
 const addStyleToActiveConve = (id) => {
   const conversationEls = document.querySelectorAll(".conversation");
@@ -284,18 +310,19 @@ export const renderActiveConve_Messages = (id) => {
     }
 
     if (message.role === "assistant") {
-      const assistantEl = document.createElement("article");
-      assistantEl.classList.add("markdown-body");
-      assistantEl.style.cssText += `
+      const aiAdviceOutputEl = document.createElement("article");
+      aiAdviceOutputEl.className = "ai-advice-output markdown-body";
+      aiAdviceOutputEl.style.cssText += `
       background-color: #0a0a0a;
       color: #f8f8f8;
       `;
 
-      chatAreaEl.appendChild(assistantEl);
-      assistantEl.innerHTML = converter.makeHtml(message.content);
+      chatAreaEl.appendChild(aiAdviceOutputEl);
+      aiAdviceOutputEl.innerHTML = converter.makeHtml(message.content);
     }
   });
 
+  addCopyButtonsToCodeBlocks();
   highlightCode();
 };
 

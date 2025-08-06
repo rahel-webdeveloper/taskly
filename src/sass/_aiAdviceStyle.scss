@@ -22,7 +22,7 @@
 
   pre {
     white-space: pre-wrap;
-    word-break: break-all;
+    word-break: auto-phrase;
     overflow-x: auto;
     box-sizing: border-box;
   }
@@ -89,7 +89,7 @@
     margin-block: 1.5rem 0.7rem;
     display: inline;
     word-wrap: break-word;
-    word-break: break-all;
+    word-break: auto-phrase;
     color: $first-text;
   }
 }
@@ -154,6 +154,26 @@
       opacity: 0.6;
       cursor: unset;
     }
+  }
+}
+
+.copy-code-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: $secondary-color;
+  color: $first-text;
+  border: none;
+  border-radius: 0.3rem;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  z-index: 2;
+  transition: background 0.2s;
+
+  &:hover {
+    background: $primary-color;
+    color: #fff;
   }
 }
 
