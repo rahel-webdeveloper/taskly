@@ -258,21 +258,32 @@ function addCopyButtonsToCodeBlocks(containerSelector = ".ai-advice-output") {
     // Avoid adding multiple buttons
     if (codeBlock.parentElement.querySelector(".copy-code-btn")) return;
 
+    const div = document.createElement("div");
+    div.className = "code-block-header";
+
+    const span = document.createElement("span");
+    span.className = "language-name";
+    span.textContent = codeBlock.classList[0];
+
     const button = document.createElement("button");
     button.className = "copy-code-btn";
-    button.innerHTML = `<i class="bi bi-clipboard"></i> Copy`;
+    button.innerHTML = `<i class="bi bi-clipboard"></i>Copy code`;
 
     button.addEventListener("click", () => {
       navigator.clipboard.writeText(codeBlock.textContent);
       button.textContent = "Copied!";
       setTimeout(
-        () => (button.innerHTML = `<i class="bi bi-clipboard"></i> Copy`),
+        () => (button.innerHTML = `<i class="bi bi-clipboard"></i>Copy code`),
         1500
       );
     });
 
-    codeBlock.parentElement.style.position = "relative";
-    codeBlock.parentElement.appendChild(button);
+    div.appendChild(span);
+    div.appendChild(button);
+
+    codeBlock.parentElement.style.cssText += `
+    position: relative; padding-top: 2rem;`;
+    codeBlock.parentElement.appendChild(div);
   });
 }
 

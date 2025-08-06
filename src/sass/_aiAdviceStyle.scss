@@ -25,6 +25,10 @@
     word-break: auto-phrase;
     overflow-x: auto;
     box-sizing: border-box;
+
+    code {
+      word-break: auto-phrase;
+    }
   }
 }
 
@@ -157,20 +161,30 @@
   }
 }
 
-.copy-code-btn {
+.code-block-header {
   position: absolute;
   top: 0.5rem;
-  right: 0.5rem;
-  background: $secondary-color;
+  @include flex-space;
+  width: 95%;
+  font-family: $karla-font;
+}
+
+.copy-code-btn {
+  background: transparent;
   color: $first-text;
   border: none;
-  border-radius: 0.3rem;
-  padding: 0.2rem 0.5rem;
-  font-size: 0.9rem;
+  border-radius: 1rem;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.77rem;
   cursor: pointer;
-  z-index: 2;
+  z-index: 1;
   transition: background 0.2s;
 
+  i {
+    margin-right: 0.15rem;
+  }
+
+  &:focus,
   &:hover {
     background: $primary-color;
     color: #fff;

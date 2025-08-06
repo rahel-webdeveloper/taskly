@@ -51,7 +51,6 @@ export const showProfile = (isAuthenticated = false) => {
 const controProfileEvents = () => {
   const profilePopover = document.getElementById("profile-popover");
 
-  console.log(profilePopover);
   profilePopover?.addEventListener("click", (e) => {
     e.preventDefault();
 
