@@ -186,8 +186,8 @@
 
   &:focus,
   &:hover {
-    background: $primary-color;
-    color: #fff;
+    background: $secondary-color;
+    color: $first-text;
   }
 }
 
@@ -269,6 +269,7 @@
   position: fixed;
   left: 1.5rem;
   top: 5.7rem;
+  z-index: 3;
 
   span {
     background-color: $secondary-color-transparent-2;

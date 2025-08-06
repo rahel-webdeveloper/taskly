@@ -8,6 +8,16 @@ import json from "highlight.js/lib/languages/json";
 import python from "highlight.js/lib/languages/python";
 import typescript from "highlight.js/lib/languages/typescript";
 import html from "highlight.js/lib/languages/xml";
+import sql from "highlight.js/lib/languages/sql";
+import ruby from "highlight.js/lib/languages/ruby";
+import rust from "highlight.js/lib/languages/rust";
+import csharp from "highlight.js/lib/languages/csharp";
+import haml from "highlight.js/lib/languages/haml";
+import go from "highlight.js/lib/languages/go";
+import cpp from "highlight.js/lib/languages/cpp";
+import swift from "highlight.js/lib/languages/swift";
+import noderepl from "highlight.js/lib/languages/node-repl";
+import excel from "highlight.js/lib/languages/excel";
 
 import { atom } from "nanostores";
 import Showdown from "showdown";
@@ -126,6 +136,16 @@ export const highlightCode = () => {
   hljs.registerLanguage("bash", bash);
   hljs.registerLanguage("typescript", typescript);
   hljs.registerLanguage("json", json);
+  hljs.registerLanguage("sql", sql);
+  hljs.registerLanguage("ruby", ruby);
+  hljs.registerLanguage("rust", rust);
+  hljs.registerLanguage("csharp", csharp);
+  hljs.registerLanguage("haml", haml);
+  hljs.registerLanguage("go", go);
+  hljs.registerLanguage("cpp", cpp);
+  hljs.registerLanguage("swift", swift);
+  hljs.registerLanguage("node-repl", noderepl);
+  hljs.registerLanguage("excel", excel);
 
   // Initilize the highlight.js
   hljs.highlightAll();
