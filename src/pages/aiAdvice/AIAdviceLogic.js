@@ -255,7 +255,6 @@ function addCopyButtonsToCodeBlocks(containerSelector = ".ai-advice-output") {
   if (!container) return;
 
   container.querySelectorAll("pre code").forEach((codeBlock) => {
-    console.log(codeBlock);
     // Avoid adding multiple buttons
     if (codeBlock.parentElement.querySelector(".copy-code-btn")) return;
 

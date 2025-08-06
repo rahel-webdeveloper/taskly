@@ -1,6 +1,6 @@
 import axios from "axios";
-import { currentRoute, router } from "../routes";
-import { token } from "./auth.service";
+import { currentRoute, isWelcomePageSeen, router } from "../routes";
+import { token, userId } from "./auth.service";
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
@@ -31,9 +31,10 @@ axiosInstance.interceptors.response.use(
 
       localStorage.removeItem("tasklyToken");
 
-      currentRoute.get() === "auth/sign-in"
-        ? router.navigate("/auth/sign-in")
-        : router.navigate("/auth/sign-up");
+      if (isWelcomePageSeen.get() && userId.get())
+        currentRoute.get() === "auth/sign-in" || userId.get()
+          ? router.navigate("/auth/sign-in")
+          : router.navigate("/auth/sign-up");
     }
     return Promise.reject(err);
   }

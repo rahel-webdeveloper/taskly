@@ -14,9 +14,11 @@ import AuthRender from "./pages/auth/AuthRender.js";
 import authService, { token } from "./services/auth.service.js";
 import { navigateAuthPages } from "./pages/auth/AuthLogic.js";
 
-const isWelcomePageSeen = atom(loadLocalStorage("is_welcome_seen") || false);
 const mainContentEl = document.getElementById("main_content");
 
+export const isWelcomePageSeen = atom(
+  loadLocalStorage("is_welcome_seen") || false
+);
 export const currentRoute = atom(null);
 export const isDashboardOpen = atom(false);
 
@@ -133,7 +135,7 @@ const requireAuth = (done, match) => {
 
   if (authService.isAuthenticated(token.get())) done();
   else {
-    router.navigate("/auth/sign-up");
+    router.navigate("/auth/sign-in");
     done();
   }
 };

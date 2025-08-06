@@ -68,6 +68,9 @@ class AuthService {
       })
       .catch((err) => {
         if (localStorage.getItem("userId")) APIErrorController(err);
+
+        showSidebar(false);
+        showProfile(false);
       });
   }
 
