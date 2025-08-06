@@ -10,8 +10,10 @@ const Profile = ({ data }) => {
   <h2 class="profile-name">${data.name}</h2>
  </div>
  <div class="profile-details">
-  <p><i class="bi bi-envelope"></i> <span>Email:</span> ${data.email}</p>
-  <p><i class="bi bi-person"></i> <span>Username:</span> ${data.name}</p>
+  <p><i class="bi bi-envelope"></i> ${data.email}</p>
+  <span>Emailaddress</span>
+  <p><i class="bi bi-person"></i> ${data.name}</p>
+  <span>Username</span>
 </div>
 <div class="profile-actions">
   <button id="settings-btn"><i class="bi bi-person-gear"></i><p>Settings</p></button>

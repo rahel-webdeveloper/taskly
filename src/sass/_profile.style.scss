@@ -53,13 +53,20 @@
 }
 
 .profile-details {
-  padding-block: 1rem;
+  padding-block: 1rem 0.7rem;
+  display: grid;
 
+  span {
+    font-size: 0.7rem;
+    margin-left: 2.5rem;
+    margin-block: 0.15rem 0.7rem;
+    color: $second-text;
+  }
   p {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    margin: 0.3rem 0;
+    gap: 0.7rem;
+    // margin: 0.3rem 0;
 
     strong {
       margin-right: 0.25rem;
