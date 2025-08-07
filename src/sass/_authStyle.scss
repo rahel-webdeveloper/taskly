@@ -34,6 +34,7 @@
     form {
       @include grid-center;
       gap: 1.5rem;
+      margin-inline: 1.5rem;
 
       .form-group {
         @include grid-center;
@@ -103,6 +104,15 @@
 
         &:hover {
           background-color: darken($sky-blue-color, 10%);
+        }
+
+        &:disabled {
+          opacity: 0.7;
+          cursor: not-allowed;
+
+          &:hover {
+            background-color: $sky-blue-color;
+          }
         }
       }
     }

@@ -42,7 +42,7 @@ export const SignUpRender = () => {
             <span class="show-password-icon signup-p"><i class="bi bi-eye-slash"></i></span>
             <span class="error-msg">Minimum 6 characters</span>
           </div>
-          <button type="submit">Sign Up</button>
+          <button type="submit" id="signup-btn">Sign Up</button>
         </form>
         <p class="auth__toggle">Already have an account? <a href="/auth/sign-in" id="singin-link" data-navigo>Sign In</a></p>
       </div>

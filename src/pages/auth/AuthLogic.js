@@ -1,25 +1,42 @@
-import { currentRoute } from "../../routes";
 import authService from "../../services/auth.service";
 import { SignInRender, SignUpRender } from "./AuthRender";
 
-function authEls() {
+export function authEls() {
   const signinEmail = document.getElementById("signin-email");
   const signinPassword = document.getElementById("signin-password");
   const signInForm = document.getElementById("signin-form");
   const signInBtn = document.getElementById("signin-btn");
 
   const signUpForm = document.getElementById("signup-form");
-  const signUpBtn = document.getElementById("signin-btn");
+  const signUpBtn = document.getElementById("signup-btn");
   const signupPassword = document.getElementById("signup-password");
 
-  return { signInForm, signUpForm, signinPassword, signupPassword };
+  return {
+    signInForm,
+    signUpForm,
+    signinPassword,
+    signupPassword,
+    signInBtn,
+    signUpBtn,
+  };
 }
 
 const AuthLogic = () => {
-  const { signInForm, signUpForm, signinPassword, signupPassword } = authEls();
+  const {
+    signInForm,
+    signUpForm,
+    signinPassword,
+    signupPassword,
+    signInBtn,
+    signUpBtn,
+  } = authEls();
+
+  console.log(signUpBtn);
 
   signInForm?.addEventListener("submit", function (e) {
     e.preventDefault();
+    signInBtn.textContent = "Signing In...";
+    signInBtn.disabled = true;
 
     const fd = new FormData(this);
 
@@ -31,6 +48,8 @@ const AuthLogic = () => {
 
   signUpForm?.addEventListener("submit", function (e) {
     e.preventDefault();
+    signUpBtn.textContent = "Signing Up...";
+    signUpBtn.disabled = true;
 
     const fd = new FormData(this);
 
@@ -67,6 +86,7 @@ export const navigateAuthPages = (route) => {
     authContainer.classList.add("auth--signin");
     authContainer.classList.remove("auth--signup");
   }
+
   if (route === "sign-up") {
     authContainer.innerHTML = SignUpRender();
     authContainer.classList.remove("auth--signin");
