@@ -1,16 +1,13 @@
 .timer-container {
-  display: grid;
-  place-items: center;
+  @include grid-center;
   min-height: 80vh;
   width: 100%;
   text-align: center;
-  padding-bottom: 1rem;
 }
 
 .timer-picker {
-  margin-top: 2.7rem;
   @include grid-center;
-  row-gap: 1.5rem;
+  row-gap: 1.4rem;
 
   .picker-header {
     @include flex-center;
@@ -144,6 +141,7 @@
   .svg-circle-container {
     transform: rotate(-90deg);
     max-width: 500px;
+    pointer-events: none;
   }
 
   .timer-text {
@@ -167,12 +165,10 @@
   }
 
   .timer-circle-btns {
-    margin-bottom: 1rem;
+    margin-top: -3rem;
     display: flex;
     justify-content: center;
     column-gap: 2rem;
-    // position: relative;
-    z-index: 1;
 
     #timer-cancel {
       background-color: $secondary-color;

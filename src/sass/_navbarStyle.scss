@@ -83,7 +83,7 @@
 
 .sidebar-menu {
   @include fixed-position;
-  bottom: 0rem;
+  bottom: -0.7rem;
   backdrop-filter: blur(9px);
   border-radius: 2rem;
   padding: 0.45rem 1.5rem;

@@ -1,3 +1,4 @@
+import { currentRoute } from "../../routes";
 import authService from "../../services/auth.service";
 import { SignInRender, SignUpRender } from "./AuthRender";
 
@@ -9,12 +10,13 @@ function authEls() {
 
   const signUpForm = document.getElementById("signup-form");
   const signUpBtn = document.getElementById("signin-btn");
+  const signupPassword = document.getElementById("signup-password");
 
-  return { signInForm, signUpForm };
+  return { signInForm, signUpForm, signinPassword, signupPassword };
 }
 
 const AuthLogic = () => {
-  const { signInForm, signUpForm } = authEls();
+  const { signInForm, signUpForm, signinPassword, signupPassword } = authEls();
 
   signInForm?.addEventListener("submit", function (e) {
     e.preventDefault();
@@ -38,7 +40,24 @@ const AuthLogic = () => {
       password: fd.get("password"),
     });
   });
+
+  document.addEventListener("click", (event) => {
+    const target = event.target;
+
+    if (target.closest(".signin-p")) showPassword(signinPassword, target);
+
+    if (target.closest(".signup-p")) showPassword(signupPassword, target);
+  });
 };
+
+function showPassword(input, targetEle) {
+  if (input) {
+    input.type = input.type === "password" ? "text" : "password";
+
+    targetEle.classList.toggle("bi-eye-slash");
+    targetEle.classList.toggle("bi-eye");
+  }
+}
 
 export const navigateAuthPages = (route) => {
   const authContainer = document.querySelector(".auth");

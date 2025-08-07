@@ -1,9 +1,8 @@
 .welcome-page {
   width: 100%;
-  min-height: 100vh;
   position: relative;
   overflow: hidden;
-  margin-top: -3rem;
+  padding-bottom: 1rem;
 }
 
 .welcome-first_section {
@@ -221,5 +220,5 @@
 .copyRight {
   text-align: center;
   font-size: 0.67rem;
-  margin-block: 0rem -6rem;
+  margin: 0.5rem;
 }

@@ -19,24 +19,27 @@ export const SignUpRender = () => {
      <div class="auth__container">
       <div class="auth__image">
         <img src="${imgUrl}" alt="Sign Up" />
-        <h1>Taskly</h1>
       </div>
       <div class="auth__form">
-        <h2>Create Your Account</h2>
+        <div class="auth__header">
+        <h2>Get started free</h2>
+        <p>Free forever. No credit card needed.</p>
+        </div>
         <form id="signup-form">
           <div class="form-group">
             <label for="name">Full Name</label>
-            <input type="text" id="name" name="name" required>
+            <input placeholder="Enter your full name" type="text" id="name" name="name" required>
             <span class="error-msg">Name is required</span>
           </div>
           <div class="form-group">
             <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" required>
+            <input placeholder="Enter your email address" type="email" id="email" name="email" required>
             <span class="error-msg">Enter a valid email</span>
           </div>
           <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" required>
+            <input placeholder="Enter your password" type="password" id="signup-password" name="password" required>
+            <span class="show-password-icon signup-p"><i class="bi bi-eye-slash"></i></span>
             <span class="error-msg">Minimum 6 characters</span>
           </div>
           <button type="submit">Sign Up</button>
@@ -51,19 +54,22 @@ export const SignInRender = () => {
   <div class="auth__container">
     <div class="auth__image">
       <img src="${imgUrl}" alt="Sign Up" />
-        <h1>Taskly</h1>
     </div>
     <div class="auth__form">
-      <h2>Welcome Back</h2>
+      <div class="auth__header">
+      <h2>Welcome back</h2>
+      <p>Enter your details below.</p>
+      </div>
       <form id="signin-form">
         <div class="form-group">
-          <label for="signin-email">Email</label>
-          <input type="email" id="signin-email" name="email" required>
+          <label for="signin-email">Email Address</label>
+          <input placeholder="Enter your email address" type="email" id="signin-email" name="email" required>
             <span class="error-msg">Email is required</span>
         </div>
         <div class="form-group">
           <label for="signin-password">Password</label>
-          <input type="password" id="signin-password" name="password" required>
+          <input placeholder="Enter your password" type="password" id="signin-password" name="password" required>
+            <span class="show-password-icon signin-p"><i class="bi bi-eye-slash"></i></span>
             <span class="error-msg">Password is required</span>
         </div>
         <button type="submit" id="signin-btn">Sign In</button>

@@ -1,110 +1,73 @@
 .auth {
   transition: all 0.4s ease;
   width: 100%;
-
-  @media (min-width: 768px) {
-    padding: 2rem;
-  }
+  padding-block: 2.7rem;
 
   &__container {
     @include grid-center;
     gap: 2rem;
-    width: 100%;
-
-    @media (min-width: 768px) {
-      grid-template-columns: 1fr 1.5fr;
-      width: 90%;
-      margin-left: auto;
-    }
   }
 
-  &__image {
-    flex: 1;
-    text-align: center;
-    img {
-      max-width: 35%;
-      height: auto;
-      border-radius: 1rem;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease;
-      position: absolute;
-      opacity: 0.02;
-      z-index: -1;
-      top: 3%;
-      left: 33%;
-      &:hover {
-        transform: scale(1.02);
-      }
-    }
-
-    h1 {
-      font-size: 2rem;
-      position: absolute;
-      top: 30%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 1;
-    }
-
-    @media (min-width: 768px) {
-      img {
-        top: 15%;
-        left: 10%;
-      }
-
-      h1 {
-        position: static;
-        font-size: 3rem;
-      }
-    }
+  &__image img {
+    max-width: 3.7rem;
   }
 
-  &__form {
-    flex: 1;
-    width: 100%;
-    background: $secondary-color;
-    padding: 2rem 2rem 4rem;
-    border-radius: 3rem 3rem 0 0;
-    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.05);
-    transition: background 0.3s ease;
-    position: absolute;
-    bottom: 0;
-
-    @media (min-width: 768px) {
-      position: static;
-      margin-bottom: 0;
-      border-radius: 1rem;
-      max-width: 550px;
-    }
+  &__header {
+    margin-bottom: 2rem;
 
     h2 {
-      margin-bottom: 1.5rem;
+      margin-bottom: 0.7rem;
       font-size: 1.75rem;
       color: $second-text;
       text-align: center;
     }
 
+    p {
+      font-size: 0.9rem;
+    }
+  }
+
+  &__form {
+    width: 100%;
+    text-align: center;
+
     form {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
+      @include grid-center;
+      gap: 1.5rem;
 
       .form-group {
-        display: flex;
-        flex-direction: column;
+        @include grid-center;
+        width: 100%;
+        max-width: 370px;
+        position: relative;
+
+        .show-password-icon {
+          position: absolute;
+          right: 1.5rem;
+          top: 1.2rem;
+          cursor: pointer;
+        }
 
         label {
           font-weight: 500;
           margin-bottom: 0.5rem;
+          position: absolute;
+          left: 1rem;
+          top: -0.6rem;
+          font-size: 0.85rem;
+          padding: 0rem 0.5rem;
+          border-radius: 1rem;
+          background-color: $primary-color;
         }
 
         input {
           background-color: $primary-color;
-          padding: 0.75rem;
+          padding: 1.15rem 1rem;
           border: 1px solid $border-color-transparent-2;
-          border-radius: 0.5rem;
+          border-radius: 2rem;
           transition: border 0.3s ease;
           color: $first-text;
+          width: 100%;
 
           &:focus {
             border-color: rgba($color: $sky-blue-color, $alpha: 0.5);
@@ -128,14 +91,15 @@
       }
 
       button {
-        padding: 0.75rem;
+        padding: 1rem 0.75rem;
         background-color: $sky-blue-color;
         color: white;
         font-weight: 600;
-        border: none;
-        border-radius: 0.5rem;
+        border-radius: 2rem;
         cursor: pointer;
         transition: background-color 0.3s ease;
+        max-width: 370px;
+        width: 100%;
 
         &:hover {
           background-color: darken($sky-blue-color, 10%);

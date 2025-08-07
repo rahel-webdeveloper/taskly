@@ -6,6 +6,7 @@ import { tasks } from "../tasks/store";
 import { controlTasksAllOperation } from "../tasks/tasksLogic";
 import APIClient from "./api-client";
 import APIErrorController from "./data.error.controller";
+import openNotification from "./toastNotifications";
 
 export const userId = atom(localStorage.getItem("userId") || null);
 export const token = atom(localStorage.getItem("tasklyToken") || null);
@@ -30,12 +31,18 @@ class AuthService {
         localStorage.setItem("userId", res.data.user._id);
 
         router.navigate("/");
+        openNotification("success", `Welcome back, ${res.data.user.name}!`);
 
         apiClientTasks.getTasks(res.data.user._id).then((res) => {
           tasks.set(res.tasks);
 
           controlTasksAllOperation();
           liveTrackTasks();
+
+          setTimeout(
+            () => openNotification("info", "Your data is being synced!"),
+            1500
+          );
         });
       })
       .catch((err) => APIErrorController(err));
@@ -47,12 +54,14 @@ class AuthService {
       .then((res) => {
         token.set(res.data.token);
         userId.set(res.data.user._id);
+
         this.controlleLogged(res.data.user._id);
 
         localStorage.setItem("tasklyToken", res.data.token);
         localStorage.setItem("userId", res.data.user._id);
 
         router.navigate("/");
+        openNotification("success", "Account created successfully!");
       })
       .catch((err) => APIErrorController(err));
   }
@@ -77,6 +86,7 @@ class AuthService {
   signOut() {
     localStorage.removeItem("tasklyToken");
     userData.set(null);
+    token.set(null);
 
     showSidebar(false);
     showProfile(false);

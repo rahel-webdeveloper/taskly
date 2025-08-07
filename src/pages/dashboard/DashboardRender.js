@@ -5,7 +5,7 @@ import DashboardLogic from "./DashboardLogic.js";
 
 const DashboardRender = () => {
   return `
-  <div class="dashboard">
+  <div class="dashboard-page">
     <div class="dash-header">
       <h2>Hi,👋 <span id="user_name"></span>!</h2>
       <h5>Let's take a look to your productivity</h5>

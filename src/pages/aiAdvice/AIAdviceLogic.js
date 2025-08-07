@@ -159,9 +159,8 @@ const givenTaskTo_AssistantController = (userInputEl, getAdviceBtn) => {
 };
 
 const sendPrompt = (getAdviceBtn, userInputEl) => {
-  const aiAdviceContainerStyle = document.querySelector(
-    ".ai-advice_container"
-  ).style;
+  const aiAdviceContainerStyle =
+    document.querySelector(".ai-advice_page").style;
 
   if (userInputEl.value.trim() === "") return;
 

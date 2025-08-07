@@ -60,14 +60,13 @@ body {
 
 .app-container {
   @include grid-center;
-  padding-bottom: 4rem;
+  position: relative;
 }
 
 .main-content {
   @include grid-center;
   transition: all 0.7s;
   width: 100%;
-  padding-block: 3rem 1rem;
   min-height: 100vh;
 
   .loading-div {
@@ -82,6 +81,12 @@ body {
       }
     }
   }
+}
+
+.task__hub-page,
+.ai-advice_page,
+.dashboard-page {
+  margin-block: 3.7rem 4rem;
 }
 
 @media screen and (width >= 470px) {
@@ -186,11 +191,6 @@ body {
 }
 
 @media screen and (width >= 1024px) {
-  .app-container {
-    padding-bottom: 0rem;
-    position: relative;
-  }
-
   .sidebar-menu {
     top: 50%;
     left: 3rem;
@@ -290,11 +290,8 @@ body {
 
   .task__hub-page {
     @include grid-center;
-    border: none;
-
     padding: 0.7rem 0.7rem 0.7rem 5.7rem;
     grid-template-columns: repeat(3, 1fr);
-    width: 100%;
     gap: 1rem;
     grid-template-areas:
       "first first third"
@@ -359,7 +356,7 @@ body {
     margin-bottom: 0;
   }
 
-  .ai-advice_container {
+  .ai-advice_page {
     place-self: center;
 
     .sidebar-tggle__new-chat {
@@ -376,7 +373,7 @@ body {
     z-index: 3;
   }
 
-  .dashboard {
+  .dashboard-page {
     width: 100%;
     padding-top: 3rem;
 
@@ -423,10 +420,6 @@ body {
     .time-details {
       margin-top: 1rem;
     }
-  }
-
-  .timer-container {
-    padding: 0;
   }
 
   #timer-cancel,

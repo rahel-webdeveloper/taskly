@@ -1,4 +1,4 @@
-.dashboard {
+.dashboard-page {
   @include grid-center;
   flex-direction: column;
   padding: 0.77rem;
@@ -32,9 +32,7 @@
     background-color: $secondary-color-transparent-4;
     padding: 0.7rem 0.35rem 0.35rem;
     border-radius: 1rem;
-    // border: 1px solid $border-color-transparent-2;
     width: 100%;
-    // margin-inline: 1rem;
 
     .chart-details {
       @include flex-space;

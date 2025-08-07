@@ -2,12 +2,11 @@ import {
   AIAdviceLogic,
   eventsHandler,
   renderMessageInList,
-  toggleAiSideBar,
 } from "./AIAdviceLogic";
 
 const AIAdviceContainer = () => {
   return `
-    <div class="ai-advice_container">
+    <div class="ai-advice_page">
     ${aiSidebarComp()}
       <div id="chat_area">
       
@@ -21,7 +20,7 @@ const AIAdviceContainer = () => {
 };
 
 AIAdviceContainer.init = function () {
-  const aiAdviceCotainer = document.querySelector(".ai-advice_container");
+  const aiAdviceCotainer = document.querySelector(".ai-advice_page");
 
   aiAdviceCotainer?.addEventListener("click", eventsHandler);
 
