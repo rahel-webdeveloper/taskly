@@ -14,17 +14,20 @@ import getAdvice, {
   converter,
   deleteConversation,
   findActiveConversation,
+  generateAdvice,
   highlightCode,
   systemMsg,
 } from "./store";
 
 export const AIAdviceLogic = () => {
-  getUserInputController();
+  userInputBoxEvents();
   onReloadAIPageController();
   renderConversationList();
+
+  if (taskToAssistant.get().length !== 0) sendTaskTo_Assistant();
 };
 
-const aiAdviceEls = () => {
+export const aiAdviceEls = () => {
   const aiAdvicePage = document.querySelector(".ai-advice_page");
   const inputSubmitBox = document.querySelector(".input-submit_box");
   const sidebarMenu = document.getElementById("sidebar_menu");
@@ -32,7 +35,7 @@ const aiAdviceEls = () => {
   const userInput = document.getElementById("user-input");
   const chatArea = document.getElementById("chat_area");
   const loadingDiv = document.querySelectorAll(".loading-div");
-  const aiAdviceOutput = document.querySelector(".ai-advice-output");
+  const aiAdviceOutput = document.querySelectorAll(".ai-advice-output");
   const conversations = document.querySelectorAll(".conversation");
   const conversationList = document.getElementById("conversation__list");
   const welcomeMessage = document.querySelector(".ai-welcome_message");
@@ -75,12 +78,12 @@ export const eventsHandler = (event) => {
 
   if (target.closest("#new_chat")) createNewConve();
 
-  // Hide AI sidebar if event was out of sidebar
-  // if (
-  //   target.closest("#ai__sidebar") &&
-  //   !target.closest(".conversation__Library")
-  // )
-  //   toggleAiSideBar(false);
+  if (
+    target.closest("#ai__sidebar") &&
+    !target.closest(".conversation__Library")
+  )
+    // Hide AI sidebar if event was out of sidebar
+    toggleAiSideBar(false);
 
   // Events inter of AI sidebar
   if (target.closest(".conversation div")) {
@@ -102,73 +105,36 @@ export const eventsHandler = (event) => {
 
 export const toggleAiSideBar = (show = false) => {
   const aiSideBar = document.getElementById("ai__sidebar");
+  const aiSideBarStyle = aiSideBar.style;
 
   if (!aiSideBar) return;
 
-  const aiSideBarStyle = aiSideBar.style;
-
-  if (show) aiSideBarStyle.left = "50%";
-
-  if (!show) aiSideBarStyle.left = "-50%";
+  show ? (aiSideBarStyle.left = "50%") : (aiSideBarStyle.left = "-50%");
 };
 
-const userFocusIn_OutController = () => {
-  const { aiAdvicePage, inputSubmitBox, sidebarMenu, userInput } =
+const userInputBoxEvents = () => {
+  const { userInput, getAdviceBtn } = aiAdviceEls();
+
+  userInput.addEventListener("input", userInputBoxUI);
+
+  userInput.addEventListener("focusin", userInputBoxUI);
+
+  userInput.addEventListener("focusout", userInputBoxUI);
+
+  userInput.addEventListener("keydown", userInputBoxUI);
+
+  window.addEventListener("resize", userInputBoxUI);
+
+  getAdviceBtn.addEventListener("click", userInputBoxUI);
+};
+
+function userInputBoxUI(event) {
+  const { aiAdvicePage, inputSubmitBox, sidebarMenu, getAdviceBtn, userInput } =
     aiAdviceEls();
 
-  userInput.addEventListener("focusin", function () {
-    this.style.height = "auto";
-    this.style.height = `${this.scrollHeight}px`;
+  const isWindowLarge = window.innerWidth > 1024;
 
-    const isWindowLarge = window.innerWidth > 1024;
-
-    aiAdvicePage.style.paddingBottom = `${isWindowLarge ? "2.5rem" : "1.3rem"}`;
-    sidebarMenu.style.scale = `${!isWindowLarge ? "0" : "1"}`;
-    inputSubmitBox.style.marginBottom = `${isWindowLarge ? "3rem" : "1.5rem"}`;
-
-    scrollToEndOfChat();
-  });
-
-  userInput.addEventListener("focusout", () => {
-    if (!userInput.value) {
-      const isWindowSmall = window.innerWidth < 1024;
-      aiAdvicePage.style.paddingBottom = `${
-        isWindowSmall ? "5.5rem" : "2.5rem"
-      }`;
-      sidebarMenu.style.scale = "1";
-      inputSubmitBox.style.marginBottom = `${!isWindowSmall ? "3rem" : "6rem"}`;
-    }
-  });
-
-  window.addEventListener("resize", function () {
-    sidebarMenu.style.scale = "1";
-
-    if (this.window.innerWidth >= 1024) {
-      aiAdvicePage.style.paddingBottom = "2.5rem";
-      inputSubmitBox.style.marginBottom = "3rem";
-    } else {
-      aiAdvicePage.style.paddingBottom = "5.5rem";
-      inputSubmitBox.style.marginBottom = "6rem";
-    }
-  });
-};
-
-function scrollToEndOfChat() {
-  const { aiAdvicePage } = aiAdviceEls();
-
-  aiAdvicePage.scroll({
-    behavior: "smooth",
-    top: aiAdvicePage.scrollHeight,
-  });
-}
-
-export const getUserInputController = async () => {
-  const { userInput, getAdviceBtn } = aiAdviceEls();
-  userFocusIn_OutController();
-
-  // **----- Controll style when user typing
-
-  userInput.addEventListener("input", function () {
+  if (event.type === "input") {
     this.style.height = "auto";
     this.style.height = `${this.scrollHeight}px`;
     this.style.maxHeight = `${180}px`;
@@ -178,56 +144,100 @@ export const getUserInputController = async () => {
       : (getAdviceBtn.disabled = true);
 
     scrollToEndOfChat();
-  });
+  }
 
-  // **----- Send Prompt by Pressing Button
-  getAdviceBtn.addEventListener("click", () => sendPrompt());
+  if (event.type === "focusin") {
+    this.style.height = "auto";
+    this.style.height = `${this.scrollHeight}px`;
 
-  // **----- Send Prompt by Pressing Enter
-  userInput.addEventListener("keydown", (event) => {
-    if (event.key === "Enter" && !event.shiftKey) {
-      event.preventDefault();
-      sendPrompt();
+    aiAdvicePage.style.paddingBottom = `${isWindowLarge ? "2.5rem" : "1.3rem"}`;
+    sidebarMenu.style.scale = `${!isWindowLarge ? "0" : "1"}`;
+    inputSubmitBox.style.marginBottom = `${isWindowLarge ? "3rem" : "1.5rem"}`;
+
+    scrollToEndOfChat();
+  }
+
+  if (event.type === "focusout") {
+    // if User value was true then focus out should not work
+    if (!this.value) {
+      aiAdvicePage.style.paddingBottom = `${
+        !isWindowLarge ? "5.5rem" : "2.5rem"
+      }`;
+      sidebarMenu.style.scale = "1";
+      inputSubmitBox.style.marginBottom = `${isWindowLarge ? "3rem" : "6rem"}`;
     }
-  });
+  }
 
-  // ***-------   Send task to AI chat from task list
-  if (taskToAssistant.get().length !== 0)
-    givenTaskTo_AssistantController(userInput, getAdviceBtn);
-};
+  // if (event.type === "keydown") {
+  //   if (event.key === "Enter" && !event.shiftKey) {
+  //     event.preventDefault();
+  //     sendPrompt();
+
+  //     userInput.value = "";
+  //     getAdviceBtn.disabled = true;
+  //     userInput.style.height = `min-content`;
+  //     aiAdvicePage.style.cssText += `align-content: start;`;
+  //   }
+  // }
+
+  if (event.type === "resize") {
+    sidebarMenu.style.scale = "1";
+
+    if (isWindowLarge) {
+      aiAdvicePage.style.paddingBottom = "2.5rem";
+      inputSubmitBox.style.marginBottom = "3rem";
+    } else {
+      aiAdvicePage.style.paddingBottom = "5.5rem";
+      inputSubmitBox.style.marginBottom = "6rem";
+    }
+  }
+
+  if (event.type === "click" && event.target.closest("#get-advice_btn")) {
+    sendPrompt();
+
+    userInput.value = "";
+    getAdviceBtn.disabled = true;
+    userInput.style.height = `min-content`;
+    aiAdvicePage.style.cssText += `align-content: start;`;
+  }
+}
+
+export function scrollToEndOfChat() {
+  const { aiAdvicePage } = aiAdviceEls();
+
+  aiAdvicePage.scroll({
+    behavior: "smooth",
+    top: aiAdvicePage.scrollHeight,
+  });
+}
 
 // ***---------        Send task to assitant controller
-const givenTaskTo_AssistantController = (userInputEl, getAdviceBtn) => {
-  userInputEl.value = `Act as project manager for my this task:
+const sendTaskTo_Assistant = () => {
+  const { userInput, getAdviceBtn } = aiAdviceEls();
+
+  userInput.value = `Act as project manager for my this task:
   title: ${taskToAssistant.get()[0].title}
   description: ${taskToAssistant.get()[0].description}
   start time: ${new Date(
     taskToAssistant.get()[0].startDateTime
   ).toLocaleString()},
   duration minutes: ${taskToAssistant.get()[0].duration}m`;
+
   getAdviceBtn.disabled = false;
 };
 
 const sendPrompt = () => {
-  const { aiAdvicePage, userInput, getAdviceBtn } = aiAdviceEls();
+  const { userInput } = aiAdviceEls();
 
   if (userInput.value.trim() === "") return;
 
   removeLocalStorage("task-to-assistant");
   renderAdviceInHtml(userInput.value);
-
-  userInput.value = "";
-  getAdviceBtn.disabled = true;
-  userInput.style.height = `min-content`;
-  aiAdvicePage.style.cssText += `align-content: start;`;
-
   scrollToEndOfChat();
 };
 
-const renderAdviceInHtml = async (userInput) => {
+const renderAdviceInHtml = (userInput) => {
   const { chatArea } = aiAdviceEls();
-
-  if (!findActiveConversation(activeConversation_Id.get())) createNewConve();
 
   const userSpan = document.createElement("span");
   userSpan.classList.add("user");
@@ -244,92 +254,50 @@ const renderAdviceInHtml = async (userInput) => {
   chatArea.innerHTML += loadingDivComp();
   chatArea.appendChild(aiAdviceOutput);
 
-  let fullMarkdown = "";
-  const loadingDiv = document.querySelectorAll(".loading-div");
-
-  try {
-    // Add user input
-    findActiveConversation(activeConversation_Id.get()).messages.push({
-      role: "user",
-      content: userInput.trim(),
-    });
-
-    if (
-      findActiveConversation(activeConversation_Id.get()).messages.length === 2
-    )
-      renderWelcomeMessage(false);
-
-    const response = await getAdvice(
-      findActiveConversation(activeConversation_Id.get()).messages
-    );
-
-    // **---------     For streaming response
-    for await (const part of response) {
-      fullMarkdown += part?.text;
-
-      const htmlContent = converter.makeHtml(fullMarkdown);
-      aiAdviceOutput.innerHTML = htmlContent;
-      scrollToEndOfChat(true);
-    }
-
-    findActiveConversation(activeConversation_Id.get()).messages.push({
-      role: "assistant",
-      content: fullMarkdown,
-    });
-
-    saveLocalStorage(conversations.get(), "all_Conversations");
-
-    // **------   Delete loading div after completing response
-
-    for (let i = 0; i < loadingDiv.length; i++) loadingDiv[i].remove();
-  } catch (err) {
-    for (let i = 0; i < loadingDiv.length; i++) loadingDiv[i].remove();
-
-    chatArea.innerHTML += chatErrorCompo(err);
-  }
-
-  addCopyButtonsToCodeBlocks();
-  highlightCode();
+  generateAdvice();
+  renderWelcomeMessage(false);
 };
 
-function addCopyButtonsToCodeBlocks() {
+export function addCopyButtonsToCodeBlocks() {
   const { aiAdviceOutput } = aiAdviceEls();
   if (!aiAdviceEls) return;
 
-  aiAdviceOutput.querySelectorAll("pre code").forEach((codeBlock) => {
-    // Avoid adding multiple buttons
-    if (codeBlock.parentElement.querySelector(".copy-code-btn")) return;
+  aiAdviceOutput.forEach((output) => {
+    output.querySelectorAll("pre code").forEach((codeBlock) => {
+      // Avoid adding multiple buttons
+      if (codeBlock.parentElement.querySelector(".copy-code-btn")) return;
 
-    const div = document.createElement("div");
-    div.className = "code-block-header";
+      const div = document.createElement("div");
+      div.className = "code-block-header";
 
-    const span = document.createElement("span");
-    span.className = "language-name";
-    span.textContent = codeBlock.classList[0];
+      const span = document.createElement("span");
+      span.className = "language-name";
+      span.textContent = codeBlock.classList[0];
 
-    const button = document.createElement("button");
-    button.className = "copy-code-btn";
-    button.innerHTML = `<i class="bi bi-clipboard"></i>Copy code`;
+      const button = document.createElement("button");
+      button.className = "copy-code-btn";
+      button.innerHTML = `<i class="bi bi-clipboard"></i>Copy code`;
 
-    button.addEventListener("click", () => {
-      navigator.clipboard.writeText(codeBlock.textContent);
-      button.textContent = "Copied!";
-      setTimeout(
-        () => (button.innerHTML = `<i class="bi bi-clipboard"></i>Copy code`),
-        1500
-      );
-    });
+      button.addEventListener("click", () => {
+        navigator.clipboard.writeText(codeBlock.textContent);
+        button.textContent = "Copied!";
+        setTimeout(
+          () => (button.innerHTML = `<i class="bi bi-clipboard"></i>Copy code`),
+          1500
+        );
+      });
 
-    div.appendChild(span);
-    div.appendChild(button);
+      div.appendChild(span);
+      div.appendChild(button);
 
-    codeBlock.parentElement.style.cssText += `
+      codeBlock.parentElement.style.cssText += `
     position: relative; padding-top: 2rem;`;
-    codeBlock.parentElement.appendChild(div);
+      codeBlock.parentElement.appendChild(div);
+    });
   });
 }
 
-const addStyleToActiveConve = (id) => {
+export const addStyleToActiveConve = (id) => {
   const { conversations } = aiAdviceEls();
 
   conversations.forEach((conveEl) => {
@@ -392,7 +360,7 @@ const emptyConve_Controller = () => {
   } else return true;
 };
 
-const createNewConve = () => {
+export const createNewConve = () => {
   // ***   Don't create new conversation if user didn't send any message in last conversation
   if (!emptyConve_Controller()) return;
 
@@ -448,9 +416,8 @@ export function renderMessageInList(conversation) {
   const assistantMessage = `${
     conversation.messages.length === 1
       ? conversation.title
-      : conversation.messages[2] &&
-        conversation.messages[2].role === "assistant"
-      ? conversation.messages[2].content.slice(0, 85)
+      : conversation?.messages[2].role === "assistant"
+      ? conversation?.messages[2].content.slice(0, 85)
       : "Not answared this question"
   }`;
 
@@ -462,7 +429,7 @@ export const renderWelcomeMessage = (show_Welcome) => {
 
   show_Welcome
     ? (chatArea.innerHTML = welcomeMessageCompo())
-    : welcomeMessage.remove();
+    : welcomeMessage?.remove();
 };
 
 export function controAllConversaOperation() {

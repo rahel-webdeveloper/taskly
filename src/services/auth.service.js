@@ -95,8 +95,13 @@ class AuthService {
         .catch((err) => {
           if (localStorage.getItem("userId")) APIErrorController(err);
 
-          showSidebar(false);
-          showProfile(false);
+          if (this.isAuthenticated(token.get())) {
+            showSidebar(true);
+            showProfile(true);
+          } else {
+            showSidebar(false);
+            showProfile(false);
+          }
         });
     else {
       showSidebar(true);

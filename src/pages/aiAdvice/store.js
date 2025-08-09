@@ -23,9 +23,14 @@ import { atom } from "nanostores";
 import Showdown from "showdown";
 import { loadLocalStorage, saveLocalStorage } from "../../data/localStorage";
 import {
+  addCopyButtonsToCodeBlocks,
+  aiAdviceEls,
   controAllConversaOperation,
+  createNewConve,
   renderConversationList,
+  scrollToEndOfChat,
 } from "./AIAdviceLogic";
+import { chatErrorCompo } from "./AIAdviceRender";
 
 export const converter = new Showdown.Converter({
   tables: true,
@@ -117,8 +122,58 @@ export const getAdvice = async (historyMessages) => {
   return reply;
 };
 
+export const generateAdvice = async () => {
+  const { userInput, aiAdviceOutput, chatArea } = aiAdviceEls();
+  const aiAdviceOutputLength = aiAdviceOutput.length;
+
+  let fullMarkdown = "";
+  const loadingDiv = document.querySelectorAll(".loading-div");
+
+  try {
+    // Add user input
+    findActiveConversation(activeConversation_Id.get()).messages.push({
+      role: "user",
+      content: userInput.value.trim(),
+    });
+
+    const response = await getAdvice(
+      findActiveConversation(activeConversation_Id.get()).messages
+    );
+
+    // **---------     For streaming response
+    for await (const part of response) {
+      fullMarkdown += part?.text;
+
+      const htmlContent = converter.makeHtml(fullMarkdown);
+      aiAdviceOutput[aiAdviceOutputLength - 1].innerHTML = htmlContent;
+      scrollToEndOfChat(true);
+    }
+
+    findActiveConversation(activeConversation_Id.get()).messages.push({
+      role: "assistant",
+      content: fullMarkdown,
+    });
+
+    addCopyButtonsToCodeBlocks();
+    highlightCode();
+    saveLocalStorage(conversations.get(), "all_Conversations");
+    // **------   Delete loading div after completing response
+
+    for (let i = 0; i < loadingDiv.length; i++) loadingDiv[i].remove();
+  } catch (err) {
+    for (let i = 0; i < loadingDiv.length; i++) loadingDiv[i].remove();
+
+    chatArea.innerHTML += chatErrorCompo(err);
+  }
+};
+
 export function findActiveConversation(id) {
-  return conversations.get().find((conve) => conve.id === id);
+  const activeConversation = conversations
+    .get()
+    .find((conve) => conve.id === id);
+
+  if (activeConversation) return activeConversation;
+  else createNewConve();
 }
 
 export const deleteConversation = (id) => {

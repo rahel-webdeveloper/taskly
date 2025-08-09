@@ -24,7 +24,7 @@
 .dashboard-charts {
   @include grid-center;
   flex-direction: column;
-  gap: 1rem;
+  gap: 2.7rem;
   width: 100%;
 
   .chart {
