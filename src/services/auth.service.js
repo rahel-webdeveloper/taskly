@@ -99,7 +99,7 @@ class AuthService {
             showSidebar(true);
             showProfile(true);
           } else {
-            showSidebar(false);
+            showSidebar(true);
             showProfile(false);
           }
         });
@@ -114,7 +114,7 @@ class AuthService {
     userData.set(null);
     token.set(null);
 
-    showSidebar(false);
+    showSidebar(true);
     showProfile(false);
   }
 }

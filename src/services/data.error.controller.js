@@ -10,15 +10,15 @@ const APIErrorController = (error, customMsg = "") => {
     error?.response?.data?.message === "Unauthorized"
   ) {
     type = "info";
-    message =
-      "Your session has expired, please sign in again. or create a new account.";
+    message = "Your session has expired, please sign in again. to sync data.";
   } else if (
     [404, 401, 409].includes(error?.status) &&
     error?.response?.data?.error
   )
     message = error.response.data.error;
   else if (error.message === "Network Error")
-    message = "Fetching data failed. Please check your internet connection, and reload the page.";
+    message =
+      "Fetching data failed. Please check your internet connection, and reload the page.";
   else {
     message =
       error?.response?.data?.message ||

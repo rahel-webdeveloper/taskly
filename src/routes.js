@@ -2,7 +2,6 @@ import { atom } from "nanostores";
 import Navigo from "navigo";
 import loadingDivComp from "./components/Loading.js";
 import { loadLocalStorage, saveLocalStorage } from "./data/localStorage.js";
-import activeLink from "./navbar.js";
 import AIAdviceRender from "./pages/aiAdvice/AIAdviceRender.js";
 import DashboardRender from "./pages/dashboard/DashboardRender.js";
 import TaskHubRender from "./pages/taskHub/TaskHubRender.js";
@@ -13,6 +12,8 @@ import renderTasksList from "./tasks/tasksRender.js";
 import AuthRender from "./pages/auth/AuthRender.js";
 import authService, { token } from "./services/auth.service.js";
 import { navigateAuthPages } from "./pages/auth/AuthLogic.js";
+import openNotification from "./services/toastNotifications.js";
+import activeLink from "./navbar.js";
 
 const mainContentEl = document.getElementById("main_content");
 
@@ -76,7 +77,8 @@ const Router = () => {
           renderPage(AIAdviceRender, { data: null });
         },
         hooks: {
-          before: requireAuth,
+          before: setCurrentRoute,
+          // before: requireAuth,
           leave: viewTransition,
         },
       },
@@ -97,7 +99,7 @@ const Router = () => {
       "/timer": {
         uses: () => router.navigate("/timer/picker"),
         hooks: {
-          before: requireAuth,
+          // before: requireAuth,
           leave: viewTransition,
         },
       },
@@ -110,7 +112,8 @@ const Router = () => {
           renderPage(TimerRender, data);
         },
         hooks: {
-          before: requireAuth,
+          before: setCurrentRoute,
+          // before: requireAuth,
           leave: viewTransition,
         },
       },
@@ -135,6 +138,10 @@ const requireAuth = (done, match) => {
 
   if (authService.isAuthenticated(token.get())) done();
   else {
+    openNotification(
+      "warning",
+      "Pleas Sign In or create new account to use this feature."
+    );
     router.navigate("/auth/sign-in");
     done();
   }
@@ -145,10 +152,11 @@ const setCurrentRoute = (done, match) => {
   done();
 };
 
-const viewTransition = (done, match) =>
-  document.startViewTransition
+const viewTransition = (done, match) => {
+  document.startViewTransition && token.get()
     ? document.startViewTransition(() => done())
     : done();
+};
 
 function renderPage(component, additionalInit) {
   mainContentEl.innerHTML = component();

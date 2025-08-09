@@ -141,7 +141,7 @@
   .svg-circle-container {
     transform: rotate(-90deg);
     max-width: 500px;
-    pointer-events: none;
+    // pointer-events: none;
   }
 
   .timer-text {
@@ -165,7 +165,6 @@
   }
 
   .timer-circle-btns {
-    margin-top: -3rem;
     display: flex;
     justify-content: center;
     column-gap: 2rem;

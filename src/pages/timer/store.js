@@ -8,6 +8,7 @@ import {
 } from "./TimerLogic";
 import { atom } from "nanostores";
 import { timerCircleCompo, timerPickerCompo } from "./TimerRender";
+import { showProfile, showSidebar } from "../../navbar";
 
 // Timer status
 export const selectedHour = atom(0);
@@ -151,4 +152,12 @@ export const navigateTimerPages = (mode) => {
   mode === "picker"
     ? (timerContainerEl.innerHTML = timerPickerCompo())
     : (timerContainerEl.innerHTML = timerCircleCompo());
+
+  const sidebarShow = () =>
+    mode === "circle" && window.innerWidth < 1024
+      ? showSidebar(false)
+      : showSidebar(true);
+
+  window.addEventListener("resize", sidebarShow);
+  sidebarShow();
 };

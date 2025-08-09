@@ -31,8 +31,6 @@ const AuthLogic = () => {
     signUpBtn,
   } = authEls();
 
-  console.log(signUpBtn);
-
   signInForm?.addEventListener("submit", function (e) {
     e.preventDefault();
     signInBtn.textContent = "Signing In...";

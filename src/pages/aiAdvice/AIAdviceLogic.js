@@ -1,14 +1,10 @@
-import {
-  chatErrorCompo,
-  conveListCompo,
-  welcomeMessageCompo,
-} from "./AIAdviceRender";
-import loadingDivComp from "../../components/Loading.js";
 import "highlight.js/styles/atom-one-dark.css";
+import loadingDivComp from "../../components/Loading.js";
+import { conveListCompo, welcomeMessageCompo } from "./AIAdviceRender";
 
 import { removeLocalStorage, saveLocalStorage } from "../../data/localStorage";
 import { taskToAssistant } from "../../tasks/store";
-import getAdvice, {
+import {
   activeConversation_Id,
   conversations,
   converter,
@@ -23,8 +19,6 @@ export const AIAdviceLogic = () => {
   userInputBoxEvents();
   onReloadAIPageController();
   renderConversationList();
-
-  if (taskToAssistant.get().length !== 0) sendTaskTo_Assistant();
 };
 
 export const aiAdviceEls = () => {
@@ -59,6 +53,7 @@ export const aiAdviceEls = () => {
 
 export const onReloadAIPageController = () => {
   renderWelcomeMessage(true);
+  sendTaskTo_Assistant();
 
   if (
     conversations.get().length > 0 &&
@@ -199,6 +194,11 @@ function userInputBoxUI(event) {
     getAdviceBtn.disabled = true;
     userInput.style.height = `min-content`;
     aiAdvicePage.style.cssText += `align-content: start;`;
+    aiAdvicePage.style.paddingBottom = `${
+      !isWindowLarge ? "5.5rem" : "2.5rem"
+    }`;
+    sidebarMenu.style.scale = "1";
+    inputSubmitBox.style.marginBottom = `${isWindowLarge ? "3rem" : "6rem"}`;
   }
 }
 
@@ -215,7 +215,8 @@ export function scrollToEndOfChat() {
 const sendTaskTo_Assistant = () => {
   const { userInput, getAdviceBtn } = aiAdviceEls();
 
-  userInput.value = `Act as project manager for my this task:
+  if (taskToAssistant.get().length !== 0 && userInput) {
+    userInput.value = `Act as project manager for my this task:
   title: ${taskToAssistant.get()[0].title}
   description: ${taskToAssistant.get()[0].description}
   start time: ${new Date(
@@ -223,7 +224,8 @@ const sendTaskTo_Assistant = () => {
   ).toLocaleString()},
   duration minutes: ${taskToAssistant.get()[0].duration}m`;
 
-  getAdviceBtn.disabled = false;
+    getAdviceBtn.disabled = false;
+  }
 };
 
 const sendPrompt = () => {

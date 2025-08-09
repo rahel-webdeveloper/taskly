@@ -74,6 +74,6 @@ const controProfileEvents = () => {
   });
 };
 
-authService.controlleLogged(userId.get());
+setTimeout(() => authService.controlleLogged(userId.get()), 1500);
 
 export default activeLink;
