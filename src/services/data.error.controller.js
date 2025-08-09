@@ -18,7 +18,7 @@ const APIErrorController = (error, customMsg = "") => {
   )
     message = error.response.data.error;
   else if (error.message === "Network Error")
-    message = "Fetching data failed. Please check your internet connection!";
+    message = "Fetching data failed. Please check your internet connection, and reload the page.";
   else {
     message =
       error?.response?.data?.message ||

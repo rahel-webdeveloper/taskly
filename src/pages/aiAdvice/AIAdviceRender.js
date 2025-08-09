@@ -11,9 +11,11 @@ const AIAdviceContainer = () => {
       <div id="chat_area">
       
       </div>
-      <div class="input-submit_box">
+      <div class="input-box-div">
+       <div class="input-submit_box">
         <textarea cols="1" rows="1" id="user-input" placeholder="Enter your task or question"></textarea>
         <button id="get-advice_btn" disabled><i class="bi bi-send-fill"></i></button>
+       </div>
       </div>
     </div>
   `;
