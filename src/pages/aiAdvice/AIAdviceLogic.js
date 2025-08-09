@@ -402,6 +402,9 @@ export const renderConversationList = () => {
   conversations.get().forEach((conversation) => {
     conversationList.innerHTML += conveListCompo(conversation);
   });
+
+  if (conversations.get()[0].messages.length <= 2)
+    conversationList.querySelectorAll("li")[0].style.display = "none";
 };
 
 export function renderMessageInList(conversation) {
@@ -416,7 +419,8 @@ export function renderMessageInList(conversation) {
   const assistantMessage = `${
     conversation.messages.length === 1
       ? conversation.title
-      : conversation?.messages[2].role === "assistant"
+      : conversation.messages[2] &&
+        conversation.messages[2].role === "assistant"
       ? conversation?.messages[2].content.slice(0, 85)
       : "Not answared this question"
   }`;
