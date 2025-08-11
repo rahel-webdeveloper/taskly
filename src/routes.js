@@ -10,7 +10,7 @@ import TimerRender from "./pages/timer/TimerRender.js";
 import WelcomeRender from "./pages/welcome/WelcomeRender.js";
 import renderTasksList from "./tasks/tasksRender.js";
 import AuthRender from "./pages/auth/AuthRender.js";
-import authService, { token } from "./services/auth.service.js";
+import authService, { token, userId } from "./services/auth.service.js";
 import { navigateAuthPages } from "./pages/auth/AuthLogic.js";
 import openNotification from "./services/toastNotifications.js";
 import activeLink from "./navbar.js";
@@ -138,11 +138,18 @@ const requireAuth = (done, match) => {
 
   if (authService.isAuthenticated(token.get())) done();
   else {
-    openNotification(
-      "warning",
-      "Pleas Sign In or create new account to use this feature."
-    );
-    router.navigate("/auth/sign-in");
+    if (userId.get()) {
+      router.navigate("/auth/sign-in");
+
+      openNotification("warning", "Pleas Sign In to use this feature.");
+    } else {
+      router.navigate("/auth/sign-up");
+
+      openNotification(
+        "warning",
+        "Pleas create an account to use this feature."
+      );
+    }
     done();
   }
 };

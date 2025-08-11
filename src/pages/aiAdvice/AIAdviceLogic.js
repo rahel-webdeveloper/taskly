@@ -127,6 +127,8 @@ function userInputBoxUI(event) {
   const { aiAdvicePage, inputSubmitBox, sidebarMenu, getAdviceBtn, userInput } =
     aiAdviceEls();
 
+  if (!aiAdvicePage) return;
+
   const isWindowLarge = window.innerWidth > 1024;
 
   if (event.type === "input") {

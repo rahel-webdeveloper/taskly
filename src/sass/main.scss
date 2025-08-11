@@ -298,6 +298,14 @@ body {
       "second second third"
       "second second third";
 
+    .task-list-container {
+      width: 67vw;
+    }
+
+    .today-report-div h3 {
+      text-align: center;
+    }
+
     .today-tasks-report {
       flex-direction: column;
     }
