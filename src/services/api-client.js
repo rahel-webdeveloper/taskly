@@ -65,6 +65,15 @@ class APIClient {
     return res.data;
   }
 
+  async removeAccount(data) {
+    const res = await axiosInstance.post(
+      `/${this.endpoint}/remove-account`,
+      data
+    );
+
+    return res.data;
+  }
+
   // ------ TASKS
 
   async getTasks(userId) {

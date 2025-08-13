@@ -82,6 +82,36 @@ class AuthService {
       });
   }
 
+  removeAccount(data) {
+    apiClientAuth
+      .removeAccount(data)
+      .then((res) => {
+        console.log(res);
+
+        openNotification("success", "Your account deleted successfully.");
+        router.navigate("/auth/sign-up");
+
+        localStorage.removeItem("tasklyToken");
+        localStorage.removeItem("userId");
+
+        token.set(null);
+        userId.set(null);
+        userData.set(null);
+
+        this.controlleLogged();
+      })
+      .catch((err) => {
+        console.log(err);
+
+        APIErrorController(err);
+
+        const { removeAccountBtn, cancelRemoveAccount } = authEls();
+        removeAccountBtn.textContent = "Yes, I want to delete.";
+        removeAccountBtn.disabled = false;
+        cancelRemoveAccount.disabled = false;
+      });
+  }
+
   controlleLogged(userId) {
     if (!userData.get())
       apiClientUsers
@@ -99,7 +129,7 @@ class AuthService {
             showSidebar(true);
             showProfile(true);
           } else {
-            showSidebar(true);
+            // showSidebar(true);
             showProfile(false);
           }
         });

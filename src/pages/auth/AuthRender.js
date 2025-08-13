@@ -90,17 +90,18 @@ export const DeleteAccountRender = () => {
       <div class="auth__header">
       <h2>Deleting Account</h2>
       </div>
-      <form id="signin-form">
+      <form id="remove-account-form">
         <div class="form-group">
           <label for="remove-account-password">Password</label>
           <input placeholder="Enter your password" type="password" id="remove-account-password" name="password" required>
-            <span class="show-password-icon signin-p"><i class="bi bi-eye-slash"></i></span>
+            <span class="show-password-icon remove-account-p"><i class="bi bi-eye-slash"></i></span>
             <span class="error-msg">Password is required</span>
         </div>
       <p>Are you sure you want to delete your account? This action cannot be undone.</p>
         <button type="submit" id="remove-account-btn">Yes, I want to delete.</button>
-        <button type="submit" id="cancel-remove-btn">Cancel</button>
-      </form>
+        </form>
+        
+        <button id="cancel-remove-btn">Cancel</button>
     </div>
   </div>
   `;

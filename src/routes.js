@@ -13,7 +13,7 @@ import AuthRender from "./pages/auth/AuthRender.js";
 import authService, { token, userId } from "./services/auth.service.js";
 import { navigateAuthPages } from "./pages/auth/AuthLogic.js";
 import openNotification from "./services/toastNotifications.js";
-import activeLink from "./navbar.js";
+import activeLink, { showSidebar } from "./navbar.js";
 
 const mainContentEl = document.getElementById("main_content");
 
@@ -185,7 +185,14 @@ const renderDynamicPages = (data) => {
 const isRouteInTimer = () =>
   currentRoute.get().slice(0, 5) === "timer" ? true : false;
 
-const isRouteInAuth = () =>
-  currentRoute.get().slice(0, 4) === "auth" ? true : false;
+const isRouteInAuth = () => {
+  if (currentRoute.get().slice(0, 4) === "auth") {
+    showSidebar(false);
+    return true;
+  } else {
+    showSidebar(true);
+    return false;
+  }
+};
 
 export default Router;

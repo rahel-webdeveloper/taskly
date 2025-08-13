@@ -1,4 +1,5 @@
-import authService from "../../services/auth.service";
+import { router } from "../../routes";
+import authService, { userData } from "../../services/auth.service";
 import { DeleteAccountRender, SignInRender, SignUpRender } from "./AuthRender";
 
 export function authEls() {
@@ -11,6 +12,13 @@ export function authEls() {
   const signUpBtn = document.getElementById("signup-btn");
   const signupPassword = document.getElementById("signup-password");
 
+  const removeAccountBtn = document.getElementById("remove-account-btn");
+  const cancelRemoveAccount = document.getElementById("cancel-remove-btn");
+  const removeAccountPassword = document.getElementById(
+    "remove-account-password"
+  );
+  const removeAccountForm = document.getElementById("remove-account-form");
+
   return {
     signInForm,
     signUpForm,
@@ -18,6 +26,10 @@ export function authEls() {
     signupPassword,
     signInBtn,
     signUpBtn,
+    removeAccountBtn,
+    cancelRemoveAccount,
+    removeAccountPassword,
+    removeAccountForm,
   };
 }
 
@@ -29,6 +41,10 @@ const AuthLogic = () => {
     signupPassword,
     signInBtn,
     signUpBtn,
+    removeAccountPassword,
+    removeAccountForm,
+    removeAccountBtn,
+    cancelRemoveAccount,
   } = authEls();
 
   signInForm?.addEventListener("submit", function (e) {
@@ -58,12 +74,31 @@ const AuthLogic = () => {
     });
   });
 
+  removeAccountForm?.addEventListener("submit", function (e) {
+    e.preventDefault();
+    removeAccountBtn.textContent = "Deleting your account...";
+    removeAccountBtn.disabled = true;
+    cancelRemoveAccount.disabled = true;
+
+    const fd = new FormData(this);
+
+    authService.removeAccount({
+      password: fd.get("password"),
+      id: userData.get()._id,
+    });
+  });
+
   document.addEventListener("click", (event) => {
     const target = event.target;
 
     if (target.closest(".signin-p")) showPassword(signinPassword, target);
 
     if (target.closest(".signup-p")) showPassword(signupPassword, target);
+
+    if (target.closest(".remove-account-p"))
+      showPassword(removeAccountPassword, target);
+
+    if (target.closest("#cancel-remove-btn")) router.navigate("/");
   });
 };
 

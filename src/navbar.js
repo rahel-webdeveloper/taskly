@@ -70,7 +70,9 @@ const controProfileEvents = () => {
     }
 
     if (target.closest("#remove-btn")) {
-      openNotification("success", "Account removed successfully");
+      router.navigate("/auth/remove-account");
+
+      // profilePopover.popovertarget = "hide";
     }
 
     if (target.closest("#settings-btn"))
