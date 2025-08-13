@@ -97,7 +97,7 @@ export const DeleteAccountRender = () => {
             <span class="show-password-icon remove-account-p"><i class="bi bi-eye-slash"></i></span>
             <span class="error-msg">Password is required</span>
         </div>
-      <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+      <p>Are you sure you want to delete your account? <br> This action cannot be undone.</p>
         <button type="submit" id="remove-account-btn">Yes, I want to delete.</button>
         </form>
         

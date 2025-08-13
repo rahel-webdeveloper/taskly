@@ -22,7 +22,7 @@ const Profile = ({ data }) => {
   
   <button id="logout-btn"><i class="bi bi-box-arrow-right"></i> <a href="/auth/sign-in">Logout</a></button>
 
-  <button id="remove-btn"><i class="bi bi-person-slash"></i> <a href="/auth/romve-account">Remove Account</a></button>
+  <button id="remove-btn" popovertarget="profile-popover" popovertargetaction="hide"><i class="bi bi-person-slash"></i> <a href="/auth/romve-account">Remove Account</a></button>
 </div>
 
     </div>

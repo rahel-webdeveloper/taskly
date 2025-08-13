@@ -26,12 +26,20 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response) => response,
   (err) => {
-    if (err.response && [401, 403].includes(err.response.status)) {
+    if (
+      err.response &&
+      [401, 403].includes(err.response.status) &&
+      currentRoute.get() !== "auth/remove-account"
+    ) {
       token.set(null);
 
       localStorage.removeItem("tasklyToken");
 
-      if (isWelcomePageSeen.get() && userId.get())
+      if (
+        isWelcomePageSeen.get() &&
+        userId.get() &&
+        currentRoute.get() !== "auth/remove-account"
+      )
         currentRoute.get() === "auth/sign-in" || userId.get()
           ? router.navigate("/auth/sign-in")
           : router.navigate("/auth/sign-up");

@@ -67,6 +67,13 @@ class AuthService {
 
         this.controlleLogged(res.data.user._id);
 
+        apiClientTasks.getTasks(res.data.user._id).then((res) => {
+          tasks.set(res.tasks);
+
+          controlTasksAllOperation();
+          liveTrackTasks();
+        });
+
         localStorage.setItem("tasklyToken", res.data.token);
         localStorage.setItem("userId", res.data.user._id);
 
@@ -88,15 +95,15 @@ class AuthService {
       .then((res) => {
         console.log(res);
 
-        openNotification("success", "Your account deleted successfully.");
-        router.navigate("/auth/sign-up");
-
         localStorage.removeItem("tasklyToken");
         localStorage.removeItem("userId");
 
         token.set(null);
         userId.set(null);
         userData.set(null);
+
+        openNotification("success", "Your account deleted successfully.");
+        router.navigate("/auth/sign-up");
 
         this.controlleLogged();
       })
@@ -144,7 +151,9 @@ class AuthService {
     userData.set(null);
     token.set(null);
 
-    showSidebar(true);
+    controlTasksAllOperation();
+    liveTrackTasks();
+
     showProfile(false);
   }
 }
