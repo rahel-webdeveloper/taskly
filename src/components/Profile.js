@@ -21,7 +21,10 @@ const Profile = ({ data }) => {
   <button id="create-acount-btn"><i class="bi bi-person-plus"></i><a href="/auth/sign-up">Add account</a></button>
   
   <button id="logout-btn"><i class="bi bi-box-arrow-right"></i> <a href="/auth/sign-in">Logout</a></button>
+
+  <button id="remove-btn"><i class="bi bi-person-slash"></i> <a href="/auth/romve-account">Remove Account</a></button>
 </div>
+
     </div>
   `;
 };

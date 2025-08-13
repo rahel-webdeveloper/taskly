@@ -69,6 +69,10 @@ const controProfileEvents = () => {
       router.navigate("/auth/sign-up");
     }
 
+    if (target.closest("#remove-btn")) {
+      openNotification("success", "Account removed successfully");
+    }
+
     if (target.closest("#settings-btn"))
       openNotification("info", "This feature is under development");
   });

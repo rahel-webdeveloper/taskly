@@ -91,6 +91,14 @@
         }
       }
 
+      #remove-account-btn {
+        background-color: $coral-red-color;
+
+        &:hover {
+          background-color: darken($coral-red-color, 10%);
+        }
+      }
+
       button {
         padding: 1rem 0.75rem;
         background-color: $sky-blue-color;

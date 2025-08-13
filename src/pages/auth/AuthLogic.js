@@ -1,5 +1,5 @@
 import authService from "../../services/auth.service";
-import { SignInRender, SignUpRender } from "./AuthRender";
+import { DeleteAccountRender, SignInRender, SignUpRender } from "./AuthRender";
 
 export function authEls() {
   const signinEmail = document.getElementById("signin-email");
@@ -81,14 +81,23 @@ export const navigateAuthPages = (route) => {
 
   if (route === "sign-in") {
     authContainer.innerHTML = SignInRender();
-    authContainer.classList.add("auth--signin");
+    authContainer.classList.remove("auth--remove-account");
     authContainer.classList.remove("auth--signup");
+    authContainer.classList.add("auth--signin");
   }
 
   if (route === "sign-up") {
     authContainer.innerHTML = SignUpRender();
+    authContainer.classList.remove("auth--remove-account");
     authContainer.classList.remove("auth--signin");
     authContainer.classList.add("auth--signup");
+  }
+
+  if (route === "remove-account") {
+    authContainer.innerHTML = DeleteAccountRender();
+    authContainer.classList.remove("auth--signin");
+    authContainer.classList.remove("auth--signup");
+    authContainer.classList.add("auth--remove-account");
   }
 };
 

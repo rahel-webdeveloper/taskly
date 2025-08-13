@@ -80,4 +80,29 @@ export const SignInRender = () => {
   `;
 };
 
+export const DeleteAccountRender = () => {
+  return `
+  <div class="auth__container">
+    <div class="auth__image">
+      <img src="${imgUrl}" alt="Sign Up" />
+    </div>
+    <div class="auth__form">
+      <div class="auth__header">
+      <h2>Deleting Account</h2>
+      </div>
+      <form id="signin-form">
+        <div class="form-group">
+          <label for="remove-account-password">Password</label>
+          <input placeholder="Enter your password" type="password" id="remove-account-password" name="password" required>
+            <span class="show-password-icon signin-p"><i class="bi bi-eye-slash"></i></span>
+            <span class="error-msg">Password is required</span>
+        </div>
+      <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+        <button type="submit" id="remove-account-btn">Yes, I want to delete.</button>
+        <button type="submit" id="cancel-remove-btn">Cancel</button>
+      </form>
+    </div>
+  </div>
+  `;
+};
 export default AuthRender;
