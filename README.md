@@ -42,6 +42,7 @@ Taskly Pro is a Progressive Web App that helps you create, track, and analyze yo
 
   - Creating account via Sign Up page
   - Sign In to your account via Sign In page
+  - Removing accoute with validation of password
 
 - Task Hub
 
