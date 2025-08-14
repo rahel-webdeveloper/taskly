@@ -1,4 +1,4 @@
-import { router } from "../../routes";
+import { currentRoute, router } from "../../routes";
 import {
   resetUI,
   tapChooseTimeFunc,
@@ -20,7 +20,7 @@ export const isPaused = atom(false);
 export const isCanceled = atom(false);
 
 export const startTime = atom(null);
-export const elapsedTime = atom(null);
+export const elapsedTime = atom(0);
 export const animationId = atom(null);
 
 export const startTimer = () => {
@@ -111,6 +111,7 @@ export const handleTimerEvents = (event) => {
 
   if (id === "timer-start") {
     startTimer();
+    sidebarShowInTimer();
 
     timerStartStatus();
     setAnimationId(getSelectedTimeOnSeconds());
@@ -140,6 +141,7 @@ export const handleTimerEvents = (event) => {
 
   if (id === "timer-cancel") {
     cancelTimer();
+    sidebarShowInTimer();
 
     cancelAnimationFrame(animationId.get());
     resetUI();
@@ -153,11 +155,11 @@ export const navigateTimerPages = (mode) => {
     ? (timerContainerEl.innerHTML = timerPickerCompo())
     : (timerContainerEl.innerHTML = timerCircleCompo());
 
-  const sidebarShow = () =>
-    mode === "circle" && window.innerWidth < 1024
-      ? showSidebar(false)
-      : showSidebar(true);
-
-  window.addEventListener("resize", sidebarShow);
-  sidebarShow();
+  window.addEventListener("resize", sidebarShowInTimer);
+  setTimeout(() => sidebarShowInTimer(), 50);
 };
+
+const sidebarShowInTimer = () =>
+  currentRoute.get() === "timer/circle" && window.innerWidth < 1024
+    ? showSidebar(false)
+    : showSidebar(true);

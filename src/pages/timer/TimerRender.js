@@ -78,7 +78,7 @@ export const timerCircleCompo = () => {
         </svg>
 
         <div class="timer-circle-btns">
-            <button type="button" class="timer-button" id="timer-cancel" disabled>
+            <button type="button" class="timer-button" id="timer-cancel">
                 <i class="ri-close-line"></i>
                 Cancel
             </button>
