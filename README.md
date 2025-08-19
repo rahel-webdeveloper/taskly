@@ -192,8 +192,6 @@ Made with 💜 by [**Khatibullah Rahel**](https://www.linkedin.com/in/khatibulla
 
 > [!IMPORTANT] > **Love Taskly? Throw us a ⭐ — it makes our day!😊**
 
-[![GitHub stars](https://img.shields.io/github/stars/rahel-webdeveloper/taskly?style=social)](https://github.com/rahel-webdeveloper/taskly/stargazers)
-
 ---
 
 **Follow us on social media**
