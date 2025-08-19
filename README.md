@@ -94,13 +94,19 @@ Taskly Pro is a Progressive Web App that helps you create, track, and analyze yo
 
 ### Installation
 
-1. Clone the repo
+- **Clone the repo and install the defendencies**
 
-   ```bash
-   git clone 
-   ```
+  ```bash
+  git clone https://github.com/rahel-webdeveloper/taskly.git
+  cd taskly
+  npm install
+  ```
 
 ### Usage
+
+```bash
+npm run dev
+```
 
 - **Task Creation:** Navigate to Task Hub and click "Create task or plus icon"
 - **Task Management:** Drag tasks between status columns to update progress
@@ -142,76 +148,33 @@ export const getAdvice = async () => {
 
 ## project-structure 📂
 
-<details>
- Show structure
- <summary>
- ```bash
-\---src
-    |   main.js
-    |   navbar.js
-    |   routes.js
-    |   reame.md
-    |
-    +---data
-    |       localStorage.js
-    |       tasks.js
-    |
-    +---listTasks
-    |       ListTaskMain.js
-    |       ListTasksLogic.js
-    |       ListTasksRender.js
-    |       store.js
-    |
-    +---pages
-    |   +---ai_advice
-    |   |       advisor.js
-    |   |       AIAdviceLogic.js
-    |   |       AIAdviceRender.js
-    |   |       MainAIAdvice.js
-    |   |       store.js
-    |   |
-    |   +---dashboard
-    |   |       DashboardLogic.js
-    |   |       DashboardRender.js
-    |   |       MainDashboard.js
-    |   |
-    |   +---task_hub
-    |   |       MainTaskHub.js
-    |   |       store.js
-    |   |       TaskHubLogic.js
-    |   |       TaskHubRender.js
-    |   |
-    |   +---timer
-    |   |       MainTimer.js
-    |   |       store.js
-    |   |       TimerLogic.js
-    |   |       TimerRender.js
-    |   |
-    |   \---welcome
-    |           MainWelcome.js
-    |           WelcomeLogic.js
-    |           WelcomeRender.js
-    |
-    +---sass
-    |       main.scss
-    |       _aiAdviceStyle.scss
-    |       _dashboarStyle.scss
-    |       _listTasksStyle.scss
-    |       _mixins.scss
-    |       _navbarStyle.scss
-    |       _TasksStyle.scss
-    |       _timerStyle.scss
-    |       _variables.scss
-    |       _welcomePageStyle.scss
-    |
-    \---services
-            api-cleint.js
-            getSuggestion.js
-            helper.js
-            toastNotifications.js
 ```
- </summary>
-</details>
+
+taskly/
+├── public/                 # Images, Minifest.json, and other assets
+├── src/                    # Main source code for the app
+│   ├── assets/             # Images, fonts, and other assets
+│   ├── components/         # Reusable React/Vue/JS components
+│   ├── sass/               # SCSS stylesheets and variables
+│   ├── data/               # UI data and local storage
+│   ├── services/           # API Client and auth services
+│   ├── tasks/              # Tasks all logic and UI
+│   ├── routes.js           # SPR (single page route) controller
+│   ├── pages/              # Main page views/screens
+│          ├── welcome/            # Welcome page and getting user feedback
+│          ├── auth/               # auth logic and components (Sign In, Sign Up, Remove Account)
+│          ├── taskHub/            # First page of APP where create new task and see today's report
+│          ├── dashsboard/         # data charts and show user productivity
+│          ├── aiAdvice/           # AI Advice page you can chat and get advices
+│          ├── timer/              # Timer logic and components (picker, focus)
+
+├── .env                    # Environment variables (API keys, config)
+├── App.js                  # Root app component
+├── .gitignore              # Git ignore file
+├── package.json            # Project dependencies and scripts
+├── README.md               # Project documentation
+├── vercel.json             # vercel config
+```
 
 ### Future Enhancements💡
 
@@ -225,8 +188,9 @@ export const getAdvice = async () => {
 
 Made with 💜 by [**Khatibullah Rahel**](https://www.linkedin.com/in/khatibullah-rahel-a93a74281/)
 
-> [!IMPORTANT]
-> Love Taskly? Throw us a ⭐ — it makes our day!😊
+---
+
+> [!IMPORTANT] > **Love Taskly? Throw us a ⭐ — it makes our day!😊**
 
 [![GitHub stars](https://img.shields.io/github/stars/rahel-webdeveloper/taskly?style=social)](https://github.com/rahel-webdeveloper/taskly/stargazers)
 
