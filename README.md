@@ -225,6 +225,14 @@ export const getAdvice = async () => {
 
 Made with 💜 by [**Khatibullah Rahel**](https://www.linkedin.com/in/khatibullah-rahel-a93a74281/)
 
+---
+
+Love Taskly? Throw us a ⭐ — it makes our day!😊
+
+[![GitHub stars](https://img.shields.io/github/stars/rahel-webdeveloper/taskly?style=social)](https://github.com/rahel-webdeveloper/taskly/stargazers)
+
+---
+
 **Follow us on social media**
 [LinkdIn](https://www.linkedin.com/in/khatibullah-rahel-a93a74281/)
 [Facebook](https://www.facebook.com/khatibullah.asaad.7)
