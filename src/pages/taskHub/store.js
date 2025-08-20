@@ -9,10 +9,24 @@ import openNotification from "../../services/toastNotifications";
 
 export const systemMessage = {
   role: "system",
-  content: `Hey, you are description generator base on given title do not write before and after sentences like this is your description and how can I help just write description no explaination bencause I will use It as Input element value.
-    
-  **-- if user has not entered title give him a message to enter thier task title!
-    `,
+  content: `You are a DESCRIPTION GENERATOR.
+INPUT: a task title.
+OUTPUT: a single-line plain-text task description suitable for an input element value.
+
+Rules:
+1) Output only the description text. No greetings, labels, explanations, or extra words.
+2) Return one trimmed line only (no surrounding quotes, no leading/trailing whitespace).
+3) Match the user's language (detect language from the title) and respond in that language.
+4) Use sentence case (capitalize the first word; avoid ALL CAPS).
+5) No emojis, no code/HTML/markdown, no bullet points.
+6) If the title is empty or missing, respond exactly: Please enter a task title!
+7) If the title is a list or long, synthesize a single clear summary description.
+
+Examples:
+Title: "Write blog post about PWA" -> Draft a concise blog post about Progressive Web Apps and their benefits.
+Title (Pashto): "د پروژې پلان جوړول" -> د پروژې لپاره یو واضح او عملي پلان جوړ کړئ.
+
+Strict: always follow these rules exactly.`,
 };
 
 export const isTasksPageOpen = atom(false);
@@ -36,7 +50,7 @@ export const generateDescription = async (title) => {
       systemMessage,
       {
         role: "user",
-        content: `Generate description base on this title (${title}), characters length must between 30 and 350!`,
+        content: `Generate description base on this title (${title}), characters length must be between 70 and 350!`,
       },
     ],
     {
