@@ -1,5 +1,5 @@
 import { todayReport } from "../pages/taskHub/TaskHubLogic";
-import { isDashboardOpen } from "../routes";
+import { isDashboardOpen, router } from "../routes";
 import openNotification from "../services/toastNotifications";
 import {
   completingTask,
@@ -56,6 +56,7 @@ export const eventsHandler = (event) => {
   if (target.closest(".assistance-task-icon-div")) {
     selectedTaskId.set(getAttributeId);
     setTaskToAssitant(selectedTaskId.get());
+    router.navigate("/ai-advisor");
   }
 
   if (target.closest(".edit-icon-div")) {

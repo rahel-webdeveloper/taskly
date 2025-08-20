@@ -221,14 +221,19 @@ export function scrollToEndOfChat() {
 const sendTaskTo_Assistant = () => {
   const { userInput, getAdviceBtn } = aiAdviceEls();
 
-  if (taskToAssistant.get().length !== 0 && userInput) {
-    userInput.value = `Act as project manager for my this task:
-  title: ${taskToAssistant.get()[0].title}
-  description: ${taskToAssistant.get()[0].description}
-  start time: ${new Date(
-    taskToAssistant.get()[0].startDateTime
-  ).toLocaleString()},
-  duration minutes: ${taskToAssistant.get()[0].duration}m`;
+  const task = taskToAssistant.get()[0];
+  if (task && userInput) {
+    userInput.value =
+      `Hi AI Assistant, I need help with this task:\n` +
+      `Title: ${task.title}\n` +
+      `Description: ${task.description}\n` +
+      `Category: ${task.category}\n` +
+      `Priority: ${task.prioritylevel}\n` +
+      `Status: ${task.status}\n` +
+      `Start Time: ${new Date(task.startTime).toLocaleString()}\n` +
+      `Due Time: ${new Date(task.dueTime).toLocaleString()}\n` +
+      `Duration: ${task.duration} minutes\n` +
+      `\nCan you suggest ways to complete this task efficiently, break it into subtasks, or provide tips based on its priority and category?`;
 
     getAdviceBtn.disabled = false;
   }
