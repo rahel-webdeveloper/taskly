@@ -115,6 +115,12 @@ export function AddNewTask() {
     .then((res) => {
       if (res.success)
         openNotification("success", "New task created successfully!");
+
+      tasks.get()[0] = res.task;
+      tasks.set(tasks.get());
+
+      controlTasksAllOperation();
+      liveTrackTasks();
     })
     .catch((err) => {
       tasks.get().shift();

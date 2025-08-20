@@ -78,7 +78,7 @@ export const completingTask = () => {
     tasks
       .get()
       .map((task) =>
-        String(task._id) === selectedTaskId.get()
+        String(task.id) === selectedTaskId.get()
           ? { ...task, status: getNextState(task.status) }
           : task
       )
@@ -92,7 +92,7 @@ export const completingTask = () => {
 
   const updatedTask = tasks
     .get()
-    .find((task) => task._id === selectedTaskId.get());
+    .find((task) => task.id === selectedTaskId.get());
 
   apiClientTasks
     .updateTask(selectedTaskId.get(), updatedTask)
@@ -114,7 +114,7 @@ export const completingTask = () => {
 export const deletingTask = () => {
   previousTasks.set(tasks.get());
 
-  tasks.set(tasks.get().filter((task) => task._id !== selectedTaskId.get()));
+  tasks.set(tasks.get().filter((task) => task.id !== selectedTaskId.get()));
 
   apiClientTasks
     .deleteTask(selectedTaskId.get())
@@ -172,7 +172,7 @@ export const deletingCompleteTasks = () => {
 };
 
 export const setTaskToAssitant = (Id) => {
-  const selectedTask = tasks.get().filter((task) => task._id === Id);
+  const selectedTask = tasks.get().filter((task) => task.id === Id);
 
   taskToAssistant.set(selectedTask);
   saveLocalStorage(taskToAssistant.get(), "task-to-assistant");
@@ -180,9 +180,7 @@ export const setTaskToAssitant = (Id) => {
 
 // editing a task
 export const editingTask = (editBox, editInput) => {
-  const findTask = tasks
-    .get()
-    .find((task) => task._id === selectedTaskId.get());
+  const findTask = tasks.get().find((task) => task.id === selectedTaskId.get());
 
   editBox.style.display = "flex";
   editInput.value = findTask.description;
@@ -194,11 +192,11 @@ export const saveEditedTask = (editInput, editBox) => {
 
   let previousTask = tasks
     .get()
-    .find((task) => task._id === selectedTaskId.get());
+    .find((task) => task.id === selectedTaskId.get());
 
   tasks.set(
     tasks.get().map((task) =>
-      task._id === selectedTaskId.get()
+      task.id === selectedTaskId.get()
         ? {
             ...task,
             description: editInput.value,
@@ -211,7 +209,7 @@ export const saveEditedTask = (editInput, editBox) => {
 
   const updatedTask = tasks
     .get()
-    .find((task) => task._id === selectedTaskId.get());
+    .find((task) => task.id === selectedTaskId.get());
 
   apiClientTasks
     .updateTask(selectedTaskId.get(), updatedTask)
@@ -222,7 +220,7 @@ export const saveEditedTask = (editInput, editBox) => {
     .catch((err) => {
       tasks.set(
         tasks.get().map((task) =>
-          task._id === selectedTaskId.get()
+          task.id === selectedTaskId.get()
             ? {
                 ...task,
                 description: previousTask.description,

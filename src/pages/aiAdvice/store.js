@@ -156,8 +156,6 @@ export const generateAdvice = async () => {
       aiAdviceOutputLength - 1
     ].style.cssText += `direction: ${dir}; text-align: ${align}`;
 
-    console.log(aiAdviceOutput);
-
     findActiveConversation(activeConversation_Id.get()).messages.push({
       role: "assistant",
       content: fullMarkdown,
@@ -167,13 +165,10 @@ export const generateAdvice = async () => {
     highlightCode();
     saveLocalStorage(conversations.get(), "all_Conversations");
 
-    console.log(response);
     // **------   Delete loading div after completing response
     for (let i = 0; i < loadingDiv.length; i++) loadingDiv[i].remove();
   } catch (err) {
     for (let i = 0; i < loadingDiv.length; i++) loadingDiv[i].remove();
-
-    console.log(err);
 
     chatArea.innerHTML += chatErrorCompo(err);
   }
