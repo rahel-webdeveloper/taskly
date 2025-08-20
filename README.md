@@ -57,6 +57,7 @@ Taskly Pro is a Progressive Web App that helps you create, track, and analyze yo
   - Get personalized advice on how to prioritize or tackle your tasks
   - Powered by AI Advisor API through Puter.js
   - Achieve best advices base on your history messages feature
+  - Choose direction of any laguage automatically
   - Save every new chat saparatly on local storage
 
 - Dashboard
