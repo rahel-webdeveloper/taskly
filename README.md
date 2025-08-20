@@ -190,7 +190,8 @@ Made with 💜 by [**Khatibullah Rahel**](https://www.linkedin.com/in/khatibulla
 
 ---
 
-> [!IMPORTANT] > **Love Taskly? Throw us a ⭐ — it makes our day!😊**
+> [!IMPORTANT]
+> **Love Taskly? Throw us a ⭐ — it makes our day!😊**
 
 ---
 
