@@ -88,7 +88,7 @@ const NewTaskRender = (task) => {
     </div>
 
     <div class="task-left-div" >
-      <a href="/ai-advisor">
+      <a href="/ai-advisor" data-navigo>
         <div class="assistance-task-icon-div" title="assistance to task">
           <i
             class="bi bi-stars assistance-task-icon"

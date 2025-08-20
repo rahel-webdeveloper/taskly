@@ -2,7 +2,11 @@ import "highlight.js/styles/atom-one-dark.css";
 import loadingDivComp from "../../components/Loading.js";
 import { conveListCompo, welcomeMessageCompo } from "./AIAdviceRender";
 
-import { removeLocalStorage, saveLocalStorage } from "../../data/localStorage";
+import {
+  loadLocalStorage,
+  removeLocalStorage,
+  saveLocalStorage,
+} from "../../data/localStorage";
 import { taskToAssistant } from "../../tasks/store";
 import {
   activeConversation_Id,
@@ -235,7 +239,8 @@ const sendPrompt = () => {
 
   if (userInput.value.trim() === "") return;
 
-  removeLocalStorage("task-to-assistant");
+  loadLocalStorage("task-to-assistant") ??
+    removeLocalStorage("task-to-assistant");
   renderAdviceInHtml(userInput.value);
   scrollToEndOfChat();
 };
@@ -260,6 +265,32 @@ const renderAdviceInHtml = (userInput) => {
 
   generateAdvice();
   renderWelcomeMessage(false);
+};
+
+export const detectDirection = (text, rtlThreshold = 0.25) => {
+  if (!text || typeof text !== "string")
+    return { dir: "ltr", align: "left", rtlRatio: 0 };
+
+  // Arabic-script Unicode blocks (covers Arabic, Persian, Urdu, etc.)
+  const rtlRegex =
+    /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]/g;
+
+  // Count RTL characters
+  const rtlMatches = (text.match(rtlRegex) || []).length;
+
+  // Count total characters
+  const totalChars = (text.match(/\p{L}/gu) || []).length;
+
+  if (totalChars === 0) return { dir: "ltr", align: "left", rtlRatio: 0 };
+
+  const rtlRatio = rtlMatches / totalChars;
+  const isRtl = rtlRatio > rtlThreshold;
+
+  return {
+    dir: isRtl ? "rtl" : "ltr",
+    align: isRtl ? "right" : "left",
+    rtlRatio,
+  };
 };
 
 export function addCopyButtonsToCodeBlocks() {
@@ -334,11 +365,15 @@ export const renderActiveConve_Messages = (id) => {
     }
 
     if (message.role === "assistant") {
+      const { dir, align } = detectDirection(message.content);
+
       const aiAdviceOutput = document.createElement("article");
       aiAdviceOutput.className = "ai-advice-output markdown-body";
       aiAdviceOutput.style.cssText += `
       background-color: #0a0a0a;
       color: #f8f8f8;
+      direction: ${dir};
+      text-align: ${align};
       `;
 
       chatArea.appendChild(aiAdviceOutput);

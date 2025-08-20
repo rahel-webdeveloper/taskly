@@ -27,6 +27,7 @@ import {
   aiAdviceEls,
   controAllConversaOperation,
   createNewConve,
+  detectDirection,
   renderConversationList,
   scrollToEndOfChat,
 } from "./AIAdviceLogic";
@@ -81,6 +82,7 @@ export const systemMsg = {
   - Direct and clear in communication
   - Solution-oriented and practical
   - Friendly and approachable
+  - If user speaks any language speak with him in his laguage
 
   BOUNDARIES:
   - Focus solely on task management and productivity advice
@@ -140,7 +142,7 @@ export const generateAdvice = async () => {
       findActiveConversation(activeConversation_Id.get()).messages
     );
 
-    // **---------     For streaming response
+    // For streaming response
     for await (const part of response) {
       fullMarkdown += part?.text;
 
@@ -148,6 +150,13 @@ export const generateAdvice = async () => {
       aiAdviceOutput[aiAdviceOutputLength - 1].innerHTML = htmlContent;
       scrollToEndOfChat(true);
     }
+
+    const { dir, align } = detectDirection(fullMarkdown);
+    aiAdviceOutput[
+      aiAdviceOutputLength - 1
+    ].style.cssText += `direction: ${dir}; text-align: ${align}`;
+
+    console.log(aiAdviceOutput);
 
     findActiveConversation(activeConversation_Id.get()).messages.push({
       role: "assistant",
@@ -157,11 +166,14 @@ export const generateAdvice = async () => {
     addCopyButtonsToCodeBlocks();
     highlightCode();
     saveLocalStorage(conversations.get(), "all_Conversations");
-    // **------   Delete loading div after completing response
 
+    console.log(response);
+    // **------   Delete loading div after completing response
     for (let i = 0; i < loadingDiv.length; i++) loadingDiv[i].remove();
   } catch (err) {
     for (let i = 0; i < loadingDiv.length; i++) loadingDiv[i].remove();
+
+    console.log(err);
 
     chatArea.innerHTML += chatErrorCompo(err);
   }
