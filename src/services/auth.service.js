@@ -25,18 +25,18 @@ class AuthService {
       .singIn({ email: data.email, password: data.password })
       .then((res) => {
         token.set(res.data.token);
-        userId.set(res.data.user.id);
+        userId.set(res.data.user._id);
         userData.set(res.data.user);
 
-        this.controlleLogged(res.data.user.id);
+        this.controlleLogged(res.data.user._id);
 
         localStorage.setItem("tasklyToken", res.data.token);
-        localStorage.setItem("userId", res.data.user.id);
+        localStorage.setItem("userId", res.data.user._id);
 
         router.navigate("/");
         openNotification("success", `Welcome back, ${res.data.user.name}!`);
 
-        apiClientTasks.getTasks(res.data.user.id).then((res) => {
+        apiClientTasks.getTasks(res.data.user._id).then((res) => {
           tasks.set(res.tasks);
 
           controlTasksAllOperation();
@@ -62,12 +62,12 @@ class AuthService {
       .signUp({ name: data.name, email: data.email, password: data.password })
       .then((res) => {
         token.set(res.data.token);
-        userId.set(res.data.user.id);
+        userId.set(res.data.user._id);
         userData.set(res.data.user);
 
-        this.controlleLogged(res.data.user.id);
+        this.controlleLogged(res.data.user._id);
 
-        apiClientTasks.getTasks(res.data.user.id).then((res) => {
+        apiClientTasks.getTasks(res.data.user._id).then((res) => {
           tasks.set(res.tasks);
 
           controlTasksAllOperation();
@@ -75,7 +75,7 @@ class AuthService {
         });
 
         localStorage.setItem("tasklyToken", res.data.token);
-        localStorage.setItem("userId", res.data.user.id);
+        localStorage.setItem("userId", res.data.user._id);
 
         router.navigate("/");
         openNotification("success", "Account created successfully!");

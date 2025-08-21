@@ -84,7 +84,7 @@ const AuthLogic = () => {
 
     authService.removeAccount({
       password: fd.get("password"),
-      id: userData.get().id,
+      id: userData.get()._id,
     });
   });
 
