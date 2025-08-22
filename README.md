@@ -2,7 +2,7 @@
 
 > A lightweight, Full Stack task-management PWA built with Vanilla JavaScript, NanoStores, Chart.js and AI Advisor powered task advising.
 
-![📷Screenshot](./public/welcome%20page%20screenshot.png)
+![📷Screenshot](./public/images/welcome%20page%20screenshot.png)
 
 ## 🌐 Live Demo
 

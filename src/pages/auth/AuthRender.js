@@ -12,7 +12,7 @@ AuthRender.init = function () {
   AuthLogic();
 };
 
-const imgUrl = new URL("/Taskly-logo.webp", import.meta.url).href;
+const imgUrl = new URL("/icons/Taskly-logo.webp", import.meta.url).href;
 
 export const SignUpRender = () => {
   return `

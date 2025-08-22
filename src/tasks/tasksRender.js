@@ -31,7 +31,7 @@ renderTasksList.init = function () {
   controlTasksAllOperation();
 };
 
-const imgUrl = new URL("/empty-box.png", import.meta.url).href;
+const imgUrl = new URL("/images/empty-box.png", import.meta.url).href;
 
 export function renderTasks(tasks) {
   const list = document.getElementById("task-list-div");

@@ -8,7 +8,7 @@ const sendFeedbackComponent = () => {
       <div class="get-feedback-form_div">
       <div class="feedback-header">
       <h3>Report a feedback</h3>
-      <img src="/Taskly-logo.webp" alt="Taskly logo" />
+      <img src="/icons/Taskly-logo.webp" alt="Taskly logo" />
       </div>
   
        <form id="get-feedback-form">

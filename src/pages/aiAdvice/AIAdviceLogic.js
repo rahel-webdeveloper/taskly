@@ -244,8 +244,7 @@ const sendPrompt = () => {
 
   if (userInput.value.trim() === "") return;
 
-  loadLocalStorage("task-to-assistant") ??
-    removeLocalStorage("task-to-assistant");
+  removeLocalStorage("task-to-assistant");
   renderAdviceInHtml(userInput.value);
   scrollToEndOfChat();
 };
