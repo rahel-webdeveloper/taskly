@@ -31,14 +31,13 @@ export default function taskHubLogic() {
   checkTime_AllDay_Switch();
   useFlatpickr();
   submitForm();
-  liveTrackTasks();
-  handlePrioritySliderChange();
+  initPrioritySlider();
   sendFeedbackMain();
 }
 
-export function getTaskHubElements() {
-  const taskHubPage = document.getElementById("task__hub-page");
+// cacheTaskHubEls.set(getTaskHubElements());
 
+export function getTaskHubElements() {
   const addTaskFormDialog = document.getElementById("add_task_form-dialog");
   const title = document.getElementById("task-title");
   const category = document.getElementById("category");
@@ -70,7 +69,6 @@ export function getTaskHubElements() {
   const startTimeInput = document.getElementById("start_date-time");
 
   return {
-    taskHubPage,
     addTaskFormDialog,
     title,
     category,
@@ -122,6 +120,8 @@ export const taskHub_EventsHandler = (event) => {
 const setAddTaskDialogVisible = (showModal) => {
   const { addTaskFormDialog } = cacheTaskHubEls.get();
 
+  console.log(cacheTaskHubEls.get());
+
   showModal
     ? (addTaskFormDialog.style.display = "block")
     : (addTaskFormDialog.style.display = "none");
@@ -161,13 +161,13 @@ const renderDescription = async () => {
   }
 };
 
-//  +______+ Priority slider contoller
+//  +______+ Priority slider controller
 
-const handlePrioritySliderChange = () => {
+const updatePriorityUI = () => {
   const { priorityIcon, taskPriorityEl, prioritySliderEl } =
     cacheTaskHubEls.get();
 
-  const prioritySliderNumber = prioritySliderEl.value - 1;
+  const prioritySliderNumber = Number(prioritySliderEl.value) - 1;
   taskPriorityEl.textContent = priorityLabels[prioritySliderNumber];
 
   priorityIcon.className = "";
@@ -176,9 +176,15 @@ const handlePrioritySliderChange = () => {
   priorityIcon.style.color = `${priorityColors[prioritySliderNumber]}`;
 
   priorityLevel.set(prioritySliderNumber + 1);
+};
 
-  // Call every time the slider changes
-  prioritySliderEl.addEventListener("change", handlePrioritySliderChange);
+const initPrioritySlider = () => {
+  const { prioritySliderEl } = cacheTaskHubEls.get();
+  if (!prioritySliderEl) return;
+  // initial update
+  updatePriorityUI();
+  // attach listener once
+  prioritySliderEl.addEventListener("change", updatePriorityUI);
 };
 
 //  +______+ Scroll to end of cards
@@ -218,7 +224,7 @@ function submitForm() {
       AddNewTask();
       form.reset();
 
-      handlePrioritySliderChange();
+      initPrioritySlider();
     }
   });
 }
@@ -400,8 +406,9 @@ const timeValidation = () => {
 // --------**          Today's Report                 **--------//
 
 export const todayReport = (todayTasks = []) => {
-  const { doneTasksPercentageEl, tasksTrackedTimeEl, lengthTasksEl } =
-    cacheTaskHubEls.get();
+  const doneTasksPercentageEl = document.getElementById("done-tasks");
+  const tasksTrackedTimeEl = document.getElementById("tasks-time");
+  const lengthTasksEl = document.getElementById("lenght-tasks");
 
   // If none of the UI elements exist, nothing to update.
   if (!doneTasksPercentageEl && !tasksTrackedTimeEl && !lengthTasksEl) return;
@@ -581,12 +588,10 @@ export const liveTrackTasks = () => {
 };
 
 const cardTimerUI = (task, index, remainingTime) => {
-  const {
-    showTimeElements,
-    remainingTimeElements,
-    startLabels,
-    durationSecondsEl,
-  } = cacheTaskHubEls.get();
+  const startLabels = document.querySelectorAll(".time-label");
+  const showTimeElements = document.querySelectorAll(".show-time-dev");
+  const remainingTimeElements = document.querySelectorAll(".duration");
+  const durationSecondsEl = document.querySelectorAll(".duration_seconds");
 
   const remainingMinutes = remainingTime / 1000 / 60;
   const { days, hours, minutes, seconds } = formatDuration(remainingMinutes);

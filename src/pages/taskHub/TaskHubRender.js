@@ -42,8 +42,9 @@ export default function TaskHubRender() {
 TaskHubRender.init = function () {
   cacheTaskHubEls.set(getTaskHubElements());
 
-  const { taskHubPage } = cacheTaskHubEls.get();
-  taskHubPage.addEventListener("click", taskHub_EventsHandler);
+  document
+    .getElementById("task__hub-page")
+    .addEventListener("click", taskHub_EventsHandler);
 
   taskHubLogic();
 };

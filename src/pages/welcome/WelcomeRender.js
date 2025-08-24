@@ -29,7 +29,7 @@ const WelcomeRender = () => {
       <a href="/ai-advisor" data-navigo><button id="try-ai-advisor-btn">Try It Now <i class="bi bi-stars"></i></button></a>
       </div>
 
-      <img src="/images/ai-advisor-img.png" class="advisor-annoucement-img" />
+      <img src="/images/ai-advisor-img.webp" class="advisor-annoucement-img" />
       </div>
 
       <div class="blur-shape"></div>

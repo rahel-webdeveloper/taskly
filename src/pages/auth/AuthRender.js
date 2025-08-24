@@ -18,7 +18,10 @@ export const SignUpRender = () => {
   return `
      <div class="auth__container">
       <div class="auth__image">
-        <img src="${imgUrl}" alt="Sign Up" />
+        <img src="${imgUrl}" alt="Sign Up" width="120" 
+  height="40" 
+  loading="lazy" 
+  />
       </div>
       <div class="auth__form">
         <div class="auth__header">
@@ -84,7 +87,10 @@ export const DeleteAccountRender = () => {
   return `
   <div class="auth__container">
     <div class="auth__image">
-      <img src="${imgUrl}" alt="Sign Up" />
+      <img src="${imgUrl}" alt="Sign Up" width="120" 
+  height="40" 
+  loading="lazy" 
+   />
     </div>
     <div class="auth__form">
       <div class="auth__header">
