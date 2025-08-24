@@ -3,7 +3,7 @@ import APIClient from "../../services/api-client";
 import { userId } from "../../services/auth.service";
 import { tasks } from "../../tasks/store";
 import { controlTasksAllOperation } from "../../tasks/tasksLogic";
-import { liveTrackTasks, taskHubEls, useFlatepickr } from "./TaskHubLogic";
+import { liveTrackTasks, useFlatpickr } from "./TaskHubLogic";
 import APIErrorController from "../../services/data.error.controller";
 import openNotification from "../../services/toastNotifications";
 
@@ -30,18 +30,18 @@ Strict: always follow these rules exactly.`,
 };
 
 export const isTasksPageOpen = atom(false);
-export const check_Time_AllDay = atom(false);
+export const checkTimeAllDay = atom(false);
 export const isScrolledToLeft = atom(false);
 
 export const taskTitle = atom("");
 export const taskDescription = atom("");
 export const taskCategory = atom("");
-export const prioritylevel = atom(3);
+export const priorityLevel = atom(3);
 export const startDateTime = atom(0);
 export const dueDateTime = atom(0);
 export const duration = atom(0);
 export const notifiedTasksId = new Set();
-
+export const cacheTaskHubEls = atom(null);
 const apiClientTasks = new APIClient("tasks");
 
 export const generateDescription = async (title) => {
@@ -64,14 +64,15 @@ export const generateDescription = async (title) => {
 };
 
 export const checkTime_AllDay_Switch = () => {
-  const { toggleAllDayEl, startTimeInput, dueTimeInput } = taskHubEls();
+  const { toggleAllDayEl, startTimeInput, dueTimeInput } =
+    cacheTaskHubEls.get();
 
   toggleAllDayEl.addEventListener("click", function () {
     startTimeInput.value = "";
     dueTimeInput.value = "";
 
-    check_Time_AllDay.set(this.checked);
-    useFlatepickr();
+    checkTimeAllDay.set(this.checked);
+    useFlatpickr();
   });
 };
 
@@ -100,7 +101,7 @@ export function AddNewTask() {
       startTime: startDateTime.get(),
       dueTime: dueDateTime.get(),
       duration: duration.get(),
-      prioritylevel: prioritylevel.get(),
+      prioritylevel: priorityLevel.get(),
       status: "on-hold",
       createdAt: createdAt,
     },

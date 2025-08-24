@@ -12,13 +12,14 @@ import loadingDivComp from "../../components/Loading.js";
 import sendFeedbackMain from "../../services/send_feedback-logic.js";
 import {
   AddNewTask,
-  check_Time_AllDay,
+  cacheTaskHubEls,
+  checkTimeAllDay,
   checkTime_AllDay_Switch,
   dueDateTime,
   generateDescription,
   isScrolledToLeft,
   notifiedTasksId,
-  prioritylevel,
+  priorityLevel,
   startDateTime,
   taskCategory,
   taskDescription,
@@ -28,14 +29,14 @@ import { addToDetailsCard } from "./TaskHubRender.js";
 
 export default function taskHubLogic() {
   checkTime_AllDay_Switch();
-  useFlatepickr();
+  useFlatpickr();
   submitForm();
   liveTrackTasks();
-  prioritySliderController();
+  handlePrioritySliderChange();
   sendFeedbackMain();
 }
 
-export function taskHubEls() {
+export function getTaskHubElements() {
   const taskHubPage = document.getElementById("task__hub-page");
 
   const addTaskFormDialog = document.getElementById("add_task_form-dialog");
@@ -106,9 +107,9 @@ export const taskHub_EventsHandler = (event) => {
 
   if (target.closest("#des_generator_icon")) renderDescription();
 
-  if (target.closest("#add-task-icon i")) addTaskFormDialog_Contro(true);
+  if (target.closest("#add-task-icon i")) setAddTaskDialogVisible(true);
 
-  if (target.closest("#close_form-dialog")) addTaskFormDialog_Contro(false);
+  if (target.closest("#close_form-dialog")) setAddTaskDialogVisible(false);
 
   if (target.closest("#scroll-end-icon")) scrollToEndCard();
 
@@ -118,8 +119,8 @@ export const taskHub_EventsHandler = (event) => {
 
 //  +______+ Task Form Container Display base on screen
 
-const addTaskFormDialog_Contro = (showModal) => {
-  const { addTaskFormDialog } = taskHubEls();
+const setAddTaskDialogVisible = (showModal) => {
+  const { addTaskFormDialog } = cacheTaskHubEls.get();
 
   showModal
     ? (addTaskFormDialog.style.display = "block")
@@ -129,7 +130,11 @@ const addTaskFormDialog_Contro = (showModal) => {
 //  +______+ Generate AI Description
 
 const renderDescription = async () => {
-  const { description: descriTextArea, descriLoadDiv, title } = taskHubEls();
+  const {
+    description: descriTextArea,
+    descriLoadDiv,
+    title,
+  } = cacheTaskHubEls.get();
 
   descriTextArea.value = "";
   descriTextArea.attributes.placeholder.value = "";
@@ -158,8 +163,9 @@ const renderDescription = async () => {
 
 //  +______+ Priority slider contoller
 
-const prioritySliderController = () => {
-  const { priorityIcon, taskPriorityEl, prioritySliderEl } = taskHubEls();
+const handlePrioritySliderChange = () => {
+  const { priorityIcon, taskPriorityEl, prioritySliderEl } =
+    cacheTaskHubEls.get();
 
   const prioritySliderNumber = prioritySliderEl.value - 1;
   taskPriorityEl.textContent = priorityLabels[prioritySliderNumber];
@@ -169,15 +175,15 @@ const prioritySliderController = () => {
 
   priorityIcon.style.color = `${priorityColors[prioritySliderNumber]}`;
 
-  prioritylevel.set(prioritySliderNumber + 1);
+  priorityLevel.set(prioritySliderNumber + 1);
 
   // Call every time the slider changes
-  prioritySliderEl.addEventListener("change", prioritySliderController);
+  prioritySliderEl.addEventListener("change", handlePrioritySliderChange);
 };
 
 //  +______+ Scroll to end of cards
 const scrollToEndCard = () => {
-  const { scrollToEndIcon, cardsContainer } = taskHubEls();
+  const { scrollToEndIcon, cardsContainer } = cacheTaskHubEls.get();
   const targetScrollClass = scrollToEndIcon.classList;
 
   if (!isScrolledToLeft.get()) {
@@ -202,7 +208,7 @@ const scrollToEndCard = () => {
 // --------**          Form Logic                 **--------//
 
 function submitForm() {
-  const { form } = taskHubEls();
+  const { form } = cacheTaskHubEls.get();
   // **-------     alidate form data with evenry change change
   form.addEventListener("change", () => validateFormData());
   form.addEventListener("submit", function (event) {
@@ -212,13 +218,13 @@ function submitForm() {
       AddNewTask();
       form.reset();
 
-      prioritySliderController();
+      handlePrioritySliderChange();
     }
   });
 }
 
-export const useFlatepickr = () => {
-  let starteDateTimeConfig = {
+export const useFlatpickr = () => {
+  let startDateTimeConfig = {
     enableTime: true,
     noCalendar: true,
     dateFormat: "h:i K",
@@ -248,15 +254,15 @@ export const useFlatepickr = () => {
     },
   };
 
-  const startTimePicker = flatpickr("#start_date-time", starteDateTimeConfig);
+  const startTimePicker = flatpickr("#start_date-time", startDateTimeConfig);
   const dueTimePicker = flatpickr("#due_date-time", dueDateTimeConfig);
 
-  if (check_Time_AllDay.get()) {
+  if (checkTimeAllDay.get()) {
     startTimePicker.destroy();
     dueTimePicker.destroy();
 
-    starteDateTimeConfig = {
-      ...starteDateTimeConfig,
+    startDateTimeConfig = {
+      ...startDateTimeConfig,
 
       noCalendar: false,
       dateFormat: "Y-m-d h:i K",
@@ -269,7 +275,7 @@ export const useFlatepickr = () => {
       dateFormat: "Y-m-d h:i K",
     };
 
-    flatpickr("#start_date-time", starteDateTimeConfig);
+    flatpickr("#start_date-time", startDateTimeConfig);
     flatpickr("#due_date-time", dueDateTimeConfig);
   }
 };
@@ -278,7 +284,7 @@ export const useFlatepickr = () => {
 
 const validateFormData = () => {
   const { titleErrEl, cateErrEl, desErrEl, title, description, category } =
-    taskHubEls();
+    cacheTaskHubEls.get();
 
   const titleValue = title.value;
   const descriptionValue = description.value;
@@ -343,19 +349,19 @@ const getTimeAsDate = (timeStr) => {
 };
 
 const timeValidation = () => {
-  const { timeErrEl } = taskHubEls();
+  const { timeErrEl } = cacheTaskHubEls.get();
 
   const startDateTimeValue = document.getElementById("start_date-time").value;
   const dueDateTimeValue = document.getElementById("due_date-time").value;
 
   const startDateTime = new Date(
-    check_Time_AllDay.get()
+    checkTimeAllDay.get()
       ? startDateTimeValue
       : getTimeAsDate(startDateTimeValue)
   ).getTime();
 
   const dueDateTime = new Date(
-    check_Time_AllDay.get() ? dueDateTimeValue : getTimeAsDate(dueDateTimeValue)
+    checkTimeAllDay.get() ? dueDateTimeValue : getTimeAsDate(dueDateTimeValue)
   ).getTime();
 
   const nowTimestamp = new Date().getTime();
@@ -393,37 +399,48 @@ const timeValidation = () => {
 
 // --------**          Today's Report                 **--------//
 
-export const todayReport = (todayTasks) => {
+export const todayReport = (todayTasks = []) => {
   const { doneTasksPercentageEl, tasksTrackedTimeEl, lengthTasksEl } =
-    taskHubEls();
+    cacheTaskHubEls.get();
 
+  // If none of the UI elements exist, nothing to update.
   if (!doneTasksPercentageEl && !tasksTrackedTimeEl && !lengthTasksEl) return;
 
-  const todayDoneTasks = todayTasks.filter((task) => task.status === "done");
-  const todayTrackedTime = todayTasks.reduce(
-    (accumlator, currentValue) => accumlator + currentValue.duration,
+  const tasks = Array.isArray(todayTasks) ? todayTasks : [];
+  const totalTasks = tasks.length;
+  const doneCount = tasks.filter((t) => t.status === "done").length;
+
+  const totalTrackedMinutes = tasks.reduce(
+    (acc, cur) => acc + (Number(cur?.duration) || 0),
     0
   );
 
-  doneTasksPercentageEl.textContent =
-    todayDoneTasks.length === 0
-      ? "0%"
-      : ((todayDoneTasks.length / todayTasks.length) * 100).toFixed(0) + "%";
+  // Update done percentage
+  if (doneTasksPercentageEl) {
+    const percent =
+      totalTasks === 0 ? 0 : Math.round((doneCount / totalTasks) * 100);
+    doneTasksPercentageEl.textContent = `${percent}%`;
+  }
 
-  lengthTasksEl.textContent = todayTasks.length;
+  // Update total number of tasks
+  if (lengthTasksEl) lengthTasksEl.textContent = String(totalTasks);
 
-  tasksTrackedTimeEl.textContent =
-    todayTasks.length === 0
-      ? "0h & 0m"
-      : `${Math.floor(todayTrackedTime / 60) + "h"} ${
-          todayTrackedTime / 60 > 0 && todayTrackedTime ? "&" : ""
-        } ${Math.floor(todayTrackedTime % 60) + "m"}`;
+  // Helper: format minutes -> "Xh & Ym"
+  const formatTrackedTime = (minutes) => {
+    const hrs = Math.floor(minutes / 60);
+    const mins = Math.floor(minutes % 60);
+    return `${hrs}h & ${mins}m`;
+  };
+
+  if (tasksTrackedTimeEl)
+    tasksTrackedTimeEl.textContent =
+      totalTasks === 0 ? "0h & 0m" : formatTrackedTime(totalTrackedMinutes);
 };
 
 // --------**          Card logic                 **--------//
 
-export function formateCardDate(task) {
-  const { nowTimestamp, startTimestamp } = timeStamps(task);
+export function formatCardDate(task) {
+  const { nowTimestamp, startTimestamp } = getTimeStamps(task);
 
   let showDate, isToday, isTomorrow;
 
@@ -476,8 +493,8 @@ export function isDateTomorrow(date) {
   );
 }
 
-export function returnTodayString(task) {
-  const { nowTimestamp, startTimestamp } = timeStamps(task);
+export function getRelativeDayLabel(task) {
+  const { nowTimestamp, startTimestamp } = getTimeStamps(task);
 
   let showDate;
 
@@ -492,7 +509,7 @@ export function returnTodayString(task) {
     : "";
 }
 
-export const timeStamps = (task) => {
+export const getTimeStamps = (task) => {
   const nowTimestamp = new Date().getTime();
 
   const startTimestamp = new Date(task.startTime).getTime();
@@ -501,7 +518,7 @@ export const timeStamps = (task) => {
   return { nowTimestamp, startTimestamp, dueTimestamp };
 };
 
-export function formateDuration(duration) {
+export function formatDuration(duration) {
   const days =
     Math.floor(duration / 60 / 24) > 1
       ? Math.floor(duration / 60 / 24) + "days"
@@ -522,28 +539,36 @@ export function formateDuration(duration) {
   return { days, hours, minutes, seconds };
 }
 
-const isTaskStartedFunc = (task) => {
-  const { nowTimestamp, startTimestamp, dueTimestamp } = timeStamps(task);
+// Determine whether a task is currently active (started but not yet due).
+// Also send a one-time notification when the task first becomes active.
+const isTaskActive = (task) => {
+  const { nowTimestamp, startTimestamp, dueTimestamp } = getTimeStamps(task);
 
-  if (dueTimestamp > nowTimestamp) {
-    if (nowTimestamp >= startTimestamp && !notifiedTasksId.has(task.id)) {
-      openNotification("info", `Your task "${task.title}" has started!`);
-      notifiedTasksId.add(task.id);
-    }
-    if (nowTimestamp > startTimestamp) return true;
-    else return false;
+  // Active when now is within [start, due)
+  const started = nowTimestamp >= startTimestamp && nowTimestamp < dueTimestamp;
+
+  if (started && !notifiedTasksId.has(task.id)) {
+    openNotification("info", `Your task "${task.title}" has started!`);
+    notifiedTasksId.add(task.id);
   }
+
+  return !!started;
 };
 
 export const liveTrackTasks = () => {
   const durationInterval = setInterval(() => {
-    liveTasks.get().map((task, idx) => {
-      liveTasks.get().length === 0 && clearInterval(durationInterval);
+    const tasks = liveTasks.get();
 
-      const { nowTimestamp, dueTimestamp } = timeStamps(task);
-      const isTaskStarted = isTaskStartedFunc(task);
+    // Stop the interval if there are no live tasks
+    if (!tasks || tasks.length === 0) {
+      clearInterval(durationInterval);
+      return;
+    }
 
-      if (isTaskStarted) {
+    tasks.forEach((task, idx) => {
+      const { nowTimestamp, dueTimestamp } = getTimeStamps(task);
+
+      if (isTaskActive(task)) {
         const remainingTime = dueTimestamp - nowTimestamp;
         cardTimerUI(task, idx, remainingTime);
       }
@@ -561,14 +586,14 @@ const cardTimerUI = (task, index, remainingTime) => {
     remainingTimeElements,
     startLabels,
     durationSecondsEl,
-  } = taskHubEls();
+  } = cacheTaskHubEls.get();
 
   const remainingMinutes = remainingTime / 1000 / 60;
-  const { days, hours, minutes, seconds } = formateDuration(remainingMinutes);
+  const { days, hours, minutes, seconds } = formatDuration(remainingMinutes);
 
   if (showTimeElements[index])
     showTimeElements[index].textContent = `
-  ${returnTodayString(task)} ${formateCardDate(task)}`;
+  ${getRelativeDayLabel(task)} ${formatCardDate(task)}`;
 
   if (startLabels[index]) startLabels[index].textContent = "End";
 

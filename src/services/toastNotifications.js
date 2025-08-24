@@ -7,20 +7,22 @@ const notyf = new Notyf({
   types: [
     {
       type: "success",
-      background: "rgb(132, 214, 184, .87)",
+      background: "rgb(132, 214, 184, .45)",
+      icon: "<i class='bi bi-check-circle-fill'></i>",
     },
     {
       type: "error",
-      background: "rgb(237, 88, 95, .87)",
+      background: "rgb(237, 88, 95, .45)",
+      icon: "<i class='bi bi-x-circle-fill'></i>",
     },
     {
       type: "warning",
-      background: "rgb(237, 192, 123, .87)",
-      icon: "<i class='bi bi-exclamation-circle-fill'></i>",
+      background: "rgb(237, 192, 123, .45)",
+      icon: "<i class='bi bi-exclamation-triangle-fill'></i>",
     },
     {
       type: "info",
-      background: "rgb(106, 179, 203, .87)",
+      background: "rgb(106, 179, 203, .45)",
       icon: "<i class='bi bi-info-circle-fill'></i>",
     },
   ],
@@ -56,7 +58,7 @@ const openNotification = (type, message) => {
       `;
 
     notyfToasts[i].style.cssText +=
-      "border-radius: 2rem .67rem .67rem 2rem; backdrop-filter: blur(12px); max-width: max-content; width: 90%; margin: 1.15rem .45rem .8rem 0;";
+      "border-radius: .7rem; backdrop-filter: blur(12px); max-width: max-content; width: 90%; margin: 1.15rem .45rem .8rem 0;";
   }
 };
 

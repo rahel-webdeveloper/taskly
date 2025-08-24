@@ -2,12 +2,13 @@ import sendFeedbackComponent from "../../components/SendFeedback";
 import TodaysReportDiv from "../../components/Today'sReportDiv";
 import { priorityColors, priorityIcons } from "../../data/ui-data";
 import renderTasksList from "../../tasks/tasksRender";
+import { cacheTaskHubEls } from "./store";
 import taskHubLogic, {
-  formateCardDate,
-  formateDuration,
-  returnTodayString,
+  formatCardDate,
+  formatDuration,
+  getRelativeDayLabel,
+  getTaskHubElements,
   taskHub_EventsHandler,
-  taskHubEls,
 } from "./TaskHubLogic";
 
 // Const section main content
@@ -39,9 +40,11 @@ export default function TaskHubRender() {
 }
 
 TaskHubRender.init = function () {
-  const { taskHubPage } = taskHubEls();
+  cacheTaskHubEls.set(getTaskHubElements());
 
+  const { taskHubPage } = cacheTaskHubEls.get();
   taskHubPage.addEventListener("click", taskHub_EventsHandler);
+
   taskHubLogic();
 };
 
@@ -176,8 +179,8 @@ export function addToDetailsCard(liveTasks) {
   <div class="task-card-time-dev">
     <div class="task-datetime">
       <h3 class="show-time-dev">
-        ${returnTodayString(task)}
-        ${formateCardDate(task)}
+        ${getRelativeDayLabel(task)}
+        ${formatCardDate(task)}
       </h3>
       <p class="time-label">Start</p>
     </div>
@@ -187,9 +190,9 @@ export function addToDetailsCard(liveTasks) {
       </span>
       <p>duration</p>
       <h3 id="duration" class="duration">
-        ${formateDuration(task.duration).days}
-        ${formateDuration(task.duration).hours}
-        ${formateDuration(task.duration).minutes}
+        ${formatDuration(task.duration).days}
+        ${formatDuration(task.duration).hours}
+        ${formatDuration(task.duration).minutes}
       </h3>
     </div>
   </div>
